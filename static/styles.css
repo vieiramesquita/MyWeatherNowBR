@@ -2493,6 +2493,102 @@ body {
   background: rgba(6, 182, 212, 0.08);
 }
 
+/* Institutional Funding Section */
+.dashboard-funding-section {
+  margin-top: 28px;
+  margin-bottom: 32px;
+}
+
+.funding-card {
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(14, 21, 40, 0.92) 0%, rgba(8, 13, 26, 0.95) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.funding-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.funding-icon-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.funding-badge-eu {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  background: rgba(30, 58, 138, 0.45);
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  color: #93c5fd;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.funding-badge-wri {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  background: rgba(6, 78, 59, 0.45);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #6ee7b7;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.funding-badge-oemc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 13px;
+  background: rgba(88, 28, 135, 0.45);
+  border: 1px solid rgba(168, 85, 247, 0.45);
+  color: #d8b4fe;
+  font-size: 11.5px;
+  font-weight: 700;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.funding-text-content h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: 0.2px;
+}
+
+.funding-text-content p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+.funding-link {
+  color: #38bdf8;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.funding-link:hover {
+  color: #7dd3fc;
+}
+
 /* Footer */
 .app-footer {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
