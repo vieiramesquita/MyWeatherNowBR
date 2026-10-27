@@ -39,6 +39,8 @@ class MeteoApp {
       speedMs: 350,
       playbackMultiplier: 1.0,
       playerZoom: 1.0,
+      panOffsetX: 0,
+      panOffsetY: 0,
       isPlaying: true,
       currentFrameIndex: 0,
       frames: [],
@@ -252,6 +254,13 @@ class MeteoApp {
     }
 
     // 4. Fetch GOES satellite frames for the newly selected station coordinates
+    this.goesConfig.panOffsetX = 0;
+    this.goesConfig.panOffsetY = 0;
+    this.goesConfig.playerZoom = 1.0;
+    const geos = this.latlonToGeosPct(this.currentLat, this.currentLon);
+    this.goesConfig.pinXPct = geos.xPct;
+    this.goesConfig.pinYPct = geos.yPct;
+    this.applyGoesZoom(true);
     await this.loadGoesFrames();
   }
 
@@ -1029,7 +1038,19 @@ class MeteoApp {
       high: "1808x1808",
       ultra: "5424x5424"
     };
-    const resCode = resMap[this.goesConfig.resolution] || "678x678";
+
+    // Auto-select high resolution (1808x1808) for crisp details when zooming into regional or local scales
+    let activeRes = this.goesConfig.resolution || "medium";
+    if (this.goesConfig.delta <= 5.0 && activeRes === "medium") {
+      activeRes = "high";
+      this.goesConfig.resolution = "high";
+      const highBtn = document.querySelector('#resSelector .seg-btn[data-res="high"]');
+      if (highBtn) {
+        document.querySelectorAll("#resSelector .seg-btn").forEach((b) => b.classList.remove("active"));
+        highBtn.classList.add("active");
+      }
+    }
+    const resCode = resMap[activeRes] || "678x678";
     const numFrames = this.goesConfig.numFrames || 8;
 
     let timestamps = [];
@@ -1188,79 +1209,88 @@ class MeteoApp {
     }
   }
 
-  applyGoesZoom() {
+  applyGoesZoom(animate = true) {
     const wrapper = document.getElementById("canvasZoomWrapper") || document.getElementById("goesDisplayImage");
     const crosshair = document.getElementById("satelliteCrosshair");
     const bordersOverlay = document.getElementById("goesBordersOverlay");
-    const { delta, pinXPct, pinYPct, brazilCenterX, brazilCenterY, scaleMode } = this.goesConfig;
+    const { delta, pinXPct, pinYPct, playerZoom } = this.goesConfig;
 
     const px = pinXPct !== undefined ? pinXPct : 50.0;
     const py = pinYPct !== undefined ? pinYPct : 50.0;
-    const brX = brazilCenterX !== undefined ? brazilCenterX : 71.8;
-    const brY = brazilCenterY !== undefined ? brazilCenterY : 63.8;
 
-    // Vector borders are already composited dynamically by the tile server
     if (bordersOverlay) {
       bordersOverlay.classList.add("hidden");
     }
 
     if (!wrapper) return;
 
-    let scale = 1.0;
-    let ox = 50;
-    let oy = 50;
+    // Base territorial scale and target center
+    let baseScale = 1.0;
+    let targetX = 50.0;
+    let targetY = 50.0;
 
-    if (scaleMode === "hiper" || delta <= 0.35) {
-      // 0. Hiper Local 3x (~30 km) - Server delivers maximum 3x optical crop centered on station coordinates
-      scale = 1.0;
-      ox = 50;
-      oy = 50;
-    } else if (scaleMode === "ultra" || delta <= 0.8) {
-      // 1. Ultra Local (~60 km) - Server delivers native 2 km resolution (Zoom 5) 768x768 crop
-      // Centered on station coordinates with station pin at exactly (50%, 50%)
-      scale = 1.0;
-      ox = 50;
-      oy = 50;
-    } else if (scaleMode === "local" || delta <= 2.0) {
-      // 2. Entorno Local (~160 km) - Server already delivers native 2 km resolution (Zoom 5) 768x768 crop
-      // 1:1 native pixel perfection, no client-side blurry stretching!
-      scale = 1.0;
-      ox = 50;
-      oy = 50;
-    } else if (scaleMode === "regional" || delta <= 5.0) {
-      // 3. Goiás / Regional (~380 km) - Server delivers native 4 km resolution (Zoom 4) 768x768 crop
-      scale = 1.0;
-      ox = 50;
-      oy = 50;
-    } else if (scaleMode === "brasil" || delta <= 12.0) {
-      // 4. Brasil (Nacional) - Encompasses the entire Brazilian territory from Amazon to RS
-      scale = 2.05;
-      ox = brX;
-      oy = brY;
+    if (delta <= 0.35) {
+      // 0. Hiper Local 3x (~30 km) - Focus directly on the station
+      baseScale = 18.0;
+      targetX = px;
+      targetY = py;
+    } else if (delta <= 0.8) {
+      // 1. Ultra Local (~60 km) - Focus directly on the station
+      baseScale = 12.0;
+      targetX = px;
+      targetY = py;
+    } else if (delta <= 2.0) {
+      // 2. Entorno Local (~160 km) - Focus directly on the station
+      baseScale = 7.5;
+      targetX = px;
+      targetY = py;
+    } else if (delta <= 5.0) {
+      // 3. Goiás / Regional (~380 km) - Focus directly on the station
+      baseScale = 4.2;
+      targetX = px;
+      targetY = py;
+    } else if (delta <= 12.0) {
+      // 4. Brasil (Nacional) - Center on Brazil
+      baseScale = 2.15;
+      targetX = 72.5;
+      targetY = 64.5;
     } else {
       // 5. América do Sul (Full Disk) - Full hemispheric view
-      scale = 1.0;
-      ox = 50;
-      oy = 50;
+      baseScale = 1.0;
+      targetX = 50.0;
+      targetY = 50.0;
     }
 
-    const pZoom = this.goesConfig.playerZoom || 1.0;
-    const finalScale = scale * pZoom;
+    const pZoom = playerZoom || 1.0;
+    const finalScale = baseScale * pZoom;
 
-    if (pZoom > 1.0) {
-      // When zooming interactively, zoom in directly centered on the station coordinates
-      wrapper.style.transformOrigin = `${px}% ${py}%`;
+    if (animate) {
+      wrapper.style.transition = "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)";
     } else {
-      wrapper.style.transformOrigin = `${ox}% ${oy}%`;
+      wrapper.style.transition = "none";
     }
-    wrapper.style.transform = `scale(${finalScale})`;
+
+    const panX = this.goesConfig.panOffsetX || 0;
+    const panY = this.goesConfig.panOffsetY || 0;
+
+    // Mathematical Screen Centering:
+    // With transform-origin: 0% 0%:
+    // Position of target (targetX, targetY) on screen is: (finalScale * targetX) + tx
+    // To place target at 50% (screen center):
+    // tx = 50.0 - (finalScale * targetX) + panX
+    // ty = 50.0 - (finalScale * targetY) + panY
+    const tx = 50.0 - (finalScale * targetX) + panX;
+    const ty = 50.0 - (finalScale * targetY) + panY;
+
+    wrapper.style.transformOrigin = "0% 0%";
+    wrapper.style.transform = `translate(${tx}%, ${ty}%) scale(${finalScale})`;
 
     if (crosshair) {
       crosshair.style.left = `${px}%`;
       crosshair.style.top = `${py}%`;
       crosshair.style.display = "block";
-      // Counter-scale crosshair so that when wrapper zooms, the crosshair ring and label stay crisp and proportional
-      const invScale = 1.0 / finalScale;
+      // Counter-scale crosshair so that when image zooms, the pin stays crisp and beautifully visible
+      const invScale = Math.max(0.18, Math.min(1.0, 1.2 / finalScale));
       crosshair.style.transform = `scale(${invScale})`;
       const lbl = document.getElementById("crosshairLabel");
       if (lbl) lbl.textContent = `${this.currentStationName}`;
@@ -1268,14 +1298,119 @@ class MeteoApp {
 
     const zoomDisplay = document.getElementById("playerZoomDisplay");
     if (zoomDisplay) {
-      zoomDisplay.textContent = `${pZoom.toFixed(1)}x`;
+      zoomDisplay.textContent = `${finalScale.toFixed(1)}x`;
     }
   }
 
   setPlayerZoom(newZoom) {
-    const clamped = Math.max(1.0, Math.min(5.0, Math.round(newZoom * 10) / 10));
+    const clamped = Math.max(0.5, Math.min(6.0, Math.round(newZoom * 10) / 10));
     this.goesConfig.playerZoom = clamped;
-    this.applyGoesZoom();
+    this.applyGoesZoom(true);
+  }
+
+  setupCanvasPanAndZoom() {
+    const holder = document.querySelector(".canvas-holder");
+    if (!holder || holder._panZoomInitialized) return;
+    holder._panZoomInitialized = true;
+
+    let isDown = false;
+    let startX = 0;
+    let startY = 0;
+    let initialPanX = 0;
+    let initialPanY = 0;
+
+    // Mouse drag
+    holder.addEventListener("mousedown", (e) => {
+      if (e.target.closest("button") || e.target.closest(".cptec-legend-box") || e.target.closest("input")) return;
+      isDown = true;
+      holder.style.cursor = "grabbing";
+      startX = e.clientX;
+      startY = e.clientY;
+      initialPanX = this.goesConfig.panOffsetX || 0;
+      initialPanY = this.goesConfig.panOffsetY || 0;
+      e.preventDefault();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      const rect = holder.getBoundingClientRect();
+      const dxPct = (dx / (rect.width || 520)) * 100;
+      const dyPct = (dy / (rect.height || 520)) * 100;
+      this.goesConfig.panOffsetX = initialPanX + dxPct;
+      this.goesConfig.panOffsetY = initialPanY + dyPct;
+      this.applyGoesZoom(false); // No animation delay during drag for smooth 60fps
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!isDown) return;
+      isDown = false;
+      holder.style.cursor = "grab";
+    });
+
+    // Touch events for mobile
+    let touchStartDist = 0;
+    let initialZoom = 1.0;
+
+    holder.addEventListener("touchstart", (e) => {
+      if (e.target.closest("button") || e.target.closest(".cptec-legend-box") || e.target.closest("input")) return;
+      if (e.touches.length === 1) {
+        isDown = true;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        initialPanX = this.goesConfig.panOffsetX || 0;
+        initialPanY = this.goesConfig.panOffsetY || 0;
+      } else if (e.touches.length === 2) {
+        isDown = false;
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        touchStartDist = Math.hypot(dx, dy);
+        initialZoom = this.goesConfig.playerZoom || 1.0;
+      }
+    }, { passive: true });
+
+    holder.addEventListener("touchmove", (e) => {
+      if (e.touches.length === 1 && isDown) {
+        const dx = e.touches[0].clientX - startX;
+        const dy = e.touches[0].clientY - startY;
+        const rect = holder.getBoundingClientRect();
+        const dxPct = (dx / (rect.width || 360)) * 100;
+        const dyPct = (dy / (rect.height || 360)) * 100;
+        this.goesConfig.panOffsetX = initialPanX + dxPct;
+        this.goesConfig.panOffsetY = initialPanY + dyPct;
+        this.applyGoesZoom(false);
+      } else if (e.touches.length === 2 && touchStartDist > 0) {
+        const dx = e.touches[0].clientX - e.touches[1].clientX;
+        const dy = e.touches[0].clientY - e.touches[1].clientY;
+        const dist = Math.hypot(dx, dy);
+        const factor = dist / touchStartDist;
+        const newZoom = Math.max(0.5, Math.min(6.0, initialZoom * factor));
+        this.goesConfig.playerZoom = Math.round(newZoom * 10) / 10;
+        this.applyGoesZoom(false);
+      }
+    }, { passive: true });
+
+    holder.addEventListener("touchend", () => {
+      isDown = false;
+      touchStartDist = 0;
+    }, { passive: true });
+
+    // Mouse wheel zoom
+    holder.addEventListener("wheel", (e) => {
+      e.preventDefault();
+      const step = e.deltaY < 0 ? 0.2 : -0.2;
+      this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) + step);
+    }, { passive: false });
+
+    // Double click / double tap to recenter on station
+    holder.addEventListener("dblclick", (e) => {
+      if (e.target.closest("button") || e.target.closest(".cptec-legend-box") || e.target.closest("input")) return;
+      this.goesConfig.panOffsetX = 0;
+      this.goesConfig.panOffsetY = 0;
+      this.goesConfig.playerZoom = 1.0;
+      this.applyGoesZoom(true);
+    });
   }
 
   async preloadGoesImages() {
@@ -2112,26 +2247,22 @@ class MeteoApp {
       });
     });
 
+    // Call canvas pan and zoom initialization
+    this.setupCanvasPanAndZoom();
+
     // Player Interactive Zoom Controls (+ / - / Reset 1x)
     document.getElementById("btnPlayerZoomIn")?.addEventListener("click", () => {
-      this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) + 0.5);
+      this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) * 1.3);
     });
     document.getElementById("btnPlayerZoomOut")?.addEventListener("click", () => {
-      this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) - 0.5);
+      this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) / 1.3);
     });
     document.getElementById("btnPlayerZoomReset")?.addEventListener("click", () => {
-      this.setPlayerZoom(1.0);
+      this.goesConfig.playerZoom = 1.0;
+      this.goesConfig.panOffsetX = 0;
+      this.goesConfig.panOffsetY = 0;
+      this.applyGoesZoom(true);
     });
-
-    // Mouse wheel zoom on satellite canvas
-    const canvasHolder = document.querySelector(".canvas-holder");
-    if (canvasHolder) {
-      canvasHolder.addEventListener("wheel", (e) => {
-        e.preventDefault();
-        const delta = e.deltaY < 0 ? 0.25 : -0.25;
-        this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) + delta);
-      }, { passive: false });
-    }
 
     // Degradable Resolution Selector
     document.querySelectorAll("#resSelector .seg-btn").forEach((btn) => {
@@ -2149,10 +2280,25 @@ class MeteoApp {
         document.querySelectorAll("#areaSelector .seg-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         this.goesConfig.delta = parseFloat(btn.dataset.delta);
+        this.goesConfig.panOffsetX = 0;
+        this.goesConfig.panOffsetY = 0;
+        this.goesConfig.playerZoom = 1.0;
+
+        // Auto-upgrade resolution to High (1808x1808) if zooming into Regional/Local and currently in Low/Medium
+        if (this.goesConfig.delta <= 5.0 && (this.goesConfig.resolution === "low" || this.goesConfig.resolution === "medium")) {
+          this.goesConfig.resolution = "high";
+          const highBtn = document.querySelector('#resSelector .seg-btn[data-res="high"]');
+          if (highBtn) {
+            document.querySelectorAll("#resSelector .seg-btn").forEach((b) => b.classList.remove("active"));
+            highBtn.classList.add("active");
+          }
+        }
+
         if (this.stationCircle) {
           this.stationCircle.setRadius(this.goesConfig.delta * 111000);
         }
-        // Immediately fetch native high-resolution tiles for the selected territorial scale
+
+        this.applyGoesZoom(true);
         this.loadGoesFrames();
       });
     });
