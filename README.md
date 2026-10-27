@@ -1,39 +1,58 @@
 ﻿# ⛅ MyWeatherNow
 
-Dashboard meteorológico profissional integrado à rede de estações automáticas do **INMET**, previsões numéricas em tempo real da **Open-Meteo**, estúdio de animação temporal do satélite **GOES-16 (ABI)** e hub analítico com gráficos interativos.
+[![Live Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-38bdf8?style=for-the-badge&logo=github&logoColor=white)](https://vieiramesquita.github.io/MyWeatherNowBR/)
+[![Deploy Status](https://img.shields.io/github/actions/workflow/status/vieiramesquita/MyWeatherNowBR/deploy.yml?branch=main&style=for-the-badge&label=GitHub%20Pages)](https://github.com/vieiramesquita/MyWeatherNowBR/actions)
 
-Disponível tanto para execução local completa (FastAPI + Python) quanto para hospedagem estática direta no **GitHub Pages**.
+> 🌐 **Acesse a aplicação online diretamente pelo navegador (Desktop & Mobile):**  
+> 👉 **[https://vieiramesquita.github.io/MyWeatherNowBR/](https://vieiramesquita.github.io/MyWeatherNowBR/)**
+
+---
+
+Dashboard meteorológico profissional de alta precisão que integra dados de superfície em tempo real da rede de estações automáticas do **INMET**, previsões numéricas dinâmicas da **Open-Meteo**, estúdio de animação temporal do satélite geoestacionário **GOES-16 (ABI)** e um hub analítico completo com gráficos interativos e tabela horária detalhada.
+
+Projetado com arquitetura híbrida: funciona perfeitamente hospedado de forma estática no **GitHub Pages** (com chamadas diretas e CORS habilitado) e também em ambiente completo com backend **FastAPI (Python)**.
+
+---
+
+## 📱 100% Otimizado para Mobile e Desktop
+
+- **Interface Responsiva:** Adaptada dinamicamente para smartphones (iOS e Android), tablets e monitores widescreen.
+- **Grade Dupla em Telas Pequenas:** 8 cartões meteorológicos organizados em 2 colunas no celular para leitura rápida sem rolagem excessiva.
+- **Trilhos Deslizáveis por Toque (*Touch Carousels*):** Navegação horizontal fluida nos atalhos rápidos de capitais, na previsão horária de 24 horas e nos filtros analíticos.
+- **Tabela com Colunas Fixas (*Sticky*):** No celular, as colunas de Data e Hora permanecem fixadas à esquerda enquanto você desliza horizontalmente pelas 15 variáveis medidas.
 
 ---
 
 ## 🚀 Principais Recursos
 
-### 1. 📊 Hub Analítico das Últimas 24h & Tabela Detalhada
-- **Gráficos Interativos (Chart.js)**:
-  - **Precipitação Horária**: Volume de chuva em mm com indicador de acumulado total do período.
-  - **Variação Térmica**: Curvas de Temperatura do Ar e Ponto de Orvalho (°C) com marcadores.
-  - **Rosa dos Ventos & Intensidade**: Gráfico de área polar agrupando frequências nos 16 quadrantes cardeais, acompanhado de gráfico de velocidade média e rajada máxima.
-  - **Radiação Solar & Umidade**: Radiação global convertida fisicamente (kJ/m²) e umidade relativa (%).
-- **Tabela Histórica com Pontos Cardeais**:
-  - Exibição horária completa com Data (BRT/UTC), Hora, Temperaturas, Sensação, Umidade, Pressão, Vento, **Direção em Graus**, **Ponto Cardeal (ex: N, NNE, SE, WNW)**, Rajadas e Chuva.
-- **Exportação CSV**: Exportação instantânea dos dados da estação com suporte a UTF-8 BOM para Excel.
+### 1. 📊 Hub Analítico das Últimas 24h & Gráficos Interativos (Chart.js)
+- **Precipitação Horária (Barras):** Volume de chuva em milímetros (mm) hora a hora com indicador de acumulado total do período.
+- **Variação Térmica (Linhas com Pontos):** Curvas suaves com marcadores de Temperatura do Ar (°C) e Ponto de Orvalho (°C).
+- **Rosa dos Ventos & Intensidade (Área Polar + Linha):** Gráfico polar agrupando as frequências e velocidades nos 16 quadrantes cardeais, acompanhado de curva de velocidade média e rajada máxima.
+- **Radiação Solar Global & Umidade Relativa:** Escala dupla com radiação solar convertida fisicamente em $kJ/m^2$ e curva percentual de umidade.
+- **Filtros por Categoria:** Alternância instantânea entre *Todos*, *Chuva*, *Temperatura*, *Ventos* e *Radiação*.
 
-### 2. 📍 Estação Meteorológica INMET (Solo em Tempo Real)
-- **Atualização Automatizada**: Coleta a cada 60 minutos com contagem regressiva e cache inteligente.
-- **Rede Nacional**: Acesso a todas as estações automáticas do INMET em todo o Brasil.
-- **Localização Inteligente**: Detecção por geolocalização (fórmula de Haversine) e atalhos rápidos para as principais capitais e regiões.
-- **Tratamento de Fuso Horário**: Conversão precisa de UTC para Horário de Brasília (BRT, UTC-3).
+### 2. 📋 Tabela Histórica Detalhada com Pontos Cardeais
+- Exibição de todas as medições oficiais das últimas 24 horas.
+- **Coluna de Direção e Ponto Cardeal:** Exibe tanto o ângulo exato em graus (°), quanto a respectiva sigla na rosa dos ventos em uma badge destacada (`N`, `NNE`, `NE`, `ENE`, `E`, `ESE`, `SE`, `SSE`, `S`, `SSW`, `SW`, `WSW`, `W`, `WNW`, `NW`, `NNW`).
+- **Exportação CSV:** Download dos dados completos com codificação UTF-8 BOM pronta para o Microsoft Excel e softwares estatísticos.
 
-### 3. ☀️ Previsão Numérica Open-Meteo
-- **Trilho Horário Dinâmico**: Previsão hora a hora ancorada no horário atual real com destaque (`AGORA`).
-- **Previsão Semanal**: Tendência para 7 dias com máxima, mínima, probabilidade de chuva e vento.
-- **Efemérides Solares**: Nascer e pôr do sol com arco de elevação astronômica.
-- **Alinhamento Físico de Radiação**: Conversão rigorosa de irradiância ($W/m^2$) para energia horária ($kJ/m^2$).
+### 3. 📍 Estações Meteorológicas INMET em Tempo Real
+- **Cobertura Nacional:** Acesso a todas as 672 estações meteorológicas automáticas do INMET em todo o território brasileiro.
+- **Atalhos Rápidos:** Seleção instantânea de cidades (Edéia, Goiânia, Rio Verde, Brasília, São Paulo, Rio de Janeiro, Porto Alegre, etc.), atualizando sincronicamente a estação, os gráficos, a previsão e o satélite.
+- **Geolocalização (GPS):** Detecção automática da estação mais próxima das coordenadas do usuário via fórmula de Haversine.
+- **Tratamento Fidedigno de Fuso Horário:** Conversão rigorosa de UTC para Horário de Brasília (BRT, UTC-3).
 
-### 4. 🛰️ Estúdio de Satélite GOES-16 (ABI)
-- Quadros georreferenciados em tempo real com canais DSA, Sanduíche, Vapor d'Água, Infravermelho e GeoColor.
-- Camadas vetoriais com divisas estaduais e manchas urbanas do IBGE.
-- Player temporal com controle de velocidade, avanço quadro a quadro e exportação em GIF animado.
+### 4. ☀️ Previsão Numérica Open-Meteo
+- **Trilho Horário Ancorado na Hora Atual:** A previsão horária inicia exatamente no horário corrente com o marcador `AGORA`.
+- **Previsão Sinótica de 7 Dias:** Temperaturas máximas e mínimas com barras termométricas coloridas e probabilidade de precipitação.
+- **Alinhamento de Radiação Solar:** Conversão física da irradiância instantânea ($W/m^2$) para energia horária acumulada ($kJ/m^2$), compatibilizando os modelos numéricos com os sensores do INMET ($1\text{ W/m}^2 \times 3600\text{ s} = 3{,}6\text{ kJ/m}^2$).
+- **Efemérides Solares:** Horários exatos de nascer e pôr do sol com arco de elevação solar.
+
+### 5. 🛰️ Estúdio de Satélite GOES-16 (ABI)
+- Composições multiespectrais em tempo real: **DSA (Realce de Nuvens)**, **Sanduíche**, **Vapor d'Água (WV)**, **Infravermelho (IR)** e **GeoColor**.
+- Sobreposição de camadas geográficas do IBGE com limites estaduais e manchas urbanas.
+- Player temporal interativo com controle de velocidade, avanço quadro a quadro e exportação em GIF animado.
 
 ---
 
@@ -43,43 +62,40 @@ Disponível tanto para execução local completa (FastAPI + Python) quanto para 
 - Python 3.10+
 - Git
 
-### Instalação
+### Instalação e Execução
 ```bash
 # Clone o repositório
-git clone https://github.com/vieiramesquita/MeteoApp_Personal.git
-cd MeteoApp_Personal
+git clone https://github.com/vieiramesquita/MyWeatherNowBR.git
+cd MyWeatherNowBR
 
 # Crie e ative o ambiente virtual
 python -m venv .venv
 .\.venv\Scripts\activate   # No Windows (PowerShell)
-source .venv/bin/activate  # No Linux/macOS
+source .venv/bin/activate  # No Linux / macOS
 
 # Instale as dependências
 pip install -r requirements.txt
 
-# Inicie o servidor
+# Inicie a aplicação
 python start_server.py
 ```
-Acesse a aplicação no navegador em `http://localhost:8000`.
+
+Abra o seu navegador em:
+```
+http://localhost:8000
+```
 
 ---
 
-## 🌐 Publicação no GitHub Pages (GitHub.io)
+## 🌐 Deploy no GitHub Pages
 
-O projeto está 100% configurado para GitHub Pages através do GitHub Actions:
-1. Crie o repositório no seu GitHub (ex.: `MeteoApp_Personal`).
-2. Adicione o remote e faça o push:
-   ```bash
-   git remote add origin https://github.com/vieiramesquita/MeteoApp_Personal.git
-   git branch -M main
-   git push -u origin main
-   ```
-3. No GitHub, acesse **Settings > Pages**:
-   - Em **Build and deployment > Source**, selecione **GitHub Actions**.
-   - O workflow `.github/workflows/deploy.yml` será acionado automaticamente e publicará o site em:
-     `https://vieiramesquita.github.io/MeteoApp_Personal/`
+O projeto conta com uma esteira de entrega contínua via **GitHub Actions** configurada em [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
+
+Sempre que um novo commit é enviado para o branch `main`, a compilação e a publicação são executadas automaticamente:
+1. URL de Produção: **[https://vieiramesquita.github.io/MyWeatherNowBR/](https://vieiramesquita.github.io/MyWeatherNowBR/)**
+2. Para habilitar em forks: acesse **Settings > Pages > Build and deployment**, e selecione **GitHub Actions** como fonte.
 
 ---
 
-## 📄 Licença
-Distribuído sob licença livre para fins científicos e acadêmicos.
+## 📄 Licença e Apoio
+Este projeto foi desenvolvido para fins científicos, operacionais e acadêmicos.
