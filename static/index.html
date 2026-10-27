@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyWeatherNow • Monitoramento Meteorológico & Radar GOES-16</title>
-  <meta name="description" content="MyWeatherNow • Dashboard meteorológico avançado integrado à rede de estações automáticas do INMET, previsão Open-Meteo e gerador de GIF temporal de satélite GOES-16 com resoluções degradáveis.">
+  <title>MyWeatherNow • Monitoramento Meteorológico & Satélite GOES-19</title>
+  <meta name="description" content="MyWeatherNow • Dashboard meteorológico avançado integrado à rede de estações automáticas do INMET, previsão Open-Meteo e estúdio temporal de satélite GOES-19 (Full Disk) com resoluções degradáveis.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>">
   
   <!-- Fonts -->
@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="static/styles.css?v=3.1.0">
+  <link rel="stylesheet" href="static/styles.css?v=3.2.0">
 </head>
 <body class="theme-dark">
   <div class="app-background">
@@ -41,7 +41,7 @@
               <span class="pulse-text" id="headerPulseStatus">OPEN-METEO TEMPO REAL</span>
             </span>
           </div>
-          <p class="brand-subtitle">Estações Solo INMET • Previsão Open-Meteo • Satélite GOES-16</p>
+          <p class="brand-subtitle">Estações Solo INMET • Previsão Open-Meteo • Satélite GOES-19 (Full Disk)</p>
         </div>
       </div>
 
@@ -334,13 +334,13 @@
             <span class="title-emoji">🛰️</span>
             <div>
               <h3>Estúdio Temporal Satélite GOES-19 (Full Disk)</h3>
-              <p class="section-subtitle">Catálogo Oficial INPE STAC (data.inpe.br) • Cobertura integral do Brasil • Resoluções degradáveis</p>
+              <p class="section-subtitle">Imagens NOAA STAR / NESDIS em Tempo Real • Cobertura integral do Brasil (Full Disk) • Resoluções degradáveis</p>
             </div>
           </div>
           <div class="goes-badges">
-            <span class="tag-pill tag-cyan">INPE STAC Oficial</span>
-            <span class="tag-pill tag-green">Full Disk Brasil</span>
-            <span class="tag-pill tag-purple" id="goesCurrentResBadge">512x512 Média</span>
+            <span class="tag-pill tag-cyan">NOAA STAR Operacional</span>
+            <span class="tag-pill tag-green">GOES-19 Full Disk</span>
+            <span class="tag-pill tag-purple" id="goesCurrentResBadge">678x678 Média</span>
           </div>
         </div>
 
@@ -859,13 +859,13 @@
         <span>Fontes de Dados: 
           <a href="https://portal.inmet.gov.br/" target="_blank" rel="noopener">INMET</a> • 
           <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> • 
-          <a href="https://realearth.ssec.wisc.edu/" target="_blank" rel="noopener">NOAA / SSEC UW-Madison (GOES-16)</a>
+          <a href="https://www.star.nesdis.noaa.gov/GOES/" target="_blank" rel="noopener">NOAA STAR / NESDIS (GOES-19)</a>
         </span>
       </div>
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script src="static/app.js?v=3.1.0"></script>
+  <script src="static/app.js?v=3.2.0"></script>
 </body>
 </html>

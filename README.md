@@ -1,4 +1,4 @@
-﻿# ⛅ MyWeatherNow
+# ⛅ MyWeatherNow
 
 [![Live Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-38bdf8?style=for-the-badge&logo=github&logoColor=white)](https://vieiramesquita.github.io/MyWeatherNowBR/)
 [![Deploy Status](https://img.shields.io/github/actions/workflow/status/vieiramesquita/MyWeatherNowBR/deploy.yml?branch=main&style=for-the-badge&label=GitHub%20Pages)](https://github.com/vieiramesquita/MyWeatherNowBR/actions)
@@ -8,9 +8,9 @@
 
 ---
 
-Dashboard meteorológico profissional de alta precisão que integra dados de superfície em tempo real da rede de estações automáticas do **INMET**, previsões numéricas dinâmicas da **Open-Meteo**, estúdio de animação temporal do satélite geoestacionário **GOES-16 (ABI)** e um hub analítico completo com gráficos interativos e tabela horária detalhada.
+Dashboard meteorológico profissional de alta precisão que integra dados de superfície em tempo real da rede de estações automáticas do **INMET**, previsões numéricas dinâmicas da **Open-Meteo**, estúdio de animação temporal do satélite geoestacionário **GOES-19 (ABI Full Disk)** e um hub analítico completo com gráficos interativos e tabela horária detalhada.
 
-Projetado com arquitetura híbrida: funciona perfeitamente hospedado de forma estática no **GitHub Pages** (com chamadas diretas e CORS habilitado) e também em ambiente completo com backend **FastAPI (Python)**.
+Projetado com arquitetura híbrida: funciona perfeitamente hospedado de forma estática no **GitHub Pages** (com chamadas diretas e CORS habilitado à NOAA STAR) e também em ambiente completo com backend **FastAPI (Python)**.
 
 ---
 
@@ -49,10 +49,11 @@ Projetado com arquitetura híbrida: funciona perfeitamente hospedado de forma es
 - **Alinhamento de Radiação Solar:** Conversão física da irradiância instantânea ($W/m^2$) para energia horária acumulada ($kJ/m^2$), compatibilizando os modelos numéricos com os sensores do INMET ($1\text{ W/m}^2 \times 3600\text{ s} = 3{,}6\text{ kJ/m}^2$).
 - **Efemérides Solares:** Horários exatos de nascer e pôr do sol com arco de elevação solar.
 
-### 5. 🛰️ Estúdio de Satélite GOES-16 (ABI)
-- Composições multiespectrais em tempo real: **DSA (Realce de Nuvens)**, **Sanduíche**, **Vapor d'Água (WV)**, **Infravermelho (IR)** e **GeoColor**.
-- Sobreposição de camadas geográficas do IBGE com limites estaduais e manchas urbanas.
-- Player temporal interativo com controle de velocidade, avanço quadro a quadro e exportação em GIF animado.
+### 5. 🛰️ Estúdio de Satélite GOES-19 (ABI Full Disk)
+- **Imagens Operacionais NOAA STAR / NESDIS em Tempo Real:** Conexão direta aos feeds de alta frequência do GOES-19 Full Disk a cada 10 minutos.
+- **Canais e Composições:** **GeoColor (Cores Naturais)**, **Canal 13 (Infravermelho Limpo 10,35µm)**, **Canal 08 (Vapor d'Água 6,19µm)** e **Sandwich RGB Convectivo**.
+- **Projeção Geostacionária Rigorosa:** Cálculo trigonométrico exato da curvatura da Terra (elipsoide WGS84) para posicionar o pin/crosshair da estação meteorológica selecionada com precisão submétrica sobre a imagem do disco hemisférico.
+- **Player Temporal Interativo:** Slider de linha do tempo, reprodução contínua em loop, controle de velocidade (0.5x, 1x, 2x, 4x), zoom óptico na estação e resoluções degradáveis (Baixa 339x339, Média 678x678, Alta 1808x1808, Ultra 5424x5424).
 
 ---
 

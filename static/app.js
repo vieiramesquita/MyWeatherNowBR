@@ -951,6 +951,159 @@ class MeteoApp {
   // ==========================================================================
   // GOES-19 Satellite Temporal Studio & Interactive Player (INPE STAC Full Disk)
   // ==========================================================================
+
+  parseNoaaTimestamp(ts) {
+    ts = String(ts);
+    const year = parseInt(ts.slice(0, 4), 10);
+    const doy = parseInt(ts.slice(4, 7), 10);
+    const hourUtc = parseInt(ts.slice(7, 9), 10);
+    const minUtc = parseInt(ts.slice(9, 11), 10);
+
+    const dateUtc = new Date(Date.UTC(year, 0, 1, hourUtc, minUtc));
+    dateUtc.setUTCDate(doy);
+
+    const dateBrt = new Date(dateUtc.getTime() - 3 * 3600 * 1000);
+    const pad = (n) => String(n).padStart(2, "0");
+
+    const dStr = `${pad(dateBrt.getUTCDate())}/${pad(dateBrt.getUTCMonth() + 1)}/${dateBrt.getUTCFullYear()}`;
+    const tBrtStr = `${pad(dateBrt.getUTCHours())}:${pad(dateBrt.getUTCMinutes())}`;
+    const tUtcStr = `${pad(dateUtc.getUTCHours())}:${pad(dateUtc.getUTCMinutes())}`;
+
+    return {
+      utc: `${dStr} ${tUtcStr} UTC`,
+      local: `${dStr} às ${tBrtStr} BRT`,
+      time_only_local: tBrtStr,
+      time_only_utc: tUtcStr,
+      time_label: `${tBrtStr} BRT (${tUtcStr} UTC)`
+    };
+  }
+
+  latlonToGeosPct(latDeg, lonDeg, lon0Deg = -75.0) {
+    const rEq = 6378137.0;
+    const rPol = 6356752.31414;
+    const H = 42164160.0;
+
+    const lat = (latDeg * Math.PI) / 180.0;
+    const lon = (lonDeg * Math.PI) / 180.0;
+    const lon0 = (lon0Deg * Math.PI) / 180.0;
+
+    const latGeo = Math.atan(((rPol * rPol) / (rEq * rEq)) * Math.tan(lat));
+    const rC = rPol / Math.sqrt(1 - (1 - (rPol * rPol) / (rEq * rEq)) * Math.pow(Math.cos(latGeo), 2));
+
+    const sX = H - rC * Math.cos(latGeo) * Math.cos(lon - lon0);
+    const sY = -rC * Math.cos(latGeo) * Math.sin(lon - lon0);
+    const sZ = rC * Math.sin(latGeo);
+
+    const xRad = Math.asin(-sY / Math.sqrt(sX * sX + sY * sY + sZ * sZ));
+    const yRad = Math.atan(sZ / sX);
+
+    const maxScanAngle = 0.151872;
+    const normX = xRad / maxScanAngle;
+    const normY = yRad / maxScanAngle;
+
+    const pctX = ((normX + 1.0) * 0.5) * 100.0;
+    const pctY = ((1.0 - normY) * 0.5) * 100.0;
+    return { xPct: pctX, yPct: pctY };
+  }
+
+  async fetchDirectNoaaGoesFrames() {
+    const prodMap = {
+      cptec_dsa: "13",
+      clean_ir: "13",
+      cptec_ir_noaa: "13",
+      cptec_sandwich: "Sandwich",
+      sandwich: "Sandwich",
+      cptec_wv: "08",
+      geocolor: "GEOCOLOR",
+      cptec_natural: "DayLandCloudFire",
+      cptec_cloud_phase: "DayConvection",
+      cptec_night_micro: "DayNightCloudMicroCombo"
+    };
+
+    const currentProd = this.goesConfig.product || "geocolor";
+    const noaaProd = prodMap[currentProd] || "GEOCOLOR";
+
+    const resMap = {
+      low: "339x339",
+      medium: "678x678",
+      high: "1808x1808",
+      ultra: "5424x5424"
+    };
+    const resCode = resMap[this.goesConfig.resolution] || "678x678";
+    const numFrames = this.goesConfig.numFrames || 8;
+
+    let timestamps = [];
+
+    // 1. Try direct NOAA directory fetch (CORS enabled)
+    try {
+      const dirUrl = `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${noaaProd}/`;
+      const res = await fetch(dirUrl);
+      if (res.ok) {
+        const html = await res.text();
+        const regex = new RegExp(`(\\d{11})_GOES19-ABI-FD-${noaaProd}-(?:678x678|1808x1808|latest)\\.jpg`, "g");
+        const found = [...html.matchAll(regex)].map(m => m[1]);
+        const unique = [...new Set(found)].sort();
+        if (unique.length >= 4) {
+          timestamps = unique.slice(-numFrames);
+        }
+      }
+    } catch (e) {
+      console.warn("Direct NOAA directory fetch failed, using algorithmic timestamps:", e);
+    }
+
+    // 2. Algorithmic fallback if directory scrape didn't yield enough frames
+    if (timestamps.length === 0) {
+      const now = new Date();
+      // Satellite data latency is ~25 minutes
+      const base = new Date(now.getTime() - 25 * 60 * 1000);
+      base.setUTCMinutes(Math.floor(base.getUTCMinutes() / 10) * 10, 0, 0);
+
+      for (let i = numFrames - 1; i >= 0; i--) {
+        const t = new Date(base.getTime() - i * 10 * 60 * 1000);
+        const year = t.getUTCFullYear();
+        const start = new Date(Date.UTC(year, 0, 0));
+        const diff = t - start;
+        const doy = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hh = String(t.getUTCHours()).padStart(2, "0");
+        const mm = String(t.getUTCMinutes()).padStart(2, "0");
+        timestamps.push(`${year}${String(doy).padStart(3, "0")}${hh}${mm}`);
+      }
+    }
+
+    // Build frame objects
+    const frames = timestamps.map(ts => {
+      const fmt = this.parseNoaaTimestamp(ts);
+      return {
+        url: `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${noaaProd}/${ts}_GOES19-ABI-FD-${noaaProd}-${resCode}.jpg`,
+        timestamp_raw: ts,
+        time_utc: fmt.utc,
+        time_local: fmt.local,
+        time_short: fmt.time_only_local,
+        time_only_utc: fmt.time_only_utc,
+        time_label: fmt.time_label
+      };
+    });
+
+    const geos = this.latlonToGeosPct(this.currentLat, this.currentLon);
+
+    return {
+      frames: frames,
+      product: {
+        id: noaaProd,
+        name: `GOES-19 ABI Full Disk (${noaaProd})`,
+        has_temp_scale: ["13", "08", "Sandwich"].includes(noaaProd),
+        legend_url: ["13", "Sandwich"].includes(noaaProd) ? "static/img/legends/goes-ch13-dsa-celsius-pt-br.png" : (noaaProd === "08" ? "static/img/legends/goes-ch08-WVCOLOR35-celsius-pt-br.png" : null),
+        legend_title: ["13", "Sandwich"].includes(noaaProd) ? "Temperatura de Brilho (10.3µm) °C" : (noaaProd === "08" ? "Vapor d'Água (6.2µm) °C" : "GeoColor")
+      },
+      pin_x_pct: geos.xPct,
+      pin_y_pct: geos.yPct,
+      brazil_center_x_pct: 71.8,
+      brazil_center_y_pct: 63.8,
+      res_label: `${resCode} Nativa NOAA`,
+      scale_mode: this.goesConfig.delta <= 12.0 ? "brasil" : "fulldisk"
+    };
+  }
+
   async loadGoesFrames() {
     const overlay = document.getElementById("goesLoadingOverlay");
     if (overlay) {
@@ -962,19 +1115,34 @@ class MeteoApp {
     const resBadge = document.getElementById("goesCurrentResBadge");
     const resMap = {
       low: "339x339 Baixa",
-      medium: "512x512 Média (INPE)",
+      medium: "678x678 Média",
       high: "1808x1808 Alta",
       ultra: "5424x5424 Ultra"
     };
     if (resBadge) resBadge.textContent = resMap[resolution] || resolution;
 
+    let data = null;
+
+    // 1. Try local backend first
     try {
       const url = `/api/goes/frames?lat=${this.currentLat}&lon=${this.currentLon}&delta=${delta}&resolution=${resolution}&frames=${numFrames}&product=${product}&borders=${showBorders !== false}&cities=${showCities !== false}&urban=${showUrban !== false}`;
       const res = await fetch(url);
-      if (!res.ok) throw new Error(`GOES API status: ${res.status}`);
-      const data = await res.json();
+      if (res.ok) {
+        data = await res.json();
+      }
+    } catch (e) {}
 
-      this.goesConfig.frames = data.frames || [];
+    // 2. Direct NOAA GOES-19 Full Disk fallback (for GitHub Pages / standalone web)
+    if (!data || !data.frames || data.frames.length === 0) {
+      try {
+        data = await this.fetchDirectNoaaGoesFrames();
+      } catch (e) {
+        console.error("Direct NOAA fetch error:", e);
+      }
+    }
+
+    if (data && data.frames && data.frames.length > 0) {
+      this.goesConfig.frames = data.frames;
       this.goesConfig.productMeta = data.product || null;
       this.goesConfig.scaleMode = data.scale_mode || (delta <= 2.0 ? "local" : delta <= 5.0 ? "regional" : "brasil");
       this.goesConfig.pinXPct = data.pin_x_pct;
@@ -984,7 +1152,6 @@ class MeteoApp {
       this.goesConfig.resLabel = data.res_label || "";
       this.goesConfig.currentFrameIndex = Math.max(0, this.goesConfig.frames.length - 1);
 
-      // Update HUD resolution badge
       const hudResBadge = document.getElementById("hudResBadge");
       if (hudResBadge) {
         hudResBadge.textContent = data.res_label ? `🛰️ ${data.res_label}` : "";
@@ -992,7 +1159,7 @@ class MeteoApp {
 
       this.applyGoesZoom();
 
-      // Preload images for instant 60fps scrub
+      // Preload images for instant scrubbing
       await this.preloadGoesImages();
 
       // Setup timeline slider
@@ -1004,20 +1171,20 @@ class MeteoApp {
 
       this.renderCurrentGoesFrame();
       this.startGoesAnimation();
-    } catch (err) {
-      console.warn("GOES dynamic API not available, loading static fallback:", err.message);
+    } else {
+      console.warn("Could not load dynamic GOES frames, using static frame");
       this.goesConfig.frames = [{
         url: "static/sample_goes_edeia.png",
-        time_label: "GOES-16 GeoColor • Brasil",
+        time_label: "GOES-19 GeoColor • Brasil",
         time_utc: "Tempo Real"
       }];
       this.goesConfig.currentFrameIndex = 0;
       this.renderCurrentGoesFrame();
-    } finally {
-      if (overlay) {
-        overlay.style.opacity = "0";
-        setTimeout(() => { overlay.style.display = "none"; }, 300);
-      }
+    }
+
+    if (overlay) {
+      overlay.style.opacity = "0";
+      setTimeout(() => { overlay.style.display = "none"; }, 300);
     }
   }
 
