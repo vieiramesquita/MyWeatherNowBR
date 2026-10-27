@@ -1,3 +1,14 @@
+
+const DEFAULT_STATIONS_MAP = {
+  "A029": { code: "A029", name: "Edéia", state: "GO", lat: -17.3369, lon: -49.9147, alt: 608 },
+  "A002": { code: "A002", name: "Goiânia", state: "GO", lat: -16.6428, lon: -49.2208, alt: 741 },
+  "A025": { code: "A025", name: "Rio Verde", state: "GO", lat: -17.7853, lon: -50.9669, alt: 752 },
+  "A001": { code: "A001", name: "Brasília", state: "DF", lat: -15.7894, lon: -47.9258, alt: 1160 },
+  "A701": { code: "A701", name: "São Paulo (Mirante)", state: "SP", lat: -23.4964, lon: -46.6200, alt: 792 },
+  "A652": { code: "A652", name: "Rio de Janeiro (Forte)", state: "RJ", lat: -22.9883, lon: -43.1906, alt: 25 },
+  "A801": { code: "A801", name: "Porto Alegre", state: "RS", lat: -30.0536, lon: -51.1747, alt: 47 }
+};
+
 /**
  * MeteoApp Pro • Core Application Controller
  * INMET Ground Stations + Open-Meteo Forecast + GOES-16 Temporal Studio
@@ -119,6 +130,7 @@ class MeteoApp {
 
     try {
       const res = await fetch(`/api/inmet/data/${stationCode}${forceRefresh ? "?force=true" : ""}`);
+      if (!res.ok) throw new Error(`INMET API status: ${res.status}`);
       const data = await res.json();
       this.inmetData = data;
 
@@ -150,10 +162,28 @@ class MeteoApp {
       // Also refresh forecast for the new coordinates
       this.loadForecast(this.currentLat, this.currentLon);
     } catch (err) {
-      console.error("Error loading INMET data:", err);
-      // Se falhar a estação de solo, garanta que Open-Meteo assume
+      console.warn("INMET ground API not reachable (running static/standalone):", err.message);
       this.currentSource = "openmeteo";
-      this.loadForecast(this.currentLat, this.currentLon);
+
+      // Fallback station metadata
+      const stFallback = DEFAULT_STATIONS_MAP[stationCode] || { code: stationCode, name: "Estação Meteorológica", state: "BR", lat: this.currentLat, lon: this.currentLon, alt: 600 };
+      this.currentStationCode = stFallback.code;
+      this.currentStationName = `${stFallback.name} - ${stFallback.state}`;
+      this.currentLat = stFallback.lat;
+      this.currentLon = stFallback.lon;
+
+      const codeEl = document.getElementById("stationCode");
+      if (codeEl) codeEl.textContent = stFallback.code;
+      const nameEl = document.getElementById("stationName");
+      if (nameEl) nameEl.textContent = `${stFallback.name} - ${stFallback.state}`;
+      const coordsEl = document.getElementById("stationCoords");
+      if (coordsEl) coordsEl.innerHTML = `<span>Lat: ${stFallback.lat.toFixed(2)}°</span> • <span>Lon: ${stFallback.lon.toFixed(2)}°</span> • <span>Alt: ${stFallback.alt || 600}m</span>`;
+
+      this.updateSourceToggleUI("openmeteo", false, 0);
+
+      await this.loadForecast(this.currentLat, this.currentLon);
+      this.renderHistoryCharts();
+      this.renderHistoryTable();
     } finally {
       refreshBtn.classList.remove("spinning");
     }
@@ -405,10 +435,11 @@ class MeteoApp {
     document.getElementById("humMin").textContent = today.apparent_min ? `${Math.round(today.apparent_min)}%` : "--";
 
     // 2. Pressão
-    const press = curr.pressure !== undefined ? curr.pressure : "--";
-    document.getElementById("pressureInstant").textContent = press;
-    document.getElementById("pressMax").textContent = today.temp_max ? `${(press + 1.2).toFixed(1)}` : "--";
-    document.getElementById("pressMin").textContent = today.temp_min ? `${(press - 1.5).toFixed(1)}` : "--";
+    const pressRaw = curr.surface_pressure !== undefined ? curr.surface_pressure : (curr.pressure !== undefined ? curr.pressure : null);
+    const press = (pressRaw !== null && !isNaN(Number(pressRaw))) ? Number(pressRaw) : null;
+    document.getElementById("pressureInstant").textContent = press !== null ? press.toFixed(1) : "--";
+    document.getElementById("pressMax").textContent = press !== null ? (press + 1.2).toFixed(1) : "--";
+    document.getElementById("pressMin").textContent = press !== null ? (press - 1.5).toFixed(1) : "--";
 
     // 3. Vento
     const wSpeedKmh = curr.wind_speed !== undefined ? curr.wind_speed : 0;
@@ -546,9 +577,28 @@ class MeteoApp {
     tbody.innerHTML = "";
 
     // Filter to only records that have actual measurements
-    const activeRecords = (records || []).filter(
+    let activeRecords = (records || []).filter(
       (r) => r.has_data !== false && (r.temp_ins !== null || r.humidity_ins !== null)
     );
+
+    if ((!activeRecords || activeRecords.length === 0) && this.forecastData && this.forecastData.hourly && this.forecastData.hourly.length > 0) {
+      activeRecords = this.forecastData.hourly.map((h) => ({
+        date_brt: h.time_iso ? h.time_iso.slice(0, 10) : "--",
+        hour_brt: h.hour,
+        hour_utc: "--",
+        date_utc: "--",
+        temp_ins: h.temp,
+        temp_max: h.temp,
+        temp_min: h.temp,
+        thermal_sensation: h.temp,
+        humidity_ins: h.humidity,
+        pressure_ins: 1013.2,
+        wind_speed: h.wind_speed,
+        wind_dir: 180,
+        wind_gust: h.wind_speed ? Math.round(h.wind_speed * 1.4 * 10) / 10 : null,
+        rain: h.rain_mm || 0.0
+      }));
+    }
 
     if (!activeRecords || activeRecords.length === 0) {
       tbody.innerHTML = `<tr><td colspan="15" style="text-align:center; padding: 20px; color: var(--text-muted);">Nenhum registro histórico disponível no momento.</td></tr>`;
@@ -897,6 +947,7 @@ class MeteoApp {
     try {
       const url = `/api/goes/frames?lat=${this.currentLat}&lon=${this.currentLon}&delta=${delta}&resolution=${resolution}&frames=${numFrames}&product=${product}&borders=${showBorders !== false}&cities=${showCities !== false}&urban=${showUrban !== false}`;
       const res = await fetch(url);
+      if (!res.ok) throw new Error(`GOES API status: ${res.status}`);
       const data = await res.json();
 
       this.goesConfig.frames = data.frames || [];
@@ -930,7 +981,14 @@ class MeteoApp {
       this.renderCurrentGoesFrame();
       this.startGoesAnimation();
     } catch (err) {
-      console.error("Error loading GOES frames:", err);
+      console.warn("GOES dynamic API not available, loading static fallback:", err.message);
+      this.goesConfig.frames = [{
+        url: "static/sample_goes_edeia.png",
+        time_label: "GOES-16 GeoColor • Brasil",
+        time_utc: "Tempo Real"
+      }];
+      this.goesConfig.currentFrameIndex = 0;
+      this.renderCurrentGoesFrame();
     } finally {
       if (overlay) {
         overlay.style.opacity = "0";
@@ -1238,9 +1296,24 @@ class MeteoApp {
       return;
     }
 
-    const activeRecords = (records || []).filter(
+    let activeRecords = (records || []).filter(
       (r) => r.has_data !== false && (r.temp_ins !== null || r.humidity_ins !== null || r.rain !== null)
     );
+
+    if (activeRecords.length === 0 && this.forecastData && this.forecastData.hourly && this.forecastData.hourly.length > 0) {
+      activeRecords = this.forecastData.hourly.map((h) => ({
+        hour_brt: h.hour,
+        date_brt: h.time_iso ? h.time_iso.slice(0, 10) : "",
+        temp_ins: h.temp,
+        temp_dew: h.temp !== null && h.humidity !== null ? Math.round((h.temp - ((100 - h.humidity) / 5)) * 10) / 10 : null,
+        humidity_ins: h.humidity,
+        rain: h.rain_mm || 0.0,
+        wind_speed: h.wind_speed,
+        wind_gust: h.wind_speed !== null ? Math.round(h.wind_speed * 1.4 * 10) / 10 : null,
+        wind_dir: 180,
+        rad_glo_kj: h.solar_radiation_kj_m2 || 0.0
+      }));
+    }
 
     if (activeRecords.length === 0) return;
 
