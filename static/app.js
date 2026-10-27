@@ -120,53 +120,72 @@ class MeteoApp {
   // ==========================================================================
   async loadStationData(stationCode, forceRefresh = false) {
     const refreshBtn = document.getElementById("btnManualRefresh");
-    refreshBtn.classList.add("spinning");
+    if (refreshBtn) refreshBtn.classList.add("spinning");
 
     // Immediate feedback in UI
-    document.getElementById("stationCode").textContent = stationCode;
     const currentNameEl = document.getElementById("stationName");
-    const prevName = currentNameEl.textContent;
-    currentNameEl.style.opacity = "0.6";
+    if (currentNameEl) currentNameEl.style.opacity = "0.6";
 
+    let data = null;
+
+    // 1. Try local server endpoint if running
     try {
       const res = await fetch(`/api/inmet/data/${stationCode}${forceRefresh ? "?force=true" : ""}`);
-      if (!res.ok) throw new Error(`INMET API status: ${res.status}`);
-      const data = await res.json();
-      this.inmetData = data;
+      if (res.ok) {
+        data = await res.json();
+      }
+    } catch (e) {}
 
-      // Update state
-      if (data.station) {
-        this.currentStationCode = data.station.code;
-        this.currentStationName = `${data.station.name} - ${data.station.state}`;
-        this.currentLat = data.station.lat;
-        this.currentLon = data.station.lon;
-
-        if (data.next_refresh_in_seconds !== undefined) {
-          this.secondsToNextRefresh = data.next_refresh_in_seconds;
+    // 2. Try static station telemetry (for GitHub Pages / standalone deployment)
+    if (!data) {
+      try {
+        const staticUrl = `static/data/stations/station_${stationCode.toUpperCase()}.json`;
+        const res = await fetch(staticUrl);
+        if (res.ok) {
+          data = await res.json();
+          console.log(`Loaded static station telemetry for ${stationCode}`);
         }
+      } catch (e) {
+        console.warn(`Static station telemetry not available for ${stationCode}:`, e);
+      }
+    }
+
+    if (data && data.station) {
+      this.inmetData = data;
+      this.currentStationCode = data.station.code;
+      this.currentStationName = `${data.station.name} - ${data.station.state}`;
+      this.currentLat = data.station.lat;
+      this.currentLon = data.station.lon;
+
+      if (data.next_refresh_in_seconds !== undefined) {
+        this.secondsToNextRefresh = data.next_refresh_in_seconds;
       }
 
-      // Check freshness of ground data at the present moment
+      // Check freshness of ground data
       const hasFreshGround = this.isGroundDataFresh(data.latest);
       if (!hasFreshGround) {
-        // Regra do Usuário: Se não tiver informações do solo no momento,
-        // ignore elas e use as do Open-Meteo (caso haja).
         this.currentSource = "openmeteo";
       } else {
         this.currentSource = "inmet";
       }
 
       this.renderInmetData(data);
-      this.updateMapStation(this.currentLat, this.currentLon, this.currentStationName);
-
-      // Also refresh forecast for the new coordinates
-      this.loadForecast(this.currentLat, this.currentLon);
-    } catch (err) {
-      console.warn("INMET ground API not reachable (running static/standalone):", err.message);
+      if (data.history && data.history.length > 0) {
+        this.renderHistoryCharts(data.history);
+        this.renderHistoryTable(data.history);
+      }
+      await this.loadForecast(this.currentLat, this.currentLon);
+    } else {
+      // 3. Fallback when station is not pre-cached: use Open-Meteo for ground view
       this.currentSource = "openmeteo";
-
-      // Fallback station metadata
-      const stFallback = DEFAULT_STATIONS_MAP[stationCode] || { code: stationCode, name: "Estação Meteorológica", state: "BR", lat: this.currentLat, lon: this.currentLon, alt: 600 };
+      const stFallback = DEFAULT_STATIONS_MAP[stationCode] || {
+        code: stationCode,
+        name: "Estação Meteorológica",
+        state: "BR",
+        lat: this.currentLat,
+        lon: this.currentLon,
+        alt: 600
+      };
       this.currentStationCode = stFallback.code;
       this.currentStationName = `${stFallback.name} - ${stFallback.state}`;
       this.currentLat = stFallback.lat;
@@ -180,13 +199,18 @@ class MeteoApp {
       if (coordsEl) coordsEl.innerHTML = `<span>Lat: ${stFallback.lat.toFixed(2)}°</span> • <span>Lon: ${stFallback.lon.toFixed(2)}°</span> • <span>Alt: ${stFallback.alt || 600}m</span>`;
 
       this.updateSourceToggleUI("openmeteo", false, 0);
-
       await this.loadForecast(this.currentLat, this.currentLon);
       this.renderHistoryCharts();
       this.renderHistoryTable();
-    } finally {
-      refreshBtn.classList.remove("spinning");
     }
+
+    if (currentNameEl) currentNameEl.style.opacity = "1";
+    if (refreshBtn) refreshBtn.classList.remove("spinning");
+    return;
+  }
+
+  // legacy placeholder replaced
+  _legacy_loadStationData_stub() {
   }
 
   isGroundDataFresh(latest) {
