@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MyWeatherNow • Monitoramento Meteorológico & Radar GOES-16</title>
+  <meta name="description" content="MyWeatherNow • Dashboard meteorológico avançado integrado à rede de estações automáticas do INMET, previsão Open-Meteo e gerador de GIF temporal de satélite GOES-16 com resoluções degradáveis.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js Modern Data Visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="static/styles.css?v=2.2.0">
+</head>
+<body class="theme-dark">
+  <div class="app-background">
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div class="bg-glow glow-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-group">
+        <div class="brand-icon-wrapper">
+          <div class="radar-sweep"></div>
+          <span class="brand-icon">🛰️</span>
+        </div>
+        <div class="brand-text">
+          <div class="brand-title-row">
+            <h1>MyWeatherNow <span class="badge-pro">LIVE</span></h1>
+            <span class="status-indicator live-pulse">
+              <span class="pulse-dot"></span>
+              <span class="pulse-text" id="headerPulseStatus">OPEN-METEO TEMPO REAL</span>
+            </span>
+          </div>
+          <p class="brand-subtitle">Estações Solo INMET • Previsão Open-Meteo • Satélite GOES-16</p>
+        </div>
+      </div>
+
+      <!-- Quick Station & Location Controls -->
+      <div class="header-actions">
+        <!-- Station Search Selector -->
+        <div class="station-search-box">
+          <div class="search-input-wrapper">
+            <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="stationSearchInput" placeholder="Buscar estação (ex: Edéia, A029, Goiânia)..." autocomplete="off">
+            <button id="clearSearchBtn" class="clear-btn" title="Limpar" style="display:none;">&times;</button>
+          </div>
+          <div id="stationSearchResults" class="search-dropdown-menu"></div>
+        </div>
+
+        <!-- GPS Nearest Button -->
+        <button id="btnGpsNearest" class="action-btn btn-gps" title="Buscar estação INMET mais próxima pelo meu GPS">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="3 11 22 2 13 21 11 13 3 11"></polygon>
+          </svg>
+          <span class="btn-text">Minha Posição</span>
+        </button>
+
+        <!-- Refresh Countdown & Manual Button -->
+        <div class="refresh-pill">
+          <div class="refresh-timer" title="Atualização automática de 1h em 1h com a estação">
+            <svg class="clock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span id="refreshCountdown">59:50</span>
+          </div>
+          <button id="btnManualRefresh" class="btn-refresh" title="Forçar atualização da estação agora">
+            <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Clock Widget -->
+        <div class="clock-badge">
+          <span id="liveClockTime">00:00:00</span>
+          <span class="clock-tz">BRT (UTC-3)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Station Quick Chips -->
+    <div class="quick-chips-bar">
+      <span class="chips-label">Atalhos Rápidos:</span>
+      <div class="chips-container" id="quickChipsContainer">
+        <button class="chip active" data-code="A029">A029 - Edéia (GO)</button>
+        <button class="chip" data-code="A002">A002 - Goiânia (GO)</button>
+        <button class="chip" data-code="A025">A025 - Rio Verde (GO)</button>
+        <button class="chip" data-code="A001">A001 - Brasília (DF)</button>
+        <button class="chip" data-code="A701">A701 - São Paulo (SP)</button>
+        <button class="chip" data-code="A652">A652 - Rio de Janeiro (RJ)</button>
+        <button class="chip" data-code="A801">A801 - Porto Alegre (RS)</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-dashboard">
+    <!-- Row 1: INMET Live Station Hero & Open-Meteo Comparison -->
+    <section class="dashboard-hero-section">
+      <!-- INMET Station Principal Card -->
+      <div class="card glass-card station-hero-card">
+        <div class="station-meta-header">
+          <div class="station-id-cluster">
+            <span class="station-code-badge" id="stationCode">A029</span>
+            <div>
+              <h2 class="station-name" id="stationName">Edéia - Goiás</h2>
+              <div class="station-coords" id="stationCoords">
+                <span>Lat: -17.34°</span> • <span>Lon: -49.91°</span> • <span id="stationAltitude">Alt: 608m</span>
+              </div>
+            </div>
+          </div>
+          <div class="station-link-wrapper">
+            <a href="https://tempo.inmet.gov.br/TabelaEstacoes/A029" target="_blank" rel="noopener noreferrer" class="inmet-official-link" id="inmetOfficialLink">
+              <span>Ver no INMET Oficial</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                <polyline points="15 3 21 3 21 9"></polyline>
+                <line x1="10" y1="14" x2="21" y2="3"></line>
+              </svg>
+            </a>
+            <div class="reading-time-tag" id="readingTimestamp">Última leitura: 00:00 BRT (03:00 UTC)</div>
+          </div>
+        </div>
+
+        <!-- Source Selector Toggle Bar -->
+        <div class="station-source-toggle-bar">
+          <div class="source-toggle-left">
+            <span class="source-toggle-label">Fonte dos Dados Atuais:</span>
+            <div class="source-toggle-group">
+              <button id="btnSourceOpenMeteo" class="btn-source active" title="Exibir dados atuais em tempo real via Open-Meteo">
+                <span class="pulse-dot-green"></span>
+                <span>Open-Meteo (Tempo Real)</span>
+              </button>
+              <button id="btnSourceInmet" class="btn-source" title="Exibir última telemetria física registrada pela estação INMET (18h BRT)">
+                <span class="status-dot-blue"></span>
+                <span>INMET Solo (18h BRT)</span>
+              </button>
+            </div>
+          </div>
+          <div class="source-status-note" id="sourceStatusNote">
+            <span class="note-pill om">⚡ Open-Meteo Ativo</span>
+            <span class="note-text">Estação solo INMET sem dados pós-18h BRT</span>
+          </div>
+        </div>
+
+        <!-- Main Temp & Highlights Row -->
+        <div class="hero-temp-row">
+          <div class="main-temp-display">
+            <div class="temp-huge">
+              <span id="tempInstant">20.6</span><span class="temp-unit">°C</span>
+            </div>
+            <div class="temp-meta">
+              <div class="sensation-badge">
+                Sensação Térmica: <strong id="thermalSensation">16.1°C</strong>
+              </div>
+              <div class="temp-min-max-row">
+                <span class="t-badge max">Máx: <strong id="tempMax">21.2°C</strong></span>
+                <span class="t-badge min">Mín: <strong id="tempMin">20.6°C</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ground Station vs Numeric Model Comparison -->
+          <div class="comparison-widget">
+            <div class="comparison-title">
+              <span>Comparação Tempo Real</span>
+              <span class="comp-badge">Solo vs Modelo</span>
+            </div>
+            <div class="comp-grid">
+              <div class="comp-box inmet">
+                <span class="comp-label">Estação INMET</span>
+                <span class="comp-val" id="compInmetVal">20.6°C</span>
+                <span class="comp-sub">Sensor Físico</span>
+              </div>
+              <div class="comp-vs">VS</div>
+              <div class="comp-box openmeteo">
+                <span class="comp-label">Open-Meteo</span>
+                <span class="comp-val" id="compOpenMeteoVal">23.6°C</span>
+                <span class="comp-sub">Previsão Grade</span>
+              </div>
+            </div>
+            <div class="comp-delta" id="compDeltaText">Divergência: -3.0°C (Calibração local)</div>
+          </div>
+        </div>
+
+        <!-- 8 INMET Real-Time Parameter Cards -->
+        <div class="metrics-grid">
+          <!-- Card 1: Umidade -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">💧</span>
+              <span class="metric-title">Umidade Relativa</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="humidityInstant">100</span><span class="metric-unit">%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-blue" id="humidityBar" style="width: 100%;"></div>
+            </div>
+            <div class="metric-sub">Máx: <span id="humMax">100%</span> • Mín: <span id="humMin">100%</span></div>
+          </div>
+
+          <!-- Card 2: Pressão -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">⏲️</span>
+              <span class="metric-title">Pressão Atmosférica</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="pressureInstant">946.5</span><span class="metric-unit">hPa</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill fill-purple" id="pressureBar" style="width: 82%;"></div>
+            </div>
+            <div class="metric-sub">Máx: <span id="pressMax">948.2</span> • Mín: <span id="pressMin">946.5</span></div>
+          </div>
+
+          <!-- Card 3: Vento & Rosa dos Ventos -->
+          <div class="metric-card wind-card">
+            <div class="metric-header">
+              <span class="metric-icon">💨</span>
+              <span class="metric-title">Vento & Rajada</span>
+            </div>
+            <div class="wind-body">
+              <div class="compass-circle">
+                <div class="compass-needle" id="compassNeedle" style="transform: rotate(111deg);"></div>
+                <span class="compass-n">N</span>
+                <span class="compass-s">S</span>
+                <span class="compass-w">W</span>
+                <span class="compass-e">E</span>
+              </div>
+              <div class="wind-data">
+                <div class="metric-val-sm"><span id="windSpeed">5.4</span> m/s</div>
+                <div class="wind-speed-kmh">(<span id="windSpeedKmh">19.4</span> km/h)</div>
+                <div class="wind-direction-text"><span id="windCardinal">ESE</span> • <span id="windDir">111</span>°</div>
+                <div class="wind-gust">Rajada: <strong id="windGust">11.5 m/s</strong> (41.4 km/h)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 4: Chuva / Precipitação -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">🌧️</span>
+              <span class="metric-title">Chuva / Pluviômetro</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="rainInstant">5.2</span><span class="metric-unit">mm</span>
+            </div>
+            <div class="rain-stats">
+              <div class="rain-stat-item">
+                <span class="r-label">Última Hora:</span>
+                <span class="r-val" id="rainLastHour">5.2 mm</span>
+              </div>
+              <div class="rain-stat-item">
+                <span class="r-label">Acumulado 24h:</span>
+                <span class="r-val highlight" id="rain24hAccum">5.2 mm</span>
+              </div>
+            </div>
+            <div class="metric-sub" id="rainStatusText">Precipitação ativa detectada</div>
+          </div>
+
+          <!-- Card 5: Ponto de Orvalho -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">🌫️</span>
+              <span class="metric-title">Ponto de Orvalho</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="dewPoint">20.6</span><span class="metric-unit">°C</span>
+            </div>
+            <div class="metric-desc">Temperatura de saturação do ar com 100% de vapor d'água.</div>
+          </div>
+
+          <!-- Card 6: Radiação Solar -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">☀️</span>
+              <span class="metric-title">Radiação Global</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="solarRadiation">0.0</span><span class="metric-unit">KJ/m²</span>
+            </div>
+            <div class="metric-desc" id="solarDesc">Período noturno (sem incidência direta).</div>
+          </div>
+
+          <!-- Card 7: Bateria da Estação -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">🔋</span>
+              <span class="metric-title">Bateria do Datalogger</span>
+            </div>
+            <div class="metric-value-row">
+              <span class="metric-val" id="batteryVoltage">12.8</span><span class="metric-unit">V</span>
+            </div>
+            <div class="battery-status-tag tag-good">Alimentação Solar OK</div>
+          </div>
+
+          <!-- Card 8: Status Operacional -->
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-icon">📡</span>
+              <span class="metric-title">Transmissão Satelital</span>
+            </div>
+            <div class="transmission-status">
+              <div class="dot-online"></div>
+              <span>Transmissão GOES/SCD Operante</span>
+            </div>
+            <div class="metric-sub">Atualização automática: a cada 60 min</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 2: GOES-16 Satellite Temporal GIF Studio & Interactive Player -->
+    <section class="dashboard-goes-section">
+      <div class="card glass-card goes-studio-card">
+        <div class="section-title-bar">
+          <div class="title-with-icon">
+            <span class="title-emoji">🛰️</span>
+            <div>
+              <h3>Estúdio Temporal Satélite GOES-19 (Full Disk)</h3>
+              <p class="section-subtitle">Catálogo Oficial INPE STAC (data.inpe.br) • Cobertura integral do Brasil • Resoluções degradáveis</p>
+            </div>
+          </div>
+          <div class="goes-badges">
+            <span class="tag-pill tag-cyan">INPE STAC Oficial</span>
+            <span class="tag-pill tag-green">Full Disk Brasil</span>
+            <span class="tag-pill tag-purple" id="goesCurrentResBadge">512x512 Média</span>
+          </div>
+        </div>
+
+        <div class="goes-workspace-grid">
+          <!-- Left: Temporal Viewer / Player -->
+          <div class="goes-viewer-column">
+            <div class="goes-screen-wrapper">
+              <!-- Loading overlay -->
+              <div id="goesLoadingOverlay" class="goes-loading-overlay">
+                <div class="spinner"></div>
+                <span id="goesLoadingText">Carregando quadros temporais do GOES-19...</span>
+              </div>
+
+              <!-- Main Canvas / Image Display -->
+              <div class="canvas-holder">
+                <div class="canvas-zoom-wrapper" id="canvasZoomWrapper">
+                  <img id="goesDisplayImage" src="static/sample_goes_edeia.png" alt="Composição Satélite GOES-19">
+                  <!-- CPTEC Borders & Divisas Overlay -->
+                  <img id="goesBordersOverlay" class="goes-borders-overlay" src="static/img/cptec_borders_678.png" alt="Fronteiras e Divisas CPTEC">
+                  <!-- Location Crosshair Pin -->
+                  <div class="satellite-crosshair" id="satelliteCrosshair" title="Posição da Estação / Coordenada">
+                    <div class="crosshair-ring"></div>
+                    <div class="crosshair-center"></div>
+                    <span class="crosshair-label" id="crosshairLabel">Edéia (A029)</span>
+                  </div>
+                </div>
+
+                <!-- Floating CPTEC Color Scale Legend HUD -->
+                <div class="cptec-legend-box" id="cptecLegendBox">
+                  <div class="cptec-legend-header">
+                    <span class="legend-title" id="cptecLegendTitle">10,35µm Temp. Brilho (°C) • CPTEC/DSA</span>
+                    <button class="legend-close-btn" id="btnCloseLegend" title="Ocultar legenda">✕</button>
+                  </div>
+                  <img id="cptecLegendImg" src="static/img/legends/goes-ch13-dsa-celsius-pt-br.png" alt="Escala Térmica CPTEC">
+                  <div id="rgbLegendList" class="rgb-legend-list" style="display: none;"></div>
+                </div>
+
+                <!-- HUD Overlay Badges -->
+                <div class="hud-top-left">
+                  <span class="hud-product-name" id="hudProductName">Realce CPTEC/DSA (IR 10,35µm)</span>
+                  <span class="hud-res-badge" id="hudResBadge">🛰️ 2 km Nativa (Zoom 5)</span>
+                  <span class="hud-time-utc" id="hudTimeUtc">18:10 UTC</span>
+                </div>
+                <div class="hud-top-right">
+                  <span class="hud-time-local" id="hudTimeLocal">15:10 BRT</span>
+                </div>
+                <div class="hud-bottom-left">
+                  <span class="hud-frame-counter" id="hudFrameCounter">Quadro 8 de 8</span>
+                </div>
+              </div>
+
+
+              <!-- Interactive Timeline Scrubber & Player Controls -->
+              <div class="goes-player-controls">
+                <div class="timeline-row">
+                  <input type="range" id="timelineSlider" min="0" max="7" value="7" step="1" class="timeline-slider">
+                  <div class="timeline-ticks" id="timelineTicks"></div>
+                </div>
+
+                <div class="playback-buttons-bar">
+                  <div class="playback-group-left">
+                    <button id="btnPrevFrame" class="player-btn" title="Quadro Anterior (Seta Esquerda)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    </button>
+                    <button id="btnPlayPause" class="player-btn btn-play-main" title="Reproduzir / Pausar (Barra de Espaço)">
+                      <svg id="playIcon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                      <svg id="pauseIcon" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                    </button>
+                    <button id="btnNextFrame" class="player-btn" title="Próximo Quadro (Seta Direita)">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </button>
+                    <button id="btnLoopToggle" class="player-btn active" title="Alternar Modo Loop Contínuo">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="17 1 21 5 17 9"></polyline><path d="M3 11V9a4 4 0 0 1 4-4h14"></path><polyline points="7 23 3 19 7 15"></polyline><path d="M21 13v2a4 4 0 0 1-4 4H3"></path></svg>
+                    </button>
+                  </div>
+
+                  <div class="playback-speed-selector">
+                    <span class="speed-label">Velocidade:</span>
+                    <button class="speed-btn" data-speed="0.5">0.5x</button>
+                    <button class="speed-btn active" data-speed="1.0">1x</button>
+                    <button class="speed-btn" data-speed="2.0">2x</button>
+                    <button class="speed-btn" data-speed="4.0">4x</button>
+                  </div>
+
+                  <div class="player-zoom-group">
+                    <span class="speed-label">Zoom:</span>
+                    <button id="btnPlayerZoomOut" class="player-btn zoom-btn" title="Diminuir Zoom (-)">−</button>
+                    <span id="playerZoomDisplay" class="player-zoom-badge">1.0x</span>
+                    <button id="btnPlayerZoomIn" class="player-btn zoom-btn" title="Aumentar Zoom (+)">+</button>
+                    <button id="btnPlayerZoomReset" class="player-btn zoom-btn" title="Resetar Zoom (1x)">1x</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Control Panel (Degradable Resolutions, Area Bounds, Products & GIF Generator) -->
+          <div class="goes-control-column">
+            <!-- 1. Degradable Resolution Selector -->
+            <div class="control-box">
+              <label class="control-label">
+                <span>Resolução Degradável:</span>
+                <span class="info-tag" title="Selecione resoluções mais baixas para carregar instantaneamente, ou mais altas para máxima fidelidade visual">?</span>
+              </label>
+              <div class="segmented-control resolution-selector" id="resSelector">
+                <button class="seg-btn" data-res="low">
+                  <span class="seg-title">Baixa</span>
+                  <span class="seg-desc">339x339 • Rápida</span>
+                </button>
+                <button class="seg-btn active" data-res="medium">
+                  <span class="seg-title">Média</span>
+                  <span class="seg-desc">512x512 • Padrão INPE</span>
+                </button>
+                <button class="seg-btn" data-res="high">
+                  <span class="seg-title">Alta</span>
+                  <span class="seg-desc">1808x1808 • Detalhada</span>
+                </button>
+                <button class="seg-btn" data-res="ultra">
+                  <span class="seg-title">Ultra</span>
+                  <span class="seg-desc">5424x5424 • 4K HD</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Area Bounding Box / Scope -->
+            <div class="control-box">
+              <label class="control-label">Área / Escala Territorial:</label>
+              <div class="segmented-control" id="areaSelector">
+                <button class="seg-btn" data-delta="0.25">
+                  <span class="seg-title">Hiper Local 3x</span>
+                  <span class="seg-desc">Raio ~30 km • Zoom Máximo ABI</span>
+                </button>
+                <button class="seg-btn" data-delta="0.6">
+                  <span class="seg-title">Ultra Local</span>
+                  <span class="seg-desc">Raio ~60 km • Cidades & IBGE</span>
+                </button>
+                <button class="seg-btn" data-delta="1.5">
+                  <span class="seg-title">Entorno Local</span>
+                  <span class="seg-desc">Raio ~160 km • 2 km Nativa</span>
+                </button>
+                <button class="seg-btn" data-delta="3.5">
+                  <span class="seg-title">Goiás / Regional</span>
+                  <span class="seg-desc">Raio ~380 km • 4 km Alta Res</span>
+                </button>
+                <button class="seg-btn active" data-delta="8.0">
+                  <span class="seg-title">Brasil (Nacional)</span>
+                  <span class="seg-desc">Todo o País • 16 km</span>
+                </button>
+                <button class="seg-btn" data-delta="15.0">
+                  <span class="seg-title">América do Sul</span>
+                  <span class="seg-desc">Full Disk Hemisférico</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Satellite Composite Product & CPTEC DSAT Enhancements -->
+            <div class="control-box">
+              <label class="control-label" style="justify-content: space-between;">
+                <span>Composição & Realces CPTEC:</span>
+                <span class="tag-pill tag-cyan" style="font-size: 10px; padding: 2px 7px;">DSAT Operacional</span>
+              </label>
+
+              <div class="product-selector-grid" id="productSelector">
+                <!-- 1. Realce CPTEC DSA IR -->
+                <button class="prod-btn active" data-prod="cptec_dsa">
+                  <span class="prod-dot dot-dsa"></span>
+                  <div class="prod-texts">
+                    <strong>Realce CPTEC / DSA (IR 10,35µm)</strong>
+                    <small>Topos frios de nuvens e núcleos de tempestades severas (-80°C a +40°C)</small>
+                  </div>
+                </button>
+                <!-- 2. Sandwich CPTEC -->
+                <button class="prod-btn" data-prod="cptec_sandwich">
+                  <span class="prod-dot dot-sand"></span>
+                  <div class="prod-texts">
+                    <strong>Sandwich CPTEC (True-Color + DSA)</strong>
+                    <small>Fusão em cores verdadeiras com núcleos convectivos térmicos sobrepostos</small>
+                  </div>
+                </button>
+                <!-- 3. Vapor d'Água CPTEC -->
+                <button class="prod-btn" data-prod="cptec_wv">
+                  <span class="prod-dot dot-wv"></span>
+                  <div class="prod-texts">
+                    <strong>Vapor d'Água (Canal 08 • 6,19µm)</strong>
+                    <small>Umidade na média/alta troposfera e correntes de jato atmosféricas</small>
+                  </div>
+                </button>
+                <!-- 4. Realce NOAA AVHRR IR -->
+                <button class="prod-btn" data-prod="cptec_ir_noaa">
+                  <span class="prod-dot dot-ir"></span>
+                  <div class="prod-texts">
+                    <strong>Realce NOAA AVHRR (IR 10,35µm)</strong>
+                    <small>Escala térmica clássica operacional NOAA IR4AVHRR6</small>
+                  </div>
+                </button>
+                <!-- 5. Cloud Phase JMA -->
+                <button class="prod-btn" data-prod="cptec_cloud_phase">
+                  <span class="prod-dot dot-jma"></span>
+                  <div class="prod-texts">
+                    <strong>Cloud Phase (JMA • Fase de Nuvens)</strong>
+                    <small>Microfísica de nuvens: gelo/tempestades (ciano) vs água líquida (verde)</small>
+                  </div>
+                </button>
+                <!-- 6. Nighttime Microphysics -->
+                <button class="prod-btn" data-prod="cptec_night_micro">
+                  <span class="prod-dot dot-night"></span>
+                  <div class="prod-texts">
+                    <strong>Nighttime Microphysics (Microfísica Noturna)</strong>
+                    <small>Detecção noturna multiespectral de nevoeiros (amarelo), stratus e convecção</small>
+                  </div>
+                </button>
+                <!-- 7. Cor Natural Multiespectral -->
+                <button class="prod-btn" data-prod="cptec_natural">
+                  <span class="prod-dot dot-nat"></span>
+                  <div class="prod-texts">
+                    <strong>Cor Natural CPTEC (Multiespectral)</strong>
+                    <small>Fase de nuvens (gelo vs água), massas de ar e vegetação</small>
+                  </div>
+                </button>
+                <!-- 8. GeoColor INPE STAC -->
+                <button class="prod-btn" data-prod="geocolor">
+                  <span class="prod-dot dot-geo"></span>
+                  <div class="prod-texts">
+                    <strong>GeoColor (INPE STAC Oficial)</strong>
+                    <small>Disco completo True-Color diurno e relevo noturno</small>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <!-- 4. Camadas Operacionais DSAT & Sobreposições -->
+            <div class="control-box">
+              <label class="control-label">Camadas Operacionais DSAT:</label>
+              <div class="dsat-layers-toggles">
+                <label class="layer-toggle-item">
+                  <input type="checkbox" id="toggleBordersCheck" checked>
+                  <span class="toggle-custom"></span>
+                  <span class="toggle-text">🗺️ Fronteiras & Divisas Estaduais (CPTEC)</span>
+                </label>
+                <label class="layer-toggle-item">
+                  <input type="checkbox" id="toggleCitiesCheck" checked>
+                  <span class="toggle-custom"></span>
+                  <span class="toggle-text">🏛️ Limites dos Municípios (IBGE)</span>
+                </label>
+                <label class="layer-toggle-item">
+                  <input type="checkbox" id="toggleUrbanCheck" checked>
+                  <span class="toggle-custom"></span>
+                  <span class="toggle-text">🏙️ Áreas Urbanizadas 2022 (IBGE)</span>
+                </label>
+                <label class="layer-toggle-item">
+                  <input type="checkbox" id="toggleLegendCheck" checked>
+                  <span class="toggle-custom"></span>
+                  <span class="toggle-text">🌡️ Barra de Escala Térmica (°C) CPTEC</span>
+                </label>
+              </div>
+            </div>
+
+
+            <!-- 4. Temporal Frames Count -->
+            <div class="control-box">
+              <div class="control-header-flex">
+                <label class="control-label">Número de Quadros Temporais:</label>
+                <span class="control-value-tag" id="framesCountDisplay">8 quadros (~1.5 horas)</span>
+              </div>
+              <input type="range" id="framesCountSlider" min="4" max="16" value="8" step="2" class="range-slider">
+              <div class="range-labels">
+                <span>4 (~40 min)</span>
+                <span>8 (~1.5h)</span>
+                <span>12 (~2.5h)</span>
+                <span>16 (~3.5h)</span>
+              </div>
+            </div>
+
+            <!-- Action: Generate and Download Animated GIF Button -->
+            <div class="gif-action-box">
+              <button id="btnGenerateDownloadGif" class="btn-generate-gif">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                <span>Criar & Baixar GIF Temporal (.gif)</span>
+              </button>
+              <div id="gifProgressStatus" class="gif-progress-status" style="display: none;">
+                <span class="spinner-sm"></span>
+                <span id="gifProgressText">Renderizando GIF animado...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 3: Open-Meteo Forecast (Full Width) -->
+    <section class="dashboard-forecast-full-section">
+      <div class="card glass-card forecast-card forecast-card-full">
+        <div class="card-header-clean">
+          <div class="title-with-icon">
+            <span class="title-emoji">⛅</span>
+            <div>
+              <h3>Previsão do Tempo • Open-Meteo</h3>
+              <p class="section-subtitle">Modelos de alta resolução a partir do horário atual para as coordenadas da estação</p>
+            </div>
+          </div>
+          <div class="forecast-tabs">
+            <button class="tab-btn active" id="tabHourlyBtn">Próximas 24 Horas</button>
+            <button class="tab-btn" id="tabDailyBtn">Próximos 7 Dias</button>
+          </div>
+        </div>
+
+        <!-- Hourly View Container -->
+        <div id="hourlyViewWrapper" class="forecast-content-wrapper">
+          <!-- 4 Compact Info Cards (Variação, Chuva, Nascer do Sol, Pôr do Sol) -->
+          <div class="forecast-summary-bar">
+            <div class="f-summary-item">
+              <span class="f-summary-icon">🌡️</span>
+              <div class="f-summary-texts">
+                <span class="f-summary-label">Variação Hoje</span>
+                <span class="f-summary-val" id="forecastDayTempRange">-- • --</span>
+              </div>
+            </div>
+            <div class="f-summary-item">
+              <span class="f-summary-icon">🌧️</span>
+              <div class="f-summary-texts">
+                <span class="f-summary-label">Prob. Chuva</span>
+                <span class="f-summary-val" id="forecastDayRainProb">--</span>
+              </div>
+            </div>
+            <div class="f-summary-item sun-box">
+              <span class="f-summary-icon">🌅</span>
+              <div class="f-summary-texts">
+                <span class="f-summary-label">Nascer do Sol</span>
+                <span class="f-summary-val" id="sunriseTime">06:05</span>
+              </div>
+            </div>
+            <div class="f-summary-item sun-box">
+              <span class="f-summary-icon">🌇</span>
+              <div class="f-summary-texts">
+                <span class="f-summary-label">Pôr do Sol</span>
+                <span class="f-summary-val" id="sunsetTime">18:18</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 24-Hour Forecast Scrollable Track -->
+          <div id="hourlyForecastContainer" class="hourly-forecast-track">
+            <!-- Injected dynamically by app.js -->
+          </div>
+        </div>
+
+        <!-- 7-Day Forecast View (Hidden by default, toggled via tab) -->
+        <div id="dailyForecastContainer" class="daily-forecast-grid" style="display: none;">
+          <!-- Injected dynamically by app.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 4: Historical 24h INMET Analytics (Interactive Charts & Table) -->
+    <section class="dashboard-table-section">
+      <div class="card glass-card table-card analytics-hub-card">
+        <div class="table-header-bar">
+          <div class="title-with-icon">
+            <span class="title-emoji">📊</span>
+            <div>
+              <h3>Histórico das Últimas 24 Horas • Estação INMET</h3>
+              <p class="section-subtitle">Visualização analítica de chuva, temperaturas, ventos e radiação com dados oficiais</p>
+            </div>
+          </div>
+          <div class="analytics-header-controls">
+            <div class="analytics-view-tabs">
+              <button class="analytics-tab-btn active" id="tabViewChartsBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span>Gráficos Interativos</span>
+              </button>
+              <button class="analytics-tab-btn" id="tabViewTableBtn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                <span>Tabela Detalhada</span>
+              </button>
+            </div>
+            <button id="btnExportCsv" class="btn-export">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Exportar CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Charts View Container (Active by default) -->
+        <div id="analyticsChartsContainer" class="analytics-charts-wrapper">
+          <!-- Chart Category Quick Selector -->
+          <div class="charts-category-bar">
+            <button class="chart-cat-btn active" data-chart="all">Visão Geral (Todos)</button>
+            <button class="chart-cat-btn" data-chart="temp">🌡️ Temperatura & Sensação</button>
+            <button class="chart-cat-btn" data-chart="rain">🌧️ Chuva (Barras)</button>
+            <button class="chart-cat-btn" data-chart="wind">🧭 Rosa dos Ventos & Rajadas</button>
+            <button class="chart-cat-btn" data-chart="rad">☀️ Radiação & Umidade</button>
+          </div>
+
+          <div class="charts-grid-layout" id="chartsGridLayout">
+            <!-- Chart 1: Rain Bar Chart -->
+            <div class="chart-panel-card" id="cardChartRain">
+              <div class="chart-panel-header">
+                <div class="chart-panel-title">
+                  <span class="chart-icon">🌧️</span>
+                  <div>
+                    <h4>Precipitação Horária Acumulada</h4>
+                    <span class="chart-sub">Volume de chuva a cada hora (mm)</span>
+                  </div>
+                </div>
+                <div class="chart-badge-accent" id="chartRain24hTotal">Total: 0.0 mm</div>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="chartRainCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 2: Temperature & Dew Point Line Chart with dots -->
+            <div class="chart-panel-card" id="cardChartTemp">
+              <div class="chart-panel-header">
+                <div class="chart-panel-title">
+                  <span class="chart-icon">🌡️</span>
+                  <div>
+                    <h4>Variação Térmica & Ponto de Orvalho</h4>
+                    <span class="chart-sub">Temp. instantânea, máxima, mínima e sensação (°C)</span>
+                  </div>
+                </div>
+                <div class="chart-badge-accent" id="chartTempRangeBadge">--</div>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="chartTempCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 3: Wind Rose & Polar Area -->
+            <div class="chart-panel-card" id="cardChartWind">
+              <div class="chart-panel-header">
+                <div class="chart-panel-title">
+                  <span class="chart-icon">🧭</span>
+                  <div>
+                    <h4>Análise Polar dos Ventos (Rosa dos Ventos)</h4>
+                    <span class="chart-sub">Frequência por direção (16 rumos cardeais) e velocidade</span>
+                  </div>
+                </div>
+                <div class="chart-badge-accent" id="chartWindDominantBadge">Vento: --</div>
+              </div>
+              <div class="chart-canvas-box wind-dual-box">
+                <div class="polar-chart-wrapper">
+                  <canvas id="chartWindPolarCanvas"></canvas>
+                </div>
+                <div class="speed-chart-wrapper">
+                  <canvas id="chartWindSpeedCanvas"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart 4: Solar Radiation & Relative Humidity -->
+            <div class="chart-panel-card" id="cardChartRad">
+              <div class="chart-panel-header">
+                <div class="chart-panel-title">
+                  <span class="chart-icon">☀️</span>
+                  <div>
+                    <h4>Radiação Solar Global & Umidade</h4>
+                    <span class="chart-sub">Radiação global (kJ/m²) e umidade relativa (%)</span>
+                  </div>
+                </div>
+                <div class="chart-badge-accent" id="chartRadPeakBadge">Pico: --</div>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="chartRadCanvas"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table View Container (Toggleable) -->
+        <div id="analyticsTableContainer" class="table-responsive-wrapper" style="display: none;">
+          <table class="meteorology-table" id="inmetHistoryTable">
+            <thead>
+              <tr>
+                <th>Data (BRT)</th>
+                <th>Hora (BRT)</th>
+                <th>Hora (UTC)</th>
+                <th>Data (UTC)</th>
+                <th>Temp. Inst. (°C)</th>
+                <th>Temp. Máx. (°C)</th>
+                <th>Temp. Mín. (°C)</th>
+                <th>Sensação (°C)</th>
+                <th>Umidade (%)</th>
+                <th>Pressão (hPa)</th>
+                <th>Vento (m/s)</th>
+                <th>Direção (°)</th>
+                <th>Ponto Cardeal</th>
+                <th>Rajada (m/s)</th>
+                <th>Chuva (mm)</th>
+              </tr>
+            </thead>
+            <tbody id="inmetTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <strong>MyWeatherNow</strong> • Monitoramento meteorológico de precisão e sensoriamento remoto em tempo real.
+      </div>
+      <div class="footer-right">
+        <span>Fontes de Dados: 
+          <a href="https://portal.inmet.gov.br/" target="_blank" rel="noopener">INMET</a> • 
+          <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> • 
+          <a href="https://realearth.ssec.wisc.edu/" target="_blank" rel="noopener">NOAA / SSEC UW-Madison (GOES-16)</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="static/app.js?v=2.3.0"></script>
+</body>
+</html>

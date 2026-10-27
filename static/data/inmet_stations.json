@@ -1,0 +1,6722 @@
+[
+  {
+    "code": "A108",
+    "name": "Cruzeiro Do Sul",
+    "state": "AC",
+    "lat": -7.61055555,
+    "lon": -72.6811111,
+    "altitude": "220",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A140",
+    "name": "Epitaciolandia",
+    "state": "AC",
+    "lat": -11.02388888,
+    "lon": -68.73527777,
+    "altitude": "224.5",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A138",
+    "name": "Feijo",
+    "state": "AC",
+    "lat": -8.14277777,
+    "lon": -70.3436111,
+    "altitude": "157.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A102",
+    "name": "Parque Estadual Chandless",
+    "state": "AC",
+    "lat": -9.35833333,
+    "lon": -69.92638888,
+    "altitude": "184.51",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A136",
+    "name": "Porto Walter",
+    "state": "AC",
+    "lat": -8.26722221,
+    "lon": -72.74777777,
+    "altitude": "205.35",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A104",
+    "name": "Rio Branco",
+    "state": "AC",
+    "lat": -9.95916666,
+    "lon": -67.86888888,
+    "altitude": "163",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A353",
+    "name": "Arapiraca",
+    "state": "AL",
+    "lat": -9.80444444,
+    "lon": -36.61916666,
+    "altitude": "236.84",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A355",
+    "name": "Coruripe",
+    "state": "AL",
+    "lat": -10.1286111,
+    "lon": -36.28638888,
+    "altitude": "82.39",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A303",
+    "name": "Maceio",
+    "state": "AL",
+    "lat": -9.55111111,
+    "lon": -35.77027777,
+    "altitude": "84.12",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A327",
+    "name": "Palmeira Dos Indios",
+    "state": "AL",
+    "lat": -9.42027777,
+    "lon": -36.62027777,
+    "altitude": "278.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A323",
+    "name": "Pao De Acucar",
+    "state": "AL",
+    "lat": -9.74916666,
+    "lon": -37.43083332,
+    "altitude": "20.83",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A371",
+    "name": "Piranhas",
+    "state": "AL",
+    "lat": -9.62222221,
+    "lon": -37.76722221,
+    "altitude": "187",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A356",
+    "name": "Sao Luis Do Quitunde",
+    "state": "AL",
+    "lat": -9.28749999,
+    "lon": -35.56583333,
+    "altitude": "13.69",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A113",
+    "name": "Apui",
+    "state": "AM",
+    "lat": -7.20555555,
+    "lon": -59.8886111,
+    "altitude": "156.97",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A120",
+    "name": "Autazes",
+    "state": "AM",
+    "lat": -3.58333333,
+    "lon": -59.12944443,
+    "altitude": "19.9",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A128",
+    "name": "Barcelos",
+    "state": "AM",
+    "lat": -0.98722221,
+    "lon": -62.92416666,
+    "altitude": "29.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A110",
+    "name": "Boca Do Acre",
+    "state": "AM",
+    "lat": -8.77666666,
+    "lon": -67.33249999,
+    "altitude": "111.98",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A117",
+    "name": "Coari",
+    "state": "AM",
+    "lat": -4.09749999,
+    "lon": -63.14527777,
+    "altitude": "33.84",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A109",
+    "name": "Eirunepe",
+    "state": "AM",
+    "lat": -6.65027777,
+    "lon": -69.8686111,
+    "altitude": "121.54",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A112",
+    "name": "Humaita",
+    "state": "AM",
+    "lat": -7.5525,
+    "lon": -63.07138888,
+    "altitude": "53.56",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A121",
+    "name": "Itacoatiara",
+    "state": "AM",
+    "lat": -3.13333333,
+    "lon": -58.48277777,
+    "altitude": "41.54",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A111",
+    "name": "Labrea",
+    "state": "AM",
+    "lat": -7.26055555,
+    "lon": -64.7886111,
+    "altitude": "61.91",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A119",
+    "name": "Manacapuru",
+    "state": "AM",
+    "lat": -3.29472221,
+    "lon": -60.62833332,
+    "altitude": "36.57",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A101",
+    "name": "Manaus",
+    "state": "AM",
+    "lat": -3.10333333,
+    "lon": -60.01638888,
+    "altitude": "61.25",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A133",
+    "name": "Manicore",
+    "state": "AM",
+    "lat": -5.7886111,
+    "lon": -61.28833333,
+    "altitude": "40.64",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A122",
+    "name": "Maues",
+    "state": "AM",
+    "lat": -3.39888888,
+    "lon": -57.67388888,
+    "altitude": "25.49",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A144",
+    "name": "Novo Aripuana",
+    "state": "AM",
+    "lat": -5.1411111,
+    "lon": -60.38055554,
+    "altitude": "45",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A123",
+    "name": "Parintins",
+    "state": "AM",
+    "lat": -2.63916666,
+    "lon": -56.75611111,
+    "altitude": "18.72",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A126",
+    "name": "Presidente Figueiredo",
+    "state": "AM",
+    "lat": -2.05666666,
+    "lon": -60.02583332,
+    "altitude": "60.99",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A125",
+    "name": "Rio Urubu",
+    "state": "AM",
+    "lat": -2.6336111,
+    "lon": -59.60055555,
+    "altitude": "112.84",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A134",
+    "name": "S. G. Da Cachoeira",
+    "state": "AM",
+    "lat": -0.12527777,
+    "lon": -67.06111111,
+    "altitude": "79.67",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A124",
+    "name": "Urucara",
+    "state": "AM",
+    "lat": -2.53472221,
+    "lon": -57.75805555,
+    "altitude": "18.49",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A251",
+    "name": "Itaubal",
+    "state": "AP",
+    "lat": 0.56777777,
+    "lon": -50.8236111,
+    "altitude": "21",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A249",
+    "name": "Macapa",
+    "state": "AP",
+    "lat": 0.03499999,
+    "lon": -51.08888888,
+    "altitude": "16.62",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A242",
+    "name": "Oiapoque",
+    "state": "AP",
+    "lat": 3.81361111,
+    "lon": -51.8625,
+    "altitude": "15.14",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A244",
+    "name": "Porto Grande",
+    "state": "AP",
+    "lat": 0.69416666,
+    "lon": -51.40388888,
+    "altitude": "84.8",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A472",
+    "name": "Acajutiba",
+    "state": "BA",
+    "lat": -11.65444444,
+    "lon": -38.01583333,
+    "altitude": "182",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A434",
+    "name": "Amargosa",
+    "state": "BA",
+    "lat": -13.00944444,
+    "lon": -39.61694443,
+    "altitude": "397.8",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A429",
+    "name": "Barra",
+    "state": "BA",
+    "lat": -11.08472221,
+    "lon": -43.13888888,
+    "altitude": "407.5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A402",
+    "name": "Barreiras",
+    "state": "BA",
+    "lat": -12.12472221,
+    "lon": -45.02694443,
+    "altitude": "474.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A447",
+    "name": "Belmonte",
+    "state": "BA",
+    "lat": -16.08805555,
+    "lon": -39.21527777,
+    "altitude": "89.67",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A433",
+    "name": "Brumado",
+    "state": "BA",
+    "lat": -14.18194443,
+    "lon": -41.67222221,
+    "altitude": "473.37",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A432",
+    "name": "Buritirama",
+    "state": "BA",
+    "lat": -10.72305554,
+    "lon": -43.65111111,
+    "altitude": "506.06",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A431",
+    "name": "Conde",
+    "state": "BA",
+    "lat": -12.03583333,
+    "lon": -37.68388888,
+    "altitude": "31.9",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A416",
+    "name": "Correntina",
+    "state": "BA",
+    "lat": -13.33249999,
+    "lon": -44.61749999,
+    "altitude": "551.71",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A406",
+    "name": "Cruz Das Almas",
+    "state": "BA",
+    "lat": -12.67555554,
+    "lon": -39.08944444,
+    "altitude": "219.76",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A448",
+    "name": "Curaca",
+    "state": "BA",
+    "lat": -9.00138888,
+    "lon": -39.9125,
+    "altitude": "370",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A443",
+    "name": "Delfino",
+    "state": "BA",
+    "lat": -10.455,
+    "lon": -41.20694444,
+    "altitude": "646.24",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A442",
+    "name": "Euclides Da Cunha",
+    "state": "BA",
+    "lat": -10.53722221,
+    "lon": -38.99666666,
+    "altitude": "431.96",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A413",
+    "name": "Feira De Santana",
+    "state": "BA",
+    "lat": -12.1961111,
+    "lon": -38.96749999,
+    "altitude": "229.64",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A452",
+    "name": "Formosa Do Rio Preto",
+    "state": "BA",
+    "lat": -11.05222222,
+    "lon": -45.20083333,
+    "altitude": "488",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A426",
+    "name": "Guanambi",
+    "state": "BA",
+    "lat": -14.20805555,
+    "lon": -42.74972221,
+    "altitude": "552.23",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A439",
+    "name": "Ibotirama",
+    "state": "BA",
+    "lat": -12.19305555,
+    "lon": -43.21333333,
+    "altitude": "425.12",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A410",
+    "name": "Ilheus",
+    "state": "BA",
+    "lat": -14.65888888,
+    "lon": -39.18138888,
+    "altitude": "80.21",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A445",
+    "name": "Ipiau",
+    "state": "BA",
+    "lat": -14.17138888,
+    "lon": -39.69249999,
+    "altitude": "132.11",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A424",
+    "name": "Irece",
+    "state": "BA",
+    "lat": -11.32888888,
+    "lon": -41.86444444,
+    "altitude": "768.42",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A408",
+    "name": "Itaberaba",
+    "state": "BA",
+    "lat": -12.52416666,
+    "lon": -40.29972221,
+    "altitude": "250.11",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A455",
+    "name": "Itamaraju",
+    "state": "BA",
+    "lat": -17.00694444,
+    "lon": -39.55805555,
+    "altitude": "110",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A446",
+    "name": "Itapetinga",
+    "state": "BA",
+    "lat": -15.24472221,
+    "lon": -40.22944443,
+    "altitude": "271.48",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A407",
+    "name": "Itirucu",
+    "state": "BA",
+    "lat": -13.52777777,
+    "lon": -40.11972221,
+    "altitude": "757.42",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A440",
+    "name": "Jacobina",
+    "state": "BA",
+    "lat": -11.205,
+    "lon": -40.465,
+    "altitude": "440.78",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A450",
+    "name": "Jeremoabo",
+    "state": "BA",
+    "lat": -10.08083332,
+    "lon": -38.34583333,
+    "altitude": "261",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A425",
+    "name": "Lencois",
+    "state": "BA",
+    "lat": -12.55777777,
+    "lon": -41.38888888,
+    "altitude": "438.09",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A404",
+    "name": "Luis Eduardo Magalhaes",
+    "state": "BA",
+    "lat": -12.08499999,
+    "lon": -45.70527777,
+    "altitude": "748",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A412",
+    "name": "Macajuba",
+    "state": "BA",
+    "lat": -12.13166666,
+    "lon": -40.35416666,
+    "altitude": "360",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A438",
+    "name": "Marau",
+    "state": "BA",
+    "lat": -13.90694444,
+    "lon": -38.97222221,
+    "altitude": "6.24",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A430",
+    "name": "Piata",
+    "state": "BA",
+    "lat": -13.15555555,
+    "lon": -41.77416666,
+    "altitude": "1283.95",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A427",
+    "name": "Porto Seguro",
+    "state": "BA",
+    "lat": -16.38888888,
+    "lon": -39.18249999,
+    "altitude": "86.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A436",
+    "name": "Queimadas",
+    "state": "BA",
+    "lat": -10.98472221,
+    "lon": -39.61694443,
+    "altitude": "310.11",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A423",
+    "name": "Remanso",
+    "state": "BA",
+    "lat": -9.62555554,
+    "lon": -42.07722221,
+    "altitude": "397.4",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A458",
+    "name": "Ribeira Do Amparo",
+    "state": "BA",
+    "lat": -11.05861111,
+    "lon": -38.44416666,
+    "altitude": "182",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A401",
+    "name": "Salvador",
+    "state": "BA",
+    "lat": -13.00555555,
+    "lon": -38.50583333,
+    "altitude": "47.56",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A456",
+    "name": "Salvador-Radio Farol",
+    "state": "BA",
+    "lat": -12.80833333,
+    "lon": -38.49583333,
+    "altitude": "31",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A415",
+    "name": "Santa Rita De Cassia",
+    "state": "BA",
+    "lat": -11.00333333,
+    "lon": -44.53638888,
+    "altitude": "450",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A428",
+    "name": "Senhor Do Bonfim",
+    "state": "BA",
+    "lat": -10.44305555,
+    "lon": -40.14833333,
+    "altitude": "532.09",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A441",
+    "name": "Serrinha",
+    "state": "BA",
+    "lat": -11.66472222,
+    "lon": -39.02305554,
+    "altitude": "337.79",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A437",
+    "name": "Una",
+    "state": "BA",
+    "lat": -15.28027777,
+    "lon": -39.09138888,
+    "altitude": "74.08",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A444",
+    "name": "Valenca",
+    "state": "BA",
+    "lat": -13.3436111,
+    "lon": -39.12666666,
+    "altitude": "93.12",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A414",
+    "name": "Vitoria Da Conquista",
+    "state": "BA",
+    "lat": -14.88638888,
+    "lon": -40.80138888,
+    "altitude": "879.38",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A360",
+    "name": "Acarau",
+    "state": "CE",
+    "lat": -3.1211111,
+    "lon": -40.08722221,
+    "altitude": "67.15",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A315",
+    "name": "Barbalha",
+    "state": "CE",
+    "lat": -7.30083333,
+    "lon": -39.2711111,
+    "altitude": "409.41",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A347",
+    "name": "Campos Sales",
+    "state": "CE",
+    "lat": -7.07777777,
+    "lon": -40.36277777,
+    "altitude": "577.95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A342",
+    "name": "Crateus",
+    "state": "CE",
+    "lat": -5.18666666,
+    "lon": -40.67222221,
+    "altitude": "298.19",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A314",
+    "name": "Guaramiranga",
+    "state": "CE",
+    "lat": -4.22916666,
+    "lon": -38.95888888,
+    "altitude": "865.53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A319",
+    "name": "Iguatu",
+    "state": "CE",
+    "lat": -6.39638888,
+    "lon": -39.26888888,
+    "altitude": "221.56",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A359",
+    "name": "Itapipoca",
+    "state": "CE",
+    "lat": -3.48416666,
+    "lon": -39.5886111,
+    "altitude": "104.49",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A358",
+    "name": "Jaguaribe",
+    "state": "CE",
+    "lat": -5.90555555,
+    "lon": -38.62777777,
+    "altitude": "149.31",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A332",
+    "name": "Morada Nova",
+    "state": "CE",
+    "lat": -5.0911111,
+    "lon": -38.36472222,
+    "altitude": "93",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A369",
+    "name": "Quixada",
+    "state": "CE",
+    "lat": -4.97888888,
+    "lon": -39.05722222,
+    "altitude": "193",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A325",
+    "name": "Quixeramobim",
+    "state": "CE",
+    "lat": -5.17444443,
+    "lon": -39.28944444,
+    "altitude": "221.04",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A306",
+    "name": "Sobral",
+    "state": "CE",
+    "lat": -3.74805555,
+    "lon": -40.34583333,
+    "altitude": "92.07",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A324",
+    "name": "Taua",
+    "state": "CE",
+    "lat": -6.01749999,
+    "lon": -40.28138888,
+    "altitude": "410.87",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A368",
+    "name": "Tiangua",
+    "state": "CE",
+    "lat": -3.73222221,
+    "lon": -41.01194444,
+    "altitude": "756",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A045",
+    "name": "Aguas Emendadas",
+    "state": "DF",
+    "lat": -15.59638888,
+    "lon": -47.62583332,
+    "altitude": "1030.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A001",
+    "name": "Brasilia",
+    "state": "DF",
+    "lat": -15.78944444,
+    "lon": -47.92583332,
+    "altitude": "1160.96",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A042",
+    "name": "Brazlandia",
+    "state": "DF",
+    "lat": -15.6525,
+    "lon": -48.20138888,
+    "altitude": "1147",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A046",
+    "name": "Gama (Ponte Alta)",
+    "state": "DF",
+    "lat": -15.93527777,
+    "lon": -48.13749999,
+    "altitude": "990",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A047",
+    "name": "Paranoa (Coopa-Df)",
+    "state": "DF",
+    "lat": -16.01222222,
+    "lon": -47.5575,
+    "altitude": "1043",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A657",
+    "name": "Afonso Claudio",
+    "state": "ES",
+    "lat": -20.10416666,
+    "lon": -41.10694444,
+    "altitude": "507.48",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A617",
+    "name": "Alegre",
+    "state": "ES",
+    "lat": -20.75055555,
+    "lon": -41.48888888,
+    "altitude": "138",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A631",
+    "name": "Ecoporanga",
+    "state": "ES",
+    "lat": -18.29138888,
+    "lon": -40.73638888,
+    "altitude": "224",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A614",
+    "name": "Linhares",
+    "state": "ES",
+    "lat": -19.35694444,
+    "lon": -40.0686111,
+    "altitude": "40",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A632",
+    "name": "Marilandia",
+    "state": "ES",
+    "lat": -19.40722222,
+    "lon": -40.53972221,
+    "altitude": "95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A622",
+    "name": "Presidente Kennedy",
+    "state": "ES",
+    "lat": -21.10083333,
+    "lon": -41.03944444,
+    "altitude": "69.12",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A613",
+    "name": "Santa Teresa",
+    "state": "ES",
+    "lat": -19.98833333,
+    "lon": -40.57944443,
+    "altitude": "975.92",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A616",
+    "name": "Sao Mateus",
+    "state": "ES",
+    "lat": -18.6761111,
+    "lon": -39.86416666,
+    "altitude": "28.66",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A633",
+    "name": "Venda Nova Do Imigrante",
+    "state": "ES",
+    "lat": -20.38555555,
+    "lon": -41.18999999,
+    "altitude": "722",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A634",
+    "name": "Vila Velha",
+    "state": "ES",
+    "lat": -20.46694443,
+    "lon": -40.40388888,
+    "altitude": "25",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A612",
+    "name": "Vitoria",
+    "state": "ES",
+    "lat": -20.27083332,
+    "lon": -40.30583333,
+    "altitude": "9",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A024",
+    "name": "Alto Paraiso De Goias",
+    "state": "GO",
+    "lat": -14.13305554,
+    "lon": -47.52333332,
+    "altitude": "1264.7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A013",
+    "name": "Aragarcas",
+    "state": "GO",
+    "lat": -15.90277777,
+    "lon": -52.24527777,
+    "altitude": "327.35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A023",
+    "name": "Caiaponia",
+    "state": "GO",
+    "lat": -16.96694443,
+    "lon": -51.81749999,
+    "altitude": "740.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A034",
+    "name": "Catalao",
+    "state": "GO",
+    "lat": -18.15472222,
+    "lon": -47.92749999,
+    "altitude": "900.72",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A036",
+    "name": "Cristalina",
+    "state": "GO",
+    "lat": -16.78499999,
+    "lon": -47.61305555,
+    "altitude": "1211.08",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A056",
+    "name": "Cristalina (Fazenda Santa Monica)",
+    "state": "GO",
+    "lat": -16.39944444,
+    "lon": -47.62583332,
+    "altitude": "932",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A029",
+    "name": "Edeia",
+    "state": "GO",
+    "lat": -17.33694444,
+    "lon": -49.91472222,
+    "altitude": "608",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A022",
+    "name": "Goianesia",
+    "state": "GO",
+    "lat": -15.22027777,
+    "lon": -48.98999999,
+    "altitude": "667.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A002",
+    "name": "Goiania",
+    "state": "GO",
+    "lat": -16.64277777,
+    "lon": -49.22027777,
+    "altitude": "727.3",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A014",
+    "name": "Goias",
+    "state": "GO",
+    "lat": -15.93972221,
+    "lon": -50.14138888,
+    "altitude": "512.86",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A028",
+    "name": "Ipora",
+    "state": "GO",
+    "lat": -16.42305554,
+    "lon": -51.14888888,
+    "altitude": "610.41",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A015",
+    "name": "Itapaci",
+    "state": "GO",
+    "lat": -14.97972221,
+    "lon": -49.53944444,
+    "altitude": "551",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A035",
+    "name": "Itumbiara",
+    "state": "GO",
+    "lat": -18.40972222,
+    "lon": -49.19194444,
+    "altitude": "491.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A016",
+    "name": "Jatai",
+    "state": "GO",
+    "lat": -17.9236111,
+    "lon": -51.71749999,
+    "altitude": "670.08",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A012",
+    "name": "Luziania",
+    "state": "GO",
+    "lat": -16.26055555,
+    "lon": -47.96694443,
+    "altitude": "1000.82",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A026",
+    "name": "Mineiros",
+    "state": "GO",
+    "lat": -17.45472222,
+    "lon": -52.60111111,
+    "altitude": "862",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A032",
+    "name": "Monte Alegre De Goias",
+    "state": "GO",
+    "lat": -13.25361111,
+    "lon": -46.89027777,
+    "altitude": "552",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A003",
+    "name": "Morrinhos",
+    "state": "GO",
+    "lat": -17.74499999,
+    "lon": -49.10166666,
+    "altitude": "751.09",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A027",
+    "name": "Parauna",
+    "state": "GO",
+    "lat": -16.9625,
+    "lon": -50.42555554,
+    "altitude": "678.74",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A033",
+    "name": "Pires Do Rio",
+    "state": "GO",
+    "lat": -17.30416666,
+    "lon": -48.28416666,
+    "altitude": "757.27",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A005",
+    "name": "Porangatu",
+    "state": "GO",
+    "lat": -13.30944444,
+    "lon": -49.11749999,
+    "altitude": "365",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A017",
+    "name": "Posse",
+    "state": "GO",
+    "lat": -14.08916666,
+    "lon": -46.36638888,
+    "altitude": "830",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A025",
+    "name": "Rio Verde",
+    "state": "GO",
+    "lat": -17.78527777,
+    "lon": -50.965,
+    "altitude": "780.11",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A031",
+    "name": "Sao Miguel Do Araguaia",
+    "state": "GO",
+    "lat": -12.82055554,
+    "lon": -50.33583333,
+    "altitude": "210",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A011",
+    "name": "Sao Simao",
+    "state": "GO",
+    "lat": -18.96916666,
+    "lon": -50.63333333,
+    "altitude": "492.45",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A037",
+    "name": "Silvania",
+    "state": "GO",
+    "lat": -16.67972221,
+    "lon": -48.61805554,
+    "altitude": "952",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A220",
+    "name": "Bacabal",
+    "state": "MA",
+    "lat": -4.24305555,
+    "lon": -44.79499999,
+    "altitude": "22.33",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A204",
+    "name": "Balsas",
+    "state": "MA",
+    "lat": -7.45555555,
+    "lon": -46.02749999,
+    "altitude": "271.03",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A221",
+    "name": "Barra Do Corda",
+    "state": "MA",
+    "lat": -5.50666666,
+    "lon": -45.23694444,
+    "altitude": "154.19",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A238",
+    "name": "Buriticupu",
+    "state": "MA",
+    "lat": -4.32055554,
+    "lon": -46.44944444,
+    "altitude": "174.91",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A205",
+    "name": "Carolina",
+    "state": "MA",
+    "lat": -7.33722221,
+    "lon": -47.45972222,
+    "altitude": "182.88",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A237",
+    "name": "Caxias",
+    "state": "MA",
+    "lat": -4.82138888,
+    "lon": -43.3436111,
+    "altitude": "84.85",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A206",
+    "name": "Chapadinha",
+    "state": "MA",
+    "lat": -3.74277777,
+    "lon": -43.35222222,
+    "altitude": "104",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A222",
+    "name": "Colinas",
+    "state": "MA",
+    "lat": -6.03305554,
+    "lon": -44.23333333,
+    "altitude": "175.37",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A224",
+    "name": "Estreito",
+    "state": "MA",
+    "lat": -6.65333333,
+    "lon": -47.41833332,
+    "altitude": "182.96",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A207",
+    "name": "Grajau",
+    "state": "MA",
+    "lat": -5.81611111,
+    "lon": -46.16222222,
+    "altitude": "232.29",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A225",
+    "name": "Imperatriz",
+    "state": "MA",
+    "lat": -5.55583333,
+    "lon": -47.45972222,
+    "altitude": "117.96",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A218",
+    "name": "Preguicas",
+    "state": "MA",
+    "lat": -2.59222221,
+    "lon": -42.7075,
+    "altitude": "4.62",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A203",
+    "name": "Sao Luis",
+    "state": "MA",
+    "lat": -2.52666666,
+    "lon": -44.21361111,
+    "altitude": "54.8",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A219",
+    "name": "Turiacu",
+    "state": "MA",
+    "lat": -1.66111111,
+    "lon": -45.37249999,
+    "altitude": "35.86",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A255",
+    "name": "Ze Doca",
+    "state": "MA",
+    "lat": -3.26916666,
+    "lon": -45.65111111,
+    "altitude": "45.5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A549",
+    "name": "Aguas Vermelhas",
+    "state": "MG",
+    "lat": -15.75166666,
+    "lon": -41.45777777,
+    "altitude": "754.07",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A534",
+    "name": "Aimores",
+    "state": "MG",
+    "lat": -19.53277777,
+    "lon": -41.09083333,
+    "altitude": "301",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A508",
+    "name": "Almenara",
+    "state": "MG",
+    "lat": -16.16666666,
+    "lon": -40.68777777,
+    "altitude": "189.11",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A566",
+    "name": "Aracuai",
+    "state": "MG",
+    "lat": -16.84888888,
+    "lon": -42.03527777,
+    "altitude": "308",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A505",
+    "name": "Araxa",
+    "state": "MG",
+    "lat": -19.60583333,
+    "lon": -46.94972221,
+    "altitude": "1018.32",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A565",
+    "name": "Bambui",
+    "state": "MG",
+    "lat": -20.0311111,
+    "lon": -46.00888888,
+    "altitude": "697",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A502",
+    "name": "Barbacena",
+    "state": "MG",
+    "lat": -21.22833332,
+    "lon": -43.76777777,
+    "altitude": "1168.76",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "F501",
+    "name": "Belo Horizonte - Cercadinho",
+    "state": "MG",
+    "lat": -19.97999999,
+    "lon": -43.95861111,
+    "altitude": "1199.55",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A521",
+    "name": "Belo Horizonte - Pampulha",
+    "state": "MG",
+    "lat": -19.88388888,
+    "lon": -43.96944443,
+    "altitude": "854.02",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A572",
+    "name": "Belo Horizonte - Santo Agostinho",
+    "state": "MG",
+    "lat": -19.93388888,
+    "lon": -43.95222222,
+    "altitude": "915.47",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A544",
+    "name": "Buritis",
+    "state": "MG",
+    "lat": -15.52416666,
+    "lon": -46.43555555,
+    "altitude": "894",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A530",
+    "name": "Caldas",
+    "state": "MG",
+    "lat": -21.91805554,
+    "lon": -46.38305554,
+    "altitude": "1077.34",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A519",
+    "name": "Campina Verde",
+    "state": "MG",
+    "lat": -19.53916666,
+    "lon": -49.51805554,
+    "altitude": "559.07",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A541",
+    "name": "Capelinha",
+    "state": "MG",
+    "lat": -17.70555555,
+    "lon": -42.38916666,
+    "altitude": "932.06",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A554",
+    "name": "Caratinga",
+    "state": "MG",
+    "lat": -19.73583333,
+    "lon": -42.13722221,
+    "altitude": "609.25",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A520",
+    "name": "Conceicao Das Alagoas",
+    "state": "MG",
+    "lat": -19.98583333,
+    "lon": -48.15166666,
+    "altitude": "572.54",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A557",
+    "name": "Coronel Pacheco",
+    "state": "MG",
+    "lat": -21.54666666,
+    "lon": -43.26111111,
+    "altitude": "411.14",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A538",
+    "name": "Curvelo",
+    "state": "MG",
+    "lat": -18.74777777,
+    "lon": -44.45388888,
+    "altitude": "669.48",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A537",
+    "name": "Diamantina",
+    "state": "MG",
+    "lat": -18.231052,
+    "lon": -43.648269,
+    "altitude": "1359.25",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A564",
+    "name": "Divinopolis",
+    "state": "MG",
+    "lat": -20.17333332,
+    "lon": -44.87499999,
+    "altitude": "796",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A536",
+    "name": "Dores Do Indaia",
+    "state": "MG",
+    "lat": -19.48194443,
+    "lon": -45.59388888,
+    "altitude": "721.09",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A543",
+    "name": "Espinosa",
+    "state": "MG",
+    "lat": -14.91222222,
+    "lon": -42.80861111,
+    "altitude": "565.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A535",
+    "name": "Florestal",
+    "state": "MG",
+    "lat": -19.88527777,
+    "lon": -44.41694443,
+    "altitude": "753.5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A524",
+    "name": "Formiga",
+    "state": "MG",
+    "lat": -20.455,
+    "lon": -45.45388888,
+    "altitude": "878.14",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A532",
+    "name": "Governador Valadares",
+    "state": "MG",
+    "lat": -18.83027777,
+    "lon": -41.97694443,
+    "altitude": "198.24",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A533",
+    "name": "Guanhaes",
+    "state": "MG",
+    "lat": -18.78694444,
+    "lon": -42.94305555,
+    "altitude": "852.68",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A546",
+    "name": "Guarda-Mor",
+    "state": "MG",
+    "lat": -17.56138888,
+    "lon": -47.19916666,
+    "altitude": "997.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A555",
+    "name": "Ibirite (Rola Moca)",
+    "state": "MG",
+    "lat": -20.03138888,
+    "lon": -44.01111111,
+    "altitude": "1198.82",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A550",
+    "name": "Itaobim",
+    "state": "MG",
+    "lat": -16.57555554,
+    "lon": -41.48555555,
+    "altitude": "271.63",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A512",
+    "name": "Ituiutaba",
+    "state": "MG",
+    "lat": -18.95277777,
+    "lon": -49.52499999,
+    "altitude": "540.08",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A559",
+    "name": "Januaria",
+    "state": "MG",
+    "lat": -15.44805555,
+    "lon": -44.36638888,
+    "altitude": "468",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A553",
+    "name": "Joao Pinheiro",
+    "state": "MG",
+    "lat": -17.78444444,
+    "lon": -46.11944443,
+    "altitude": "877.05",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A518",
+    "name": "Juiz De Fora",
+    "state": "MG",
+    "lat": -21.76999999,
+    "lon": -43.36444444,
+    "altitude": "936.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A567",
+    "name": "Machado",
+    "state": "MG",
+    "lat": -21.68083332,
+    "lon": -45.94444444,
+    "altitude": "969",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A556",
+    "name": "Manhuacu",
+    "state": "MG",
+    "lat": -20.26333333,
+    "lon": -42.18277777,
+    "altitude": "819.47",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A540",
+    "name": "Mantena",
+    "state": "MG",
+    "lat": -18.78055554,
+    "lon": -40.98638888,
+    "altitude": "254.91",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A531",
+    "name": "Maria Da Fe",
+    "state": "MG",
+    "lat": -22.31444444,
+    "lon": -45.37305554,
+    "altitude": "1281.43",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A539",
+    "name": "Mocambinho",
+    "state": "MG",
+    "lat": -15.08583333,
+    "lon": -44.01611111,
+    "altitude": "454",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A526",
+    "name": "Montalvania",
+    "state": "MG",
+    "lat": -14.40833333,
+    "lon": -44.40416666,
+    "altitude": "519.52",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A509",
+    "name": "Monte Verde",
+    "state": "MG",
+    "lat": -22.86166666,
+    "lon": -46.04333333,
+    "altitude": "1544.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A506",
+    "name": "Montes Claros",
+    "state": "MG",
+    "lat": -16.68638888,
+    "lon": -43.84388888,
+    "altitude": "645.87",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A517",
+    "name": "Muriae",
+    "state": "MG",
+    "lat": -21.105,
+    "lon": -42.37583332,
+    "altitude": "282.79",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A563",
+    "name": "Nova Porteirinha (Janauba)",
+    "state": "MG",
+    "lat": -15.80277777,
+    "lon": -43.29694444,
+    "altitude": "532",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A570",
+    "name": "Oliveira",
+    "state": "MG",
+    "lat": -20.715,
+    "lon": -44.86444444,
+    "altitude": "1025",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A513",
+    "name": "Ouro Branco",
+    "state": "MG",
+    "lat": -20.55666666,
+    "lon": -43.75611111,
+    "altitude": "1048.2",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A571",
+    "name": "Paracatu",
+    "state": "MG",
+    "lat": -17.24444444,
+    "lon": -46.88166666,
+    "altitude": "705",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A529",
+    "name": "Passa Quatro",
+    "state": "MG",
+    "lat": -22.39583333,
+    "lon": -44.96194444,
+    "altitude": "1017.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A516",
+    "name": "Passos",
+    "state": "MG",
+    "lat": -20.74527777,
+    "lon": -46.63388888,
+    "altitude": "781.7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A562",
+    "name": "Patos De Minas",
+    "state": "MG",
+    "lat": -18.52055554,
+    "lon": -46.44055555,
+    "altitude": "950",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A523",
+    "name": "Patrocinio",
+    "state": "MG",
+    "lat": -18.99666666,
+    "lon": -46.98583333,
+    "altitude": "978.11",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A545",
+    "name": "Pirapora",
+    "state": "MG",
+    "lat": -17.258064,
+    "lon": -44.835556,
+    "altitude": "505.32",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A560",
+    "name": "Pompeu",
+    "state": "MG",
+    "lat": -19.23249999,
+    "lon": -44.96416666,
+    "altitude": "705",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A551",
+    "name": "Rio Pardo De Minas",
+    "state": "MG",
+    "lat": -15.72305554,
+    "lon": -42.43583333,
+    "altitude": "850.06",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A525",
+    "name": "Sacramento",
+    "state": "MG",
+    "lat": -19.87527777,
+    "lon": -47.43416666,
+    "altitude": "913.12",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A552",
+    "name": "Salinas",
+    "state": "MG",
+    "lat": -16.16027777,
+    "lon": -42.31027777,
+    "altitude": "487.14",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A514",
+    "name": "Sao Joao Del Rei",
+    "state": "MG",
+    "lat": -21.10638888,
+    "lon": -44.25083333,
+    "altitude": "929.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A547",
+    "name": "Sao Romao",
+    "state": "MG",
+    "lat": -16.36277777,
+    "lon": -45.12388888,
+    "altitude": "490.29",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A561",
+    "name": "Sao Sebastiao Do Paraiso",
+    "state": "MG",
+    "lat": -20.91,
+    "lon": -47.11416666,
+    "altitude": "845",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A522",
+    "name": "Serra Dos Aimores",
+    "state": "MG",
+    "lat": -17.79888888,
+    "lon": -40.25,
+    "altitude": "211.97",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A569",
+    "name": "Sete Lagoas",
+    "state": "MG",
+    "lat": -19.45527777,
+    "lon": -44.17333332,
+    "altitude": "719",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A527",
+    "name": "Teofilo Otoni",
+    "state": "MG",
+    "lat": -17.89277777,
+    "lon": -41.51555555,
+    "altitude": "467.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A511",
+    "name": "Timoteo",
+    "state": "MG",
+    "lat": -19.57388888,
+    "lon": -42.62249999,
+    "altitude": "493.42",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A528",
+    "name": "Tres Marias",
+    "state": "MG",
+    "lat": -18.20083333,
+    "lon": -45.45972222,
+    "altitude": "931.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A568",
+    "name": "Uberaba",
+    "state": "MG",
+    "lat": -19.71,
+    "lon": -47.96194444,
+    "altitude": "778",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A507",
+    "name": "Uberlandia",
+    "state": "MG",
+    "lat": -18.91694443,
+    "lon": -48.25555555,
+    "altitude": "874.77",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A542",
+    "name": "Unai",
+    "state": "MG",
+    "lat": -16.55416666,
+    "lon": -46.88194443,
+    "altitude": "640.85",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A515",
+    "name": "Varginha",
+    "state": "MG",
+    "lat": -21.56638888,
+    "lon": -45.40416666,
+    "altitude": "949.78",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A510",
+    "name": "Vicosa",
+    "state": "MG",
+    "lat": -20.7625,
+    "lon": -42.86388888,
+    "altitude": "697.64",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A756",
+    "name": "Agua Clara",
+    "state": "MS",
+    "lat": -20.44444444,
+    "lon": -52.87583332,
+    "altitude": "323.63",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S733",
+    "name": "Agua Clara (Faz. Peleja)",
+    "state": "MS",
+    "lat": -19.774306,
+    "lon": -53.273982,
+    "altitude": "527",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S731",
+    "name": "Alcinopolis (Faz. Vale Do Cedro)",
+    "state": "MS",
+    "lat": -18.052175,
+    "lon": -53.845593,
+    "altitude": "384",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A750",
+    "name": "Amambai",
+    "state": "MS",
+    "lat": -23.0025,
+    "lon": -55.32944443,
+    "altitude": "433.59",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A772",
+    "name": "Amambai - Novo Horizonte",
+    "state": "MS",
+    "lat": -23.1211111,
+    "lon": -54.86555555,
+    "altitude": null,
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S736",
+    "name": "Anaurilandia (Faz. Santo Andre)",
+    "state": "MS",
+    "lat": -22.046806,
+    "lon": -52.897545,
+    "altitude": "428",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S701",
+    "name": "Angelica",
+    "state": "MS",
+    "lat": -22.14805555,
+    "lon": -53.76361111,
+    "altitude": "347",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A719",
+    "name": "Aquidauana",
+    "state": "MS",
+    "lat": -20.47555554,
+    "lon": -55.78388888,
+    "altitude": "151.35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S729",
+    "name": "Aquidauana (Faz. Barranco Alto)",
+    "state": "MS",
+    "lat": -19.573766,
+    "lon": -56.155409,
+    "altitude": "101",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S702",
+    "name": "Aral Moreira",
+    "state": "MS",
+    "lat": -22.955,
+    "lon": -55.6261111,
+    "altitude": "605",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S703",
+    "name": "Bandeirantes",
+    "state": "MS",
+    "lat": -19.94555555,
+    "lon": -54.3686111,
+    "altitude": "624",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A759",
+    "name": "Bataguassu",
+    "state": "MS",
+    "lat": -21.75,
+    "lon": -52.47138888,
+    "altitude": "392.13",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S704",
+    "name": "Bonito",
+    "state": "MS",
+    "lat": -21.24666666,
+    "lon": -56.45055555,
+    "altitude": "329",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S706",
+    "name": "Caarapo",
+    "state": "MS",
+    "lat": -22.65694444,
+    "lon": -54.81944443,
+    "altitude": "456",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S707",
+    "name": "Camapua",
+    "state": "MS",
+    "lat": -19.58749999,
+    "lon": -54.02999999,
+    "altitude": "540",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A702",
+    "name": "Campo Grande",
+    "state": "MS",
+    "lat": -20.44722221,
+    "lon": -54.72249999,
+    "altitude": "528.47",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S730",
+    "name": "Caracol (Faz. Ouro E Prata)",
+    "state": "MS",
+    "lat": -21.854199,
+    "lon": -56.868788,
+    "altitude": "392",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A742",
+    "name": "Cassilandia",
+    "state": "MS",
+    "lat": -19.12249999,
+    "lon": -51.72083332,
+    "altitude": "494.72",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A730",
+    "name": "Chapadao Do Sul",
+    "state": "MS",
+    "lat": -18.80222222,
+    "lon": -52.6025,
+    "altitude": "820.82",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S722",
+    "name": "Corguinho (Faz. Morro Alegre)",
+    "state": "MS",
+    "lat": -19.76111111,
+    "lon": -55.32972221,
+    "altitude": "597",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A724",
+    "name": "Corumba",
+    "state": "MS",
+    "lat": -18.99666666,
+    "lon": -57.63749999,
+    "altitude": "111.73",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S726",
+    "name": "Corumba (Ecoa Amolar)",
+    "state": "MS",
+    "lat": -18.040824,
+    "lon": -57.489877,
+    "altitude": "99",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S718",
+    "name": "Corumba (Faz. Campo Zelia)",
+    "state": "MS",
+    "lat": -18.6236111,
+    "lon": -55.68666666,
+    "altitude": "150",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S727",
+    "name": "Corumba (Faz. Eldorado Da Formosa)",
+    "state": "MS",
+    "lat": -17.908087,
+    "lon": -56.5671,
+    "altitude": "124",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S721",
+    "name": "Corumba (Faz. Sao Candido)",
+    "state": "MS",
+    "lat": -20.08583333,
+    "lon": -57.30611111,
+    "altitude": "108",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S725",
+    "name": "Corumba (Faz. Sao Francisco)",
+    "state": "MS",
+    "lat": -17.790603,
+    "lon": -55.774991,
+    "altitude": "145",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S720",
+    "name": "Corumba (Faz. Xaraes)",
+    "state": "MS",
+    "lat": -19.49444444,
+    "lon": -56.95777777,
+    "altitude": "155",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A760",
+    "name": "Costa Rica",
+    "state": "MS",
+    "lat": -18.49277777,
+    "lon": -53.17138888,
+    "altitude": "727.34",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A720",
+    "name": "Coxim",
+    "state": "MS",
+    "lat": -18.51222222,
+    "lon": -54.7361111,
+    "altitude": "251.48",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A721",
+    "name": "Dourados",
+    "state": "MS",
+    "lat": -22.19388888,
+    "lon": -54.91138888,
+    "altitude": "463.3",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S708",
+    "name": "Fatima Do Sul",
+    "state": "MS",
+    "lat": -22.30861111,
+    "lon": -54.32583332,
+    "altitude": "340",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S732",
+    "name": "Figueirao (Faz. Waterloo)",
+    "state": "MS",
+    "lat": -18.74532,
+    "lon": -53.936083,
+    "altitude": "462",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S709",
+    "name": "Iguatemi",
+    "state": "MS",
+    "lat": -23.64444444,
+    "lon": -54.57027777,
+    "altitude": "319",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S734",
+    "name": "Inocencia (Faz. Recanto)",
+    "state": "MS",
+    "lat": -19.98796,
+    "lon": -52.139617,
+    "altitude": "369",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S710",
+    "name": "Itapora",
+    "state": "MS",
+    "lat": -22.09277777,
+    "lon": -54.79888888,
+    "altitude": "360",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A752",
+    "name": "Itaquirai",
+    "state": "MS",
+    "lat": -23.44944444,
+    "lon": -54.18194443,
+    "altitude": "337.82",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A709",
+    "name": "Ivinhema",
+    "state": "MS",
+    "lat": -22.30055555,
+    "lon": -53.82277777,
+    "altitude": "377.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A758",
+    "name": "Jardim",
+    "state": "MS",
+    "lat": -21.4786111,
+    "lon": -56.13777777,
+    "altitude": "252.47",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A749",
+    "name": "Juti",
+    "state": "MS",
+    "lat": -22.85722222,
+    "lon": -54.60555555,
+    "altitude": "375.18",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S711",
+    "name": "Laguna Carapa",
+    "state": "MS",
+    "lat": -22.57527777,
+    "lon": -55.16027777,
+    "altitude": "499",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A731",
+    "name": "Maracaju",
+    "state": "MS",
+    "lat": -21.60916666,
+    "lon": -55.17749999,
+    "altitude": "388.94",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A722",
+    "name": "Miranda",
+    "state": "MS",
+    "lat": -20.39555555,
+    "lon": -56.43166666,
+    "altitude": "132.49",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S735",
+    "name": "Navirai (Faz. Santa Helena Do Pindo)",
+    "state": "MS",
+    "lat": -22.899909,
+    "lon": -53.869219,
+    "altitude": "303",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A717",
+    "name": "Nhumirim",
+    "state": "MS",
+    "lat": -18.9886111,
+    "lon": -56.62277777,
+    "altitude": "102.26",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S724",
+    "name": "Nioaque (Faz. Buritizinho Da Dominguena)",
+    "state": "MS",
+    "lat": -21.067069,
+    "lon": -55.645874,
+    "altitude": "305",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S712",
+    "name": "Nova Alvorada Do Sul",
+    "state": "MS",
+    "lat": -21.45083333,
+    "lon": -54.34194444,
+    "altitude": "407",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S713",
+    "name": "Nova Andradina",
+    "state": "MS",
+    "lat": -22.0786111,
+    "lon": -53.46583333,
+    "altitude": "372",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S723",
+    "name": "Paraiso Das Aguas (Faz. Ranchinho)",
+    "state": "MS",
+    "lat": -19.233169,
+    "lon": -53.329431,
+    "altitude": "617",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A710",
+    "name": "Paranaiba",
+    "state": "MS",
+    "lat": -19.69555555,
+    "lon": -51.18166666,
+    "altitude": "408.06",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S714",
+    "name": "Pedro Gomes",
+    "state": "MS",
+    "lat": -18.07277777,
+    "lon": -54.54888888,
+    "altitude": "251",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A703",
+    "name": "Ponta Pora",
+    "state": "MS",
+    "lat": -22.5525,
+    "lon": -55.71638888,
+    "altitude": "668",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A723",
+    "name": "Porto Murtinho",
+    "state": "MS",
+    "lat": -21.70583333,
+    "lon": -57.88666666,
+    "altitude": "78.56",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S719",
+    "name": "Porto Murtinho (Faz. Sao Luis)",
+    "state": "MS",
+    "lat": -20.97305554,
+    "lon": -57.40111111,
+    "altitude": "178.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S715",
+    "name": "Ribas Do Rio Pardo",
+    "state": "MS",
+    "lat": -20.46666666,
+    "lon": -53.76305555,
+    "altitude": "442",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "S728",
+    "name": "Ribas Do Rio Pardo (Faz. Campo Rico)",
+    "state": "MS",
+    "lat": -21.189845,
+    "lon": -53.555382,
+    "altitude": "449",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A743",
+    "name": "Rio Brilhante",
+    "state": "MS",
+    "lat": -21.77499999,
+    "lon": -54.52805554,
+    "altitude": "324.31",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "S716",
+    "name": "Santa Rita Do Pardo",
+    "state": "MS",
+    "lat": -21.30583333,
+    "lon": -52.82027777,
+    "altitude": "383",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A732",
+    "name": "Sao Gabriel Do Oeste",
+    "state": "MS",
+    "lat": -19.42027777,
+    "lon": -54.55305555,
+    "altitude": "646",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A751",
+    "name": "Sete Quedas",
+    "state": "MS",
+    "lat": -23.96694443,
+    "lon": -55.02416666,
+    "altitude": "398.4",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A754",
+    "name": "Sidrolandia",
+    "state": "MS",
+    "lat": -20.98166666,
+    "lon": -54.97194443,
+    "altitude": "471.43",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A761",
+    "name": "Sonora",
+    "state": "MS",
+    "lat": -17.63527777,
+    "lon": -54.76055555,
+    "altitude": "495.25",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A704",
+    "name": "Tres Lagoas",
+    "state": "MS",
+    "lat": -20.79499999,
+    "lon": -51.71333333,
+    "altitude": "328.94",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A908",
+    "name": "Agua Boa",
+    "state": "MT",
+    "lat": -14.01638888,
+    "lon": -52.21166666,
+    "altitude": "440",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A924",
+    "name": "Alta Floresta",
+    "state": "MT",
+    "lat": -10.07722221,
+    "lon": -56.17916666,
+    "altitude": "291.85",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A909",
+    "name": "Alto Araguaia",
+    "state": "MT",
+    "lat": -17.33944444,
+    "lon": -53.22444443,
+    "altitude": "753.28",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A934",
+    "name": "Alto Taquari",
+    "state": "MT",
+    "lat": -17.8411111,
+    "lon": -53.28944444,
+    "altitude": "862.42",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A910",
+    "name": "Apiacas",
+    "state": "MT",
+    "lat": -9.56333333,
+    "lon": -57.3936111,
+    "altitude": "217.75",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A964",
+    "name": "Aripuana",
+    "state": "MT",
+    "lat": -10.18249999,
+    "lon": -59.45972222,
+    "altitude": "230",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A967",
+    "name": "Barra Do Bugres",
+    "state": "MT",
+    "lat": -15.07583332,
+    "lon": -57.19472221,
+    "altitude": "186",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A945",
+    "name": "Barra Do Garcas",
+    "state": "MT",
+    "lat": -15.88472221,
+    "lon": -52.22722221,
+    "altitude": "304",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A927",
+    "name": "Brasnorte (Novo Mundo)",
+    "state": "MT",
+    "lat": -12.52194443,
+    "lon": -58.23138888,
+    "altitude": "426.2",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A941",
+    "name": "Caceres",
+    "state": "MT",
+    "lat": -16.12999999,
+    "lon": -57.69083333,
+    "altitude": "123.53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A905",
+    "name": "Campo Novo Dos Parecis",
+    "state": "MT",
+    "lat": -13.78583333,
+    "lon": -57.8386111,
+    "altitude": "525.41",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A912",
+    "name": "Campo Verde",
+    "state": "MT",
+    "lat": -15.55888888,
+    "lon": -55.17944443,
+    "altitude": "747",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A962",
+    "name": "Campos De Julio",
+    "state": "MT",
+    "lat": -13.72722221,
+    "lon": -59.2625,
+    "altitude": "620",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A957",
+    "name": "Canarana",
+    "state": "MT",
+    "lat": -13.47055554,
+    "lon": -52.30444444,
+    "altitude": "430",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A926",
+    "name": "Carlinda",
+    "state": "MT",
+    "lat": -9.97055554,
+    "lon": -55.82749999,
+    "altitude": "293.71",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A958",
+    "name": "Chapada Dos Guimaraes",
+    "state": "MT",
+    "lat": -15.46055555,
+    "lon": -55.74972221,
+    "altitude": "800",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A954",
+    "name": "Cocalinho",
+    "state": "MT",
+    "lat": -14.38555555,
+    "lon": -51.00972222,
+    "altitude": "252",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A965",
+    "name": "Colniza",
+    "state": "MT",
+    "lat": -9.45222222,
+    "lon": -59.23527777,
+    "altitude": "140",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A963",
+    "name": "Comodoro Norte",
+    "state": "MT",
+    "lat": -13.63555555,
+    "lon": -59.78499999,
+    "altitude": "624",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A968",
+    "name": "Confresa",
+    "state": "MT",
+    "lat": -10.65416666,
+    "lon": -51.55222222,
+    "altitude": "240",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A919",
+    "name": "Cotriguacu",
+    "state": "MT",
+    "lat": -9.90638888,
+    "lon": -58.57222221,
+    "altitude": "265",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A901",
+    "name": "Cuiaba",
+    "state": "MT",
+    "lat": -15.60694444,
+    "lon": -56.06083333,
+    "altitude": "184",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A949",
+    "name": "Diamantino",
+    "state": "MT",
+    "lat": -14.37777777,
+    "lon": -56.37972221,
+    "altitude": "317",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A970",
+    "name": "Espigao Do Leste",
+    "state": "MT",
+    "lat": -11.42666666,
+    "lon": -52.18583333,
+    "altitude": "380",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A951",
+    "name": "Feliz Natal",
+    "state": "MT",
+    "lat": -12.39694444,
+    "lon": -54.92999999,
+    "altitude": "373",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A930",
+    "name": "Gaucha Do Norte",
+    "state": "MT",
+    "lat": -13.18472221,
+    "lon": -53.2575,
+    "altitude": "375.87",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A906",
+    "name": "Guaranta Do Norte",
+    "state": "MT",
+    "lat": -9.9525,
+    "lon": -54.89777777,
+    "altitude": "283.58",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A932",
+    "name": "Guiratinga",
+    "state": "MT",
+    "lat": -16.34166666,
+    "lon": -53.76611111,
+    "altitude": "525.43",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A950",
+    "name": "Itanhanga",
+    "state": "MT",
+    "lat": -12.23416666,
+    "lon": -56.60222222,
+    "altitude": "350",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A933",
+    "name": "Itiquira",
+    "state": "MT",
+    "lat": -17.17499999,
+    "lon": -54.50166666,
+    "altitude": "593.12",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A914",
+    "name": "Juara",
+    "state": "MT",
+    "lat": -11.28027777,
+    "lon": -57.52666666,
+    "altitude": "263.43",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A920",
+    "name": "Juina",
+    "state": "MT",
+    "lat": -11.37499999,
+    "lon": -58.77472221,
+    "altitude": "365.39",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A955",
+    "name": "Lucas Do Rio Verde",
+    "state": "MT",
+    "lat": -13.07499999,
+    "lon": -55.91138888,
+    "altitude": "393",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A946",
+    "name": "Marcelandia",
+    "state": "MT",
+    "lat": -11.08499999,
+    "lon": -54.51388888,
+    "altitude": "291",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A961",
+    "name": "Mirassol D'Oeste",
+    "state": "MT",
+    "lat": -15.64027777,
+    "lon": -58.07888888,
+    "altitude": "263",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A953",
+    "name": "Nova Canaa Do Norte",
+    "state": "MT",
+    "lat": -10.62444443,
+    "lon": -55.72416666,
+    "altitude": "270",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A928",
+    "name": "Nova Maringa",
+    "state": "MT",
+    "lat": -13.0386111,
+    "lon": -57.09222221,
+    "altitude": "334.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A929",
+    "name": "Nova Ubirata",
+    "state": "MT",
+    "lat": -13.68666666,
+    "lon": -54.95611111,
+    "altitude": "466.48",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A959",
+    "name": "Nova Ubirata - Sede",
+    "state": "MT",
+    "lat": -13.03249999,
+    "lon": -55.24194444,
+    "altitude": "440",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A956",
+    "name": "Nova Xavantina",
+    "state": "MT",
+    "lat": -14.69777777,
+    "lon": -52.35027777,
+    "altitude": "306",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A947",
+    "name": "Novo Santo Antonio",
+    "state": "MT",
+    "lat": -12.28805555,
+    "lon": -50.97138888,
+    "altitude": "205",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A966",
+    "name": "Pocone",
+    "state": "MT",
+    "lat": -17.33666666,
+    "lon": -56.76999999,
+    "altitude": "100",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A937",
+    "name": "Pontes E Lacerda",
+    "state": "MT",
+    "lat": -15.32527777,
+    "lon": -59.2336111,
+    "altitude": "272.53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A960",
+    "name": "Porto Esperidiao",
+    "state": "MT",
+    "lat": -15.86083333,
+    "lon": -58.47222221,
+    "altitude": "159",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A935",
+    "name": "Porto Estrela",
+    "state": "MT",
+    "lat": -15.32472221,
+    "lon": -57.22583332,
+    "altitude": "147.75",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A923",
+    "name": "Primavera Do Leste",
+    "state": "MT",
+    "lat": -15.57999999,
+    "lon": -54.3811111,
+    "altitude": "680",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A916",
+    "name": "Querencia",
+    "state": "MT",
+    "lat": -12.60305555,
+    "lon": -52.1625,
+    "altitude": "355",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A907",
+    "name": "Rondonopolis",
+    "state": "MT",
+    "lat": -16.4625,
+    "lon": -54.58027777,
+    "altitude": "289.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A944",
+    "name": "Rosario Oeste",
+    "state": "MT",
+    "lat": -14.82888888,
+    "lon": -56.44194444,
+    "altitude": "195",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A903",
+    "name": "S.J. Do Rio Claro",
+    "state": "MT",
+    "lat": -13.45388888,
+    "lon": -56.67722221,
+    "altitude": "339.59",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A936",
+    "name": "Salto Do Ceu",
+    "state": "MT",
+    "lat": -15.12472221,
+    "lon": -58.12722221,
+    "altitude": "300.83",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A948",
+    "name": "Santa Rita Do Trivelato",
+    "state": "MT",
+    "lat": -13.81805554,
+    "lon": -55.26777777,
+    "altitude": "510",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A931",
+    "name": "Santo Antonio Do Leste",
+    "state": "MT",
+    "lat": -14.92499999,
+    "lon": -53.88444444,
+    "altitude": "662",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A969",
+    "name": "Santo Antonio Do Leverger",
+    "state": "MT",
+    "lat": -15.85472222,
+    "lon": -56.07083332,
+    "altitude": "190",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A942",
+    "name": "Sao Jose Do Xingu",
+    "state": "MT",
+    "lat": -10.48416666,
+    "lon": -52.37249999,
+    "altitude": "300",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A911",
+    "name": "Sapezal",
+    "state": "MT",
+    "lat": -13.30388888,
+    "lon": -58.76333333,
+    "altitude": "105",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A943",
+    "name": "Serra Nova Dourada",
+    "state": "MT",
+    "lat": -11.98777777,
+    "lon": -51.4261111,
+    "altitude": "441",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A917",
+    "name": "Sinop",
+    "state": "MT",
+    "lat": -11.98222221,
+    "lon": -55.56611111,
+    "altitude": "366.57",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A904",
+    "name": "Sorriso",
+    "state": "MT",
+    "lat": -12.555,
+    "lon": -55.72277777,
+    "altitude": "379.31",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A952",
+    "name": "Tabapora",
+    "state": "MT",
+    "lat": -11.05055555,
+    "lon": -56.83583333,
+    "altitude": "337",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A902",
+    "name": "Tangara Da Serra",
+    "state": "MT",
+    "lat": -14.65,
+    "lon": -57.43166666,
+    "altitude": "440.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A253",
+    "name": "Altamira",
+    "state": "PA",
+    "lat": -3.26999999,
+    "lon": -52.39472221,
+    "altitude": "191",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A201",
+    "name": "Belem",
+    "state": "PA",
+    "lat": -1.41111111,
+    "lon": -48.43944444,
+    "altitude": "21.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A226",
+    "name": "Braganca",
+    "state": "PA",
+    "lat": -1.05583333,
+    "lon": -46.78277777,
+    "altitude": "5.6",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A228",
+    "name": "Breves",
+    "state": "PA",
+    "lat": -1.68027777,
+    "lon": -50.47805554,
+    "altitude": "11",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A236",
+    "name": "Cameta",
+    "state": "PA",
+    "lat": -2.23972221,
+    "lon": -49.49972221,
+    "altitude": "9.92",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A248",
+    "name": "Capitao Poco",
+    "state": "PA",
+    "lat": -1.73472221,
+    "lon": -47.0575,
+    "altitude": "79.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A202",
+    "name": "Castanhal",
+    "state": "PA",
+    "lat": -1.30083333,
+    "lon": -47.94805555,
+    "altitude": "47.13",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A241",
+    "name": "Conceicao Do Araguaia",
+    "state": "PA",
+    "lat": -8.30361111,
+    "lon": -49.28277777,
+    "altitude": "175.74",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A252",
+    "name": "Dom Eliseu",
+    "state": "PA",
+    "lat": -4.28055554,
+    "lon": -47.56388888,
+    "altitude": "251",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A231",
+    "name": "Itaituba",
+    "state": "PA",
+    "lat": -4.27694443,
+    "lon": -55.99305555,
+    "altitude": "24.46",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A240",
+    "name": "Maraba",
+    "state": "PA",
+    "lat": -5.36638888,
+    "lon": -49.05111111,
+    "altitude": "116.58",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A209",
+    "name": "Medicilandia",
+    "state": "PA",
+    "lat": -3.51083333,
+    "lon": -52.96333333,
+    "altitude": "251.68",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A246",
+    "name": "Mina Do Palito",
+    "state": "PA",
+    "lat": -6.31999999,
+    "lon": -55.78777777,
+    "altitude": "259.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A239",
+    "name": "Monte Alegre",
+    "state": "PA",
+    "lat": -2.0,
+    "lon": -54.07638888,
+    "altitude": "100.53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A235",
+    "name": "Novo Repartimento",
+    "state": "PA",
+    "lat": -4.24388888,
+    "lon": -49.93944444,
+    "altitude": "100.76",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A232",
+    "name": "Obidos",
+    "state": "PA",
+    "lat": -1.88083332,
+    "lon": -55.51972221,
+    "altitude": "89.64",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A210",
+    "name": "Pacaja",
+    "state": "PA",
+    "lat": -3.8436111,
+    "lon": -50.63805555,
+    "altitude": "89.02",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A212",
+    "name": "Paragominas",
+    "state": "PA",
+    "lat": -2.90055555,
+    "lon": -47.49499999,
+    "altitude": "88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A211",
+    "name": "Placas",
+    "state": "PA",
+    "lat": -3.86416666,
+    "lon": -54.21638888,
+    "altitude": "100.45",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A245",
+    "name": "Porto De Moz",
+    "state": "PA",
+    "lat": -1.82194443,
+    "lon": -52.11166666,
+    "altitude": "19",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A254",
+    "name": "Redencao",
+    "state": "PA",
+    "lat": -8.04333333,
+    "lon": -50.00694444,
+    "altitude": "199",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A214",
+    "name": "Rondon Do Para",
+    "state": "PA",
+    "lat": -4.82749999,
+    "lon": -48.1736111,
+    "altitude": "203",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A215",
+    "name": "Salinopolis",
+    "state": "PA",
+    "lat": -0.61888888,
+    "lon": -47.35666666,
+    "altitude": "23.18",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A256",
+    "name": "Santa Maria Das Barreiras",
+    "state": "PA",
+    "lat": -8.72972221,
+    "lon": -49.85638888,
+    "altitude": "165",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A233",
+    "name": "Santana Do Araguaia",
+    "state": "PA",
+    "lat": -9.34055555,
+    "lon": -50.35027777,
+    "altitude": "154",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A250",
+    "name": "Santarem",
+    "state": "PA",
+    "lat": -2.5025,
+    "lon": -54.72027777,
+    "altitude": "137",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A216",
+    "name": "Sao Felix Do Xingu",
+    "state": "PA",
+    "lat": -6.63972221,
+    "lon": -51.95694444,
+    "altitude": "211",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A230",
+    "name": "Serra Dos Carajas",
+    "state": "PA",
+    "lat": -6.07749999,
+    "lon": -50.14222221,
+    "altitude": "707",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A227",
+    "name": "Soure",
+    "state": "PA",
+    "lat": -0.72777777,
+    "lon": -48.51583333,
+    "altitude": "12.54",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A213",
+    "name": "Tome Acu",
+    "state": "PA",
+    "lat": -2.59249999,
+    "lon": -48.36055555,
+    "altitude": "42.95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A234",
+    "name": "Tucuma",
+    "state": "PA",
+    "lat": -6.74333333,
+    "lon": -51.14194444,
+    "altitude": "320.93",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A229",
+    "name": "Tucurui",
+    "state": "PA",
+    "lat": -3.82277777,
+    "lon": -49.67499999,
+    "altitude": "137.94",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A247",
+    "name": "Xinguara",
+    "state": "PA",
+    "lat": -7.11055555,
+    "lon": -49.9261111,
+    "altitude": "245",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A310",
+    "name": "Areia",
+    "state": "PB",
+    "lat": -6.97555554,
+    "lon": -35.71805554,
+    "altitude": "573.45",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A348",
+    "name": "Cabaceiras",
+    "state": "PB",
+    "lat": -7.48333333,
+    "lon": -36.28638888,
+    "altitude": "391.96",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A352",
+    "name": "Camaratuba",
+    "state": "PB",
+    "lat": -6.56194444,
+    "lon": -35.13527777,
+    "altitude": "135.51",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A313",
+    "name": "Campina Grande",
+    "state": "PB",
+    "lat": -7.22555554,
+    "lon": -35.90472222,
+    "altitude": "546.17",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A373",
+    "name": "Itaporanga",
+    "state": "PB",
+    "lat": -7.31833332,
+    "lon": -38.14083333,
+    "altitude": "292",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A320",
+    "name": "Joao Pessoa",
+    "state": "PB",
+    "lat": -7.1436111,
+    "lon": -34.84972221,
+    "altitude": "43",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A334",
+    "name": "Monteiro",
+    "state": "PB",
+    "lat": -7.88277777,
+    "lon": -37.12749999,
+    "altitude": "606.39",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A321",
+    "name": "Patos",
+    "state": "PB",
+    "lat": -7.07972221,
+    "lon": -37.27277777,
+    "altitude": "263.66",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A333",
+    "name": "Sao Goncalo",
+    "state": "PB",
+    "lat": -6.83583333,
+    "lon": -38.31166666,
+    "altitude": "237.04",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A388",
+    "name": "Alianca",
+    "state": "PE",
+    "lat": -7.60916666,
+    "lon": -35.23527777,
+    "altitude": "99",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A309",
+    "name": "Arco Verde",
+    "state": "PE",
+    "lat": -8.4336111,
+    "lon": -37.05555555,
+    "altitude": "683.95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A329",
+    "name": "Cabrobo",
+    "state": "PE",
+    "lat": -8.50388888,
+    "lon": -39.31527777,
+    "altitude": "342.74",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A341",
+    "name": "Caruaru",
+    "state": "PE",
+    "lat": -8.35611111,
+    "lon": -36.02833332,
+    "altitude": "837",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A351",
+    "name": "Floresta",
+    "state": "PE",
+    "lat": -8.59888888,
+    "lon": -38.58416666,
+    "altitude": "327.42",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A322",
+    "name": "Garanhuns",
+    "state": "PE",
+    "lat": -8.91083333,
+    "lon": -36.49333333,
+    "altitude": "827.78",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A349",
+    "name": "Ibimirim",
+    "state": "PE",
+    "lat": -8.50944444,
+    "lon": -37.71166666,
+    "altitude": "434.23",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A389",
+    "name": "Itapissuma",
+    "state": "PE",
+    "lat": -7.77749999,
+    "lon": -34.90027777,
+    "altitude": "7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A366",
+    "name": "Ouricuri",
+    "state": "PE",
+    "lat": -7.88583333,
+    "lon": -40.10277777,
+    "altitude": "457.85",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A357",
+    "name": "Palmares",
+    "state": "PE",
+    "lat": -8.66666666,
+    "lon": -35.56805554,
+    "altitude": "164.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A301",
+    "name": "Recife",
+    "state": "PE",
+    "lat": -8.01888888,
+    "lon": -34.94416666,
+    "altitude": "10",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A370",
+    "name": "Salgueiro",
+    "state": "PE",
+    "lat": -8.05805555,
+    "lon": -39.0961111,
+    "altitude": "447",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A387",
+    "name": "Santa Cruz Do Capibaribe",
+    "state": "PE",
+    "lat": -7.95083333,
+    "lon": -36.22583332,
+    "altitude": "456",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A390",
+    "name": "Sao Jose Da Coroa Grande",
+    "state": "PE",
+    "lat": -8.8861111,
+    "lon": -35.15305555,
+    "altitude": "9",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A350",
+    "name": "Serra Talhada",
+    "state": "PE",
+    "lat": -7.95416666,
+    "lon": -38.29499999,
+    "altitude": "499.02",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A328",
+    "name": "Surubim",
+    "state": "PE",
+    "lat": -7.84249999,
+    "lon": -35.79027777,
+    "altitude": "421.44",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A336",
+    "name": "Alvorada Do Gurgueia",
+    "state": "PI",
+    "lat": -8.37638888,
+    "lon": -43.85944444,
+    "altitude": "225",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A377",
+    "name": "Angical Do Piaui",
+    "state": "PI",
+    "lat": -6.08944444,
+    "lon": -42.72749999,
+    "altitude": "183",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A375",
+    "name": "Baixa Grande Do Ribeiro",
+    "state": "PI",
+    "lat": -8.333531,
+    "lon": -45.094625,
+    "altitude": "519",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A326",
+    "name": "Bom Jesus Do Piaui",
+    "state": "PI",
+    "lat": -9.07999999,
+    "lon": -44.32777777,
+    "altitude": "288",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A376",
+    "name": "Campo Maior",
+    "state": "PI",
+    "lat": -4.86416666,
+    "lon": -42.14555555,
+    "altitude": "125",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A365",
+    "name": "Canto Do Buriti",
+    "state": "PI",
+    "lat": -8.11805554,
+    "lon": -42.97583332,
+    "altitude": "312.07",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A337",
+    "name": "Caracol",
+    "state": "PI",
+    "lat": -9.28583333,
+    "lon": -43.32444443,
+    "altitude": "515.3",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A361",
+    "name": "Castelo Do Piaui",
+    "state": "PI",
+    "lat": -5.34916666,
+    "lon": -41.51222222,
+    "altitude": "268.75",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A374",
+    "name": "Corrente",
+    "state": "PI",
+    "lat": -10.42916666,
+    "lon": -45.17305554,
+    "altitude": "452",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A311",
+    "name": "Floriano",
+    "state": "PI",
+    "lat": -6.76138888,
+    "lon": -43.00333333,
+    "altitude": "126.39",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A364",
+    "name": "Gilbues",
+    "state": "PI",
+    "lat": -9.87527777,
+    "lon": -45.34583333,
+    "altitude": "425.1",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A354",
+    "name": "Oeiras",
+    "state": "PI",
+    "lat": -6.97416666,
+    "lon": -42.14694444,
+    "altitude": "154.03",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A308",
+    "name": "Parnaiba",
+    "state": "PI",
+    "lat": -3.08666666,
+    "lon": -41.78305554,
+    "altitude": "52.11",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A330",
+    "name": "Paulistana",
+    "state": "PI",
+    "lat": -8.13222221,
+    "lon": -41.14305555,
+    "altitude": "376",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A343",
+    "name": "Picos",
+    "state": "PI",
+    "lat": -7.0711111,
+    "lon": -41.40416666,
+    "altitude": "232.91",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A335",
+    "name": "Piripiri",
+    "state": "PI",
+    "lat": -4.2761111,
+    "lon": -41.79444444,
+    "altitude": "157.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A331",
+    "name": "Sao Joao Do Piaui",
+    "state": "PI",
+    "lat": -8.36444444,
+    "lon": -42.2525,
+    "altitude": "231",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A345",
+    "name": "Sao Raimundo Nonato",
+    "state": "PI",
+    "lat": -9.03305554,
+    "lon": -42.70111111,
+    "altitude": "385",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A312",
+    "name": "Teresina",
+    "state": "PI",
+    "lat": -5.03472221,
+    "lon": -42.80138888,
+    "altitude": "75.23",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A346",
+    "name": "Urucui",
+    "state": "PI",
+    "lat": -7.44138888,
+    "lon": -44.34499999,
+    "altitude": "398.83",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A363",
+    "name": "Valenca Do Piaui",
+    "state": "PI",
+    "lat": -6.4236111,
+    "lon": -41.74888888,
+    "altitude": "372",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B803",
+    "name": "Campina Da Lagoa",
+    "state": "PR",
+    "lat": -24.57083332,
+    "lon": -52.80027777,
+    "altitude": "598",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A819",
+    "name": "Castro",
+    "state": "PR",
+    "lat": -24.77999999,
+    "lon": -50.04638888,
+    "altitude": "1016",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A869",
+    "name": "Cidade Gaucha",
+    "state": "PR",
+    "lat": -23.35916666,
+    "lon": -52.93194443,
+    "altitude": "365.79",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A876",
+    "name": "Clevelandia",
+    "state": "PR",
+    "lat": -26.41722221,
+    "lon": -52.3486111,
+    "altitude": "966.06",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B806",
+    "name": "Colombo",
+    "state": "PR",
+    "lat": -25.32249999,
+    "lon": -49.15777777,
+    "altitude": "950",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A807",
+    "name": "Curitiba",
+    "state": "PR",
+    "lat": -25.4486111,
+    "lon": -49.23055554,
+    "altitude": "922.91",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A849",
+    "name": "Diamante Do Norte",
+    "state": "PR",
+    "lat": -22.63944444,
+    "lon": -52.89027777,
+    "altitude": "368.22",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A843",
+    "name": "Dois Vizinhos",
+    "state": "PR",
+    "lat": -25.69916666,
+    "lon": -53.09527777,
+    "altitude": "545.95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A846",
+    "name": "Foz Do Iguacu",
+    "state": "PR",
+    "lat": -25.60194444,
+    "lon": -54.48305554,
+    "altitude": "235.09",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A875",
+    "name": "General Carneiro",
+    "state": "PR",
+    "lat": -26.3986111,
+    "lon": -51.35361111,
+    "altitude": "1009.01",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A825",
+    "name": "Goioere",
+    "state": "PR",
+    "lat": -24.18388888,
+    "lon": -53.04888888,
+    "altitude": "481",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A824",
+    "name": "Icaraima",
+    "state": "PR",
+    "lat": -23.39027777,
+    "lon": -53.63583333,
+    "altitude": "381.29",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A823",
+    "name": "Inacio Martins",
+    "state": "PR",
+    "lat": -25.56777777,
+    "lon": -51.07805554,
+    "altitude": "1208.85",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A818",
+    "name": "Ivai",
+    "state": "PR",
+    "lat": -25.01083333,
+    "lon": -50.85388888,
+    "altitude": "803.58",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A871",
+    "name": "Japira",
+    "state": "PR",
+    "lat": -23.77333332,
+    "lon": -50.18055554,
+    "altitude": "692.88",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A821",
+    "name": "Joaquim Tavora",
+    "state": "PR",
+    "lat": -23.50527777,
+    "lon": -49.94638888,
+    "altitude": "512.67",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B804",
+    "name": "Laranjeiras Do Sul",
+    "state": "PR",
+    "lat": -25.37138888,
+    "lon": -52.40083333,
+    "altitude": "889",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A820",
+    "name": "Mal. Candido Rondon",
+    "state": "PR",
+    "lat": -24.53333333,
+    "lon": -54.01916666,
+    "altitude": "392.07",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A835",
+    "name": "Maringa",
+    "state": "PR",
+    "lat": -23.40527777,
+    "lon": -51.93277777,
+    "altitude": "548.51",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A873",
+    "name": "Morretes",
+    "state": "PR",
+    "lat": -25.50888888,
+    "lon": -48.80861111,
+    "altitude": "50.31",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A842",
+    "name": "Nova Fatima",
+    "state": "PR",
+    "lat": -23.41527777,
+    "lon": -50.57777777,
+    "altitude": "664.31",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A822",
+    "name": "Nova Tebas",
+    "state": "PR",
+    "lat": -24.43388888,
+    "lon": -51.95388888,
+    "altitude": "660",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A850",
+    "name": "Paranapoema",
+    "state": "PR",
+    "lat": -22.65833333,
+    "lon": -52.13444444,
+    "altitude": "308.7",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A855",
+    "name": "Planalto",
+    "state": "PR",
+    "lat": -25.72194443,
+    "lon": -53.74805555,
+    "altitude": "399.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A874",
+    "name": "Sao Mateus Do Sul",
+    "state": "PR",
+    "lat": -25.83555555,
+    "lon": -50.36888888,
+    "altitude": "780.21",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A872",
+    "name": "Ventania",
+    "state": "PR",
+    "lat": -24.28027777,
+    "lon": -50.21027777,
+    "altitude": "1093.41",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A628",
+    "name": "Angra Dos Reis",
+    "state": "RJ",
+    "lat": -22.97555554,
+    "lon": -44.30333333,
+    "altitude": "6",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A606",
+    "name": "Arraial Do Cabo",
+    "state": "RJ",
+    "lat": -22.97527777,
+    "lon": -42.02138888,
+    "altitude": "5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A604",
+    "name": "Cambuci",
+    "state": "RJ",
+    "lat": -21.58749999,
+    "lon": -41.95833333,
+    "altitude": "46",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A607",
+    "name": "Campos Dos Goytacazes",
+    "state": "RJ",
+    "lat": -21.71472222,
+    "lon": -41.34388888,
+    "altitude": "17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A620",
+    "name": "Campos Dos Goytacazes - Sao Tome",
+    "state": "RJ",
+    "lat": -22.04166666,
+    "lon": -41.05166666,
+    "altitude": "7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A629",
+    "name": "Carmo",
+    "state": "RJ",
+    "lat": -21.9386111,
+    "lon": -42.60083333,
+    "altitude": "293",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A603",
+    "name": "Duque De Caxias - Xerem",
+    "state": "RJ",
+    "lat": -22.58972221,
+    "lon": -43.28222221,
+    "altitude": "22",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A608",
+    "name": "Macae",
+    "state": "RJ",
+    "lat": -22.3761111,
+    "lon": -41.81194444,
+    "altitude": "28",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A627",
+    "name": "Niteroi",
+    "state": "RJ",
+    "lat": -22.86749999,
+    "lon": -43.10194444,
+    "altitude": "6",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A624",
+    "name": "Nova Friburgo - Salinas",
+    "state": "RJ",
+    "lat": -22.33472221,
+    "lon": -42.67694443,
+    "altitude": "1070",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A619",
+    "name": "Paraty",
+    "state": "RJ",
+    "lat": -23.2236111,
+    "lon": -44.72694443,
+    "altitude": "3",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A637",
+    "name": "Paty Do Alferes - Avelar",
+    "state": "RJ",
+    "lat": -22.34722221,
+    "lon": -43.41777777,
+    "altitude": "508",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A610",
+    "name": "Pico Do Couto",
+    "state": "RJ",
+    "lat": -22.46472222,
+    "lon": -43.29138888,
+    "altitude": "1777",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A609",
+    "name": "Resende",
+    "state": "RJ",
+    "lat": -22.45138888,
+    "lon": -44.44499999,
+    "altitude": "438.83",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A626",
+    "name": "Rio Claro",
+    "state": "RJ",
+    "lat": -22.653579,
+    "lon": -44.040916,
+    "altitude": "516",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A652",
+    "name": "Rio De Janeiro - Forte De Copacabana",
+    "state": "RJ",
+    "lat": -22.98833333,
+    "lon": -43.19055555,
+    "altitude": "25.59",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A636",
+    "name": "Rio De Janeiro - Jacarepagua",
+    "state": "RJ",
+    "lat": -22.93999999,
+    "lon": -43.40277777,
+    "altitude": "20",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A621",
+    "name": "Rio De Janeiro - Vila Militar",
+    "state": "RJ",
+    "lat": -22.86138888,
+    "lon": -43.41138888,
+    "altitude": "30.43",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A602",
+    "name": "Rio De Janeiro-Marambaia",
+    "state": "RJ",
+    "lat": -23.05027777,
+    "lon": -43.59555555,
+    "altitude": "12",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A630",
+    "name": "Santa Maria Madalena",
+    "state": "RJ",
+    "lat": -21.95055555,
+    "lon": -42.01027777,
+    "altitude": "586",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A667",
+    "name": "Saquarema - Sampaio Correia",
+    "state": "RJ",
+    "lat": -22.8711111,
+    "lon": -42.60888888,
+    "altitude": "26",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A601",
+    "name": "Seropedica-Ecologia Agricola",
+    "state": "RJ",
+    "lat": -22.75777777,
+    "lon": -43.68472221,
+    "altitude": "35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A659",
+    "name": "Silva Jardim",
+    "state": "RJ",
+    "lat": -22.64583333,
+    "lon": -42.41555555,
+    "altitude": "19",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A618",
+    "name": "Teresopolis-Parque Nacional",
+    "state": "RJ",
+    "lat": -22.4486111,
+    "lon": -42.98694444,
+    "altitude": "981",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A625",
+    "name": "Tres Rios",
+    "state": "RJ",
+    "lat": -22.09833333,
+    "lon": -43.20833333,
+    "altitude": "295",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A611",
+    "name": "Valenca",
+    "state": "RJ",
+    "lat": -22.35805555,
+    "lon": -43.69555555,
+    "altitude": "370",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A340",
+    "name": "Apodi",
+    "state": "RN",
+    "lat": -5.62666666,
+    "lon": -37.815,
+    "altitude": "131.41",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A316",
+    "name": "Caico",
+    "state": "RN",
+    "lat": -6.46749999,
+    "lon": -37.08499999,
+    "altitude": "171.26",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A344",
+    "name": "Calcanhar",
+    "state": "RN",
+    "lat": -5.16,
+    "lon": -35.48749999,
+    "altitude": "9.82",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A372",
+    "name": "Ipanguacu",
+    "state": "RN",
+    "lat": -5.53499999,
+    "lon": -36.87222221,
+    "altitude": "19",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A317",
+    "name": "Macau",
+    "state": "RN",
+    "lat": -5.15111111,
+    "lon": -36.57305554,
+    "altitude": "17.37",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A318",
+    "name": "Mossoro",
+    "state": "RN",
+    "lat": -4.90416666,
+    "lon": -37.36694443,
+    "altitude": "29.44",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A304",
+    "name": "Natal",
+    "state": "RN",
+    "lat": -5.83722221,
+    "lon": -35.20805555,
+    "altitude": "47.46",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A367",
+    "name": "Santa Cruz",
+    "state": "RN",
+    "lat": -6.22805554,
+    "lon": -36.02666666,
+    "altitude": "227.49",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A940",
+    "name": "Ariquemes",
+    "state": "RO",
+    "lat": -9.94888888,
+    "lon": -62.96194444,
+    "altitude": "128.44",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A939",
+    "name": "Cacoal",
+    "state": "RO",
+    "lat": -11.44583333,
+    "lon": -61.43416666,
+    "altitude": "183.53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A925",
+    "name": "Porto Velho",
+    "state": "RO",
+    "lat": -8.7936111,
+    "lon": -63.84583333,
+    "altitude": "86.7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A938",
+    "name": "Vilhena",
+    "state": "RO",
+    "lat": -12.73499999,
+    "lon": -60.15777777,
+    "altitude": "583.3",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A135",
+    "name": "Boa Vista",
+    "state": "RR",
+    "lat": 2.81694443,
+    "lon": -60.69083333,
+    "altitude": "82.35",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B828",
+    "name": "Acegua",
+    "state": "RS",
+    "lat": -31.87472221,
+    "lon": -54.11972221,
+    "altitude": "271",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B843",
+    "name": "Ajuricaba",
+    "state": "RS",
+    "lat": -28.22083332,
+    "lon": -53.6736111,
+    "altitude": "416",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A826",
+    "name": "Alegrete",
+    "state": "RS",
+    "lat": -29.70916666,
+    "lon": -55.52555554,
+    "altitude": "121",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B847",
+    "name": "Alegrete (Maronna)",
+    "state": "RS",
+    "lat": -29.82138888,
+    "lon": -55.88722221,
+    "altitude": "120",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A827",
+    "name": "Bage",
+    "state": "RS",
+    "lat": -31.34777777,
+    "lon": -54.01333333,
+    "altitude": "226.19",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B827",
+    "name": "Bage - Centro",
+    "state": "RS",
+    "lat": -31.30555555,
+    "lon": -54.01333333,
+    "altitude": "226.2",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B848",
+    "name": "Barra Do Quarai",
+    "state": "RS",
+    "lat": -30.11166666,
+    "lon": -57.3361111,
+    "altitude": "91",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A840",
+    "name": "Bento Goncalves",
+    "state": "RS",
+    "lat": -29.16444444,
+    "lon": -51.53416666,
+    "altitude": "639",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B856",
+    "name": "Bom Jesus (Inmet)",
+    "state": "RS",
+    "lat": -28.66944443,
+    "lon": -50.44194444,
+    "altitude": "1054",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B857",
+    "name": "Bom Jesus - Santo Inacio",
+    "state": "RS",
+    "lat": -28.51388888,
+    "lon": -50.16777777,
+    "altitude": "1132",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A812",
+    "name": "Cacapava Do Sul",
+    "state": "RS",
+    "lat": -30.54527777,
+    "lon": -53.46694443,
+    "altitude": "420.82",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B822",
+    "name": "Cachoeira Do Sul",
+    "state": "RS",
+    "lat": -30.01833332,
+    "lon": -52.93888888,
+    "altitude": "73",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B808",
+    "name": "Cachoeirinha",
+    "state": "RS",
+    "lat": -29.95138888,
+    "lon": -51.12416666,
+    "altitude": "72",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A838",
+    "name": "Camaqua",
+    "state": "RS",
+    "lat": -30.80805555,
+    "lon": -51.83416666,
+    "altitude": "92.3",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A897",
+    "name": "Cambara Do Sul",
+    "state": "RS",
+    "lat": -29.04916666,
+    "lon": -50.14972221,
+    "altitude": "1017",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A884",
+    "name": "Campo Bom",
+    "state": "RS",
+    "lat": -29.67416666,
+    "lon": -51.06416666,
+    "altitude": "23.35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A879",
+    "name": "Canela",
+    "state": "RS",
+    "lat": -29.36888888,
+    "lon": -50.82722221,
+    "altitude": "830.93",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A811",
+    "name": "Cangucu",
+    "state": "RS",
+    "lat": -31.40333333,
+    "lon": -52.70083333,
+    "altitude": "446.81",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B832",
+    "name": "Capao Da Canoa",
+    "state": "RS",
+    "lat": -29.68527777,
+    "lon": -49.99305555,
+    "altitude": "0",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A887",
+    "name": "Capao Do Leao (Pelotas)",
+    "state": "RS",
+    "lat": -31.8025,
+    "lon": -52.40722222,
+    "altitude": "13",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B842",
+    "name": "Carazinho",
+    "state": "RS",
+    "lat": -28.32333332,
+    "lon": -52.81444444,
+    "altitude": "581",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B858",
+    "name": "Casca",
+    "state": "RS",
+    "lat": -28.56361111,
+    "lon": -51.96916666,
+    "altitude": "602",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B818",
+    "name": "Caxias Do Sul - Aeroporto",
+    "state": "RS",
+    "lat": -29.1961111,
+    "lon": -51.18638888,
+    "altitude": "756",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B817",
+    "name": "Caxias Do Sul - Criuva",
+    "state": "RS",
+    "lat": -28.87416666,
+    "lon": -50.97555554,
+    "altitude": "857",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B812",
+    "name": "Charqueadas",
+    "state": "RS",
+    "lat": -29.96555555,
+    "lon": -51.62555554,
+    "altitude": "23",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A853",
+    "name": "Cruz Alta",
+    "state": "RS",
+    "lat": -28.60333333,
+    "lon": -53.6736111,
+    "altitude": "426.69",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B833",
+    "name": "Cruz Alta ( Centro)",
+    "state": "RS",
+    "lat": -28.62583332,
+    "lon": -53.61361111,
+    "altitude": "475",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B852",
+    "name": "Dilermando De Aguiar",
+    "state": "RS",
+    "lat": -29.72555554,
+    "lon": -54.18805555,
+    "altitude": "143",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A881",
+    "name": "Dom Pedrito",
+    "state": "RS",
+    "lat": -31.0025,
+    "lon": -54.61805554,
+    "altitude": "150",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A893",
+    "name": "Encruzilhada Do Sul",
+    "state": "RS",
+    "lat": -30.54305555,
+    "lon": -52.52472221,
+    "altitude": "427.75",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A828",
+    "name": "Erechim",
+    "state": "RS",
+    "lat": -27.65777777,
+    "lon": -52.30583333,
+    "altitude": "777.08",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B845",
+    "name": "Esperanca Do Sul",
+    "state": "RS",
+    "lat": -27.37416666,
+    "lon": -53.96916666,
+    "altitude": "409",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B854",
+    "name": "Faxinal Do Soturno",
+    "state": "RS",
+    "lat": -29.58749999,
+    "lon": -53.42749999,
+    "altitude": "70",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A854",
+    "name": "Frederico Westphalen",
+    "state": "RS",
+    "lat": -27.39555555,
+    "lon": -53.42944443,
+    "altitude": "489.42",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B834",
+    "name": "Garruchos",
+    "state": "RS",
+    "lat": -28.19694444,
+    "lon": -55.62972221,
+    "altitude": "0",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B826",
+    "name": "Herval",
+    "state": "RS",
+    "lat": -32.01277777,
+    "lon": -53.40305555,
+    "altitude": "331",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A883",
+    "name": "Ibiruba",
+    "state": "RS",
+    "lat": -28.65333333,
+    "lon": -53.11194444,
+    "altitude": "455.27",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B849",
+    "name": "Itacurubi",
+    "state": "RS",
+    "lat": -28.69916666,
+    "lon": -55.38055554,
+    "altitude": "148",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B850",
+    "name": "Itaqui",
+    "state": "RS",
+    "lat": -29.15555555,
+    "lon": -56.55555555,
+    "altitude": "71",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A836",
+    "name": "Jaguarao",
+    "state": "RS",
+    "lat": -32.53472221,
+    "lon": -53.37583332,
+    "altitude": "31.48",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B835",
+    "name": "Joia",
+    "state": "RS",
+    "lat": -28.65027777,
+    "lon": -54.11277777,
+    "altitude": "0",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A844",
+    "name": "Lagoa Vermelha",
+    "state": "RS",
+    "lat": -28.22249999,
+    "lon": -51.51277777,
+    "altitude": "833.83",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B853",
+    "name": "Lavras Do Sul",
+    "state": "RS",
+    "lat": -30.7886111,
+    "lon": -53.89416666,
+    "altitude": "390",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B851",
+    "name": "Macambara",
+    "state": "RS",
+    "lat": -29.15527777,
+    "lon": -56.1786111,
+    "altitude": "95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B813",
+    "name": "Minas Do Leao",
+    "state": "RS",
+    "lat": -30.12444443,
+    "lon": -52.05083333,
+    "altitude": "54",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B814",
+    "name": "Montenegro",
+    "state": "RS",
+    "lat": -29.75861111,
+    "lon": -51.4361111,
+    "altitude": "15",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B862",
+    "name": "Mostardas - Bacupari",
+    "state": "RS",
+    "lat": -30.50611111,
+    "lon": -50.41999999,
+    "altitude": "20",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B859",
+    "name": "Mucum",
+    "state": "RS",
+    "lat": -29.15361111,
+    "lon": -51.86527777,
+    "altitude": "197",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B846",
+    "name": "Nonoai",
+    "state": "RS",
+    "lat": -27.35861111,
+    "lon": -52.77805554,
+    "altitude": "546",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B836",
+    "name": "Palmares Do Sul",
+    "state": "RS",
+    "lat": -30.24916666,
+    "lon": -50.50916666,
+    "altitude": "4",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A856",
+    "name": "Palmeira Das Missoes",
+    "state": "RS",
+    "lat": -27.92027777,
+    "lon": -53.31805554,
+    "altitude": "614.11",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B810",
+    "name": "Parque Eldorado",
+    "state": "RS",
+    "lat": -30.09666666,
+    "lon": -51.67388888,
+    "altitude": "50",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A839",
+    "name": "Passo Fundo",
+    "state": "RS",
+    "lat": -28.22666666,
+    "lon": -52.40361111,
+    "altitude": "680.67",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B823",
+    "name": "Pinheiro Machado",
+    "state": "RS",
+    "lat": -31.57472221,
+    "lon": -53.38833333,
+    "altitude": "419",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B825",
+    "name": "Porto Alegre - Belem Novo",
+    "state": "RS",
+    "lat": -30.1861111,
+    "lon": -51.17833332,
+    "altitude": "3.3",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A801",
+    "name": "Porto Alegre - Jardim Botanico",
+    "state": "RS",
+    "lat": -30.05361111,
+    "lon": -51.17472221,
+    "altitude": "41.18",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B837",
+    "name": "Porto Xavier",
+    "state": "RS",
+    "lat": -27.90277777,
+    "lon": -55.16722221,
+    "altitude": "0",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A831",
+    "name": "Quarai",
+    "state": "RS",
+    "lat": -30.3686111,
+    "lon": -56.43722221,
+    "altitude": "103",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B860",
+    "name": "Relvado",
+    "state": "RS",
+    "lat": -29.10444444,
+    "lon": -52.05277777,
+    "altitude": "301",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A802",
+    "name": "Rio Grande",
+    "state": "RS",
+    "lat": -32.07888888,
+    "lon": -52.16777777,
+    "altitude": "4.92",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A813",
+    "name": "Rio Pardo",
+    "state": "RS",
+    "lat": -29.87222221,
+    "lon": -52.38194443,
+    "altitude": "106.99",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B819",
+    "name": "Rolante",
+    "state": "RS",
+    "lat": -29.65583333,
+    "lon": -50.61805554,
+    "altitude": "69",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B855",
+    "name": "Rosario Do Sul",
+    "state": "RS",
+    "lat": -30.25972222,
+    "lon": -54.90222222,
+    "altitude": "115",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B838",
+    "name": "Salto Do Jacui",
+    "state": "RS",
+    "lat": -29.09638888,
+    "lon": -53.2125,
+    "altitude": "322",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A803",
+    "name": "Santa Maria",
+    "state": "RS",
+    "lat": -29.72499999,
+    "lon": -53.72055554,
+    "altitude": "105",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B816",
+    "name": "Santa Maria Do Herval",
+    "state": "RS",
+    "lat": -29.47916666,
+    "lon": -51.01333333,
+    "altitude": "650",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A810",
+    "name": "Santa Rosa",
+    "state": "RS",
+    "lat": -27.84805555,
+    "lon": -54.45222222,
+    "altitude": "329",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B830",
+    "name": "Santa Vitoria Do Palmar (Centro)",
+    "state": "RS",
+    "lat": -33.53166666,
+    "lon": -53.35027777,
+    "altitude": "29",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B829",
+    "name": "Santa Vitoria Do Palmar (Reserva Do Taim)",
+    "state": "RS",
+    "lat": -32.83583333,
+    "lon": -52.6436111,
+    "altitude": "2",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A899",
+    "name": "Santa Vitoria Do Palmar - Barra Do Chui",
+    "state": "RS",
+    "lat": -33.74222221,
+    "lon": -53.37222221,
+    "altitude": "7.41",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B821",
+    "name": "Santana Da Boa Vista",
+    "state": "RS",
+    "lat": -30.85861111,
+    "lon": -53.15555555,
+    "altitude": "138",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A804",
+    "name": "Santana Do Livramento",
+    "state": "RS",
+    "lat": -30.75055555,
+    "lon": -55.40138888,
+    "altitude": "196",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A833",
+    "name": "Santiago",
+    "state": "RS",
+    "lat": -29.19166666,
+    "lon": -54.88555555,
+    "altitude": "390.03",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B844",
+    "name": "Santo Angelo",
+    "state": "RS",
+    "lat": -28.27805554,
+    "lon": -54.27388888,
+    "altitude": "270",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B839",
+    "name": "Santo Antonio Da Patrulha",
+    "state": "RS",
+    "lat": -29.81611111,
+    "lon": -50.53333333,
+    "altitude": "47",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A805",
+    "name": "Santo Augusto",
+    "state": "RS",
+    "lat": -27.85444444,
+    "lon": -53.7911111,
+    "altitude": "489.67",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A830",
+    "name": "Sao Borja",
+    "state": "RS",
+    "lat": -28.65,
+    "lon": -56.01638888,
+    "altitude": "79",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B820",
+    "name": "Sao Francisco De Paula",
+    "state": "RS",
+    "lat": -29.44222221,
+    "lon": -50.56027777,
+    "altitude": "886",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A832",
+    "name": "Sao Gabriel",
+    "state": "RS",
+    "lat": -30.34138888,
+    "lon": -54.31083333,
+    "altitude": "114.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B861",
+    "name": "Sao Jose Do Ouro",
+    "state": "RS",
+    "lat": -27.77249999,
+    "lon": -51.58666666,
+    "altitude": "803",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A829",
+    "name": "Sao Jose Dos Ausentes",
+    "state": "RS",
+    "lat": -28.7486111,
+    "lon": -50.05777777,
+    "altitude": "1228.59",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B831",
+    "name": "Sao Lourenco Do Sul",
+    "state": "RS",
+    "lat": -31.34055555,
+    "lon": -52.01083333,
+    "altitude": "3",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A852",
+    "name": "Sao Luiz Gonzaga",
+    "state": "RS",
+    "lat": -28.41722221,
+    "lon": -54.9625,
+    "altitude": "245.5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A889",
+    "name": "Sao Vicente Do Sul",
+    "state": "RS",
+    "lat": -29.70222222,
+    "lon": -54.69444444,
+    "altitude": "134",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B809",
+    "name": "Sapucaia Do Sul",
+    "state": "RS",
+    "lat": -29.81388888,
+    "lon": -51.15666666,
+    "altitude": "23",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A894",
+    "name": "Serafina Correa",
+    "state": "RS",
+    "lat": -28.70472222,
+    "lon": -51.87083332,
+    "altitude": "485.29",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "B811",
+    "name": "Sertao Santana",
+    "state": "RS",
+    "lat": -30.49416666,
+    "lon": -51.66333333,
+    "altitude": "116",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B840",
+    "name": "Sobradinho",
+    "state": "RS",
+    "lat": -29.39833333,
+    "lon": -53.01361111,
+    "altitude": "379",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A837",
+    "name": "Soledade",
+    "state": "RS",
+    "lat": -28.85916666,
+    "lon": -52.54249999,
+    "altitude": "660.44",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B815",
+    "name": "Taquari",
+    "state": "RS",
+    "lat": -29.79166666,
+    "lon": -51.82749999,
+    "altitude": "53",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A878",
+    "name": "Tavares - Farol De Mostardas",
+    "state": "RS",
+    "lat": -31.24833333,
+    "lon": -50.90638888,
+    "altitude": "3.82",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A882",
+    "name": "Teutonia",
+    "state": "RS",
+    "lat": -29.44916666,
+    "lon": -51.82333332,
+    "altitude": "81",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B841",
+    "name": "Torres-Aeroporto",
+    "state": "RS",
+    "lat": -29.41361111,
+    "lon": -49.80361111,
+    "altitude": "0",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A834",
+    "name": "Tramandai",
+    "state": "RS",
+    "lat": -30.01027777,
+    "lon": -50.13583333,
+    "altitude": "4.56",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A886",
+    "name": "Tupancireta",
+    "state": "RS",
+    "lat": -29.08944444,
+    "lon": -53.82666666,
+    "altitude": "462",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A809",
+    "name": "Uruguaiana",
+    "state": "RS",
+    "lat": -29.83999999,
+    "lon": -57.08194443,
+    "altitude": "74.29",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A880",
+    "name": "Vacaria",
+    "state": "RS",
+    "lat": -28.51361111,
+    "lon": -50.88277777,
+    "altitude": "969.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "B824",
+    "name": "Viamao",
+    "state": "RS",
+    "lat": -30.11527777,
+    "lon": -50.92916666,
+    "altitude": "65",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A867",
+    "name": "Ararangua",
+    "state": "SC",
+    "lat": -28.93138888,
+    "lon": -49.49805555,
+    "altitude": "2",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A845",
+    "name": "Bom Jardim Da Serra - Morro Da Igreja",
+    "state": "SC",
+    "lat": -28.12694443,
+    "lon": -49.47972221,
+    "altitude": "1790.38",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A859",
+    "name": "Cacador",
+    "state": "SC",
+    "lat": -26.81916666,
+    "lon": -50.98555555,
+    "altitude": "944.26",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A898",
+    "name": "Campos Novos",
+    "state": "SC",
+    "lat": -27.3886111,
+    "lon": -51.21583333,
+    "altitude": "963",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A895",
+    "name": "Chapeco",
+    "state": "SC",
+    "lat": -27.08527777,
+    "lon": -52.63583333,
+    "altitude": "679",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A860",
+    "name": "Curitibanos",
+    "state": "SC",
+    "lat": -27.2886111,
+    "lon": -50.60416666,
+    "altitude": "978.1",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A848",
+    "name": "Dionisio Cerqueira",
+    "state": "SC",
+    "lat": -26.286562,
+    "lon": -53.633114,
+    "altitude": "807.54",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A806",
+    "name": "Florianopolis",
+    "state": "SC",
+    "lat": -27.6025,
+    "lon": -48.61999999,
+    "altitude": "4.87",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A817",
+    "name": "Indaial",
+    "state": "SC",
+    "lat": -26.91361111,
+    "lon": -49.26805554,
+    "altitude": "72.24",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A868",
+    "name": "Itajai",
+    "state": "SC",
+    "lat": -26.95083333,
+    "lon": -48.76194444,
+    "altitude": "9.76",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A851",
+    "name": "Itapoa",
+    "state": "SC",
+    "lat": -26.08138888,
+    "lon": -48.64166666,
+    "altitude": "6.18",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A863",
+    "name": "Ituporanga",
+    "state": "SC",
+    "lat": -27.41833332,
+    "lon": -49.64694444,
+    "altitude": "479.79",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A841",
+    "name": "Joacaba",
+    "state": "SC",
+    "lat": -27.16916666,
+    "lon": -51.55888888,
+    "altitude": "767.63",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A865",
+    "name": "Lages",
+    "state": "SC",
+    "lat": -27.80222222,
+    "lon": -50.33555555,
+    "altitude": "952.7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A864",
+    "name": "Major Vieira",
+    "state": "SC",
+    "lat": -26.3936111,
+    "lon": -50.36333333,
+    "altitude": "799.58",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A816",
+    "name": "Novo Horizonte",
+    "state": "SC",
+    "lat": -26.40638888,
+    "lon": -52.85027777,
+    "altitude": "943.57",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A870",
+    "name": "Rancho Queimado",
+    "state": "SC",
+    "lat": -27.6786111,
+    "lon": -49.04194444,
+    "altitude": "881",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A861",
+    "name": "Rio Do Campo",
+    "state": "SC",
+    "lat": -26.93749999,
+    "lon": -50.14555555,
+    "altitude": "591.67",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A862",
+    "name": "Rio Negrinho",
+    "state": "SC",
+    "lat": -26.2486111,
+    "lon": -49.57416666,
+    "altitude": "856",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A815",
+    "name": "Sao Joaquim",
+    "state": "SC",
+    "lat": -28.27555554,
+    "lon": -49.93472221,
+    "altitude": "1400.06",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A857",
+    "name": "Sao Miguel Do Oeste",
+    "state": "SC",
+    "lat": -26.78638888,
+    "lon": -53.51416666,
+    "altitude": "647",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A814",
+    "name": "Urussanga",
+    "state": "SC",
+    "lat": -28.53249999,
+    "lon": -49.31527777,
+    "altitude": "40.56",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A858",
+    "name": "Xanxere",
+    "state": "SC",
+    "lat": -26.9386111,
+    "lon": -52.39805555,
+    "altitude": "878.74",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A409",
+    "name": "Aracaju",
+    "state": "SE",
+    "lat": -10.9525,
+    "lon": -37.05444444,
+    "altitude": "3.72",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A421",
+    "name": "Brejo Grande",
+    "state": "SE",
+    "lat": -10.47388888,
+    "lon": -36.48194443,
+    "altitude": "6.11",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A451",
+    "name": "Itabaiana",
+    "state": "SE",
+    "lat": -10.67166666,
+    "lon": -37.47138888,
+    "altitude": "213",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A417",
+    "name": "Itabaianinha",
+    "state": "SE",
+    "lat": -11.27249999,
+    "lon": -37.79499999,
+    "altitude": "204.8",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A453",
+    "name": "Nossa Senhora Da Gloria",
+    "state": "SE",
+    "lat": -10.20777777,
+    "lon": -37.43194443,
+    "altitude": "271",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A419",
+    "name": "Poco Verde",
+    "state": "SE",
+    "lat": -10.73805555,
+    "lon": -38.10833333,
+    "altitude": "367.01",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A736",
+    "name": "Ariranha",
+    "state": "SP",
+    "lat": -21.13305554,
+    "lon": -48.84055555,
+    "altitude": "525.44",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A725",
+    "name": "Avare",
+    "state": "SP",
+    "lat": -23.10166666,
+    "lon": -48.9411111,
+    "altitude": "776.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A741",
+    "name": "Barra Bonita",
+    "state": "SP",
+    "lat": -22.4711111,
+    "lon": -48.5575,
+    "altitude": "533.68",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A746",
+    "name": "Barra Do Turvo",
+    "state": "SP",
+    "lat": -24.96277777,
+    "lon": -48.41638888,
+    "altitude": "659.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A748",
+    "name": "Barretos",
+    "state": "SP",
+    "lat": -20.55916666,
+    "lon": -48.54499999,
+    "altitude": "534.36",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A755",
+    "name": "Barueri",
+    "state": "SP",
+    "lat": -23.52388888,
+    "lon": -46.86944443,
+    "altitude": "776.5",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A705",
+    "name": "Bauru",
+    "state": "SP",
+    "lat": -22.35805555,
+    "lon": -49.02888888,
+    "altitude": "636.17",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A764",
+    "name": "Bebedouro",
+    "state": "SP",
+    "lat": -20.94805555,
+    "lon": -48.47138888,
+    "altitude": "542",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A765",
+    "name": "Bertioga",
+    "state": "SP",
+    "lat": -23.84472221,
+    "lon": -46.14333333,
+    "altitude": "5",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A744",
+    "name": "Braganca Paulista",
+    "state": "SP",
+    "lat": -22.94916666,
+    "lon": -46.5261111,
+    "altitude": "891",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A769",
+    "name": "Cachoeira Paulista",
+    "state": "SP",
+    "lat": -22.68888888,
+    "lon": -45.00555555,
+    "altitude": "586",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A706",
+    "name": "Campos Do Jordao",
+    "state": "SP",
+    "lat": -22.75027777,
+    "lon": -45.60388888,
+    "altitude": "1662.95",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A738",
+    "name": "Casa Branca",
+    "state": "SP",
+    "lat": -21.78055554,
+    "lon": -47.07527777,
+    "altitude": "734.15",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A762",
+    "name": "Dracena",
+    "state": "SP",
+    "lat": -21.45777777,
+    "lon": -51.55222222,
+    "altitude": "383",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A708",
+    "name": "Franca",
+    "state": "SP",
+    "lat": -20.58444444,
+    "lon": -47.38249999,
+    "altitude": "1002.74",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A737",
+    "name": "Ibitinga",
+    "state": "SP",
+    "lat": -21.85555555,
+    "lon": -48.79972221,
+    "altitude": "496.75",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A712",
+    "name": "Iguape",
+    "state": "SP",
+    "lat": -24.67166666,
+    "lon": -47.54583333,
+    "altitude": "2.7",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A713",
+    "name": "Ipero",
+    "state": "SP",
+    "lat": -23.4261111,
+    "lon": -47.58555555,
+    "altitude": "609.33",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A714",
+    "name": "Itapeva",
+    "state": "SP",
+    "lat": -23.98194443,
+    "lon": -48.88583333,
+    "altitude": "743.33",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A739",
+    "name": "Itapira",
+    "state": "SP",
+    "lat": -22.415,
+    "lon": -46.80527777,
+    "altitude": "634.89",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A753",
+    "name": "Ituverava",
+    "state": "SP",
+    "lat": -20.35972222,
+    "lon": -47.77527777,
+    "altitude": "610.58",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A733",
+    "name": "Jales",
+    "state": "SP",
+    "lat": -20.165,
+    "lon": -50.59499999,
+    "altitude": "460.44",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A735",
+    "name": "Jose Bonifacio",
+    "state": "SP",
+    "lat": -21.08555555,
+    "lon": -49.92027777,
+    "altitude": "408.35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A727",
+    "name": "Lins",
+    "state": "SP",
+    "lat": -21.66611111,
+    "lon": -49.73472221,
+    "altitude": "460.65",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A763",
+    "name": "Marilia",
+    "state": "SP",
+    "lat": -22.23527777,
+    "lon": -49.965,
+    "altitude": "660",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A716",
+    "name": "Ourinhos",
+    "state": "SP",
+    "lat": -23.00055555,
+    "lon": -49.84333333,
+    "altitude": "500",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A726",
+    "name": "Piracicaba",
+    "state": "SP",
+    "lat": -22.70305555,
+    "lon": -47.62333332,
+    "altitude": "566.46",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A747",
+    "name": "Pradopolis",
+    "state": "SP",
+    "lat": -21.33833333,
+    "lon": -48.11388888,
+    "altitude": "544",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A707",
+    "name": "Presidente Prudente",
+    "state": "SP",
+    "lat": -22.11999999,
+    "lon": -51.40861111,
+    "altitude": "431.92",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A718",
+    "name": "Rancharia",
+    "state": "SP",
+    "lat": -22.37277777,
+    "lon": -50.97472221,
+    "altitude": "398.75",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A766",
+    "name": "Registro",
+    "state": "SP",
+    "lat": -24.53305554,
+    "lon": -47.86416666,
+    "altitude": "35",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A711",
+    "name": "Sao Carlos",
+    "state": "SP",
+    "lat": -21.98027777,
+    "lon": -47.88388888,
+    "altitude": "859.29",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A740",
+    "name": "Sao Luiz Do Paraitinga",
+    "state": "SP",
+    "lat": -23.22833332,
+    "lon": -45.41694443,
+    "altitude": "874",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A715",
+    "name": "Sao Miguel Arcanjo",
+    "state": "SP",
+    "lat": -23.89083333,
+    "lon": -47.99916666,
+    "altitude": "710",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A771",
+    "name": "Sao Paulo - Interlagos",
+    "state": "SP",
+    "lat": -23.72444443,
+    "lon": -46.67749999,
+    "altitude": "771",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A701",
+    "name": "Sao Paulo - Mirante",
+    "state": "SP",
+    "lat": -23.4962888,
+    "lon": -46.6200666,
+    "altitude": "785.64",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A770",
+    "name": "Sao Simao",
+    "state": "SP",
+    "lat": -21.46111111,
+    "lon": -47.57944443,
+    "altitude": "620",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A728",
+    "name": "Taubate",
+    "state": "SP",
+    "lat": -23.04166666,
+    "lon": -45.52083332,
+    "altitude": "582.26",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A768",
+    "name": "Tupa",
+    "state": "SP",
+    "lat": -21.92722221,
+    "lon": -50.49027777,
+    "altitude": "498",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A734",
+    "name": "Valparaiso",
+    "state": "SP",
+    "lat": -21.31916666,
+    "lon": -50.93027777,
+    "altitude": "381.9",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A053",
+    "name": "Almas",
+    "state": "TO",
+    "lat": -11.28416666,
+    "lon": -47.21222222,
+    "altitude": "503",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A054",
+    "name": "Araguacu",
+    "state": "TO",
+    "lat": -12.59222221,
+    "lon": -49.5286111,
+    "altitude": "231",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A021",
+    "name": "Araguaina",
+    "state": "TO",
+    "lat": -7.10388888,
+    "lon": -48.20111111,
+    "altitude": "230.76",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A044",
+    "name": "Araguatins",
+    "state": "TO",
+    "lat": -5.6436111,
+    "lon": -48.11194444,
+    "altitude": "130.71",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A043",
+    "name": "Campos Lindos",
+    "state": "TO",
+    "lat": -8.15472222,
+    "lon": -46.63944444,
+    "altitude": "426.56",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A049",
+    "name": "Colinas Do Tocantins",
+    "state": "TO",
+    "lat": -8.09277777,
+    "lon": -48.4786111,
+    "altitude": "200",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A038",
+    "name": "Dianopolis",
+    "state": "TO",
+    "lat": -11.59444444,
+    "lon": -46.84722221,
+    "altitude": "727.87",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A039",
+    "name": "Formoso Do Araguaia",
+    "state": "TO",
+    "lat": -11.88749999,
+    "lon": -49.60833333,
+    "altitude": "215.2",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A019",
+    "name": "Gurupi",
+    "state": "TO",
+    "lat": -11.74499999,
+    "lon": -49.05166666,
+    "altitude": "274",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A055",
+    "name": "Lagoa Da Confusao",
+    "state": "TO",
+    "lat": -10.828286,
+    "lon": -49.847882,
+    "altitude": "178",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A041",
+    "name": "Marianopolis Do To",
+    "state": "TO",
+    "lat": -9.57638888,
+    "lon": -49.72333332,
+    "altitude": "186.69",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A040",
+    "name": "Mateiros",
+    "state": "TO",
+    "lat": -10.43444444,
+    "lon": -45.92194443,
+    "altitude": "791",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A009",
+    "name": "Palmas",
+    "state": "TO",
+    "lat": -10.14777777,
+    "lon": -48.31444444,
+    "altitude": "267",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A010",
+    "name": "Parana",
+    "state": "TO",
+    "lat": -12.615,
+    "lon": -47.87194443,
+    "altitude": "284.96",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A020",
+    "name": "Pedro Afonso",
+    "state": "TO",
+    "lat": -8.9686111,
+    "lon": -48.17722221,
+    "altitude": "189.71",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A018",
+    "name": "Peixe",
+    "state": "TO",
+    "lat": -12.01527777,
+    "lon": -48.54444444,
+    "altitude": "250.87",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A051",
+    "name": "Pium",
+    "state": "TO",
+    "lat": -10.47694443,
+    "lon": -49.62944443,
+    "altitude": "161",
+    "status": "Pane",
+    "type": "Automatica"
+  },
+  {
+    "code": "A050",
+    "name": "Rio Sono",
+    "state": "TO",
+    "lat": -9.79333333,
+    "lon": -47.13277777,
+    "altitude": "291",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A048",
+    "name": "Santa Fe Do Araguaia",
+    "state": "TO",
+    "lat": -7.12416666,
+    "lon": -48.78138888,
+    "altitude": "171",
+    "status": "Operante",
+    "type": "Automatica"
+  },
+  {
+    "code": "A052",
+    "name": "Santa Rosa Do Tocantins",
+    "state": "TO",
+    "lat": -11.42888888,
+    "lon": -48.18499999,
+    "altitude": "306",
+    "status": "Operante",
+    "type": "Automatica"
+  }
+]

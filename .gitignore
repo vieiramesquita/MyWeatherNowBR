@@ -1,0 +1,51 @@
+﻿# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# App Runtime Caches & Temporary Artifacts
+app/cache/*
+!app/cache/.gitkeep
+static/cache/*
+!static/cache/.gitkeep
+*.log
+*.tmp
+*.temp
+
+# Large Raw Spatial Data (Processed GeoJSONs in static/data/geo are kept)
+static/data/geo/areas_urbanizadas/
+static/data/geo/*.zip
+static/data/geo/*.shp
+static/data/geo/*.dbf
+static/data/geo/*.shx
+static/data/geo/*.cpg
+
+# Sensitive Files & Credentials
+.env
+.env.*
+*.pem
+*.key
+*.secret
+credentials.json
+token.json
+client_secrets.json
+
+# IDE & Operating System
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
