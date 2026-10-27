@@ -2782,3 +2782,541 @@ body {
   min-width: 36px;
   box-shadow: 0 0 6px rgba(56, 189, 248, 0.1);
 }
+
+
+/* ==========================================================================
+   Mobile & Responsive Excellence (GitHub.io & Smart Device Ready)
+   ========================================================================== */
+
+/* Touch & tap enhancements */
+button, input, select, a, .chip, .player-btn, .seg-btn, .analytics-tab-btn, .chart-pill-btn {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 768px) {
+  /* Layout Spacing */
+  .main-dashboard {
+    padding: 0 10px 40px;
+    margin: 12px auto;
+    gap: 16px;
+  }
+
+  /* Header Optimization */
+  .app-header {
+    padding: 10px 12px;
+  }
+
+  .header-container {
+    gap: 12px;
+  }
+
+  .brand-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .brand-title-row h1 {
+    font-size: 18px;
+  }
+
+  .brand-subtitle {
+    display: none; /* Hide subtitle to keep mobile header clean and tight */
+  }
+
+  .header-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .station-search-box {
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    padding: 8px 12px;
+  }
+
+  .header-actions > .action-btn,
+  .header-actions > .refresh-pill,
+  .header-actions > .clock-badge {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Row with GPS + Refresh aligned */
+  .action-btn.btn-gps {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 12px;
+  }
+
+  .refresh-pill {
+    width: 100%;
+    justify-content: space-between;
+    padding: 4px 10px;
+  }
+
+  .clock-badge {
+    display: none; /* Secondary info hidden on mobile to save vertical space */
+  }
+
+  /* Quick Chips Horizontal Swipe */
+  .quick-chips-bar {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 0 6px 0;
+    margin-top: 4px;
+  }
+
+  .quick-chips-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chips-label {
+    font-size: 10px;
+    flex-shrink: 0;
+    margin-right: 4px;
+  }
+
+  .chips-container {
+    display: flex;
+    flex-shrink: 0;
+    gap: 6px;
+  }
+
+  .chip {
+    padding: 4px 10px;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  /* Station Hero Card */
+  .station-hero-card {
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  .station-meta-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 14px;
+  }
+
+  .station-id-cluster {
+    width: 100%;
+  }
+
+  .station-code-badge {
+    font-size: 16px;
+    padding: 6px 10px;
+  }
+
+  .station-name {
+    font-size: 19px;
+  }
+
+  .station-coords {
+    font-size: 11px;
+  }
+
+  .station-link-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .inmet-official-link {
+    width: 100%;
+    justify-content: center;
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+
+  .reading-time-tag {
+    font-size: 11px;
+    text-align: center;
+  }
+
+  /* Source Toggle on Mobile */
+  .station-source-toggle-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+
+  .source-toggle-left {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .source-toggle-label {
+    font-size: 11px;
+  }
+
+  .source-toggle-group {
+    width: 100%;
+    display: flex;
+    gap: 4px;
+  }
+
+  .btn-source {
+    flex: 1;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+
+  .source-status-note {
+    width: 100%;
+    justify-content: flex-start;
+    font-size: 11px;
+  }
+
+  /* Main Temp Hero Row */
+  .hero-temp-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    margin-top: 14px;
+  }
+
+  .main-temp-display {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .temp-huge {
+    font-size: 46px;
+  }
+
+  .comparison-widget {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+  }
+
+  .comparison-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  /* Metrics Grid (2 compact columns on mobile) */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+
+  .metric-card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  .metric-header {
+    gap: 6px;
+  }
+
+  .metric-icon {
+    font-size: 16px;
+  }
+
+  .metric-title {
+    font-size: 11px;
+    line-height: 1.2;
+  }
+
+  .metric-val {
+    font-size: 20px;
+  }
+
+  .metric-unit {
+    font-size: 12px;
+  }
+
+  .metric-sub {
+    font-size: 10px;
+  }
+
+  /* Satellite Player */
+  .goes-screen-wrapper {
+    border-radius: 14px;
+  }
+
+  .canvas-holder {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+
+  .goes-player-controls {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .player-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .btn-play-main {
+    width: 44px;
+    height: 44px;
+  }
+
+  .timeline-slider-row {
+    width: 100%;
+  }
+
+  .goes-options-panel {
+    padding: 14px 12px;
+  }
+
+  .segmented-control {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+  }
+
+  .seg-btn {
+    padding: 7px 4px;
+  }
+
+  /* Open-Meteo Forecast Card */
+  .forecast-card-full {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .forecast-summary-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .f-summary-item {
+    gap: 4px;
+  }
+
+  .f-summary-label {
+    font-size: 10px;
+  }
+
+  .f-summary-val {
+    font-size: 12px;
+  }
+
+  /* Hourly Track Native Swipe */
+  .hourly-forecast-track {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-bottom: 8px;
+  }
+
+  .hourly-forecast-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hourly-card {
+    scroll-snap-align: start;
+    min-width: 58px;
+    padding: 8px 3px;
+  }
+
+  .hourly-temp {
+    font-size: 13px;
+  }
+
+  /* Daily Forecast List */
+  .daily-row {
+    grid-template-columns: 80px 28px minmax(0, 1fr) 52px;
+    gap: 6px;
+    padding: 8px 6px;
+    font-size: 12px;
+  }
+
+  .daily-temp-bar-wrapper {
+    width: auto;
+    gap: 6px;
+  }
+
+  .daily-tmin, .daily-tmax {
+    min-width: 28px;
+    font-size: 11px;
+  }
+
+  .daily-rain-prob {
+    min-width: 52px;
+    padding: 2px 5px;
+    font-size: 10px;
+  }
+
+  .sun-ephemeris-bar {
+    flex-direction: column;
+    gap: 8px;
+    text-align: center;
+  }
+
+  /* Analytics Hub (Row 4) */
+  .analytics-hub-card {
+    padding: 16px 12px;
+    border-radius: 16px;
+  }
+
+  .table-header-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .analytics-header-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .analytics-view-tabs {
+    width: 100%;
+  }
+
+  .analytics-tab-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 9px 8px;
+    font-size: 12px;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 12px;
+    font-size: 12px;
+  }
+
+  /* Category Filter Bar Horizontal Swipe */
+  .charts-category-bar {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 6px;
+    margin: 10px 0 14px 0;
+  }
+
+  .charts-category-bar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .chart-pill-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+
+  /* Charts on Mobile */
+  .charts-grid-layout {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .wind-dual-box {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .chart-box-card {
+    padding: 12px 10px;
+    border-radius: 14px;
+  }
+
+  .chart-card-title {
+    font-size: 13px;
+  }
+
+  .chart-body-wrapper {
+    height: 220px;
+  }
+
+  .wind-polar-wrapper, .wind-speed-wrapper {
+    height: 220px;
+  }
+
+  /* Detailed Table View on Mobile */
+  .table-responsive-wrapper {
+    -webkit-overflow-scrolling: touch;
+    border-radius: 10px;
+  }
+
+  .meteorology-table {
+    font-size: 11px;
+  }
+
+  .meteorology-table th,
+  .meteorology-table td {
+    padding: 8px 10px;
+  }
+
+  /* Sticky first column for easy timeline reading */
+  .meteorology-table th:first-child,
+  .meteorology-table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 5;
+    background: #080d1e;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .meteorology-table th:nth-child(2),
+  .meteorology-table td:nth-child(2) {
+    position: sticky;
+    left: 85px;
+    z-index: 5;
+    background: #080d1e;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .cardinal-badge {
+    padding: 1px 5px;
+    font-size: 10px;
+    min-width: 30px;
+  }
+
+  /* Footer */
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+}
+
+/* Extra small devices (< 380px) */
+@media (max-width: 380px) {
+  .temp-huge {
+    font-size: 38px;
+  }
+
+  .metric-val {
+    font-size: 17px;
+  }
+
+  .daily-row {
+    grid-template-columns: 70px 24px minmax(0, 1fr) 46px;
+    font-size: 11px;
+  }
+
+  .meteorology-table th,
+  .meteorology-table td {
+    padding: 6px 8px;
+  }
+}
