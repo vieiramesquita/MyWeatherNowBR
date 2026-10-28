@@ -3446,3 +3446,674 @@ button, input, select, a, .chip, .player-btn, .seg-btn, .analytics-tab-btn, .cha
     padding: 6px 8px;
   }
 }
+
+
+/* ==========================================================================
+   Argon Pro v4.0 • Atmospheric Intelligence, Vector GOES-19 & UX Enhancements
+   ========================================================================== */
+
+/* 1. Toast Notification Stack */
+.toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 380px;
+  pointer-events: none;
+}
+
+.toast-item {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  background: rgba(12, 19, 38, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  animation: toastSlideIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.toast-item.toast-success { border-color: rgba(16, 185, 129, 0.5); }
+.toast-item.toast-warn    { border-color: rgba(245, 158, 11, 0.5); }
+.toast-item.toast-error   { border-color: rgba(244, 63, 94, 0.55); }
+
+.toast-item.toast-exit {
+  animation: toastSlideOut 0.24s ease forwards;
+}
+
+.toast-icon {
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateY(14px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastSlideOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to   { opacity: 0; transform: translateY(10px) scale(0.95); }
+}
+
+/* 2. Favorites Bar & Station Action Pills */
+.chips-favorites-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-right: 10px;
+  margin-right: 2px;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.fav-group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fbbf24;
+  white-space: nowrap;
+}
+
+.chip.chip-fav {
+  border-color: rgba(251, 191, 36, 0.35);
+  background: rgba(245, 158, 11, 0.12);
+  color: #fde68a;
+}
+
+.chip.chip-fav:hover {
+  background: rgba(245, 158, 11, 0.24);
+  border-color: rgba(251, 191, 36, 0.65);
+}
+
+.chip.chip-fav.active {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.32), rgba(6, 182, 212, 0.25));
+  border-color: #fbbf24;
+  color: #fff;
+}
+
+.station-quick-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.station-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: rgba(15, 23, 42, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.station-action-pill:hover {
+  background: rgba(30, 41, 59, 0.95);
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+  transform: translateY(-1px);
+}
+
+.station-action-pill.is-fav {
+  background: rgba(245, 158, 11, 0.16);
+  border-color: rgba(251, 191, 36, 0.55);
+  color: #fde047;
+}
+
+/* 3. Dynamic Weather Alert Banner */
+.weather-alert-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 13px 18px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.18), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+}
+
+.weather-alert-banner.severity-rose {
+  background: linear-gradient(90deg, rgba(244, 63, 94, 0.22), rgba(15, 23, 42, 0.92));
+  border-color: rgba(244, 63, 94, 0.55);
+}
+
+.weather-alert-banner.severity-cyan {
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.2), rgba(15, 23, 42, 0.92));
+  border-color: rgba(6, 182, 212, 0.45);
+}
+
+.alert-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.alert-banner-icon {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.alert-banner-texts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.alert-banner-texts strong {
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 14px;
+}
+
+.alert-banner-texts span {
+  color: var(--text-secondary);
+  font-size: 12.5px;
+}
+
+.alert-dismiss-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--text-secondary);
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.alert-dismiss-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* 4. Atmospheric Intelligence, AQI, Agrometeo & Solar Arc Grid */
+.intel-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+@media (max-width: 1320px) {
+  .intel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .intel-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+}
+
+.intel-card {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 14px;
+  background: linear-gradient(155deg, rgba(16, 25, 48, 0.86) 0%, rgba(9, 14, 28, 0.92) 100%);
+  border: 1px solid rgba(99, 130, 194, 0.18);
+  transition: var(--transition-smooth);
+}
+
+.intel-card:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  transform: translateY(-2px);
+}
+
+.intel-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.intel-title-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.intel-emoji {
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.intel-title-group h4 {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.intel-sub {
+  display: block;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.intel-status-pill {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pill-emerald { background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.38); }
+.pill-cyan    { background: rgba(6, 182, 212, 0.16);  color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.38); }
+.pill-amber   { background: rgba(245, 158, 11, 0.18); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.42); }
+.pill-rose    { background: rgba(244, 63, 94, 0.18);  color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.45); }
+.pill-purple  { background: rgba(139, 92, 246, 0.18); color: #c4b5fd; border: 1px solid rgba(139, 92, 246, 0.42); }
+
+.intel-kpi-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.intel-kpi-box {
+  background: rgba(8, 13, 27, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.intel-kpi-label {
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.intel-kpi-val {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.15;
+}
+
+.intel-kpi-val small {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.intel-kpi-micro {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-secondary);
+}
+
+.intel-uv-inline {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.uv-mini-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(16, 185, 129, 0.16);
+  color: #34d399;
+}
+
+/* Cloud Vertical Layers */
+.cloud-layers-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  background: rgba(8, 13, 27, 0.5);
+  padding: 9px 11px;
+  border-radius: 11px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cloud-layer-row {
+  display: grid;
+  grid-template-columns: 92px 1fr 36px;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.cloud-layer-label {
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.cloud-bar-track {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cloud-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+.cloud-bar-fill.fill-high { background: linear-gradient(90deg, #38bdf8, #a78bfa); }
+.cloud-bar-fill.fill-mid  { background: linear-gradient(90deg, #06b6d4, #3b82f6); }
+.cloud-bar-fill.fill-low  { background: linear-gradient(90deg, #64748b, #94a3b8); }
+
+.cloud-layer-pct {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-primary);
+  text-align: right;
+}
+
+/* Pollutants Mini Grid */
+.pollutants-mini-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.pollutant-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  border-radius: 9px;
+  background: rgba(8, 13, 27, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+}
+
+.pollutant-pill .p-name {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.pollutant-pill .p-val {
+  font-family: var(--font-mono);
+  color: var(--text-primary);
+  font-size: 11px;
+}
+
+/* Agrometeo Spray Checks */
+.agro-checks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.agro-check-chip {
+  flex: 1;
+  min-width: 78px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  padding: 5px 7px;
+  border-radius: 8px;
+  background: rgba(8, 13, 27, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+}
+
+.agro-check-chip.ok   { border-color: rgba(16, 185, 129, 0.4); color: #34d399; background: rgba(16, 185, 129, 0.1); }
+.agro-check-chip.warn { border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; background: rgba(245, 158, 11, 0.1); }
+.agro-check-chip.bad  { border-color: rgba(244, 63, 94, 0.45); color: #fb7185; background: rgba(244, 63, 94, 0.1); }
+
+/* Live Solar Arc Box */
+.solar-arc-box {
+  background: rgba(8, 13, 27, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 6px 10px 4px;
+}
+
+.solar-arc-svg {
+  width: 100%;
+  height: 92px;
+  display: block;
+}
+
+.arc-svg-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  fill: #cbd5e1;
+}
+
+.arc-svg-label.muted {
+  fill: #64748b;
+  font-size: 9.5px;
+}
+
+.ephemeris-bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-secondary);
+  padding: 0 2px;
+}
+
+.intel-footer-note {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  line-height: 1.35;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* 5. GOES-19 Geostationary Vector Overlay, Ticks, Fullscreen & Snapshot */
+.goes-vector-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.goes-vector-overlay path {
+  vector-effect: non-scaling-stroke;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+#svgLayerBorders path {
+  fill: none;
+  stroke: rgba(250, 204, 21, 0.85);
+  stroke-width: 1.25px;
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.85));
+}
+
+#svgLayerCities path {
+  fill: none;
+  stroke: rgba(56, 189, 248, 0.55);
+  stroke-width: 0.75px;
+}
+
+#svgLayerUrban path {
+  fill: rgba(244, 63, 94, 0.28);
+  stroke: rgba(251, 113, 133, 0.85);
+  stroke-width: 0.85px;
+}
+
+.dot-fire {
+  background: linear-gradient(135deg, #fde047, #f97316, #dc2626);
+  box-shadow: 0 0 8px #f97316;
+}
+
+.dot-airmass {
+  background: linear-gradient(135deg, #38bdf8, #10b981, #a855f7);
+  box-shadow: 0 0 8px #a855f7;
+}
+
+.timeline-ticks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.timeline-tick-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.timeline-tick-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.timeline-tick-btn.active {
+  color: var(--accent-cyan);
+  font-weight: 700;
+  background: rgba(6, 182, 212, 0.14);
+}
+
+.gif-action-buttons-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+  align-items: stretch;
+}
+
+.btn-snapshot-png {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  background: rgba(15, 23, 42, 0.88);
+  color: #67e8f9;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--transition-smooth);
+}
+
+.btn-snapshot-png:hover {
+  background: rgba(6, 182, 212, 0.2);
+  border-color: var(--accent-cyan);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* Fullscreen GOES Studio Viewer */
+#goesScreenWrapper:fullscreen,
+#goesScreenWrapper.goes-fullscreen-active {
+  background: #02050d;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+  border: none;
+  z-index: 9000;
+}
+
+#goesScreenWrapper:fullscreen .canvas-holder,
+#goesScreenWrapper.goes-fullscreen-active .canvas-holder {
+  flex: 1;
+  max-width: min(86vh, 94vw);
+  max-height: calc(100vh - 110px);
+  width: auto;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  margin: auto;
+}
+
+/* 6. Analytics Hub 5th Chart Span & Header Row */
+.analytics-title-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.chart-panel-card.span-full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+  .station-quick-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .station-action-pill {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .gif-action-buttons-row {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-snapshot-png {
+    padding: 12px 16px;
+  }
+
+  .toast-container {
+    left: 12px;
+    right: 12px;
+    bottom: 14px;
+    max-width: none;
+  }
+}

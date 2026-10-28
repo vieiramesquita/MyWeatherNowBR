@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MyWeatherNow • Monitoramento Meteorológico & Satélite GOES-19</title>
-  <meta name="description" content="MyWeatherNow • Dashboard meteorológico avançado integrado à rede de estações automáticas do INMET, previsão Open-Meteo e estúdio temporal de satélite GOES-19 (Full Disk) com resoluções degradáveis.">
+  <title>MyWeatherNow • Monitoramento Meteorológico, Agrometeo & Satélite GOES-19</title>
+  <meta name="description" content="MyWeatherNow • Dashboard meteorológico avançado integrado às 672 estações automáticas do INMET, inteligência atmosférica, qualidade do ar, agrometeorologia FAO-56 e estúdio temporal GOES-19 (Full Disk).">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛰️</text></svg>">
   
   <!-- Fonts -->
@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="static/styles.css?v=3.4.3">
+  <link rel="stylesheet" href="static/styles.css?v=4.0.0">
 </head>
 <body class="theme-dark">
   <div class="app-background">
@@ -24,6 +24,9 @@
     <div class="bg-glow glow-2"></div>
     <div class="bg-glow glow-3"></div>
   </div>
+
+  <!-- Non-intrusive Toast Notification Stack -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
   <!-- Header -->
   <header class="app-header">
@@ -41,7 +44,7 @@
               <span class="pulse-text" id="headerPulseStatus">OPEN-METEO TEMPO REAL</span>
             </span>
           </div>
-          <p class="brand-subtitle">Estações Solo INMET • Previsão Open-Meteo • Satélite GOES-19 (Full Disk)</p>
+          <p class="brand-subtitle">672 Estações INMET • Inteligência Atmosférica &amp; Agrometeo • Satélite GOES-19 (Full Disk)</p>
         </div>
       </div>
 
@@ -53,7 +56,7 @@
             <svg class="search-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-            <input type="text" id="stationSearchInput" placeholder="Buscar estação (ex: Edéia, A029, Goiânia)..." autocomplete="off">
+            <input type="text" id="stationSearchInput" placeholder="Buscar estação (ex: Edéia, A029, Goiânia, Manaus)..." autocomplete="off">
             <button id="clearSearchBtn" class="clear-btn" title="Limpar" style="display:none;">&times;</button>
           </div>
           <div id="stationSearchResults" class="search-dropdown-menu"></div>
@@ -92,8 +95,9 @@
       </div>
     </div>
 
-    <!-- Station Quick Chips -->
+    <!-- Station Quick Chips + User Favorites -->
     <div class="quick-chips-bar">
+      <div class="chips-favorites-group" id="favoriteChipsContainer" style="display: none;"></div>
       <span class="chips-label">Atalhos Rápidos:</span>
       <div class="chips-container" id="quickChipsContainer">
         <button class="chip active" data-code="A029">A029 - Edéia (GO)</button>
@@ -109,6 +113,18 @@
 
   <!-- Main Content Layout -->
   <main class="main-dashboard">
+    <!-- Dynamic Severe Weather / Environmental Alert Banner -->
+    <div id="weatherAlertBanner" class="weather-alert-banner" style="display: none;" role="alert">
+      <div class="alert-banner-left">
+        <span class="alert-banner-icon" id="weatherAlertIcon">⚠️</span>
+        <div class="alert-banner-texts">
+          <strong id="weatherAlertTitle">Aviso Meteorológico</strong>
+          <span id="weatherAlertText">--</span>
+        </div>
+      </div>
+      <button id="btnDismissAlert" class="alert-dismiss-btn" title="Ocultar aviso">&times;</button>
+    </div>
+
     <!-- Row 1: INMET Live Station Hero & Open-Meteo Comparison -->
     <section class="dashboard-hero-section">
       <!-- INMET Station Principal Card -->
@@ -124,14 +140,24 @@
             </div>
           </div>
           <div class="station-link-wrapper">
-            <a href="https://tempo.inmet.gov.br/TabelaEstacoes/A029" target="_blank" rel="noopener noreferrer" class="inmet-official-link" id="inmetOfficialLink">
-              <span>Ver no INMET Oficial</span>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                <polyline points="15 3 21 3 21 9"></polyline>
-                <line x1="10" y1="14" x2="21" y2="3"></line>
-              </svg>
-            </a>
+            <div class="station-quick-actions">
+              <button id="btnFavoriteStation" class="station-action-pill" title="Salvar ou remover esta estação dos seus favoritos">
+                <span id="favStarIcon">☆</span>
+                <span id="favBtnText">Favoritar</span>
+              </button>
+              <button id="btnShareStation" class="station-action-pill" title="Copiar link direto para esta estação">
+                <span>🔗</span>
+                <span>Compartilhar</span>
+              </button>
+              <a href="https://tempo.inmet.gov.br/TabelaEstacoes/A029" target="_blank" rel="noopener noreferrer" class="inmet-official-link" id="inmetOfficialLink">
+                <span>Ver no INMET Oficial</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
             <div class="reading-time-tag" id="readingTimestamp">Última leitura: 00:00 BRT (03:00 UTC)</div>
           </div>
         </div>
@@ -145,15 +171,15 @@
                 <span class="pulse-dot-green"></span>
                 <span>Open-Meteo (Tempo Real)</span>
               </button>
-              <button id="btnSourceInmet" class="btn-source" title="Exibir última telemetria física registrada pela estação INMET (18h BRT)">
+              <button id="btnSourceInmet" class="btn-source" title="Exibir última telemetria física registrada pela estação INMET">
                 <span class="status-dot-blue"></span>
-                <span>INMET Solo (18h BRT)</span>
+                <span>INMET Solo</span>
               </button>
             </div>
           </div>
           <div class="source-status-note" id="sourceStatusNote">
             <span class="note-pill om">⚡ Open-Meteo Ativo</span>
-            <span class="note-text">Estação solo INMET sem dados pós-18h BRT</span>
+            <span class="note-text">Telemetria em tempo real sincronizada</span>
           </div>
         </div>
 
@@ -211,7 +237,7 @@
             <div class="progress-bar-bg">
               <div class="progress-bar-fill fill-blue" id="humidityBar" style="width: 100%;"></div>
             </div>
-            <div class="metric-sub">Máx: <span id="humMax">100%</span> • Mín: <span id="humMin">100%</span></div>
+            <div class="metric-sub">Máx 24h: <span id="humMax">100%</span> • Mín 24h: <span id="humMin">100%</span></div>
           </div>
 
           <!-- Card 2: Pressão -->
@@ -226,14 +252,14 @@
             <div class="progress-bar-bg">
               <div class="progress-bar-fill fill-purple" id="pressureBar" style="width: 82%;"></div>
             </div>
-            <div class="metric-sub">Máx: <span id="pressMax">948.2</span> • Mín: <span id="pressMin">946.5</span></div>
+            <div class="metric-sub">Máx 24h: <span id="pressMax">948.2</span> • Mín 24h: <span id="pressMin">946.5</span></div>
           </div>
 
           <!-- Card 3: Vento & Rosa dos Ventos -->
           <div class="metric-card wind-card">
             <div class="metric-header">
               <span class="metric-icon">💨</span>
-              <span class="metric-title">Vento & Rajada</span>
+              <span class="metric-title">Vento &amp; Rajada</span>
             </div>
             <div class="wind-body">
               <div class="compass-circle">
@@ -247,7 +273,7 @@
                 <div class="metric-val-sm"><span id="windSpeed">5.4</span> m/s</div>
                 <div class="wind-speed-kmh">(<span id="windSpeedKmh">19.4</span> km/h)</div>
                 <div class="wind-direction-text"><span id="windCardinal">ESE</span> • <span id="windDir">111</span>°</div>
-                <div class="wind-gust">Rajada: <strong id="windGust">11.5 m/s</strong> (41.4 km/h)</div>
+                <div class="wind-gust">Rajada: <strong id="windGust">11.5 m/s</strong></div>
               </div>
             </div>
           </div>
@@ -326,7 +352,197 @@
       </div>
     </section>
 
-    <!-- Row 2: GOES-16 Satellite Temporal GIF Studio & Interactive Player -->
+    <!-- Row 1.5: Atmospheric Intelligence, Air Quality, Agrometeorology & Live Solar Arc -->
+    <section class="dashboard-intel-section">
+      <div class="intel-grid">
+        <!-- Intel Card 1: Convective Severity & 3-Layer Cloud Profile -->
+        <div class="card glass-card intel-card">
+          <div class="intel-card-header">
+            <div class="intel-title-group">
+              <span class="intel-emoji">⚡</span>
+              <div>
+                <h4>Convecção &amp; Nuvens</h4>
+                <span class="intel-sub">Instabilidade CAPE &amp; Perfil Vertical</span>
+              </div>
+            </div>
+            <span class="intel-status-pill pill-emerald" id="intelCapeBadge">Estável</span>
+          </div>
+
+          <div class="intel-kpi-pair">
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">Energia CAPE</span>
+              <span class="intel-kpi-val" id="intelCapeVal">-- <small>J/kg</small></span>
+            </div>
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">Visibilidade</span>
+              <span class="intel-kpi-val" id="intelVisVal">-- <small>km</small></span>
+            </div>
+          </div>
+
+          <div class="cloud-layers-stack">
+            <div class="cloud-layer-row">
+              <span class="cloud-layer-label">Altas (&gt;6 km)</span>
+              <div class="cloud-bar-track"><div class="cloud-bar-fill fill-high" id="cloudHighBar" style="width: 0%;"></div></div>
+              <span class="cloud-layer-pct" id="cloudHighVal">0%</span>
+            </div>
+            <div class="cloud-layer-row">
+              <span class="cloud-layer-label">Médias (2–6 km)</span>
+              <div class="cloud-bar-track"><div class="cloud-bar-fill fill-mid" id="cloudMidBar" style="width: 0%;"></div></div>
+              <span class="cloud-layer-pct" id="cloudMidVal">0%</span>
+            </div>
+            <div class="cloud-layer-row">
+              <span class="cloud-layer-label">Baixas (&lt;2 km)</span>
+              <div class="cloud-bar-track"><div class="cloud-bar-fill fill-low" id="cloudLowBar" style="width: 0%;"></div></div>
+              <span class="cloud-layer-pct" id="cloudLowVal">0%</span>
+            </div>
+          </div>
+
+          <div class="intel-footer-note" id="intelConvectiveSummary">Aguardando diagnóstico termodinâmico...</div>
+        </div>
+
+        <!-- Intel Card 2: Real-Time Air Quality & UV Index -->
+        <div class="card glass-card intel-card">
+          <div class="intel-card-header">
+            <div class="intel-title-group">
+              <span class="intel-emoji">🌬️</span>
+              <div>
+                <h4>Qualidade do Ar &amp; UV</h4>
+                <span class="intel-sub">Aerossóis CAMS/Open-Meteo &amp; OMS</span>
+              </div>
+            </div>
+            <span class="intel-status-pill pill-emerald" id="intelAqiBadge">Ar Bom</span>
+          </div>
+
+          <div class="intel-kpi-pair">
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">Índice US AQI</span>
+              <span class="intel-kpi-val" id="intelAqiVal">--</span>
+              <span class="intel-kpi-micro" id="intelEuAqiVal">EU AQI: --</span>
+            </div>
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">Índice UV</span>
+              <div class="intel-uv-inline">
+                <span class="intel-kpi-val" id="intelUvVal">--</span>
+                <span class="uv-mini-badge" id="intelUvBadge">--</span>
+              </div>
+              <span class="intel-kpi-micro" id="intelUvMaxToday">Máx hoje: --</span>
+            </div>
+          </div>
+
+          <div class="pollutants-mini-grid">
+            <div class="pollutant-pill">
+              <span class="p-name">PM2.5</span>
+              <strong class="p-val" id="aqPm25">--</strong>
+            </div>
+            <div class="pollutant-pill">
+              <span class="p-name">PM10</span>
+              <strong class="p-val" id="aqPm10">--</strong>
+            </div>
+            <div class="pollutant-pill">
+              <span class="p-name">O₃ Ozônio</span>
+              <strong class="p-val" id="aqOzone">--</strong>
+            </div>
+            <div class="pollutant-pill">
+              <span class="p-name">Poeira</span>
+              <strong class="p-val" id="aqDust">--</strong>
+            </div>
+          </div>
+
+          <div class="intel-footer-note" id="intelUvAdvice">Monitorando material particulado e radiação UV...</div>
+        </div>
+
+        <!-- Intel Card 3: Agrometeorology FAO-56 & Spraying Window -->
+        <div class="card glass-card intel-card">
+          <div class="intel-card-header">
+            <div class="intel-title-group">
+              <span class="intel-emoji">🌱</span>
+              <div>
+                <h4>Agrometeorologia</h4>
+                <span class="intel-sub">Demanda FAO-56 (ET₀) &amp; Pulverização</span>
+              </div>
+            </div>
+            <span class="intel-status-pill pill-emerald" id="agroSprayBadge">Ideal</span>
+          </div>
+
+          <div class="intel-kpi-pair">
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">ET₀ FAO-56 (Hoje)</span>
+              <span class="intel-kpi-val" id="agroEt0Day">-- <small>mm</small></span>
+              <span class="intel-kpi-micro" id="agroEt0Hour">Taxa atual: -- mm/h</span>
+            </div>
+            <div class="intel-kpi-box">
+              <span class="intel-kpi-label">Déficit VPD</span>
+              <span class="intel-kpi-val" id="agroVpdVal">-- <small>kPa</small></span>
+              <span class="intel-kpi-micro" id="agroVpdStatus">--</span>
+            </div>
+          </div>
+
+          <div class="agro-checks-row">
+            <span class="agro-check-chip" id="agroCheckWind">💨 Vento: --</span>
+            <span class="agro-check-chip" id="agroCheckHum">💧 UR: --</span>
+            <span class="agro-check-chip" id="agroCheckTemp">🌡️ Temp: --</span>
+          </div>
+
+          <div class="intel-footer-note" id="agroSprayReason">Avaliando deriva e evaporação agrícola...</div>
+        </div>
+
+        <!-- Intel Card 4: Live Solar Trajectory Arc & Lunar Phase -->
+        <div class="card glass-card intel-card">
+          <div class="intel-card-header">
+            <div class="intel-title-group">
+              <span class="intel-emoji">🌅</span>
+              <div>
+                <h4>Arco Solar &amp; Efemérides</h4>
+                <span class="intel-sub">Posição Astronômica BRT &amp; Fase Lunar</span>
+              </div>
+            </div>
+            <span class="intel-status-pill pill-cyan" id="intelDayNightBadge">☀️ Diurno</span>
+          </div>
+
+          <div class="solar-arc-box">
+            <svg id="solarArcSvg" viewBox="0 0 260 108" class="solar-arc-svg" aria-label="Trajetória solar diária">
+              <defs>
+                <linearGradient id="solarArcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#f59e0b" />
+                  <stop offset="50%" stop-color="#fde047" />
+                  <stop offset="100%" stop-color="#fb7185" />
+                </linearGradient>
+                <radialGradient id="sunGlowGrad" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="rgba(253, 224, 71, 0.9)" />
+                  <stop offset="100%" stop-color="rgba(245, 158, 11, 0)" />
+                </radialGradient>
+              </defs>
+              <!-- Horizon baseline -->
+              <line x1="16" y1="86" x2="244" y2="86" stroke="rgba(148, 163, 184, 0.25)" stroke-width="1.2" />
+              <!-- Full day dashed trajectory -->
+              <path id="solarArcTrack" d="M 28 86 Q 130 -24 232 86" fill="none" stroke="rgba(148, 163, 184, 0.28)" stroke-width="2" stroke-dasharray="4 4" />
+              <!-- Active sunlit progress path -->
+              <path id="solarArcProgress" d="M 28 86 Q 130 -24 232 86" fill="none" stroke="url(#solarArcGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="260" stroke-dashoffset="130" />
+              <!-- Horizon endpoints -->
+              <circle cx="28" cy="86" r="3" fill="#f59e0b" />
+              <circle cx="232" cy="86" r="3" fill="#fb7185" />
+              <!-- Sun / Moon Orb -->
+              <g id="solarOrbGroup" transform="translate(130, 31)">
+                <circle id="solarOrbGlow" cx="0" cy="0" r="13" fill="url(#sunGlowGrad)" />
+                <circle id="solarOrbCore" cx="0" cy="0" r="5.5" fill="#fde047" stroke="#ffffff" stroke-width="1.2" />
+              </g>
+              <!-- Labels -->
+              <text x="28" y="102" text-anchor="middle" class="arc-svg-label" id="arcSunrise">06:05</text>
+              <text x="130" y="102" text-anchor="middle" class="arc-svg-label muted" id="arcNoon">12:12</text>
+              <text x="232" y="102" text-anchor="middle" class="arc-svg-label" id="arcSunset">18:18</text>
+            </svg>
+          </div>
+
+          <div class="ephemeris-bottom-bar">
+            <span id="intelDaylightDur" title="Fotoperíodo total do dia">☀️ 12h 13m</span>
+            <span id="intelMoonPhase" title="Fase lunar astronômica atual">🌔 Lua --</span>
+          </div>
+          <div class="intel-footer-note" id="intelSunCountdown">Calculando efemérides solares...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Row 2: GOES-19 Satellite Temporal GIF Studio & Interactive Player -->
     <section class="dashboard-goes-section">
       <div class="card glass-card goes-studio-card">
         <div class="section-title-bar">
@@ -334,7 +550,7 @@
             <span class="title-emoji">🛰️</span>
             <div>
               <h3>Estúdio Temporal Satélite GOES-19 (Full Disk)</h3>
-              <p class="section-subtitle">Imagens NOAA STAR / NESDIS em Tempo Real • Cobertura integral do Brasil (Full Disk) • Resoluções degradáveis</p>
+              <p class="section-subtitle">Imagens NOAA STAR / NESDIS em Tempo Real • Projeção Geoestacionária Vetorial IBGE • Exportação GIF &amp; PNG no Navegador</p>
             </div>
           </div>
           <div class="goes-badges">
@@ -347,7 +563,7 @@
         <div class="goes-workspace-grid">
           <!-- Left: Temporal Viewer / Player -->
           <div class="goes-viewer-column">
-            <div class="goes-screen-wrapper">
+            <div class="goes-screen-wrapper" id="goesScreenWrapper">
               <!-- Loading overlay -->
               <div id="goesLoadingOverlay" class="goes-loading-overlay">
                 <div class="spinner"></div>
@@ -358,8 +574,14 @@
               <div class="canvas-holder">
                 <div class="canvas-zoom-wrapper" id="canvasZoomWrapper">
                   <img id="goesDisplayImage" src="static/sample_goes_edeia.png" alt="Composição Satélite GOES-19">
-                  <!-- CPTEC Borders & Divisas Overlay -->
-                  <img id="goesBordersOverlay" class="goes-borders-overlay" src="static/img/cptec_borders_678.png" alt="Fronteiras e Divisas CPTEC">
+                  <!-- Legacy raster overlay (hidden when SVG vector overlay is active) -->
+                  <img id="goesBordersOverlay" class="goes-borders-overlay hidden" src="static/img/cptec_borders_678.png" alt="Fronteiras e Divisas CPTEC">
+                  <!-- Crisp Geostationary SVG Vector Overlay (States, Municipalities & Urban IBGE) -->
+                  <svg id="goesVectorOverlay" class="goes-vector-overlay" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true">
+                    <g id="svgLayerUrban"></g>
+                    <g id="svgLayerCities"></g>
+                    <g id="svgLayerBorders"></g>
+                  </svg>
                   <!-- Location Crosshair Pin -->
                   <div class="satellite-crosshair" id="satelliteCrosshair" title="Posição da Estação / Coordenada">
                     <div class="crosshair-ring"></div>
@@ -381,7 +603,7 @@
                 <!-- HUD Overlay Badges -->
                 <div class="hud-top-left">
                   <span class="hud-product-name" id="hudProductName">Realce CPTEC/DSA (IR 10,35µm)</span>
-                  <span class="hud-res-badge" id="hudResBadge">🛰️ 2 km Nativa (Zoom 5)</span>
+                  <span class="hud-res-badge" id="hudResBadge">🛰️ 678x678 Nativa NOAA</span>
                   <span class="hud-time-utc" id="hudTimeUtc">18:10 UTC</span>
                 </div>
                 <div class="hud-top-right">
@@ -391,7 +613,6 @@
                   <span class="hud-frame-counter" id="hudFrameCounter">Quadro 8 de 8</span>
                 </div>
               </div>
-
 
               <!-- Interactive Timeline Scrubber & Player Controls -->
               <div class="goes-player-controls">
@@ -431,6 +652,7 @@
                     <span id="playerZoomDisplay" class="player-zoom-badge">1.0x</span>
                     <button id="btnPlayerZoomIn" class="player-btn zoom-btn" title="Aumentar Zoom (+)">+</button>
                     <button id="btnPlayerZoomReset" class="player-btn zoom-btn" title="Resetar Zoom (1x)">1x</button>
+                    <button id="btnFullscreenGoes" class="player-btn zoom-btn" title="Tela Cheia (Tecla F)">⛶</button>
                   </div>
                 </div>
               </div>
@@ -452,7 +674,7 @@
                 </button>
                 <button class="seg-btn active" data-res="medium">
                   <span class="seg-title">Média</span>
-                  <span class="seg-desc">512x512 • Padrão INPE</span>
+                  <span class="seg-desc">678x678 • Padrão</span>
                 </button>
                 <button class="seg-btn" data-res="high">
                   <span class="seg-title">Alta</span>
@@ -475,19 +697,19 @@
                 </button>
                 <button class="seg-btn" data-delta="0.6">
                   <span class="seg-title">Ultra Local</span>
-                  <span class="seg-desc">Raio ~60 km • Cidades & IBGE</span>
+                  <span class="seg-desc">Raio ~60 km • Cidades &amp; IBGE</span>
                 </button>
                 <button class="seg-btn" data-delta="1.5">
                   <span class="seg-title">Entorno Local</span>
                   <span class="seg-desc">Raio ~160 km • 2 km Nativa</span>
                 </button>
                 <button class="seg-btn" data-delta="3.5">
-                  <span class="seg-title">Goiás / Regional</span>
-                  <span class="seg-desc">Raio ~380 km • 4 km Alta Res</span>
+                  <span class="seg-title">Estadual / Regional</span>
+                  <span class="seg-desc">Raio ~380 km • Malha IBGE</span>
                 </button>
                 <button class="seg-btn active" data-delta="8.0">
                   <span class="seg-title">Brasil (Nacional)</span>
-                  <span class="seg-desc">Todo o País • 16 km</span>
+                  <span class="seg-desc">Todo o País • 27 UFs</span>
                 </button>
                 <button class="seg-btn" data-delta="15.0">
                   <span class="seg-title">América do Sul</span>
@@ -496,11 +718,11 @@
               </div>
             </div>
 
-            <!-- 3. Satellite Composite Product & CPTEC DSAT Enhancements -->
+            <!-- 3. Satellite Composite Product & CPTEC/NOAA Enhancements -->
             <div class="control-box">
               <label class="control-label" style="justify-content: space-between;">
-                <span>Composição & Realces CPTEC:</span>
-                <span class="tag-pill tag-cyan" style="font-size: 10px; padding: 2px 7px;">DSAT Operacional</span>
+                <span>Composição &amp; Realces Multiespectrais:</span>
+                <span class="tag-pill tag-cyan" style="font-size: 10px; padding: 2px 7px;">ABI 16 Canais</span>
               </label>
 
               <div class="product-selector-grid" id="productSelector">
@@ -508,7 +730,7 @@
                 <button class="prod-btn active" data-prod="cptec_dsa">
                   <span class="prod-dot dot-dsa"></span>
                   <div class="prod-texts">
-                    <strong>Realce CPTEC / DSA (IR 10,35µm)</strong>
+                    <strong>Realce Convectivo IR (Canal 13 • 10,35µm)</strong>
                     <small>Topos frios de nuvens e núcleos de tempestades severas (-80°C a +40°C)</small>
                   </div>
                 </button>
@@ -516,117 +738,137 @@
                 <button class="prod-btn" data-prod="cptec_sandwich">
                   <span class="prod-dot dot-sand"></span>
                   <div class="prod-texts">
-                    <strong>Sandwich CPTEC (True-Color + DSA)</strong>
-                    <small>Fusão em cores verdadeiras com núcleos convectivos térmicos sobrepostos</small>
+                    <strong>Sandwich Convectivo (Visível + IR Térmico)</strong>
+                    <small>Fusão da textura de topos fibrosos com núcleos convectivos coloridos</small>
                   </div>
                 </button>
-                <!-- 3. Vapor d'Água CPTEC -->
+                <!-- 3. GeoColor -->
+                <button class="prod-btn" data-prod="geocolor">
+                  <span class="prod-dot dot-geo"></span>
+                  <div class="prod-texts">
+                    <strong>GeoColor (True-Color Diurno &amp; Luzes Noturnas)</strong>
+                    <small>Cores reais de dia e composição infravermelha + luzes urbanas à noite</small>
+                  </div>
+                </button>
+                <!-- 4. Fire Temperature RGB -->
+                <button class="prod-btn" data-prod="fire_temp">
+                  <span class="prod-dot dot-fire"></span>
+                  <div class="prod-texts">
+                    <strong>🔥 Focos de Queimada • Fire Temperature RGB</strong>
+                    <small>Detecção termal de queimadas ativas (vermelho/amarelo intenso) no Cerrado/Amazônia</small>
+                  </div>
+                </button>
+                <!-- 5. Air Mass RGB -->
+                <button class="prod-btn" data-prod="air_mass">
+                  <span class="prod-dot dot-airmass"></span>
+                  <div class="prod-texts">
+                    <strong>🌀 Massas de Ar &amp; Frentes Frias RGB</strong>
+                    <small>Contraste de ar polar seco, ar tropical úmido (verde), jatos e ciclogênese</small>
+                  </div>
+                </button>
+                <!-- 6. Vapor d'Água -->
                 <button class="prod-btn" data-prod="cptec_wv">
                   <span class="prod-dot dot-wv"></span>
                   <div class="prod-texts">
                     <strong>Vapor d'Água (Canal 08 • 6,19µm)</strong>
-                    <small>Umidade na média/alta troposfera e correntes de jato atmosféricas</small>
+                    <small>Umidade na média/alta troposfera, cavados e correntes de jato</small>
                   </div>
                 </button>
-                <!-- 4. Realce NOAA AVHRR IR -->
-                <button class="prod-btn" data-prod="cptec_ir_noaa">
-                  <span class="prod-dot dot-ir"></span>
-                  <div class="prod-texts">
-                    <strong>Realce NOAA AVHRR (IR 10,35µm)</strong>
-                    <small>Escala térmica clássica operacional NOAA IR4AVHRR6</small>
-                  </div>
-                </button>
-                <!-- 5. Cloud Phase JMA -->
+                <!-- 7. Cloud Phase / Day Convection -->
                 <button class="prod-btn" data-prod="cptec_cloud_phase">
                   <span class="prod-dot dot-jma"></span>
                   <div class="prod-texts">
-                    <strong>Cloud Phase (JMA • Fase de Nuvens)</strong>
-                    <small>Microfísica de nuvens: gelo/tempestades (ciano) vs água líquida (verde)</small>
+                    <strong>Convecção Diurna &amp; Fase de Nuvens RGB</strong>
+                    <small>Microfísica de nuvens: gelo/correntes ascendentes vs água líquida</small>
                   </div>
                 </button>
-                <!-- 6. Nighttime Microphysics -->
+                <!-- 8. Nighttime Microphysics -->
                 <button class="prod-btn" data-prod="cptec_night_micro">
                   <span class="prod-dot dot-night"></span>
                   <div class="prod-texts">
-                    <strong>Nighttime Microphysics (Microfísica Noturna)</strong>
-                    <small>Detecção noturna multiespectral de nevoeiros (amarelo), stratus e convecção</small>
+                    <strong>Microfísica Dia/Noite (Nevoeiros &amp; Stratus)</strong>
+                    <small>Detecção multiespectral de nevoeiros baixos, stratus e nuvens altas</small>
                   </div>
                 </button>
-                <!-- 7. Cor Natural Multiespectral -->
+                <!-- 9. Day Land Cloud Fire -->
                 <button class="prod-btn" data-prod="cptec_natural">
                   <span class="prod-dot dot-nat"></span>
                   <div class="prod-texts">
-                    <strong>Cor Natural CPTEC (Multiespectral)</strong>
-                    <small>Fase de nuvens (gelo vs água), massas de ar e vegetação</small>
+                    <strong>Terra, Nuvem &amp; Fogo (DayLandCloudFire RGB)</strong>
+                    <small>Vegetação ativa (verde), cicatrizes de queimada, fumaça e nuvens de gelo</small>
                   </div>
                 </button>
-                <!-- 8. GeoColor INPE STAC -->
-                <button class="prod-btn" data-prod="geocolor">
-                  <span class="prod-dot dot-geo"></span>
+                <!-- 10. Canal 14 IR -->
+                <button class="prod-btn" data-prod="cptec_ir_noaa">
+                  <span class="prod-dot dot-ir"></span>
                   <div class="prod-texts">
-                    <strong>GeoColor (INPE STAC Oficial)</strong>
-                    <small>Disco completo True-Color diurno e relevo noturno</small>
+                    <strong>Infravermelho Janela Longa (Canal 14 • 11,2µm)</strong>
+                    <small>Temperatura radiométrica clássica de topos nebulosos NOAA</small>
                   </div>
                 </button>
               </div>
             </div>
 
-            <!-- 4. Camadas Operacionais DSAT & Sobreposições -->
+            <!-- 4. Camadas Operacionais Vetoriais & Legendas -->
             <div class="control-box">
-              <label class="control-label">Camadas Operacionais DSAT:</label>
+              <label class="control-label">Camadas Vetoriais Geoestacionárias (IBGE):</label>
               <div class="dsat-layers-toggles">
                 <label class="layer-toggle-item">
                   <input type="checkbox" id="toggleBordersCheck" checked>
                   <span class="toggle-custom"></span>
-                  <span class="toggle-text">🗺️ Fronteiras & Divisas Estaduais (CPTEC)</span>
+                  <span class="toggle-text">🗺️ Divisas Estaduais do Brasil (27 UFs IBGE)</span>
                 </label>
                 <label class="layer-toggle-item">
                   <input type="checkbox" id="toggleCitiesCheck" checked>
                   <span class="toggle-custom"></span>
-                  <span class="toggle-text">🏛️ Limites dos Municípios (IBGE)</span>
+                  <span class="toggle-text">🏛️ Malha Municipal da UF Ativa (IBGE)</span>
                 </label>
                 <label class="layer-toggle-item">
                   <input type="checkbox" id="toggleUrbanCheck" checked>
                   <span class="toggle-custom"></span>
-                  <span class="toggle-text">🏙️ Áreas Urbanizadas 2022 (IBGE)</span>
+                  <span class="toggle-text">🏙️ Manchas Urbanizadas 2022 (Zoom Regional/Local)</span>
                 </label>
                 <label class="layer-toggle-item">
                   <input type="checkbox" id="toggleLegendCheck" checked>
                   <span class="toggle-custom"></span>
-                  <span class="toggle-text">🌡️ Barra de Escala Térmica (°C) CPTEC</span>
+                  <span class="toggle-text">🌡️ Escala Térmica (°C) / Guia de Cores RGB</span>
                 </label>
               </div>
             </div>
 
-
-            <!-- 4. Temporal Frames Count -->
+            <!-- 5. Temporal Frames Count -->
             <div class="control-box">
               <div class="control-header-flex">
                 <label class="control-label">Número de Quadros Temporais:</label>
-                <span class="control-value-tag" id="framesCountDisplay">8 quadros (~1.5 horas)</span>
+                <span class="control-value-tag" id="framesCountDisplay">8 quadros (~1.3 horas)</span>
               </div>
               <input type="range" id="framesCountSlider" min="4" max="16" value="8" step="2" class="range-slider">
               <div class="range-labels">
                 <span>4 (~40 min)</span>
-                <span>8 (~1.5h)</span>
-                <span>12 (~2.5h)</span>
-                <span>16 (~3.5h)</span>
+                <span>8 (~1.3h)</span>
+                <span>12 (~2.0h)</span>
+                <span>16 (~2.7h)</span>
               </div>
             </div>
 
-            <!-- Action: Generate and Download Animated GIF Button -->
+            <!-- Action: Generate Animated GIF + Capture HD PNG -->
             <div class="gif-action-box">
-              <button id="btnGenerateDownloadGif" class="btn-generate-gif">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="7 10 12 15 17 10"></polyline>
-                  <line x1="12" y1="15" x2="12" y2="3"></line>
-                </svg>
-                <span>Criar & Baixar GIF Temporal (.gif)</span>
-              </button>
+              <div class="gif-action-buttons-row">
+                <button id="btnGenerateDownloadGif" class="btn-generate-gif">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  <span>Criar &amp; Baixar GIF (.gif)</span>
+                </button>
+                <button id="btnSnapshotPng" class="btn-snapshot-png" title="Baixar captura PNG HD do quadro atual com camadas e carimbo de horário">
+                  <span>📸 PNG HD</span>
+                </button>
+              </div>
               <div id="gifProgressStatus" class="gif-progress-status" style="display: none;">
                 <span class="spinner-sm"></span>
-                <span id="gifProgressText">Renderizando GIF animado...</span>
+                <span id="gifProgressText">Renderizando GIF animado no navegador...</span>
               </div>
             </div>
           </div>
@@ -642,7 +884,7 @@
             <span class="title-emoji">⛅</span>
             <div>
               <h3>Previsão do Tempo • Open-Meteo</h3>
-              <p class="section-subtitle">Modelos de alta resolução a partir do horário atual para as coordenadas da estação</p>
+              <p class="section-subtitle">Modelos numéricos de alta resolução a partir do horário atual para as coordenadas da estação</p>
             </div>
           </div>
           <div class="forecast-tabs">
@@ -698,15 +940,18 @@
       </div>
     </section>
 
-    <!-- Row 4: Historical 24h INMET Analytics (Interactive Charts & Table) -->
+    <!-- Row 4: Historical 24h Analytics (Interactive Charts & Table) -->
     <section class="dashboard-table-section">
       <div class="card glass-card table-card analytics-hub-card">
         <div class="table-header-bar">
           <div class="title-with-icon">
             <span class="title-emoji">📊</span>
             <div>
-              <h3>Histórico das Últimas 24 Horas • Estação INMET</h3>
-              <p class="section-subtitle">Visualização analítica de chuva, temperaturas, ventos e radiação com dados oficiais</p>
+              <div class="analytics-title-row">
+                <h3>Histórico das Últimas 24 Horas</h3>
+                <span class="tag-pill tag-cyan" id="analyticsSourceBadge">🌐 Série Real 24h</span>
+              </div>
+              <p class="section-subtitle">Visualização analítica de precipitação, temperaturas, rosa dos ventos, radiação, pressão e VPD</p>
             </div>
           </div>
           <div class="analytics-header-controls">
@@ -736,10 +981,11 @@
           <!-- Chart Category Quick Selector -->
           <div class="charts-category-bar">
             <button class="chart-cat-btn active" data-chart="all">Visão Geral (Todos)</button>
-            <button class="chart-cat-btn" data-chart="temp">🌡️ Temperatura & Sensação</button>
+            <button class="chart-cat-btn" data-chart="temp">🌡️ Temperatura &amp; Orvalho</button>
             <button class="chart-cat-btn" data-chart="rain">🌧️ Chuva (Barras)</button>
-            <button class="chart-cat-btn" data-chart="wind">🧭 Rosa dos Ventos & Rajadas</button>
-            <button class="chart-cat-btn" data-chart="rad">☀️ Radiação & Umidade</button>
+            <button class="chart-cat-btn" data-chart="wind">🧭 Rosa dos Ventos &amp; Rajadas</button>
+            <button class="chart-cat-btn" data-chart="rad">☀️ Radiação &amp; Umidade</button>
+            <button class="chart-cat-btn" data-chart="press">⏲️ Pressão &amp; VPD</button>
           </div>
 
           <div class="charts-grid-layout" id="chartsGridLayout">
@@ -766,8 +1012,8 @@
                 <div class="chart-panel-title">
                   <span class="chart-icon">🌡️</span>
                   <div>
-                    <h4>Variação Térmica & Ponto de Orvalho</h4>
-                    <span class="chart-sub">Temp. instantânea, máxima, mínima e sensação (°C)</span>
+                    <h4>Variação Térmica &amp; Ponto de Orvalho</h4>
+                    <span class="chart-sub">Temp. instantânea, máxima, mínima, sensação e orvalho (°C)</span>
                   </div>
                 </div>
                 <div class="chart-badge-accent" id="chartTempRangeBadge">--</div>
@@ -805,7 +1051,7 @@
                 <div class="chart-panel-title">
                   <span class="chart-icon">☀️</span>
                   <div>
-                    <h4>Radiação Solar Global & Umidade</h4>
+                    <h4>Radiação Solar Global &amp; Umidade</h4>
                     <span class="chart-sub">Radiação global (kJ/m²) e umidade relativa (%)</span>
                   </div>
                 </div>
@@ -813,6 +1059,23 @@
               </div>
               <div class="chart-canvas-box">
                 <canvas id="chartRadCanvas"></canvas>
+              </div>
+            </div>
+
+            <!-- Chart 5: Surface Pressure Trend & VPD -->
+            <div class="chart-panel-card span-full" id="cardChartPress">
+              <div class="chart-panel-header">
+                <div class="chart-panel-title">
+                  <span class="chart-icon">⏲️</span>
+                  <div>
+                    <h4>Pressão Atmosférica &amp; Déficit de Pressão de Vapor (VPD)</h4>
+                    <span class="chart-sub">Tendência barométrica local (hPa) e demanda evaporativa do ar (kPa)</span>
+                  </div>
+                </div>
+                <div class="chart-badge-accent" id="chartPressTrendBadge">Tendência: --</div>
+              </div>
+              <div class="chart-canvas-box">
+                <canvas id="chartPressCanvas"></canvas>
               </div>
             </div>
           </div>
@@ -846,7 +1109,9 @@
           </table>
         </div>
       </div>
-    <!-- Row 4: Authorship & Contact Information -->
+    </section>
+
+    <!-- Row 5: Authorship & Contact Information -->
     <section class="dashboard-authorship-section">
       <div class="card glass-card authorship-card">
         <div class="authorship-container">
@@ -880,12 +1145,13 @@
   <footer class="app-footer">
     <div class="footer-container">
       <div class="footer-left">
-        <strong>MyWeatherNow</strong> • Monitoramento meteorológico de precisão e sensoriamento remoto em tempo real.
+        <strong>MyWeatherNow</strong> • Monitoramento meteorológico de precisão, agrometeorologia e sensoriamento remoto em tempo real.
       </div>
       <div class="footer-right">
         <span>Fontes de Dados: 
           <a href="https://portal.inmet.gov.br/" target="_blank" rel="noopener">INMET</a> • 
-          <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> • 
+          <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo &amp; CAMS</a> • 
+          <a href="https://servicodados.ibge.gov.br/" target="_blank" rel="noopener">IBGE</a> • 
           <a href="https://www.star.nesdis.noaa.gov/GOES/" target="_blank" rel="noopener">NOAA STAR / NESDIS (GOES-19)</a>
         </span>
       </div>
@@ -893,6 +1159,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="static/app.js?v=3.4.3"></script>
+  <script src="static/app.js?v=4.0.0"></script>
 </body>
 </html>
