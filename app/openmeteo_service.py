@@ -175,6 +175,7 @@ class OpenMeteoService:
                 "temp_min": round(d_tmin[i], 1) if i < len(d_tmin) else None,
                 "apparent_max": round(d_app_max[i], 1) if i < len(d_app_max) else None,
                 "apparent_min": round(d_app_min[i], 1) if i < len(d_app_min) else None,
+                "precipitation_sum": round(d_rain_sum[i], 1) if i < len(d_rain_sum) else 0.0,
                 "rain_sum": round(d_rain_sum[i], 1) if i < len(d_rain_sum) else 0.0,
                 "rain_prob_max": d_rain_prob[i] if i < len(d_rain_prob) else 0,
                 "uv_index_max": round(d_uv[i], 1) if i < len(d_uv) and d_uv[i] is not None else None,

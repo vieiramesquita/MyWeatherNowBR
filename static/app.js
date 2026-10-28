@@ -773,12 +773,23 @@ class MeteoApp {
         const weekdayName = dayIdx === 0 ? "Domingo" : weekdaysPt[dayIdx - 1];
         const code = dCodes[i] || 0;
         const info = this.getWmoInfo(code);
+        // Calculate date_formatted (e.g. "28/10")
+        let dateFormatted = "";
+        if (dtStr && dtStr.includes("-")) {
+          const parts = dtStr.split("-");
+          dateFormatted = `${parts[2]}/${parts[1]}`;
+        } else {
+          dateFormatted = dtStr;
+        }
+
         dailyFormatted.push({
           date: dtStr,
+          date_formatted: dateFormatted,
           weekday: i === 0 ? "Hoje" : (i === 1 ? "Amanhã" : weekdayName),
-          temp_max: dMax[i],
-          temp_min: dMin[i],
+          temp_max: dMax[i] !== null && dMax[i] !== undefined ? Math.round(dMax[i] * 10) / 10 : null,
+          temp_min: dMin[i] !== null && dMin[i] !== undefined ? Math.round(dMin[i] * 10) / 10 : null,
           rain_sum: dRainSum[i] || 0.0,
+          precipitation_sum: dRainSum[i] || 0.0,
           rain_prob_max: dRainProb[i] || 0,
           wind_speed_max: dWind[i],
           wind_direction_dominant: this.getCardinalDirection(dWindDir[i]),
@@ -858,7 +869,8 @@ class MeteoApp {
     if (rangeEl) rangeEl.textContent = `${today.temp_min}°C • ${today.temp_max}°C`;
 
     const rainEl = document.getElementById("forecastDayRainProb");
-    if (rainEl) rainEl.textContent = `${today.rain_prob_max}% (${today.precipitation_sum || 0} mm)`;
+    const rainSum = today.precipitation_sum !== undefined ? today.precipitation_sum : (today.rain_sum || 0);
+    if (rainEl) rainEl.textContent = `${today.rain_prob_max}% (${rainSum} mm)`;
 
     const windEl = document.getElementById("forecastDayWind");
     if (windEl) windEl.textContent = `${today.wind_speed_max || "--"} km/h (${today.wind_direction_dominant || "N/D"})`;
@@ -922,6 +934,17 @@ class MeteoApp {
       const maxPct = Math.max(10, Math.min(100, ((d.temp_max - allMin) / range) * 100));
       const widthPct = Math.max(12, maxPct - minPct);
 
+      let dateText = d.date_formatted;
+      if (!dateText && d.date && typeof d.date === "string") {
+        const parts = d.date.split("-");
+        if (parts.length === 3) {
+          dateText = `${parts[2]}/${parts[1]}`;
+        } else {
+          dateText = d.date;
+        }
+      }
+      dateText = dateText || "";
+
       const row = document.createElement("div");
       row.className = "daily-row";
       row.innerHTML = `
@@ -929,7 +952,7 @@ class MeteoApp {
           <span class="daily-icon">${this.getWeatherEmoji(d.weather_icon)}</span>
           <div>
             <div class="daily-weekday">${d.weekday}</div>
-            <div class="daily-date">${d.date_formatted}</div>
+            <div class="daily-date">${dateText}</div>
           </div>
         </div>
         <div class="daily-condition" title="${d.weather_desc}">${d.weather_desc}</div>
@@ -938,11 +961,11 @@ class MeteoApp {
           <span>${d.rain_prob_max}%</span>
         </div>
         <div class="daily-temp-bar-wrapper">
-          <span class="daily-tmin">${d.temp_min}°</span>
+          <span class="daily-tmin">${d.temp_min !== null && d.temp_min !== undefined ? d.temp_min : "--"}°</span>
           <div class="daily-bar-track">
             <div class="daily-bar-fill" style="left: ${minPct.toFixed(1)}%; width: ${widthPct.toFixed(1)}%;"></div>
           </div>
-          <span class="daily-tmax">${d.temp_max}°</span>
+          <span class="daily-tmax">${d.temp_max !== null && d.temp_max !== undefined ? d.temp_max : "--"}°</span>
         </div>
       `;
       container.appendChild(row);
