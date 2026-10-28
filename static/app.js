@@ -26,6 +26,10 @@ class MeteoApp {
     this.forecastData = null;
     this.currentSource = "openmeteo"; // "openmeteo" or "inmet"
 
+    // All INMET stations registry
+    this.allStations = [];
+    this.stationsMap = { ...DEFAULT_STATIONS_MAP };
+
     // GOES Temporal Studio State
     this.goesConfig = {
       resolution: "medium", // low (339), medium (512 - INPE), high (1808), ultra (5424)
@@ -71,6 +75,9 @@ class MeteoApp {
     this.setupEventListeners();
     this.setupSearchAutocomplete();
     this.initMap();
+
+    // Load all 672 INMET stations for offline/static search
+    await this.loadStationsList();
 
     // Initial Load
     await this.loadStationData(this.currentStationCode);
@@ -180,7 +187,7 @@ class MeteoApp {
     } else {
       // 3. Fallback when station is not pre-cached: use Open-Meteo for ground view
       this.currentSource = "openmeteo";
-      const stFallback = DEFAULT_STATIONS_MAP[stationCode] || {
+      const stFallback = this.stationsMap[stationCode] || DEFAULT_STATIONS_MAP[stationCode] || {
         code: stationCode,
         name: "Estação Meteorológica",
         state: "BR",
@@ -247,10 +254,12 @@ class MeteoApp {
     // 2. Load ground data (triggers INMET live data, charts, and Open-Meteo forecast)
     await this.loadStationData(stationCode, forceRefresh);
 
-    // 3. Update search input text
+    // 3. Update search input text and clear button
     const searchInput = document.getElementById("stationSearchInput");
+    const clearBtn = document.getElementById("clearSearchBtn");
     if (searchInput && this.currentStationCode) {
       searchInput.value = `${this.currentStationCode} - ${this.currentStationName}`;
+      if (clearBtn) clearBtn.style.display = "block";
     }
 
     // 4. Fetch GOES satellite frames for the newly selected station coordinates
@@ -2067,20 +2076,155 @@ class MeteoApp {
   }
 
   // ==========================================================================
-  // Station Search & Autocomplete
-  // ==========================================================================
+  // Station Search & Autocomplete (Hybrid: Local Registry + API)
+  // ========================================================================== 
+  async loadStationsList() {
+    if (this.allStations && this.allStations.length > 0) return;
+    try {
+      let res = await fetch("static/data/inmet_stations.json");
+      if (!res.ok) {
+        res = await fetch("inmet_stations.json");
+      }
+      if (res.ok) {
+        const list = await res.json();
+        this.allStations = list;
+        list.forEach((s) => {
+          this.stationsMap[s.code] = {
+            code: s.code,
+            name: s.name,
+            state: s.state,
+            lat: parseFloat(s.lat),
+            lon: parseFloat(s.lon),
+            alt: parseFloat(s.altitude || 600)
+          };
+        });
+        console.log(`Loaded ${list.length} INMET stations into memory.`);
+      }
+    } catch (e) {
+      console.warn("Could not load inmet_stations.json statically:", e);
+    }
+  }
+
+  normalizeStr(str) {
+    if (!str) return "";
+    return str
+      .toString()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  haversineDistance(lat1, lon1, lat2, lon2) {
+    const R = 6371; // km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLon = ((lon2 - lon1) * Math.PI) / 180;
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
+        Math.sin(dLon / 2) *
+        Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  searchStationsLocal(query, lat, lon, limit = 20) {
+    const list =
+      this.allStations && this.allStations.length > 0
+        ? this.allStations
+        : Object.values(this.stationsMap || DEFAULT_STATIONS_MAP);
+
+    const q = this.normalizeStr(query);
+    const results = [];
+    const hasCoords =
+      lat !== undefined && lon !== undefined && !isNaN(lat) && !isNaN(lon);
+
+    for (const s of list) {
+      const nameNorm = this.normalizeStr(s.name);
+      const codeNorm = this.normalizeStr(s.code);
+      const stateNorm = this.normalizeStr(s.state);
+
+      if (!q || nameNorm.includes(q) || codeNorm.includes(q) || stateNorm.includes(q)) {
+        const sLat = parseFloat(s.lat);
+        const sLon = parseFloat(s.lon);
+        let dist = null;
+        if (hasCoords && !isNaN(sLat) && !isNaN(sLon)) {
+          dist = Math.round(this.haversineDistance(lat, lon, sLat, sLon) * 10) / 10;
+        }
+        results.push({
+          code: s.code,
+          name: s.name,
+          state: s.state,
+          lat: sLat,
+          lon: sLon,
+          distance_km: dist
+        });
+      }
+    }
+
+    if (hasCoords) {
+      results.sort((a, b) => {
+        const da = a.distance_km !== null ? a.distance_km : 999999;
+        const db = b.distance_km !== null ? b.distance_km : 999999;
+        return da - db;
+      });
+    } else {
+      results.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
+    }
+
+    return results.slice(0, limit);
+  }
+
+  findNearestStationLocal(lat, lon) {
+    const list =
+      this.allStations && this.allStations.length > 0
+        ? this.allStations
+        : Object.values(this.stationsMap || DEFAULT_STATIONS_MAP);
+
+    let best = null;
+    let minDist = Infinity;
+
+    for (const s of list) {
+      const sLat = parseFloat(s.lat);
+      const sLon = parseFloat(s.lon);
+      if (isNaN(sLat) || isNaN(sLon)) continue;
+      const dist = this.haversineDistance(lat, lon, sLat, sLon);
+      if (dist < minDist) {
+        minDist = dist;
+        best = {
+          code: s.code,
+          name: s.name,
+          state: s.state,
+          lat: sLat,
+          lon: sLon,
+          distance_km: Math.round(minDist * 10) / 10
+        };
+      }
+    }
+    return best;
+  }
+
   setupSearchAutocomplete() {
     const input = document.getElementById("stationSearchInput");
     const results = document.getElementById("stationSearchResults");
     const clearBtn = document.getElementById("clearSearchBtn");
 
+    if (!input || !results) return;
+
     let debounceTimer = null;
+    let selectedIndex = -1;
+
+    input.addEventListener("focus", () => {
+      input.select();
+    });
 
     input.addEventListener("input", (e) => {
       const q = e.target.value.trim();
-      clearBtn.style.display = q ? "block" : "none";
+      if (clearBtn) clearBtn.style.display = q ? "block" : "none";
 
       clearTimeout(debounceTimer);
+      selectedIndex = -1;
+
       if (q.length < 2) {
         results.classList.remove("active");
         results.innerHTML = "";
@@ -2088,22 +2232,68 @@ class MeteoApp {
       }
 
       debounceTimer = setTimeout(async () => {
+        let stations = [];
+        // 1. Try local server endpoint if running
         try {
           const res = await fetch(`/api/stations?q=${encodeURIComponent(q)}&lat=${this.currentLat}&lon=${this.currentLon}&limit=20`);
-          const data = await res.json();
-          this.renderSearchResults(data.stations || []);
-        } catch (err) {
-          console.error("Search error:", err);
+          if (res.ok) {
+            const data = await res.json();
+            stations = data.stations || [];
+          }
+        } catch (err) {}
+
+        // 2. Client-side fallback for GitHub Pages
+        if (!stations || stations.length === 0) {
+          if (!this.allStations || this.allStations.length === 0) {
+            await this.loadStationsList();
+          }
+          stations = this.searchStationsLocal(q, this.currentLat, this.currentLon, 20);
         }
-      }, 200);
+
+        this.renderSearchResults(stations);
+      }, 150);
     });
 
-    clearBtn.addEventListener("click", () => {
-      input.value = "";
-      clearBtn.style.display = "none";
-      results.classList.remove("active");
-      results.innerHTML = "";
+    input.addEventListener("keydown", (e) => {
+      const items = results.querySelectorAll(".search-item");
+      if (!results.classList.contains("active") || items.length === 0) {
+        if (e.key === "Escape") {
+          results.classList.remove("active");
+        }
+        return;
+      }
+
+      if (e.key === "ArrowDown") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex + 1) % items.length;
+        items.forEach((it, idx) => it.classList.toggle("highlighted", idx === selectedIndex));
+        items[selectedIndex]?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "ArrowUp") {
+        e.preventDefault();
+        selectedIndex = (selectedIndex - 1 + items.length) % items.length;
+        items.forEach((it, idx) => it.classList.toggle("highlighted", idx === selectedIndex));
+        items[selectedIndex]?.scrollIntoView({ block: "nearest" });
+      } else if (e.key === "Enter") {
+        e.preventDefault();
+        if (selectedIndex >= 0 && selectedIndex < items.length) {
+          items[selectedIndex].click();
+        } else if (items.length > 0) {
+          items[0].click();
+        }
+      } else if (e.key === "Escape") {
+        results.classList.remove("active");
+      }
     });
+
+    if (clearBtn) {
+      clearBtn.addEventListener("click", () => {
+        input.value = "";
+        clearBtn.style.display = "none";
+        results.classList.remove("active");
+        results.innerHTML = "";
+        input.focus();
+      });
+    }
 
     // Close dropdown on outside click
     document.addEventListener("click", (e) => {
@@ -2115,9 +2305,10 @@ class MeteoApp {
 
   renderSearchResults(stations) {
     const results = document.getElementById("stationSearchResults");
+    if (!results) return;
     results.innerHTML = "";
 
-    if (stations.length === 0) {
+    if (!stations || stations.length === 0) {
       results.innerHTML = `<div style="padding: 10px; color: var(--text-muted); font-size: 13px;">Nenhuma estação encontrada.</div>`;
       results.classList.add("active");
       return;
@@ -2131,11 +2322,12 @@ class MeteoApp {
           <span class="search-st-code">${s.code}</span>
           <span class="search-st-name">${s.name} (${s.state})</span>
         </div>
-        <span class="search-st-dist">${s.distance_km ? `${s.distance_km} km` : ""}</span>
+        <span class="search-st-dist">${s.distance_km !== undefined && s.distance_km !== null ? `${s.distance_km} km` : ""}</span>
       `;
 
       item.addEventListener("click", async () => {
         results.classList.remove("active");
+        results.innerHTML = "";
         await this.selectStation(s.code, true);
       });
 
@@ -2150,11 +2342,11 @@ class MeteoApp {
   // ==========================================================================
   async detectGpsLocation() {
     const btn = document.getElementById("btnGpsNearest");
-    btn.classList.add("spinning");
+    if (btn) btn.classList.add("spinning");
 
     if (!navigator.geolocation) {
       alert("Geolocalização não é suportada pelo seu navegador.");
-      btn.classList.remove("spinning");
+      if (btn) btn.classList.remove("spinning");
       return;
     }
 
@@ -2162,30 +2354,46 @@ class MeteoApp {
       async (pos) => {
         const { latitude, longitude } = pos.coords;
         try {
-          const res = await fetch(`/api/stations/nearest?lat=${latitude}&lon=${longitude}`);
-          const data = await res.json();
-          if (data.nearest_station) {
-            const st = data.nearest_station;
+          let st = null;
+          // 1. Try local server endpoint if running
+          try {
+            const res = await fetch(`/api/stations/nearest?lat=${latitude}&lon=${longitude}`);
+            if (res.ok) {
+              const data = await res.json();
+              st = data.nearest_station;
+            }
+          } catch (e) {}
+
+          // 2. Client-side fallback for GitHub Pages
+          if (!st) {
+            if (!this.allStations || this.allStations.length === 0) {
+              await this.loadStationsList();
+            }
+            st = this.findNearestStationLocal(latitude, longitude);
+          }
+
+          if (st) {
             alert(`Estação INMET mais próxima encontrada:\n${st.code} - ${st.name} (${st.state})\nDistância: ${st.distance_km} km`);
             await this.selectStation(st.code, true);
+          } else {
+            alert("Nenhuma estação encontrada próxima da sua localização.");
           }
         } catch (err) {
           console.error("GPS nearest error:", err);
           alert("Erro ao buscar estação mais próxima para sua posição.");
         } finally {
-          btn.classList.remove("spinning");
+          if (btn) btn.classList.remove("spinning");
         }
       },
       (err) => {
         console.warn("Geolocation error:", err);
         alert("Não foi possível obter sua posição GPS. Verifique as permissões de localização no navegador.");
-        btn.classList.remove("spinning");
+        if (btn) btn.classList.remove("spinning");
       },
       { timeout: 10000, enableHighAccuracy: true }
     );
   }
 
-  // ==========================================================================
   // Event Listeners Setup
   // ==========================================================================
   setupEventListeners() {
