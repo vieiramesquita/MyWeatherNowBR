@@ -1,0 +1,26 @@
+{
+  "project-memory-monitor": {
+    "enabled": true,
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "if exist \"..\\.venv\\Scripts\\python.exe\" (\"..\\.venv\\Scripts\\python.exe\" skills\\project-memory-monitor\\scripts\\sync_memory.py hook --event session-start) else (echo {})",
+        "timeout": 5
+      }
+    ],
+    "PreInvocation": [
+      {
+        "type": "command",
+        "command": "if exist \"..\\.venv\\Scripts\\python.exe\" (\"..\\.venv\\Scripts\\python.exe\" skills\\project-memory-monitor\\scripts\\sync_memory.py hook --event pre-invocation) else (echo {})",
+        "timeout": 5
+      }
+    ],
+    "Stop": [
+      {
+        "type": "command",
+        "command": "if exist \"..\\.venv\\Scripts\\python.exe\" (\"..\\.venv\\Scripts\\python.exe\" skills\\project-memory-monitor\\scripts\\sync_memory.py hook --event stop) else (echo {\"decision\":\"allow\"})",
+        "timeout": 5
+      }
+    ]
+  }
+}
