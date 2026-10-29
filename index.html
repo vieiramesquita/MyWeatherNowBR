@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="static/styles.css?v=4.1.0">
+  <link rel="stylesheet" href="static/styles.css?v=4.1.1">
 </head>
 <body class="theme-dark">
   <div class="app-background">
@@ -575,6 +575,7 @@
 
               <!-- Main Canvas / Image Display -->
               <div class="canvas-holder">
+                <canvas id="goesViewportCanvas" class="goes-viewport-canvas" aria-label="Visualizador Satélite GOES-19"></canvas>
                 <div class="canvas-zoom-wrapper" id="canvasZoomWrapper">
                   <img id="goesDisplayImage" src="static/sample_goes_edeia.png" alt="Composição Satélite GOES-19">
                   <!-- Legacy raster overlay (hidden when SVG vector overlay is active) -->
@@ -585,12 +586,12 @@
                     <g id="svgLayerCities"></g>
                     <g id="svgLayerBorders"></g>
                   </svg>
-                  <!-- Location Crosshair Pin -->
-                  <div class="satellite-crosshair" id="satelliteCrosshair" title="Posição da Estação / Coordenada">
-                    <div class="crosshair-ring"></div>
-                    <div class="crosshair-center"></div>
-                    <span class="crosshair-label" id="crosshairLabel">Edéia (A029)</span>
-                  </div>
+                </div>
+                <!-- Location Crosshair Pin (Screen-space 1x crisp at every zoom level) -->
+                <div class="satellite-crosshair" id="satelliteCrosshair" title="Posição da Estação / Coordenada">
+                  <div class="crosshair-ring"></div>
+                  <div class="crosshair-center"></div>
+                  <span class="crosshair-label" id="crosshairLabel">Edéia (A029)</span>
                 </div>
 
                 <!-- Floating CPTEC Color Scale Legend HUD -->
@@ -793,12 +794,12 @@
                     <small>Detecção multiespectral de nevoeiros baixos, stratus e nuvens altas</small>
                   </div>
                 </button>
-                <!-- 9. Day Land Cloud Fire -->
+                <!-- 9. Dust / Aerosols & Smoke RGB -->
                 <button class="prod-btn" data-prod="cptec_natural">
                   <span class="prod-dot dot-nat"></span>
                   <div class="prod-texts">
-                    <strong>Terra, Nuvem &amp; Fogo (DayLandCloudFire RGB)</strong>
-                    <small>Vegetação ativa (verde), cicatrizes de queimada, fumaça e nuvens de gelo</small>
+                    <strong>Aerossóis, Poeira &amp; Fumaça (Dust RGB 24h)</strong>
+                    <small>Plumas de fumaça/poeira no Cerrado e Amazônia, ar seco e nuvens de gelo</small>
                   </div>
                 </button>
                 <!-- 10. Canal 14 IR -->
@@ -1162,6 +1163,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="static/app.js?v=4.1.0"></script>
+  <script src="static/app.js?v=4.1.1"></script>
 </body>
 </html>

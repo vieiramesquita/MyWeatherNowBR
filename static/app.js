@@ -175,11 +175,20 @@ class MeteoApp {
     this.geoCache = {
       estados: null,
       municipios: {},
+      municipiosHi: {},
+      municipioNames: {},
       urbanGoias: null
     };
 
+    this._goesLoadSeq = 0;
+    this._fallbackPreviewDrawable = null;
+    this._inflightImages = new Set();
+    this._noaaDirCache = new Map();
+
     this.goesConfig = {
       resolution: "medium",
+      userLockedRes: false,
+      userLockedFrames: false,
       delta: 8.0,
       product: "cptec_dsa",
       showBorders: true,
@@ -194,6 +203,8 @@ class MeteoApp {
       panOffsetX: 0,
       panOffsetY: 0,
       isPlaying: true,
+      isStreamingBuffer: false,
+      loadedFramesCount: 0,
       currentFrameIndex: 0,
       frames: [],
       productMeta: null,
@@ -724,6 +735,24 @@ class MeteoApp {
       this.updateSourceToggleUI("openmeteo", false, null, false);
     }
 
+    // Immediately sync GOES-19 satellite pin & viewport to the new station coordinates
+    // so there is zero coordinate/crosshair lag while Open-Meteo & AQI finish loading
+    if (this.goesConfig.frames && this.goesConfig.frames.length > 0) {
+      this.goesConfig.panOffsetX = 0;
+      this.goesConfig.panOffsetY = 0;
+      this.goesConfig.playerZoom = 1.0;
+      const geosSync = this.latlonToGeosPct(this.currentLat, this.currentLon);
+      if (geosSync) {
+        this.goesConfig.pinXPct = geosSync.xPct;
+        this.goesConfig.pinYPct = geosSync.yPct;
+      }
+      if (this._activeVectorState && this._activeVectorState !== (this.currentState || "").toUpperCase()) {
+        this._activeVectorRings = { borders: this._activeVectorRings.borders || [], cities: [], cityLabels: [], urban: [] };
+      }
+      this.renderCurrentGoesFrame();
+      this.updateGoesVectorLayers();
+    }
+
     // Update URL query param cleanly without reloading
     try {
       const url = new URL(window.location.href);
@@ -786,8 +815,9 @@ class MeteoApp {
     }
     this.applyGoesZoom(true);
 
-    if (this.goesConfig.isDirectNoaa && this.goesConfig.frames.length > 0) {
+    if (this.goesConfig.isDirectNoaa && this.goesConfig.frames.length > 0 && this.isViewportCoveredByPreloaded()) {
       await this.updateGoesVectorLayers();
+      this.renderCurrentGoesFrame();
     } else {
       await this.loadGoesFrames();
     }
@@ -2256,15 +2286,15 @@ class MeteoApp {
         ]
       },
       cptec_natural: {
-        noaaId: "DayLandCloudFire",
-        name: "Terra, Nuvem & Fogo (DayLandCloudFire RGB)",
+        noaaId: "Dust",
+        name: "Aerossóis, Poeira & Fumaça (NOAA Dust RGB 24h)",
         has_temp_scale: false,
-        legend_title: "Day Land Cloud Fire RGB",
+        legend_title: "Interpretação Poeira & Fumaça RGB",
         rgb_guide: [
-          { color: "#ef4444", label: "Anomalia Termal / Queimada Ativa" },
-          { color: "#22d3ee", label: "Nuvens de Gelo / Topos Altos" },
-          { color: "#22c55e", label: "Vegetação Fotossinteticamente Ativa" },
-          { color: "#78350f", label: "Cicatriz de Queimada / Solo Exposto" }
+          { color: "#ec4899", label: "Pluma de Poeira / Fumaça Densa (Magenta)" },
+          { color: "#f59e0b", label: "Ar Seco Continental / Aerossóis Finos" },
+          { color: "#dc2626", label: "Nuvens Espessas Altas / Topos Frios" },
+          { color: "#10b981", label: "Umidade Baixa / Superfície Terrestre" }
         ]
       },
       cptec_ir_noaa: {
@@ -2278,10 +2308,43 @@ class MeteoApp {
     return specs[prodKey] || specs.geocolor;
   }
 
+  getRecommendedNoaaResolution(deltaVal) {
+    if (deltaVal <= 0.8) return "ultra";   // 5424x5424 (2 km Nativa ABI) for Hiper Local 3x & Ultra Local
+    if (deltaVal <= 5.0) return "high";    // 1808x1808 for Entorno Local & Regional
+    return "medium";                       // 678x678 fast load for Brasil & América do Sul
+  }
+
+  syncResolutionUI(targetRes) {
+    this.goesConfig.resolution = targetRes;
+    document.querySelectorAll("#resSelector .seg-btn").forEach((b) => {
+      b.classList.toggle("active", b.dataset.res === targetRes);
+    });
+    const resBadge = document.getElementById("goesCurrentResBadge");
+    const resLabels = {
+      low: "339x339 Baixa",
+      medium: "678x678 Média",
+      high: "1808x1808 Alta",
+      ultra: "5424x5424 Ultra 2km"
+    };
+    if (resBadge) resBadge.textContent = resLabels[targetRes] || targetRes;
+  }
+
+  formatDirectNoaaResLabel(resCode) {
+    const d = this.goesConfig.delta;
+    const is2km = resCode === "5424x5424" || resCode === "10848x10848";
+    const abiNote = is2km ? "2km ABI" : resCode;
+    if (d <= 0.35) return `Hiper Local ~35km • ${abiNote}`;
+    if (d <= 0.8) return `Ultra Local ~75km • ${abiNote}`;
+    if (d <= 2.0) return `Entorno ~170km • ${abiNote}`;
+    if (d <= 5.0) return `Regional ~380km • ${resCode}`;
+    if (d <= 12.0) return `${resCode} • Brasil`;
+    return `${resCode} • Full Disk`;
+  }
+
   async fetchDirectNoaaGoesFrames() {
     const currentProd = this.goesConfig.product || "cptec_dsa";
-    const spec = this.getDirectNoaaProductSpec(currentProd);
-    const noaaProd = spec.noaaId;
+    let spec = this.getDirectNoaaProductSpec(currentProd);
+    let noaaProd = spec.noaaId;
 
     const resMap = {
       low: "339x339",
@@ -2290,30 +2353,75 @@ class MeteoApp {
       ultra: "5424x5424"
     };
 
-    let activeRes = this.goesConfig.resolution || "medium";
-    if (this.goesConfig.delta <= 5.0 && activeRes === "medium") {
-      activeRes = "high";
-      this.goesConfig.resolution = "high";
-      const highBtn = document.querySelector('#resSelector .seg-btn[data-res="high"]');
-      if (highBtn) {
-        document.querySelectorAll("#resSelector .seg-btn").forEach((b) => b.classList.remove("active"));
-        highBtn.classList.add("active");
+    if (!this.goesConfig.userLockedRes) {
+      const recRes = this.getRecommendedNoaaResolution(this.goesConfig.delta);
+      if (this.goesConfig.resolution !== recRes) {
+        this.syncResolutionUI(recRes);
       }
     }
-    const resCode = resMap[activeRes] || "678x678";
+
+    const activeRes = this.goesConfig.resolution || "medium";
+    const requestedResCode = resMap[activeRes] || "678x678";
     const numFrames = this.goesConfig.numFrames || 8;
 
-    let timestamps = [];
-    try {
-      const dirUrl = `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${noaaProd}/`;
+    const parseNoaaDirectory = async (prodFolder) => {
+      const nowMs = Date.now();
+      const cached = this._noaaDirCache?.get(prodFolder);
+      if (cached && nowMs - cached.ts < 180000) {
+        return cached.data;
+      }
+      const dirUrl = `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${prodFolder}/`;
       const res = await fetch(dirUrl);
-      if (res.ok) {
-        const html = await res.text();
-        const regex = new RegExp(`(\\d{11})_GOES19-ABI-FD-${noaaProd}-(?:678x678|1808x1808|339x339|latest)\\.jpg`, "g");
-        const found = [...html.matchAll(regex)].map((m) => m[1]);
-        const unique = [...new Set(found)].sort();
-        if (unique.length >= 2) {
-          timestamps = unique.slice(-numFrames);
+      if (!res.ok) return null;
+      const html = await res.text();
+      const bySize = {};
+      const entryRegex = /(\d{11})_GOES19-ABI-FD-[A-Za-z0-9_]+-(\d+x\d+)\.jpg/g;
+      for (const m of html.matchAll(entryRegex)) {
+        const ts = m[1];
+        const sz = m[2];
+        if (!bySize[sz]) bySize[sz] = new Set();
+        bySize[sz].add(ts);
+      }
+      const out = {};
+      for (const [sz, setTs] of Object.entries(bySize)) {
+        out[sz] = [...setTs].sort();
+      }
+      if (Object.keys(out).length > 0 && this._noaaDirCache) {
+        this._noaaDirCache.set(prodFolder, { ts: nowMs, data: out });
+      }
+      return out;
+    };
+
+    let actualResCode = requestedResCode;
+    let timestamps = [];
+
+    try {
+      let bySize = await parseNoaaDirectory(noaaProd);
+      if (!bySize || Object.keys(bySize).length === 0) {
+        // Fallback to GEOCOLOR if a NOAA product folder has no active JPEGs
+        noaaProd = "GEOCOLOR";
+        spec = this.getDirectNoaaProductSpec("geocolor");
+        bySize = await parseNoaaDirectory(noaaProd);
+      }
+
+      if (bySize && Object.keys(bySize).length > 0) {
+        const fallbackOrder = [
+          requestedResCode,
+          "5424x5424",
+          "1808x1808",
+          "678x678",
+          "339x339"
+        ];
+        for (const cand of fallbackOrder) {
+          if (bySize[cand] && bySize[cand].length >= 2) {
+            actualResCode = cand;
+            const effectiveFrames =
+              cand === "5424x5424" && !this.goesConfig.userLockedFrames
+                ? Math.min(numFrames, 3)
+                : numFrames;
+            timestamps = bySize[cand].slice(-effectiveFrames);
+            break;
+          }
         }
       }
     } catch (e) {
@@ -2338,7 +2446,7 @@ class MeteoApp {
     const frames = timestamps.map((ts) => {
       const fmt = this.parseNoaaTimestamp(ts);
       return {
-        url: `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${noaaProd}/${ts}_GOES19-ABI-FD-${noaaProd}-${resCode}.jpg`,
+        url: `https://cdn.star.nesdis.noaa.gov/GOES19/ABI/FD/${noaaProd}/${ts}_GOES19-ABI-FD-${noaaProd}-${actualResCode}.jpg`,
         timestamp_raw: ts,
         time_utc: fmt.utc,
         time_local: fmt.local,
@@ -2350,10 +2458,12 @@ class MeteoApp {
     });
 
     const geos = this.latlonToGeosPct(this.currentLat, this.currentLon) || { xPct: 71.8, yPct: 63.8 };
+    this.goesConfig.activeNoaaResCode = actualResCode;
 
     return {
       is_direct_noaa: true,
       frames,
+      actual_res_code: actualResCode,
       product: {
         id: noaaProd,
         name: spec.name,
@@ -2364,29 +2474,72 @@ class MeteoApp {
       },
       pin_x_pct: geos.xPct,
       pin_y_pct: geos.yPct,
-      brazil_center_x_pct: 71.8,
-      brazil_center_y_pct: 63.8,
-      res_label: `${resCode} Full Disk`,
-      scale_mode: this.goesConfig.delta <= 12.0 ? "brasil" : "fulldisk"
+      brazil_center_x_pct: 71.2,
+      brazil_center_y_pct: 63.2,
+      res_label: this.formatDirectNoaaResLabel(actualResCode),
+      scale_mode: this.goesConfig.delta <= 0.35 ? "hiper" : this.goesConfig.delta <= 0.8 ? "ultra" : this.goesConfig.delta <= 2.0 ? "local" : this.goesConfig.delta <= 5.0 ? "regional" : this.goesConfig.delta <= 12.0 ? "brasil" : "fulldisk"
     };
   }
 
   async loadGoesFrames() {
+    const reqSeq = ++this._goesLoadSeq;
+    if (this.goesConfig.timerId) {
+      clearInterval(this.goesConfig.timerId);
+      this.goesConfig.timerId = null;
+    }
+
+    // Abort any stale in-flight satellite image downloads immediately to free HTTP bandwidth
+    if (this._inflightImages && this._inflightImages.size > 0) {
+      for (const im of this._inflightImages) {
+        im.onload = null;
+        im.onerror = null;
+        im.src = "data:,";
+      }
+      this._inflightImages.clear();
+    }
+
+    // Preserve currently rendered frame as instant 0ms preview while new frames refine
+    const prevDrawable = this.goesConfig.preloadedImages?.[this.goesConfig.currentFrameIndex];
+    if (prevDrawable && (prevDrawable.width > 0 || prevDrawable.naturalWidth > 0)) {
+      this._fallbackPreviewDrawable = prevDrawable;
+    }
+    this.goesConfig.loadedFramesCount = 0;
+
+    const hasPreview = Boolean(this._fallbackPreviewDrawable);
     const overlay = document.getElementById("goesLoadingOverlay");
+    const overlayText = document.getElementById("goesLoadingText");
     if (overlay) {
+      overlay.classList.toggle("is-refining", hasPreview);
       overlay.style.display = "flex";
       overlay.style.opacity = "1";
     }
+    if (overlayText) {
+      overlayText.textContent = hasPreview
+        ? (this.goesConfig.delta <= 0.8
+          ? "Sincronizando nitidez máxima ABI 2 km (5424x5424)..."
+          : "Aprimorando resolução temporal GOES-19...")
+        : "Carregando quadros temporais do GOES-19...";
+    }
 
-    const { resolution, delta, product, numFrames, showBorders, showCities, showUrban } = this.goesConfig;
-    const resBadge = document.getElementById("goesCurrentResBadge");
-    const resLabels = {
-      low: "339x339 Baixa",
-      medium: "678x678 Média",
-      high: "1808x1808 Alta",
-      ultra: "5424x5424 Ultra"
-    };
-    if (resBadge) resBadge.textContent = resLabels[resolution] || resolution;
+    // Render instant preview + sharp vector boundaries right away if preview is available
+    if (hasPreview && this.goesConfig.isDirectNoaa) {
+      const geosNow = this.latlonToGeosPct(this.currentLat, this.currentLon);
+      if (geosNow) {
+        this.goesConfig.pinXPct = geosNow.xPct;
+        this.goesConfig.pinYPct = geosNow.yPct;
+      }
+      this.applyGoesZoom(false);
+      this.updateGoesVectorLayers().then(() => {
+        if (reqSeq === this._goesLoadSeq) this.drawGoesViewportCanvas();
+      });
+    }
+
+    const { delta, product, numFrames, showBorders, showCities, showUrban } = this.goesConfig;
+    if (!this.goesConfig.userLockedRes) {
+      this.syncResolutionUI(this.getRecommendedNoaaResolution(delta));
+    } else {
+      this.syncResolutionUI(this.goesConfig.resolution);
+    }
 
     let data = null;
     const directOnlyProducts = ["fire_temp", "air_mass"];
@@ -2394,11 +2547,12 @@ class MeteoApp {
     // 1. Try local FastAPI backend if running (and product is supported by CPTEC/INPE backend)
     if (this.hasLocalBackend && !directOnlyProducts.includes(product)) {
       try {
-        const url = `/api/goes/frames?lat=${this.currentLat}&lon=${this.currentLon}&delta=${delta}&resolution=${resolution}&frames=${numFrames}&product=${product}&borders=${showBorders !== false}&cities=${showCities !== false}&urban=${showUrban !== false}`;
+        const url = `/api/goes/frames?lat=${this.currentLat}&lon=${this.currentLon}&delta=${delta}&resolution=${this.goesConfig.resolution}&frames=${numFrames}&product=${product}&borders=${showBorders !== false}&cities=${showCities !== false}&urban=${showUrban !== false}`;
         const res = await fetch(url);
         if (res.ok) data = await res.json();
       } catch (e) {}
     }
+    if (reqSeq !== this._goesLoadSeq) return;
 
     // 2. Direct NOAA STAR GOES-19 Full Disk (100% browser-native for GitHub Pages)
     if (!data || !data.frames || data.frames.length === 0) {
@@ -2408,8 +2562,10 @@ class MeteoApp {
         console.error("Direct NOAA fetch error:", e);
       }
     }
+    if (reqSeq !== this._goesLoadSeq) return;
 
     if (data && data.frames && data.frames.length > 0) {
+      this._lastLoadedProduct = product;
       this.goesConfig.isDirectNoaa = Boolean(data.is_direct_noaa);
       this.goesConfig.frames = data.frames;
       this.goesConfig.productMeta = data.product || null;
@@ -2422,21 +2578,15 @@ class MeteoApp {
       const hudResBadge = document.getElementById("hudResBadge");
       if (hudResBadge) hudResBadge.textContent = data.res_label ? `🛰️ ${data.res_label}` : "";
 
-      this.applyGoesZoom();
-      await Promise.all([
-        this.preloadGoesImages(),
-        this.updateGoesVectorLayers()
-      ]);
-
       const slider = document.getElementById("timelineSlider");
       if (slider) {
         slider.max = Math.max(0, this.goesConfig.frames.length - 1);
         slider.value = this.goesConfig.currentFrameIndex;
       }
 
-      this.renderTimelineTicks();
-      this.renderCurrentGoesFrame();
-      this.startGoesAnimation();
+      this.applyGoesZoom(false);
+      await this.preloadGoesImagesProgressive(reqSeq);
+      if (reqSeq !== this._goesLoadSeq) return;
     } else {
       this.goesConfig.isDirectNoaa = false;
       this.goesConfig.frames = [{
@@ -2444,77 +2594,152 @@ class MeteoApp {
         time_label: "GOES-19 • Amostra Offline",
         time_utc: "Offline"
       }];
+      this.goesConfig.preloadedImages = [];
       this.goesConfig.currentFrameIndex = 0;
       this.renderTimelineTicks();
       this.renderCurrentGoesFrame();
-    }
-
-    if (overlay) {
-      overlay.style.opacity = "0";
-      setTimeout(() => { overlay.style.display = "none"; }, 280);
+      if (overlay) {
+        overlay.style.opacity = "0";
+        setTimeout(() => {
+          if (reqSeq === this._goesLoadSeq) overlay.style.display = "none";
+        }, 240);
+      }
     }
   }
 
-  getZoomTransform() {
-    const { delta, pinXPct, pinYPct, playerZoom, panOffsetX, panOffsetY } = this.goesConfig;
+  getViewportBoundsPct() {
+    const { delta, pinXPct, pinYPct, playerZoom, panOffsetX, panOffsetY, isDirectNoaa, scaleMode } = this.goesConfig;
     const px = pinXPct !== undefined ? pinXPct : 71.8;
     const py = pinYPct !== undefined ? pinYPct : 63.8;
 
-    let baseScale = 1.0;
-    let targetX = 50.0;
-    let targetY = 50.0;
+    let baseSpanPct = 100.0;
+    let targetXPct = 50.0;
+    let targetYPct = 50.0;
+    let approxWidthKm = 11500;
 
-    if (delta <= 0.35) {
-      baseScale = 18.0; targetX = px; targetY = py;
-    } else if (delta <= 0.8) {
-      baseScale = 12.0; targetX = px; targetY = py;
-    } else if (delta <= 2.0) {
-      baseScale = 7.5; targetX = px; targetY = py;
-    } else if (delta <= 5.0) {
-      baseScale = 4.2; targetX = px; targetY = py;
-    } else if (delta <= 12.0) {
-      baseScale = 2.15; targetX = 72.5; targetY = 64.5;
+    if (isDirectNoaa) {
+      if (delta <= 5.0) {
+        let radiusDeg = 3.55;
+        if (delta <= 0.35) radiusDeg = 0.35;      // Hiper Local 3x (~39 km radius / ~78 km box)
+        else if (delta <= 0.8) radiusDeg = 0.70;  // Ultra Local (~78 km radius / ~156 km box)
+        else if (delta <= 2.0) radiusDeg = 1.55;  // Entorno Local (~172 km radius / ~344 km box)
+
+        const cosLat = Math.max(0.35, Math.cos((this.currentLat * Math.PI) / 180));
+        const lonRadius = radiusDeg / cosLat;
+        const pN = this.latlonToGeosPct(this.currentLat + radiusDeg, this.currentLon) || { xPct: px, yPct: py - radiusDeg };
+        const pS = this.latlonToGeosPct(this.currentLat - radiusDeg, this.currentLon) || { xPct: px, yPct: py + radiusDeg };
+        const pW = this.latlonToGeosPct(this.currentLat, this.currentLon - lonRadius) || { xPct: px - radiusDeg, yPct: py };
+        const pE = this.latlonToGeosPct(this.currentLat, this.currentLon + lonRadius) || { xPct: px + radiusDeg, yPct: py };
+
+        const dxPct = Math.abs(pE.xPct - pW.xPct);
+        const dyPct = Math.abs(pS.yPct - pN.yPct);
+        baseSpanPct = Math.max(0.45, Math.max(dxPct, dyPct));
+        targetXPct = px;
+        targetYPct = py;
+        approxWidthKm = radiusDeg * 2.0 * 111.1;
+      } else if (delta <= 12.0) {
+        baseSpanPct = 44.0;
+        targetXPct = 71.2;
+        targetYPct = 63.2;
+        approxWidthKm = 4850;
+      } else {
+        baseSpanPct = 100.0;
+        targetXPct = 50.0;
+        targetYPct = 50.0;
+        approxWidthKm = 11500;
+      }
     } else {
-      baseScale = 1.0; targetX = 50.0; targetY = 50.0;
+      // Local FastAPI backend returns pre-cropped frames for hiper/ultra/local/regional
+      if (scaleMode === "brasil") {
+        baseSpanPct = 44.0;
+        targetXPct = 71.2;
+        targetYPct = 63.2;
+        approxWidthKm = 4850;
+      } else {
+        baseSpanPct = 100.0;
+        targetXPct = 50.0;
+        targetYPct = 50.0;
+        approxWidthKm = delta <= 0.35 ? 90 : delta <= 0.8 ? 180 : delta <= 2.0 ? 360 : delta <= 5.0 ? 800 : 11500;
+      }
     }
 
-    const finalScale = baseScale * (playerZoom || 1.0);
-    const tx = 50.0 - finalScale * targetX + (panOffsetX || 0);
-    const ty = 50.0 - finalScale * targetY + (panOffsetY || 0);
-    return { finalScale, tx, ty, px, py };
+    const z = Math.max(0.5, Math.min(8.0, playerZoom || 1.0));
+    const spanPct = Math.max(0.12, Math.min(100.0, baseSpanPct / z));
+    let x0Pct = targetXPct - 0.5 * spanPct - ((panOffsetX || 0) / 100.0) * spanPct;
+    let y0Pct = targetYPct - 0.5 * spanPct - ((panOffsetY || 0) / 100.0) * spanPct;
+    x0Pct = Math.max(-4.0, Math.min(104.0 - spanPct, x0Pct));
+    y0Pct = Math.max(-4.0, Math.min(104.0 - spanPct, y0Pct));
+
+    return {
+      x0Pct,
+      y0Pct,
+      spanPct,
+      px,
+      py,
+      approxWidthKm: approxWidthKm / z,
+      finalScale: 100.0 / spanPct,
+      tx: -(x0Pct / spanPct) * 100.0,
+      ty: -(y0Pct / spanPct) * 100.0
+    };
   }
 
-  applyGoesZoom(animate = true) {
+  getZoomTransform() {
+    return this.getViewportBoundsPct();
+  }
+
+  isViewportCoveredByPreloaded() {
+    const imgs = this.goesConfig.preloadedImages;
+    if (!imgs || imgs.length === 0) return false;
+    const sample = imgs.find((im) => im !== null);
+    if (!sample) return false;
+    if (sample._isDownscaledFullDisk && this.goesConfig.delta <= 5.0) return false;
+    const b = sample._boundsPct;
+    if (!b) return true;
+    const vb = this.getViewportBoundsPct();
+    return (
+      vb.x0Pct >= b.x0Pct + 0.25 &&
+      vb.y0Pct >= b.y0Pct + 0.25 &&
+      vb.x0Pct + vb.spanPct <= b.x0Pct + b.wPct - 0.25 &&
+      vb.y0Pct + vb.spanPct <= b.y0Pct + b.hPct - 0.25
+    );
+  }
+
+  applyGoesZoom(animate = false) {
     const wrapper = document.getElementById("canvasZoomWrapper") || document.getElementById("goesDisplayImage");
     const crosshair = document.getElementById("satelliteCrosshair");
     const bordersOverlay = document.getElementById("goesBordersOverlay");
     if (bordersOverlay) bordersOverlay.classList.add("hidden");
-    if (!wrapper) return;
 
-    const { finalScale, tx, ty, px, py } = this.getZoomTransform();
+    const bounds = this.getViewportBoundsPct();
 
-    wrapper.style.transition = animate ? "transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)" : "none";
-    wrapper.style.transformOrigin = "0% 0%";
-    wrapper.style.transform = `translate(${tx}%, ${ty}%) scale(${finalScale})`;
+    if (wrapper) {
+      wrapper.style.transition = animate ? "transform 0.25s cubic-bezier(0.16, 1, 0.3, 1)" : "none";
+      wrapper.style.transformOrigin = "0% 0%";
+      wrapper.style.transform = `translate(${bounds.tx}%, ${bounds.ty}%) scale(${bounds.finalScale})`;
+    }
 
     if (crosshair) {
-      crosshair.style.left = `${px}%`;
-      crosshair.style.top = `${py}%`;
-      crosshair.style.display = "block";
-      const invScale = Math.max(0.14, Math.min(1.0, 1.15 / finalScale));
-      crosshair.style.transform = `scale(${invScale})`;
+      const pinScreenXPct = ((bounds.px - bounds.x0Pct) / bounds.spanPct) * 100.0;
+      const pinScreenYPct = ((bounds.py - bounds.y0Pct) / bounds.spanPct) * 100.0;
+      const inView = pinScreenXPct >= -4 && pinScreenXPct <= 104 && pinScreenYPct >= -4 && pinScreenYPct <= 104;
+      crosshair.style.display = inView ? "block" : "none";
+      crosshair.style.left = `${pinScreenXPct}%`;
+      crosshair.style.top = `${pinScreenYPct}%`;
+      crosshair.style.transform = "none";
       const lbl = document.getElementById("crosshairLabel");
       if (lbl) lbl.textContent = `${this.currentStationName} (${this.currentStationCode})`;
     }
 
     const zoomDisplay = document.getElementById("playerZoomDisplay");
-    if (zoomDisplay) zoomDisplay.textContent = `${finalScale.toFixed(1)}x`;
+    if (zoomDisplay) zoomDisplay.textContent = `${(this.goesConfig.playerZoom || 1.0).toFixed(1)}x`;
+
+    this.drawGoesViewportCanvas(bounds);
   }
 
   setPlayerZoom(newZoom) {
-    const clamped = Math.max(0.5, Math.min(6.0, Math.round(newZoom * 10) / 10));
+    const clamped = Math.max(0.5, Math.min(8.0, Math.round(newZoom * 10) / 10));
     this.goesConfig.playerZoom = clamped;
-    this.applyGoesZoom(true);
+    this.applyGoesZoom(false);
   }
 
   toggleGoesFullscreen() {
@@ -2531,10 +2756,11 @@ class MeteoApp {
     } else {
       wrapper.classList.toggle("goes-fullscreen-active");
     }
+    setTimeout(() => this.drawGoesViewportCanvas(), 80);
   }
 
   // ==========================================================================
-  // Geostationary SVG Vector Projection Engine (IBGE States, Cities & Urban)
+  // Geostationary Vector Projection Engine (IBGE States, Cities & Urban)
   // ==========================================================================
   async fetchGeoJsonStates() {
     if (this.geoCache.estados) return this.geoCache.estados;
@@ -2548,11 +2774,30 @@ class MeteoApp {
     return null;
   }
 
-  async fetchGeoJsonMunicipios(ufSigla) {
+  async fetchIbgeMunicipioNames(ufSigla, ufCode) {
+    if (this.geoCache.municipioNames[ufSigla]) return this.geoCache.municipioNames[ufSigla];
+    try {
+      const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufCode}/municipios`);
+      if (res.ok) {
+        const arr = await res.json();
+        const map = {};
+        if (Array.isArray(arr)) {
+          arr.forEach((m) => {
+            if (m && m.id && m.nome) map[String(m.id)] = m.nome;
+          });
+        }
+        this.geoCache.municipioNames[ufSigla] = map;
+        return map;
+      }
+    } catch (e) {}
+    return {};
+  }
+
+  async fetchGeoJsonMunicipios(ufSigla, highDetail = false) {
     const uf = (ufSigla || "GO").toUpperCase();
-    if (this.geoCache.municipios[uf]) return this.geoCache.municipios[uf];
 
     if (uf === "GO") {
+      if (this.geoCache.municipios.GO) return this.geoCache.municipios.GO;
       try {
         const res = await fetch("static/data/geo/goias_municipios.geojson");
         if (res.ok) {
@@ -2562,14 +2807,31 @@ class MeteoApp {
       } catch (e) {}
     }
 
+    const bucket = highDetail ? this.geoCache.municipiosHi : this.geoCache.municipios;
+    if (bucket[uf]) return bucket[uf];
+
     const ufCode = UF_IBGE_CODES[uf];
     if (!ufCode) return null;
+    const qualidade = highDetail ? "intermediaria" : "minima";
+
     try {
-      const url = `https://servicodados.ibge.gov.br/api/v3/malhas/estados/${ufCode}?formato=application/vnd.geo+json&qualidade=minima&intrarregiao=municipio`;
-      const res = await fetch(url);
-      if (res.ok) {
-        const gj = await res.json();
-        this.geoCache.municipios[uf] = gj;
+      const [meshRes, namesMap] = await Promise.all([
+        fetch(`https://servicodados.ibge.gov.br/api/v3/malhas/estados/${ufCode}?formato=application/vnd.geo+json&qualidade=${qualidade}&intrarregiao=municipio`),
+        highDetail ? this.fetchIbgeMunicipioNames(uf, ufCode) : Promise.resolve({})
+      ]);
+      if (meshRes.ok) {
+        const gj = await meshRes.json();
+        if (gj && Array.isArray(gj.features)) {
+          gj.features.forEach((feat) => {
+            const p = feat.properties || {};
+            const code = String(p.codarea || p.codigo_ibge || "");
+            if (code && !p.nome && namesMap[code]) {
+              p.nome = namesMap[code];
+              feat.properties = p;
+            }
+          });
+        }
+        bucket[uf] = gj;
         return gj;
       }
     } catch (e) {
@@ -2590,42 +2852,72 @@ class MeteoApp {
     return null;
   }
 
-  geoJsonToGeosSvgPath(geojson, bboxFilter = null) {
-    if (!geojson || !Array.isArray(geojson.features)) return { svgPath: "", ringsPct: [] };
-    const chunks = [];
-    const ringsPct = [];
-
-    const processRing = (ring) => {
-      if (!ring || ring.length < 3) return;
-      if (bboxFilter) {
-        const [lon0, lat0] = ring[0];
-        if (
-          lon0 < bboxFilter.minLon || lon0 > bboxFilter.maxLon ||
-          lat0 < bboxFilter.minLat || lat0 > bboxFilter.maxLat
-        ) {
-          return;
-        }
-      }
-
-      const pts = [];
-      let dStr = "";
-      for (let i = 0; i < ring.length; i++) {
-        const pt = this.latlonToGeosPct(ring[i][1], ring[i][0]);
-        if (!pt) continue;
-        pts.push(pt);
-        const sx = (pt.xPct * 10).toFixed(2);
-        const sy = (pt.yPct * 10).toFixed(2);
-        dStr += (pts.length === 1 ? `M${sx},${sy}` : `L${sx},${sy}`);
-      }
-      if (pts.length >= 3) {
-        chunks.push(dStr + "Z");
-        ringsPct.push(pts);
-      }
-    };
+  geoJsonToGeosRings(geojson, bboxFilter = null) {
+    if (!geojson || !Array.isArray(geojson.features)) return { rings: [], labels: [] };
+    const rings = [];
+    const labels = [];
 
     for (const feat of geojson.features) {
       const geom = feat?.geometry;
       if (!geom || !geom.coordinates) continue;
+      const props = feat.properties || {};
+      const geocode = String(props.codarea || props.codigo_ibge || "");
+      const nome = props.nome || "";
+
+      let bestRingForLabel = null;
+      let bestRingLen = 0;
+
+      const processRing = (ring) => {
+        if (!ring || ring.length < 3) return;
+        if (bboxFilter) {
+          const [lon0, lat0] = ring[0];
+          if (
+            lon0 < bboxFilter.minLon || lon0 > bboxFilter.maxLon ||
+            lat0 < bboxFilter.minLat || lat0 > bboxFilter.maxLat
+          ) {
+            return;
+          }
+        }
+
+        const pts = [];
+        let minXPct = 999, maxXPct = -999, minYPct = 999, maxYPct = -999;
+        let sumX = 0, sumY = 0;
+
+        for (let i = 0; i < ring.length; i++) {
+          const pt = this.latlonToGeosPct(ring[i][1], ring[i][0]);
+          if (!pt) continue;
+          pts.push(pt);
+          if (pt.xPct < minXPct) minXPct = pt.xPct;
+          if (pt.xPct > maxXPct) maxXPct = pt.xPct;
+          if (pt.yPct < minYPct) minYPct = pt.yPct;
+          if (pt.yPct > maxYPct) maxYPct = pt.yPct;
+          sumX += pt.xPct;
+          sumY += pt.yPct;
+        }
+
+        if (pts.length >= 3) {
+          const ringObj = {
+            pts,
+            minXPct,
+            maxXPct,
+            minYPct,
+            maxYPct,
+            geocode,
+            nome
+          };
+          rings.push(ringObj);
+          if (nome && pts.length > bestRingLen) {
+            bestRingLen = pts.length;
+            bestRingForLabel = {
+              nome,
+              geocode,
+              cxPct: sumX / pts.length,
+              cyPct: sumY / pts.length
+            };
+          }
+        }
+      };
+
       if (geom.type === "Polygon") {
         for (const ring of geom.coordinates) processRing(ring);
       } else if (geom.type === "MultiPolygon") {
@@ -2633,88 +2925,87 @@ class MeteoApp {
           for (const ring of poly) processRing(ring);
         }
       }
+
+      if (bestRingForLabel) {
+        labels.push(bestRingForLabel);
+      }
     }
 
-    return { svgPath: chunks.join(""), ringsPct };
+    return { rings, labels };
   }
 
   async updateGoesVectorLayers() {
     const svgOverlay = document.getElementById("goesVectorOverlay");
-    const gBorders = document.getElementById("svgLayerBorders");
-    const gCities = document.getElementById("svgLayerCities");
-    const gUrban = document.getElementById("svgLayerUrban");
-    if (!svgOverlay || !gBorders || !gCities || !gUrban) return;
+    if (svgOverlay) svgOverlay.style.display = "none";
 
-    // When backend renders cropped PNGs directly, hide client-side Full Disk vector SVG
     if (!this.goesConfig.isDirectNoaa) {
-      svgOverlay.style.display = "none";
+      this._activeVectorRings = { borders: [], cities: [], cityLabels: [], urban: [] };
       return;
     }
 
-    svgOverlay.style.display = "block";
-    this._activeVectorRings = { borders: [], cities: [], urban: [] };
+    const nextVectors = { borders: [], cities: [], cityLabels: [], urban: [] };
 
     // 1. State Borders (27 UFs)
     if (this.goesConfig.showBorders) {
       const estadosGj = await this.fetchGeoJsonStates();
       if (estadosGj) {
-        if (!this.geoCache._estadosProjected) {
-          this.geoCache._estadosProjected = this.geoJsonToGeosSvgPath(estadosGj);
+        if (!this.geoCache._estadosRings) {
+          this.geoCache._estadosRings = this.geoJsonToGeosRings(estadosGj);
         }
-        const { svgPath, ringsPct } = this.geoCache._estadosProjected;
-        gBorders.innerHTML = svgPath ? `<path d="${svgPath}"></path>` : "";
-        this._activeVectorRings.borders = ringsPct;
+        nextVectors.borders = this.geoCache._estadosRings.rings;
       }
-    } else {
-      gBorders.innerHTML = "";
     }
 
-    // 2. Active State Municipal Mesh (IBGE)
+    // 2. Active State Municipal Mesh (IBGE — intermediate quality on local/hyper-local zooms)
     if (this.goesConfig.showCities && this.goesConfig.delta <= 9.0) {
-      const uf = this.currentState || "GO";
-      const munGj = await this.fetchGeoJsonMunicipios(uf);
-      if (munGj) {
-        const cacheKey = `_munProj_${uf}`;
-        if (!this.geoCache[cacheKey]) {
-          this.geoCache[cacheKey] = this.geoJsonToGeosSvgPath(munGj);
+      const uf = (this.currentState || "GO").toUpperCase();
+      const highDetail = this.goesConfig.delta <= 2.5;
+      const ufsToLoad = uf === "DF" ? ["DF", "GO"] : [uf];
+
+      for (const targetUf of ufsToLoad) {
+        const munGj = await this.fetchGeoJsonMunicipios(targetUf, highDetail);
+        if (munGj) {
+          const cacheKey = `_munRings_${targetUf}_${highDetail ? "hi" : "lo"}`;
+          if (!this.geoCache[cacheKey]) {
+            this.geoCache[cacheKey] = this.geoJsonToGeosRings(munGj);
+          }
+          nextVectors.cities.push(...this.geoCache[cacheKey].rings);
+          nextVectors.cityLabels.push(...this.geoCache[cacheKey].labels);
         }
-        const { svgPath, ringsPct } = this.geoCache[cacheKey];
-        const strokeOp = this.goesConfig.delta <= 4.0 ? "0.68" : "0.35";
-        gCities.innerHTML = svgPath ? `<path d="${svgPath}" style="stroke-opacity:${strokeOp};"></path>` : "";
-        this._activeVectorRings.cities = ringsPct;
-      } else {
-        gCities.innerHTML = "";
       }
-    } else {
-      gCities.innerHTML = "";
     }
 
-    // 3. IBGE 2022 Urbanized Footprints (Regional/Local Zoom in GO)
-    if (this.goesConfig.showUrban && this.currentState === "GO" && this.goesConfig.delta <= 4.0) {
+    // 3. IBGE 2022 Urbanized Footprints (Regional/Local/Hyper-Local Zoom in GO & DF Entorno)
+    const ufUpper = (this.currentState || "GO").toUpperCase();
+    if (this.goesConfig.showUrban && (ufUpper === "GO" || ufUpper === "DF") && this.goesConfig.delta <= 4.5) {
       const urbanGj = await this.fetchGeoJsonUrbanGoias();
       if (urbanGj) {
-        const padDeg = Math.max(0.8, this.goesConfig.delta * 1.35);
+        const padDeg = Math.max(0.9, this.goesConfig.delta * 1.45);
         const bbox = {
           minLat: this.currentLat - padDeg,
           maxLat: this.currentLat + padDeg,
           minLon: this.currentLon - padDeg,
           maxLon: this.currentLon + padDeg
         };
-        const { svgPath, ringsPct } = this.geoJsonToGeosSvgPath(urbanGj, bbox);
-        gUrban.innerHTML = svgPath ? `<path d="${svgPath}"></path>` : "";
-        this._activeVectorRings.urban = ringsPct;
-      } else {
-        gUrban.innerHTML = "";
+        const { rings } = this.geoJsonToGeosRings(urbanGj, bbox);
+        nextVectors.urban = rings;
       }
-    } else {
-      gUrban.innerHTML = "";
     }
+
+    this._activeVectorRings = nextVectors;
+    this._activeVectorState = ufUpper;
+    this.drawGoesViewportCanvas();
   }
 
   setupCanvasPanAndZoom() {
     const holder = document.querySelector(".canvas-holder");
     if (!holder || holder._panZoomInitialized) return;
     holder._panZoomInitialized = true;
+
+    window.addEventListener("resize", () => this.drawGoesViewportCanvas());
+    document.addEventListener("fullscreenchange", () => {
+      setTimeout(() => this.drawGoesViewportCanvas(), 60);
+    });
 
     let isDown = false;
     let startX = 0;
@@ -2783,7 +3074,7 @@ class MeteoApp {
           e.touches[0].clientX - e.touches[1].clientX,
           e.touches[0].clientY - e.touches[1].clientY
         );
-        const newZoom = Math.max(0.5, Math.min(6.0, initialZoom * (dist / touchStartDist)));
+        const newZoom = Math.max(0.5, Math.min(8.0, initialZoom * (dist / touchStartDist)));
         this.goesConfig.playerZoom = Math.round(newZoom * 10) / 10;
         this.applyGoesZoom(false);
       }
@@ -2796,7 +3087,7 @@ class MeteoApp {
 
     holder.addEventListener("wheel", (e) => {
       e.preventDefault();
-      const step = e.deltaY < 0 ? 0.2 : -0.2;
+      const step = e.deltaY < 0 ? 0.25 : -0.25;
       this.setPlayerZoom((this.goesConfig.playerZoom || 1.0) + step);
     }, { passive: false });
 
@@ -2809,29 +3100,187 @@ class MeteoApp {
     });
   }
 
-  async preloadGoesImages() {
-    const promises = this.goesConfig.frames.map((f) => {
-      return new Promise((resolve) => {
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.onload = () => {
-          img._corsClean = true;
-          resolve(img);
-        };
-        img.onerror = () => {
-          // Retry without crossOrigin if server lacked CORS header
-          const fallbackImg = new Image();
-          fallbackImg.onload = () => {
-            fallbackImg._corsClean = false;
-            resolve(fallbackImg);
+  optimizeSatelliteDrawable(img) {
+    if (!img || !img.naturalWidth || !img.naturalHeight) return null;
+    const nw = img.naturalWidth;
+    const nh = img.naturalHeight;
+
+    // Sub-crop 5424x5424+ images to a generous 40%x40% native-resolution tile (~4,600 km)
+    // around the station so all 2 km ABI pixels are preserved 1:1 while slashing RAM by 6x
+    if (nw >= 3200 && this.goesConfig.isDirectNoaa) {
+      try {
+        const tile = document.createElement("canvas");
+        if (this.goesConfig.delta <= 5.0) {
+          const cxPct = this.goesConfig.pinXPct ?? 71.8;
+          const cyPct = this.goesConfig.pinYPct ?? 63.8;
+          const spanPct = 38.0;
+          const x0Pct = Math.max(0, Math.min(100 - spanPct, cxPct - spanPct / 2));
+          const y0Pct = Math.max(0, Math.min(100 - spanPct, cyPct - spanPct / 2));
+          const sx = Math.round((x0Pct / 100) * nw);
+          const sy = Math.round((y0Pct / 100) * nh);
+          const sw = Math.round((spanPct / 100) * nw);
+          const sh = Math.round((spanPct / 100) * nh);
+
+          tile.width = sw;
+          tile.height = sh;
+          const tctx = tile.getContext("2d");
+          tctx.drawImage(img, sx, sy, sw, sh, 0, 0, sw, sh);
+          tile._boundsPct = {
+            x0Pct: (sx / nw) * 100,
+            y0Pct: (sy / nh) * 100,
+            wPct: (sw / nw) * 100,
+            hPct: (sh / nh) * 100
           };
-          fallbackImg.onerror = () => resolve(null);
-          fallbackImg.src = f.url;
+          tile._corsClean = Boolean(img._corsClean);
+          tile.complete = true;
+          tile.naturalWidth = sw;
+          tile.naturalHeight = sh;
+          return tile;
+        } else {
+          // Wide Brazil / Full Disk view with Ultra selected: cap decoded bitmap at 2048x2048
+          const cap = 2048;
+          tile.width = cap;
+          tile.height = cap;
+          const tctx = tile.getContext("2d");
+          tctx.imageSmoothingEnabled = true;
+          tctx.imageSmoothingQuality = "high";
+          tctx.drawImage(img, 0, 0, nw, nh, 0, 0, cap, cap);
+          tile._boundsPct = { x0Pct: 0, y0Pct: 0, wPct: 100, hPct: 100 };
+          tile._isDownscaledFullDisk = true;
+          tile._corsClean = Boolean(img._corsClean);
+          tile.complete = true;
+          tile.naturalWidth = cap;
+          tile.naturalHeight = cap;
+          return tile;
+        }
+      } catch (e) {
+        // Fallback to raw image if canvas extraction fails
+      }
+    }
+
+    img._boundsPct = { x0Pct: 0, y0Pct: 0, wPct: 100, hPct: 100 };
+    return img;
+  }
+
+  loadSingleGoesImage(url) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      this._inflightImages.add(img);
+      img.onload = () => {
+        img.onload = null;
+        img.onerror = null;
+        this._inflightImages.delete(img);
+        img._corsClean = true;
+        resolve(this.optimizeSatelliteDrawable(img));
+      };
+      img.onerror = () => {
+        img.onload = null;
+        img.onerror = null;
+        this._inflightImages.delete(img);
+        const fallbackImg = new Image();
+        this._inflightImages.add(fallbackImg);
+        fallbackImg.onload = () => {
+          fallbackImg.onload = null;
+          fallbackImg.onerror = null;
+          this._inflightImages.delete(fallbackImg);
+          fallbackImg._corsClean = false;
+          resolve(this.optimizeSatelliteDrawable(fallbackImg));
         };
-        img.src = f.url;
-      });
+        fallbackImg.onerror = () => {
+          fallbackImg.onload = null;
+          fallbackImg.onerror = null;
+          this._inflightImages.delete(fallbackImg);
+          resolve(null);
+        };
+        fallbackImg.src = url;
+      };
+      img.src = url;
     });
-    this.goesConfig.preloadedImages = await Promise.all(promises);
+  }
+
+  async preloadGoesImagesProgressive(reqSeq) {
+    const frames = this.goesConfig.frames || [];
+    const total = frames.length;
+    if (total === 0) return;
+
+    this.goesConfig.preloadedImages = new Array(total).fill(null);
+    this.goesConfig.loadedFramesCount = 0;
+    this.goesConfig.isStreamingBuffer = total > 1;
+
+    const latestIdx = total - 1;
+
+    // 1. Load latest frame + vector layers first so user gets high-res display in ~1s
+    const [latestDrawable] = await Promise.all([
+      this.loadSingleGoesImage(frames[latestIdx].url),
+      this.updateGoesVectorLayers()
+    ]);
+    if (reqSeq !== this._goesLoadSeq) return;
+
+    if (latestDrawable) {
+      this.goesConfig.preloadedImages[latestIdx] = latestDrawable;
+      this.goesConfig.loadedFramesCount = 1;
+      this._fallbackPreviewDrawable = null;
+    }
+
+    const overlay = document.getElementById("goesLoadingOverlay");
+    if (overlay) {
+      overlay.style.opacity = "0";
+      setTimeout(() => {
+        if (reqSeq === this._goesLoadSeq) {
+          overlay.style.display = "none";
+          overlay.classList.remove("is-refining");
+        }
+      }, 220);
+    }
+
+    this.goesConfig.currentFrameIndex = latestIdx;
+    this.renderTimelineTicks();
+    this.renderCurrentGoesFrame();
+
+    if (total <= 1) {
+      this.goesConfig.isStreamingBuffer = false;
+      return;
+    }
+
+    // 2. Stream remaining historical frames in background (parallel connections)
+    const remainingIndices = [];
+    for (let i = latestIdx - 1; i >= 0; i--) remainingIndices.push(i);
+    const workerCount = Math.min(3, remainingIndices.length);
+
+    const streamTask = (async () => {
+      let cursor = 0;
+      const worker = async () => {
+        while (cursor < remainingIndices.length) {
+          if (reqSeq !== this._goesLoadSeq) return;
+          const idx = remainingIndices[cursor++];
+          const drawable = await this.loadSingleGoesImage(frames[idx].url);
+          if (reqSeq !== this._goesLoadSeq) return;
+          if (drawable) {
+            this.goesConfig.preloadedImages[idx] = drawable;
+            this.goesConfig.loadedFramesCount++;
+            const cEl = document.getElementById("hudFrameCounter");
+            if (cEl && this.goesConfig.isStreamingBuffer) {
+              cEl.textContent = `Quadro ${this.goesConfig.currentFrameIndex + 1} de ${total} • Buffer ${this.goesConfig.loadedFramesCount}/${total}`;
+            }
+            if (this.goesConfig.isPlaying && this.goesConfig.loadedFramesCount >= 2 && !this.goesConfig.timerId) {
+              this.startGoesAnimation();
+            }
+          }
+        }
+      };
+
+      await Promise.all(Array.from({ length: workerCount }, () => worker()));
+      if (reqSeq !== this._goesLoadSeq) return;
+
+      this.goesConfig.isStreamingBuffer = false;
+      this.renderCurrentGoesFrame();
+      if (this.goesConfig.isPlaying && !this.goesConfig.timerId) {
+        this.startGoesAnimation();
+      }
+    })();
+
+    this._activeStreamPromise = streamTask;
   }
 
   renderTimelineTicks() {
@@ -2847,13 +3296,266 @@ class MeteoApp {
       btn.className = `timeline-tick-btn${idx === this.goesConfig.currentFrameIndex ? " active" : ""}`;
       btn.textContent = f.short_hhmm || (f.time_short ? f.time_short.replace(" BRT", "") : `${idx + 1}`);
       btn.title = `Ir para quadro ${idx + 1}: ${f.time_label || f.time_local || ""}`;
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         this.pauseGoesAnimation();
+        if (!this.goesConfig.preloadedImages?.[idx] && f.url) {
+          const loaded = await this.loadSingleGoesImage(f.url);
+          if (loaded) this.goesConfig.preloadedImages[idx] = loaded;
+        }
         this.goesConfig.currentFrameIndex = idx;
         this.renderCurrentGoesFrame();
       });
       ticksEl.appendChild(btn);
     });
+  }
+
+  paintGoesScene(ctx, W, H, drawable, viewBounds, dpr = 1, includeScaleBar = true) {
+    ctx.fillStyle = "#02040a";
+    ctx.fillRect(0, 0, W, H);
+
+    const srcW = drawable ? (drawable.width || drawable.naturalWidth || 0) : 0;
+    const srcH = drawable ? (drawable.height || drawable.naturalHeight || 0) : 0;
+
+    if (drawable && srcW > 0 && srcH > 0) {
+      const imgBounds = drawable._boundsPct || { x0Pct: 0, y0Pct: 0, wPct: 100, hPct: 100 };
+      const ix0 = Math.max(viewBounds.x0Pct, imgBounds.x0Pct);
+      const iy0 = Math.max(viewBounds.y0Pct, imgBounds.y0Pct);
+      const ix1 = Math.min(viewBounds.x0Pct + viewBounds.spanPct, imgBounds.x0Pct + imgBounds.wPct);
+      const iy1 = Math.min(viewBounds.y0Pct + viewBounds.spanPct, imgBounds.y0Pct + imgBounds.hPct);
+
+      if (ix1 > ix0 && iy1 > iy0) {
+        const sx = ((ix0 - imgBounds.x0Pct) / imgBounds.wPct) * srcW;
+        const sy = ((iy0 - imgBounds.y0Pct) / imgBounds.hPct) * srcH;
+        const sw = ((ix1 - ix0) / imgBounds.wPct) * srcW;
+        const sh = ((iy1 - iy0) / imgBounds.hPct) * srcH;
+
+        const dx = ((ix0 - viewBounds.x0Pct) / viewBounds.spanPct) * W;
+        const dy = ((iy0 - viewBounds.y0Pct) / viewBounds.spanPct) * H;
+        const dw = ((ix1 - ix0) / viewBounds.spanPct) * W;
+        const dh = ((iy1 - iy0) / viewBounds.spanPct) * H;
+
+        ctx.save();
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(drawable, sx, sy, sw, sh, dx, dy, dw, dh);
+        ctx.restore();
+      }
+    }
+
+    // Crisp Screen-Space Geostationary Vector Overlays (1px sharp at any zoom level!)
+    if (this.goesConfig.isDirectNoaa && this._activeVectorRings) {
+      const vx0 = viewBounds.x0Pct;
+      const vy0 = viewBounds.y0Pct;
+      const span = viewBounds.spanPct;
+      const vx1 = vx0 + span;
+      const vy1 = vy0 + span;
+
+      const strokeRingsCulled = (rings, strokeStyle, lineWidth, fillStyle = null, haloStyle = null, haloWidth = 0) => {
+        if (!rings || rings.length === 0) return;
+        ctx.save();
+        ctx.lineJoin = "round";
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        let count = 0;
+        for (let r = 0; r < rings.length; r++) {
+          const ringObj = rings[r];
+          if (ringObj.maxXPct < vx0 || ringObj.minXPct > vx1 || ringObj.maxYPct < vy0 || ringObj.minYPct > vy1) {
+            continue;
+          }
+          const pts = ringObj.pts;
+          for (let i = 0; i < pts.length; i++) {
+            const sx = ((pts[i].xPct - vx0) / span) * W;
+            const sy = ((pts[i].yPct - vy0) / span) * H;
+            if (i === 0) ctx.moveTo(sx, sy);
+            else ctx.lineTo(sx, sy);
+          }
+          ctx.closePath();
+          count++;
+        }
+        if (count > 0) {
+          if (fillStyle) {
+            ctx.fillStyle = fillStyle;
+            ctx.fill();
+          }
+          if (haloStyle && haloWidth > 0) {
+            ctx.strokeStyle = haloStyle;
+            ctx.lineWidth = haloWidth;
+            ctx.stroke();
+          }
+          ctx.strokeStyle = strokeStyle;
+          ctx.lineWidth = lineWidth;
+          ctx.stroke();
+        }
+        ctx.restore();
+      };
+
+      // 1. IBGE 2022 Urbanized Footprints
+      strokeRingsCulled(
+        this._activeVectorRings.urban,
+        "rgba(251, 113, 133, 0.92)",
+        1.15 * dpr,
+        "rgba(244, 63, 94, 0.24)"
+      );
+
+      // 2. IBGE Municipal Mesh + Active Station Municipality Perimeter Highlight
+      const cityOpacity = this.goesConfig.delta <= 4.0 ? 0.68 : 0.36;
+      strokeRingsCulled(
+        this._activeVectorRings.cities,
+        `rgba(56, 189, 248, ${cityOpacity})`,
+        0.95 * dpr
+      );
+
+      const activeGeocode = String(this.stationsMap[this.currentStationCode]?.geocode || "");
+      if (activeGeocode && this.goesConfig.delta <= 2.5 && this._activeVectorRings.cities.length > 0) {
+        const activeRings = this._activeVectorRings.cities.filter((r) => r.geocode === activeGeocode);
+        strokeRingsCulled(
+          activeRings,
+          "rgba(34, 211, 238, 0.95)",
+          1.75 * dpr,
+          "rgba(6, 182, 212, 0.06)",
+          "rgba(2, 6, 23, 0.75)",
+          3.2 * dpr
+        );
+      }
+
+      // 3. IBGE State Borders (27 UFs)
+      strokeRingsCulled(
+        this._activeVectorRings.borders,
+        "rgba(250, 204, 21, 0.92)",
+        1.45 * dpr,
+        null,
+        "rgba(2, 6, 23, 0.72)",
+        2.9 * dpr
+      );
+
+      // 4. Municipality City Name Labels on Local / Hyper-Local Zooms
+      if (
+        this.goesConfig.showCities &&
+        this._activeVectorRings.cityLabels &&
+        this._activeVectorRings.cityLabels.length > 0 &&
+        viewBounds.spanPct <= 2.4
+      ) {
+        const pinSx = ((viewBounds.px - vx0) / span) * W;
+        const pinSy = ((viewBounds.py - vy0) / span) * H;
+        const padX = 36 * dpr;
+        const padY = 48 * dpr;
+        const candidates = [];
+
+        for (const lbl of this._activeVectorRings.cityLabels) {
+          if (activeGeocode && lbl.geocode === activeGeocode) continue;
+          if (lbl.cxPct < vx0 || lbl.cxPct > vx1 || lbl.cyPct < vy0 || lbl.cyPct > vy1) continue;
+          const lx = ((lbl.cxPct - vx0) / span) * W;
+          const ly = ((lbl.cyPct - vy0) / span) * H;
+          if (lx < padX || lx > W - padX || ly < padY || ly > H - padY) continue;
+          // Avoid colliding with the station crosshair & badge
+          const distPin = Math.hypot(lx - pinSx, ly - pinSy);
+          if (distPin < 48 * dpr) continue;
+          const distCenter = Math.hypot(lx - W * 0.5, ly - H * 0.5);
+          candidates.push({ nome: lbl.nome, lx, ly, distCenter });
+        }
+
+        candidates.sort((a, b) => a.distCenter - b.distCenter);
+        const placed = [];
+        const fontPx = Math.max(10, Math.round(10.5 * dpr));
+        ctx.save();
+        ctx.font = `600 ${fontPx}px "Plus Jakarta Sans", "Outfit", sans-serif`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.lineJoin = "round";
+
+        for (const cand of candidates) {
+          if (placed.length >= 14) break;
+          const tw = ctx.measureText(cand.nome).width;
+          const collides = placed.some(
+            (p) => Math.abs(p.lx - cand.lx) < (p.tw + tw) * 0.55 + 8 * dpr && Math.abs(p.ly - cand.ly) < 16 * dpr
+          );
+          if (collides) continue;
+          placed.push({ ...cand, tw });
+
+          ctx.strokeStyle = "rgba(2, 6, 23, 0.92)";
+          ctx.lineWidth = 3.2 * dpr;
+          ctx.strokeText(cand.nome, cand.lx, cand.ly);
+          ctx.fillStyle = "rgba(224, 242, 254, 0.94)";
+          ctx.fillText(cand.nome, cand.lx, cand.ly);
+        }
+        ctx.restore();
+      }
+    }
+
+    // Scientific Metric Scale Bar (bottom-left above frame counter) for Regional/Local/Hyper-Local scales
+    if (includeScaleBar && viewBounds.approxWidthKm <= 1600) {
+      const targetBarKmCandidates = [5, 10, 20, 50, 100, 200, 300];
+      const idealKm = viewBounds.approxWidthKm * 0.18;
+      let barKm = targetBarKmCandidates[0];
+      for (const c of targetBarKmCandidates) {
+        if (Math.abs(c - idealKm) < Math.abs(barKm - idealKm)) barKm = c;
+      }
+      const barPx = Math.max(28 * dpr, Math.min(130 * dpr, (barKm / viewBounds.approxWidthKm) * W));
+      const bx = 14 * dpr;
+      const by = H - 46 * dpr;
+
+      ctx.save();
+      ctx.fillStyle = "rgba(6, 11, 25, 0.82)";
+      ctx.strokeStyle = "rgba(56, 189, 248, 0.35)";
+      ctx.lineWidth = 1 * dpr;
+      const boxW = barPx + 46 * dpr;
+      const boxH = 18 * dpr;
+      ctx.beginPath();
+      if (ctx.roundRect) ctx.roundRect(bx - 6 * dpr, by - 11 * dpr, boxW, boxH, 5 * dpr);
+      else ctx.rect(bx - 6 * dpr, by - 11 * dpr, boxW, boxH);
+      ctx.fill();
+      ctx.stroke();
+
+      ctx.strokeStyle = "#38bdf8";
+      ctx.lineWidth = 2 * dpr;
+      ctx.beginPath();
+      ctx.moveTo(bx, by - 4 * dpr);
+      ctx.lineTo(bx, by + 1 * dpr);
+      ctx.lineTo(bx + barPx, by + 1 * dpr);
+      ctx.lineTo(bx + barPx, by - 4 * dpr);
+      ctx.stroke();
+
+      ctx.fillStyle = "#e2e8f0";
+      ctx.font = `bold ${Math.round(9.5 * dpr)}px "JetBrains Mono", monospace`;
+      ctx.textBaseline = "middle";
+      ctx.fillText(`${barKm} km`, bx + barPx + 6 * dpr, by - 1.5 * dpr);
+      ctx.restore();
+    }
+  }
+
+  drawGoesViewportCanvas(precomputedBounds = null) {
+    const canvas = document.getElementById("goesViewportCanvas");
+    const holder = document.querySelector(".canvas-holder");
+    const zoomWrapper = document.getElementById("canvasZoomWrapper");
+    if (!canvas || !holder) return;
+
+    const idx = this.goesConfig.currentFrameIndex || 0;
+    const drawable = this.goesConfig.preloadedImages?.[idx] || this._fallbackPreviewDrawable;
+    const hasDrawable = Boolean(drawable && (drawable.width > 0 || drawable.naturalWidth > 0));
+
+    if (!hasDrawable) {
+      canvas.style.display = "none";
+      if (zoomWrapper) zoomWrapper.classList.remove("canvas-mode-hidden");
+      return;
+    }
+
+    canvas.style.display = "block";
+    if (zoomWrapper) zoomWrapper.classList.add("canvas-mode-hidden");
+
+    const rect = holder.getBoundingClientRect();
+    const cssSize = Math.max(280, Math.round(rect.width || 520));
+    const dpr = Math.min(2.25, window.devicePixelRatio || 1);
+    const pxSize = Math.min(1200, Math.round(cssSize * dpr));
+    const effectiveDpr = pxSize / cssSize;
+
+    if (canvas.width !== pxSize || canvas.height !== pxSize) {
+      canvas.width = pxSize;
+      canvas.height = pxSize;
+    }
+
+    const ctx = canvas.getContext("2d");
+    const bounds = precomputedBounds || this.getViewportBoundsPct();
+    this.paintGoesScene(ctx, pxSize, pxSize, drawable, bounds, effectiveDpr, true);
   }
 
   renderCurrentGoesFrame() {
@@ -2862,7 +3564,23 @@ class MeteoApp {
 
     const frame = frames[currentFrameIndex];
     const displayImg = document.getElementById("goesDisplayImage");
-    if (displayImg) displayImg.src = frame.url;
+    if (!document.getElementById("goesViewportCanvas") && displayImg && !this.goesConfig.preloadedImages?.[currentFrameIndex]) {
+      displayImg.src = frame.url;
+    }
+
+    const bounds = this.getViewportBoundsPct();
+    this.drawGoesViewportCanvas(bounds);
+
+    const crosshair = document.getElementById("satelliteCrosshair");
+    if (crosshair) {
+      const pinScreenXPct = ((bounds.px - bounds.x0Pct) / bounds.spanPct) * 100.0;
+      const pinScreenYPct = ((bounds.py - bounds.y0Pct) / bounds.spanPct) * 100.0;
+      const inView = pinScreenXPct >= -4 && pinScreenXPct <= 104 && pinScreenYPct >= -4 && pinScreenYPct <= 104;
+      crosshair.style.display = inView ? "block" : "none";
+      crosshair.style.left = `${pinScreenXPct}%`;
+      crosshair.style.top = `${pinScreenYPct}%`;
+      crosshair.style.transform = "none";
+    }
 
     const pMeta = this.goesConfig.productMeta || {};
     const prodName = pMeta.name || "Satélite GOES-19";
@@ -2873,7 +3591,11 @@ class MeteoApp {
     const lEl = document.getElementById("hudTimeLocal");
     if (lEl) lEl.textContent = frame.time_short || frame.time_local || "";
     const cEl = document.getElementById("hudFrameCounter");
-    if (cEl) cEl.textContent = `Quadro ${currentFrameIndex + 1} de ${frames.length}`;
+    if (cEl) {
+      cEl.textContent = this.goesConfig.isStreamingBuffer
+        ? `Quadro ${currentFrameIndex + 1} de ${frames.length} • Buffer ${this.goesConfig.loadedFramesCount}/${frames.length}`
+        : `Quadro ${currentFrameIndex + 1} de ${frames.length}`;
+    }
 
     const legendBox = document.getElementById("cptecLegendBox");
     const legendImg = document.getElementById("cptecLegendImg");
@@ -2920,16 +3642,28 @@ class MeteoApp {
 
     const interval = this.goesConfig.speedMs / this.goesConfig.playbackMultiplier;
     this.goesConfig.timerId = setInterval(() => {
-      if (!this.goesConfig.frames || this.goesConfig.frames.length <= 1) return;
-      let nextIndex = this.goesConfig.currentFrameIndex + 1;
-      if (nextIndex >= this.goesConfig.frames.length) {
-        if (this.goesConfig.loop) {
-          nextIndex = 0;
-        } else {
-          this.pauseGoesAnimation();
-          return;
+      const frames = this.goesConfig.frames || [];
+      const imgs = this.goesConfig.preloadedImages || [];
+      if (frames.length <= 1) return;
+
+      // Only advance through frames that are already decoded in memory
+      const readyCount = imgs.filter(Boolean).length;
+      if (readyCount < 2) return;
+
+      let nextIndex = this.goesConfig.currentFrameIndex;
+      for (let step = 0; step < frames.length; step++) {
+        nextIndex++;
+        if (nextIndex >= frames.length) {
+          if (this.goesConfig.loop) {
+            nextIndex = 0;
+          } else {
+            this.pauseGoesAnimation();
+            return;
+          }
         }
+        if (imgs[nextIndex]) break;
       }
+
       this.goesConfig.currentFrameIndex = nextIndex;
       this.renderCurrentGoesFrame();
     }, interval);
@@ -2970,111 +3704,78 @@ class MeteoApp {
   // Composite Frame Renderer for Client-Side GIF89a & HD PNG Snapshot
   // ==========================================================================
   renderGoesFrameToCanvas(ctx, W, H, frameIdx) {
-    ctx.fillStyle = "#02040a";
-    ctx.fillRect(0, 0, W, H);
-
-    const img = this.goesConfig.preloadedImages?.[frameIdx];
+    const drawable = this.goesConfig.preloadedImages?.[frameIdx] || this._fallbackPreviewDrawable;
     const frame = this.goesConfig.frames?.[frameIdx] || {};
-    const { finalScale, tx, ty, px, py } = this.getZoomTransform();
+    const viewBounds = this.getViewportBoundsPct();
+    const dpr = W / 520;
 
-    if (img && img.complete && img.naturalWidth > 0) {
-      const drawX = (tx / 100) * W;
-      const drawY = (ty / 100) * H;
-      const drawW = finalScale * W;
-      const drawH = finalScale * H;
-      ctx.drawImage(img, drawX, drawY, drawW, drawH);
-    }
-
-    // Draw geostationary vector overlays if active in Direct NOAA mode
-    if (this.goesConfig.isDirectNoaa && this._activeVectorRings) {
-      const strokeRings = (rings, strokeStyle, lineWidth, fillStyle = null) => {
-        if (!rings || rings.length === 0) return;
-        ctx.save();
-        ctx.strokeStyle = strokeStyle;
-        ctx.lineWidth = lineWidth;
-        ctx.lineJoin = "round";
-        if (fillStyle) ctx.fillStyle = fillStyle;
-        ctx.beginPath();
-        for (const ring of rings) {
-          for (let i = 0; i < ring.length; i++) {
-            const sx = ((tx + finalScale * ring[i].xPct) / 100) * W;
-            const sy = ((ty + finalScale * ring[i].yPct) / 100) * H;
-            if (i === 0) ctx.moveTo(sx, sy);
-            else ctx.lineTo(sx, sy);
-          }
-          ctx.closePath();
-        }
-        if (fillStyle) ctx.fill();
-        ctx.stroke();
-        ctx.restore();
-      };
-
-      strokeRings(this._activeVectorRings.urban, "rgba(251, 113, 133, 0.85)", 1.0, "rgba(244, 63, 94, 0.28)");
-      strokeRings(this._activeVectorRings.cities, "rgba(56, 189, 248, 0.5)", 0.85);
-      strokeRings(this._activeVectorRings.borders, "rgba(250, 204, 21, 0.9)", 1.45);
-    }
+    this.paintGoesScene(ctx, W, H, drawable, viewBounds, dpr, false);
 
     // Draw Station Crosshair Pin
-    const pinScreenX = ((tx + finalScale * px) / 100) * W;
-    const pinScreenY = ((ty + finalScale * py) / 100) * H;
+    const pinScreenX = ((viewBounds.px - viewBounds.x0Pct) / viewBounds.spanPct) * W;
+    const pinScreenY = ((viewBounds.py - viewBounds.y0Pct) / viewBounds.spanPct) * H;
     if (pinScreenX >= -20 && pinScreenX <= W + 20 && pinScreenY >= -20 && pinScreenY <= H + 20) {
       ctx.save();
       ctx.strokeStyle = "#f43f5e";
-      ctx.lineWidth = 2;
-      ctx.setLineDash([4, 3]);
+      ctx.lineWidth = 2 * dpr;
+      ctx.setLineDash([4 * dpr, 3 * dpr]);
       ctx.beginPath();
-      ctx.arc(pinScreenX, pinScreenY, 13, 0, Math.PI * 2);
+      ctx.arc(pinScreenX, pinScreenY, 13 * dpr, 0, Math.PI * 2);
       ctx.stroke();
       ctx.setLineDash([]);
 
       ctx.fillStyle = "#ffffff";
       ctx.strokeStyle = "#06b6d4";
-      ctx.lineWidth = 2.2;
+      ctx.lineWidth = 2.2 * dpr;
       ctx.beginPath();
-      ctx.arc(pinScreenX, pinScreenY, 4, 0, Math.PI * 2);
+      ctx.arc(pinScreenX, pinScreenY, 4 * dpr, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
       const pinLabel = `${this.currentStationCode} • ${this.currentStationName}`;
       ctx.font = `bold ${Math.round(W * 0.021)}px "JetBrains Mono", monospace`;
       const tw = ctx.measureText(pinLabel).width;
-      const bx = Math.max(8, Math.min(W - tw - 20, pinScreenX - (tw + 12) / 2));
-      const by = Math.min(H - 54, pinScreenY + 17);
-      ctx.fillStyle = "rgba(8, 13, 28, 0.88)";
-      ctx.strokeStyle = "rgba(6, 182, 212, 0.7)";
-      ctx.lineWidth = 1;
-      ctx.fillRect(bx, by, tw + 12, 20);
-      ctx.strokeRect(bx, by, tw + 12, 20);
+      const padH = 12 * dpr;
+      const boxH = 20 * dpr;
+      const bx = Math.max(8, Math.min(W - tw - padH - 8, pinScreenX - (tw + padH) / 2));
+      const by = Math.min(H - 54 * dpr, pinScreenY + 17 * dpr);
+      ctx.fillStyle = "rgba(8, 13, 28, 0.9)";
+      ctx.strokeStyle = "rgba(6, 182, 212, 0.75)";
+      ctx.lineWidth = 1 * dpr;
+      ctx.fillRect(bx, by, tw + padH, boxH);
+      ctx.strokeRect(bx, by, tw + padH, boxH);
       ctx.fillStyle = "#f8fafc";
-      ctx.fillText(pinLabel, bx + 6, by + 14);
+      ctx.fillText(pinLabel, bx + padH / 2, by + boxH * 0.72);
       ctx.restore();
     }
 
     // Top HUD Banner
     ctx.save();
-    ctx.fillStyle = "rgba(6, 10, 22, 0.84)";
-    ctx.fillRect(0, 0, W, 34);
+    const topH = Math.round(34 * dpr);
+    ctx.fillStyle = "rgba(6, 10, 22, 0.86)";
+    ctx.fillRect(0, 0, W, topH);
     ctx.fillStyle = "#38bdf8";
-    ctx.font = `bold ${Math.round(W * 0.022)}px "Outfit", sans-serif`;
+    ctx.font = `bold ${Math.round(W * 0.021)}px "Outfit", sans-serif`;
     const prodTitle = this.goesConfig.productMeta?.name || "GOES-19 Full Disk";
-    ctx.fillText(`🛰️ ${prodTitle}`, 12, 22);
+    ctx.fillText(`🛰️ ${prodTitle}`, 12 * dpr, topH * 0.66);
 
     const timeRight = frame.time_short || frame.time_local || "";
     ctx.fillStyle = "#34d399";
-    ctx.font = `bold ${Math.round(W * 0.022)}px "JetBrains Mono", monospace`;
+    ctx.font = `bold ${Math.round(W * 0.021)}px "JetBrains Mono", monospace`;
     const trW = ctx.measureText(timeRight).width;
-    ctx.fillText(timeRight, W - trW - 12, 22);
+    ctx.fillText(timeRight, W - trW - 12 * dpr, topH * 0.66);
 
     // Bottom HUD Watermark
-    ctx.fillStyle = "rgba(6, 10, 22, 0.82)";
-    ctx.fillRect(0, H - 26, W, 26);
+    const botH = Math.round(26 * dpr);
+    ctx.fillStyle = "rgba(6, 10, 22, 0.84)";
+    ctx.fillRect(0, H - botH, W, botH);
     ctx.fillStyle = "#94a3b8";
-    ctx.font = `${Math.round(W * 0.0185)}px "JetBrains Mono", monospace`;
-    ctx.fillText(`MyWeatherNow • NOAA GOES-19 • ${frame.time_utc || ""}`, 12, H - 9);
+    ctx.font = `${Math.round(W * 0.018)}px "JetBrains Mono", monospace`;
+    ctx.fillText(`MyWeatherNow • NOAA GOES-19 • ${frame.time_utc || ""}`, 12 * dpr, H - botH * 0.34);
     const fCounter = `${frameIdx + 1}/${this.goesConfig.frames.length}`;
     const fcW = ctx.measureText(fCounter).width;
     ctx.fillStyle = "#cbd5e1";
-    ctx.fillText(fCounter, W - fcW - 12, H - 9);
+    ctx.fillText(fCounter, W - fcW - 12 * dpr, H - botH * 0.34);
     ctx.restore();
   }
 
@@ -3085,7 +3786,7 @@ class MeteoApp {
         return;
       }
       const idx = this.goesConfig.currentFrameIndex || 0;
-      const img = this.goesConfig.preloadedImages?.[idx];
+      const img = this.goesConfig.preloadedImages?.[idx] || this._fallbackPreviewDrawable;
       if (!img || !img._corsClean) {
         this.showToast("Captura direta indisponível por restrição CORS da imagem atual.", "warn");
         return;
@@ -3161,6 +3862,11 @@ class MeteoApp {
 
     // 2. 100% Client-Side Browser GIF89a Encoding (Works on GitHub Pages!)
     try {
+      if (this.goesConfig.isStreamingBuffer && this._activeStreamPromise) {
+        progressText.textContent = "Aguardando sincronização dos quadros de alta nitidez...";
+        await this._activeStreamPromise;
+      }
+
       if (!this.goesConfig.frames || this.goesConfig.frames.length === 0) {
         throw new Error("Sem quadros carregados para gerar o GIF.");
       }
@@ -4285,16 +4991,15 @@ class MeteoApp {
     // Degradable Resolution Selector
     document.querySelectorAll("#resSelector .seg-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
-        document.querySelectorAll("#resSelector .seg-btn").forEach((b) => b.classList.remove("active"));
-        btn.classList.add("active");
-        this.goesConfig.resolution = btn.dataset.res;
+        this.goesConfig.userLockedRes = true;
+        this.syncResolutionUI(btn.dataset.res);
         this.loadGoesFrames();
       });
     });
 
     // Area / Territorial Scale Selector
     document.querySelectorAll("#areaSelector .seg-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
+      btn.addEventListener("click", async () => {
         document.querySelectorAll("#areaSelector .seg-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         this.goesConfig.delta = parseFloat(btn.dataset.delta);
@@ -4303,19 +5008,22 @@ class MeteoApp {
         this.goesConfig.playerZoom = 1.0;
 
         let resChanged = false;
-        if (this.goesConfig.delta <= 5.0 && (this.goesConfig.resolution === "low" || this.goesConfig.resolution === "medium")) {
-          this.goesConfig.resolution = "high";
-          resChanged = true;
-          const highBtn = document.querySelector('#resSelector .seg-btn[data-res="high"]');
-          if (highBtn) {
-            document.querySelectorAll("#resSelector .seg-btn").forEach((b) => b.classList.remove("active"));
-            highBtn.classList.add("active");
+        if (!this.goesConfig.userLockedRes) {
+          const targetRes = this.getRecommendedNoaaResolution(this.goesConfig.delta);
+          if (this.goesConfig.resolution !== targetRes) {
+            this.syncResolutionUI(targetRes);
+            resChanged = true;
           }
         }
 
-        this.applyGoesZoom(true);
-        if (this.goesConfig.isDirectNoaa && !resChanged && this.goesConfig.frames.length > 0) {
-          this.updateGoesVectorLayers();
+        this.applyGoesZoom(false);
+        if (this.goesConfig.isDirectNoaa && !resChanged && this.goesConfig.frames.length > 0 && this.isViewportCoveredByPreloaded()) {
+          const code = this.goesConfig.activeNoaaResCode || "1808x1808";
+          this.goesConfig.resLabel = this.formatDirectNoaaResLabel(code);
+          const hudResBadge = document.getElementById("hudResBadge");
+          if (hudResBadge) hudResBadge.textContent = `🛰️ ${this.goesConfig.resLabel}`;
+          await this.updateGoesVectorLayers();
+          this.renderCurrentGoesFrame();
         } else {
           this.loadGoesFrames();
         }
@@ -4328,19 +5036,21 @@ class MeteoApp {
         document.querySelectorAll(".prod-btn").forEach((b) => b.classList.remove("active"));
         btn.classList.add("active");
         this.goesConfig.product = btn.dataset.prod;
+        this._fallbackPreviewDrawable = null;
         this.loadGoesFrames();
       });
     });
 
-    // Vector Layer Toggles (Instant SVG toggle in Direct NOAA mode, reload in backend tile mode)
+    // Vector Layer Toggles (Instant Canvas toggle in Direct NOAA mode, reload in backend tile mode)
     const wireLayerToggle = (id, prop) => {
       const el = document.getElementById(id);
       if (!el) return;
       el.checked = this.goesConfig[prop];
-      el.addEventListener("change", (e) => {
+      el.addEventListener("change", async (e) => {
         this.goesConfig[prop] = e.target.checked;
         if (this.goesConfig.isDirectNoaa) {
-          this.updateGoesVectorLayers();
+          await this.updateGoesVectorLayers();
+          this.renderCurrentGoesFrame();
         } else {
           this.loadGoesFrames();
         }
@@ -4375,7 +5085,10 @@ class MeteoApp {
         const hoursEst = (val * 10) / 60;
         framesDisplay.textContent = `${val} quadros (~${hoursEst.toFixed(1)} horas)`;
       });
-      framesSlider.addEventListener("change", () => this.loadGoesFrames());
+      framesSlider.addEventListener("change", () => {
+        this.goesConfig.userLockedFrames = true;
+        this.loadGoesFrames();
+      });
     }
 
     // Export GIF & Capture PNG HD

@@ -1315,7 +1315,33 @@ body {
   color: var(--accent-cyan);
   font-size: 14px;
   font-weight: 500;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease;
+}
+
+.goes-loading-overlay.is-refining {
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: auto;
+  height: auto;
+  max-width: calc(100% - 32px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(6, 12, 26, 0.9);
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.65);
+  flex-direction: row;
+  gap: 9px;
+  font-size: 11.5px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.goes-loading-overlay.is-refining .spinner {
+  width: 15px;
+  height: 15px;
+  border-width: 2px;
+  flex-shrink: 0;
 }
 
 .spinner {
@@ -1350,6 +1376,16 @@ body {
   cursor: grabbing;
 }
 
+.goes-viewport-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 6;
+  pointer-events: none;
+}
+
 .canvas-zoom-wrapper {
   position: relative;
   width: 100%;
@@ -1358,6 +1394,11 @@ body {
   align-items: center;
   justify-content: center;
   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.canvas-zoom-wrapper.canvas-mode-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .canvas-zoom-wrapper img {
@@ -1449,7 +1490,10 @@ body {
   width: 100%;
   height: auto;
   display: block;
-  border-radius: 3px;
+  background: rgba(248, 250, 252, 0.94);
+  padding: 3px 5px;
+  border-radius: 5px;
+  box-sizing: border-box;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
@@ -1485,7 +1529,7 @@ body {
   width: 0;
   height: 0;
   pointer-events: none;
-  z-index: 10;
+  z-index: 12;
   transform-origin: 0 0;
 }
 
@@ -1572,11 +1616,18 @@ body {
 .hud-top-left {
   top: 12px;
   left: 12px;
+  max-width: calc(100% - 108px);
+  flex-wrap: wrap;
+  row-gap: 3px;
 }
 
 .hud-product-name {
   color: #38bdf8;
   font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
 .hud-res-badge {
