@@ -1,11 +1,11 @@
 const DEFAULT_STATIONS_MAP = {
-  "A029": { code: "A029", name: "Edéia", state: "GO", lat: -17.3369, lon: -49.9147, alt: 608 },
-  "A002": { code: "A002", name: "Goiânia", state: "GO", lat: -16.6428, lon: -49.2208, alt: 741 },
-  "A025": { code: "A025", name: "Rio Verde", state: "GO", lat: -17.7853, lon: -50.9669, alt: 752 },
-  "A001": { code: "A001", name: "Brasília", state: "DF", lat: -15.7894, lon: -47.9258, alt: 1160 },
-  "A701": { code: "A701", name: "São Paulo (Mirante)", state: "SP", lat: -23.4964, lon: -46.6200, alt: 792 },
-  "A652": { code: "A652", name: "Rio de Janeiro (Forte)", state: "RJ", lat: -22.9883, lon: -43.1906, alt: 25 },
-  "A801": { code: "A801", name: "Porto Alegre", state: "RS", lat: -30.0536, lon: -51.1747, alt: 47 }
+  "A029": { code: "A029", name: "Edéia", state: "GO", lat: -17.3369, lon: -49.9147, alt: 608, geocode: "5207402", status: "Operante" },
+  "A002": { code: "A002", name: "Goiânia", state: "GO", lat: -16.6428, lon: -49.2208, alt: 741, geocode: "5208707", status: "Operante" },
+  "A025": { code: "A025", name: "Rio Verde", state: "GO", lat: -17.7853, lon: -50.9669, alt: 752, geocode: "5218805", status: "Operante" },
+  "A001": { code: "A001", name: "Brasília", state: "DF", lat: -15.7894, lon: -47.9258, alt: 1160, geocode: "5300108", status: "Operante" },
+  "A701": { code: "A701", name: "São Paulo (Mirante)", state: "SP", lat: -23.4964, lon: -46.6200, alt: 792, geocode: "3550308", status: "Operante" },
+  "A652": { code: "A652", name: "Rio de Janeiro (Forte)", state: "RJ", lat: -22.9883, lon: -43.1906, alt: 25, geocode: "3304557", status: "Operante" },
+  "A801": { code: "A801", name: "Porto Alegre", state: "RS", lat: -30.0536, lon: -51.1747, alt: 47, geocode: "4314902", status: "Operante" }
 };
 
 const UF_IBGE_CODES = {
@@ -162,7 +162,10 @@ class MeteoApp {
     this.forecastData = null;
     this.airQualityData = null;
     this.activeHistory24h = [];
-    this.currentSource = "openmeteo";
+    this.currentSource = "inmet";
+    this.nearestLiveInmet = null;
+    this.liveStatusSynced = false;
+    this.hasLocalBackend = !window.location.hostname.endsWith("github.io");
     this.alertDismissedKey = null;
 
     this.allStations = [];
@@ -405,8 +408,211 @@ class MeteoApp {
   }
 
   // ==========================================================================
-  // INMET Station, Open-Meteo Forecast & Air Quality Fetching
+  // INMET Station Priority Pipeline (Local API + Live Browser INMET + Cache)
   // ==========================================================================
+  parseInmetFloat(val) {
+    if (val === null || val === undefined || val === "" || val === "-") return null;
+    const n = parseFloat(String(val).replace(",", ".").trim());
+    return isNaN(n) ? null : Math.round(n * 10) / 10;
+  }
+
+  parseRawInmetRecord(r) {
+    if (!r) return null;
+    const dateStr = r.DT_MEDICAO || "";
+    const hourRaw = String(r.HR_MEDICAO || "0000").padStart(4, "0");
+    const hUtc = parseInt(hourRaw.slice(0, 2), 10) || 0;
+    const mUtc = parseInt(hourRaw.slice(2, 4), 10) || 0;
+    const pad = (n) => String(n).padStart(2, "0");
+
+    let date_utc = dateStr;
+    let hour_utc = `${pad(hUtc)}:${pad(mUtc)}`;
+    let date_brt = dateStr;
+    let hour_brt = hour_utc;
+
+    try {
+      const [y, mo, d] = dateStr.split("-").map(Number);
+      if (y && mo && d) {
+        const dtUtc = new Date(Date.UTC(y, mo - 1, d, hUtc, mUtc));
+        const dtBrt = new Date(dtUtc.getTime() - 3 * 3600 * 1000);
+        date_utc = `${pad(dtUtc.getUTCDate())}/${pad(dtUtc.getUTCMonth() + 1)}/${dtUtc.getUTCFullYear()}`;
+        hour_utc = `${pad(dtUtc.getUTCHours())}:${pad(dtUtc.getUTCMinutes())}`;
+        date_brt = `${pad(dtBrt.getUTCDate())}/${pad(dtBrt.getUTCMonth() + 1)}/${dtBrt.getUTCFullYear()}`;
+        hour_brt = `${pad(dtBrt.getUTCHours())}:${pad(dtBrt.getUTCMinutes())}`;
+      }
+    } catch (e) {}
+
+    const temp_ins = this.parseInmetFloat(r.TEM_INS);
+    const humidity_ins = this.parseInmetFloat(r.UMD_INS);
+    const pressure_ins = this.parseInmetFloat(r.PRE_INS);
+    const wind_speed = this.parseInmetFloat(r.VEN_VEL);
+    const rain = this.parseInmetFloat(r.CHUVA);
+    let solar_radiation = this.parseInmetFloat(r.RAD_GLO);
+    if (solar_radiation !== null && solar_radiation < 0) solar_radiation = 0.0;
+
+    const has_data =
+      temp_ins !== null ||
+      humidity_ins !== null ||
+      pressure_ins !== null ||
+      wind_speed !== null ||
+      rain !== null;
+
+    return {
+      source: "inmet",
+      date: date_brt,
+      date_brt,
+      date_utc,
+      hour_brt,
+      hour_local: hour_brt,
+      hour_utc,
+      temp_ins,
+      temp_max: this.parseInmetFloat(r.TEM_MAX),
+      temp_min: this.parseInmetFloat(r.TEM_MIN),
+      thermal_sensation: this.parseInmetFloat(r.TEM_SEN),
+      humidity_ins,
+      humidity_max: this.parseInmetFloat(r.UMD_MAX),
+      humidity_min: this.parseInmetFloat(r.UMD_MIN),
+      pressure_ins,
+      pressure_max: this.parseInmetFloat(r.PRE_MAX),
+      pressure_min: this.parseInmetFloat(r.PRE_MIN),
+      wind_speed,
+      wind_dir: this.parseInmetFloat(r.VEN_DIR),
+      wind_gust: this.parseInmetFloat(r.VEN_RAJ),
+      rain,
+      solar_radiation,
+      dew_point: this.parseInmetFloat(r.PTO_INS),
+      battery: this.parseInmetFloat(r.TEN_BAT),
+      has_data
+    };
+  }
+
+  recordUtcEpoch(rec) {
+    try {
+      if (rec?.date_utc && rec?.hour_utc) {
+        const [d, m, y] = rec.date_utc.split("/").map(Number);
+        const [hh, mm] = rec.hour_utc.split(":").map(Number);
+        if (y && m && d) return Date.UTC(y, m - 1, d, hh || 0, mm || 0);
+      }
+    } catch (e) {}
+    return 0;
+  }
+
+  loadStoredInmetHistory(codeUpper) {
+    try {
+      const raw = localStorage.getItem(`mwn_inmet_hist_${codeUpper}`);
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) return arr;
+      }
+    } catch (e) {}
+    return [];
+  }
+
+  saveStoredInmetHistory(codeUpper, records) {
+    try {
+      localStorage.setItem(`mwn_inmet_hist_${codeUpper}`, JSON.stringify(records.slice(-24)));
+    } catch (e) {}
+  }
+
+  mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveRecord) {
+    const map = new Map();
+    const addRec = (r) => {
+      if (!r || !this.hasValidStationReading(r)) return;
+      const key = `${r.date_utc || r.date_brt}_${r.hour_utc || r.hour_brt}`;
+      map.set(key, { ...r, source: "inmet", has_data: true });
+    };
+
+    (staticData?.history || []).forEach(addRec);
+    if (staticData?.latest) addRec(staticData.latest);
+    this.loadStoredInmetHistory(codeUpper).forEach(addRec);
+    if (liveRecord && this.hasValidStationReading(liveRecord)) {
+      addRec(liveRecord);
+    }
+
+    const sorted = Array.from(map.values()).sort((a, b) => this.recordUtcEpoch(a) - this.recordUtcEpoch(b));
+    if (sorted.length === 0) return null;
+
+    // Keep readings within 26 hours of the newest physical packet (up to 24 records)
+    const newestEpoch = this.recordUtcEpoch(sorted[sorted.length - 1]);
+    const recent = sorted
+      .filter((r) => {
+        const ep = this.recordUtcEpoch(r);
+        return !newestEpoch || !ep || newestEpoch - ep <= 26 * 3600 * 1000;
+      })
+      .slice(-24);
+
+    if (liveRecord && this.hasValidStationReading(liveRecord)) {
+      this.saveStoredInmetHistory(codeUpper, recent);
+    }
+
+    const latest = { ...recent[recent.length - 1] };
+    const rain24h = Math.round(recent.reduce((acc, r) => acc + (Number(r.rain) || 0), 0) * 10) / 10;
+    latest.wind_cardinal = this.degreesToCardinal(latest.wind_dir);
+    latest.rain_24h_accum = rain24h;
+    latest.reading_timestamp = `${latest.date_brt} às ${latest.hour_brt} BRT (${latest.hour_utc} UTC)`;
+
+    return {
+      station: {
+        code: codeUpper,
+        name: staticData?.station?.name || stMeta.name || `Estação ${codeUpper}`,
+        state: staticData?.station?.state || stMeta.state || "BR",
+        lat: parseFloat(staticData?.station?.lat ?? stMeta.lat),
+        lon: parseFloat(staticData?.station?.lon ?? stMeta.lon),
+        altitude: staticData?.station?.altitude || stMeta.alt || 600,
+        geocode: stMeta.geocode || staticData?.station?.geocode,
+        inmet_link: `https://tempo.inmet.gov.br/TabelaEstacoes/${codeUpper}`
+      },
+      latest,
+      history: recent
+    };
+  }
+
+  async fetchLiveInmetBrowser(codeUpper, stMeta, staticData = null) {
+    this.nearestLiveInmet = null;
+    let liveExactRecord = null;
+    const geocode = stMeta?.geocode || staticData?.station?.geocode;
+
+    if (geocode) {
+      try {
+        const res = await fetch(`https://apiprevmet3.inmet.gov.br/estacao/proxima/${geocode}`);
+        if (res.ok) {
+          const js = await res.json();
+          const dados = js?.dados || {};
+          const est = js?.estacao || {};
+          const returnedCode = String(dados.CD_ESTACAO || est.CODIGO || "").toUpperCase();
+          const parsed = this.parseRawInmetRecord(dados);
+
+          if (returnedCode === codeUpper && this.hasValidStationReading(parsed)) {
+            liveExactRecord = parsed;
+          } else if (returnedCode && returnedCode !== codeUpper && this.hasValidStationReading(parsed)) {
+            this.nearestLiveInmet = {
+              code: returnedCode,
+              name: est.NOME || dados.DC_NOME || returnedCode,
+              state: est.UF || dados.UF || stMeta.state || "BR",
+              distKm: est.DISTANCIA_EM_KM ? Number(est.DISTANCIA_EM_KM) : null,
+              temp: parsed.temp_ins,
+              hourBrt: parsed.hour_brt
+            };
+          }
+        }
+      } catch (e) {
+        console.warn("Live INMET apiprevmet3 fetch warning:", e);
+      }
+    }
+
+    return this.mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveExactRecord);
+  }
+
+  hasValidStationReading(latest) {
+    if (!latest || latest.has_data === false) return false;
+    return (
+      (latest.temp_ins !== null && latest.temp_ins !== undefined) ||
+      (latest.humidity_ins !== null && latest.humidity_ins !== undefined) ||
+      (latest.pressure_ins !== null && latest.pressure_ins !== undefined) ||
+      (latest.wind_speed !== null && latest.wind_speed !== undefined) ||
+      (latest.rain !== null && latest.rain !== undefined)
+    );
+  }
+
   async loadStationData(stationCode, forceRefresh = false) {
     const codeUpper = (stationCode || "A029").toUpperCase();
     const refreshBtn = document.getElementById("btnManualRefresh");
@@ -415,25 +621,11 @@ class MeteoApp {
     const currentNameEl = document.getElementById("stationName");
     if (currentNameEl) currentNameEl.style.opacity = "0.6";
 
-    // Prevent stale INMET telemetry from bleeding across stations
     this.inmetData = null;
+    this.forecastData = null;
+    this.airQualityData = null;
+    this.nearestLiveInmet = null;
     this.alertDismissedKey = null;
-
-    let data = null;
-
-    // 1. Try local FastAPI server if running
-    try {
-      const res = await fetch(`/api/inmet/data/${codeUpper}${forceRefresh ? "?force=true" : ""}`);
-      if (res.ok) data = await res.json();
-    } catch (e) {}
-
-    // 2. Try static cached station telemetry
-    if (!data) {
-      try {
-        const res = await fetch(`static/data/stations/station_${codeUpper}.json`);
-        if (res.ok) data = await res.json();
-      } catch (e) {}
-    }
 
     const stMeta = this.stationsMap[codeUpper] || DEFAULT_STATIONS_MAP[codeUpper] || {
       code: codeUpper,
@@ -444,7 +636,54 @@ class MeteoApp {
       alt: 600
     };
 
-    if (data && data.station) {
+    let data = null;
+
+    // 1. Try local FastAPI server if running (full 24h INMET station table)
+    if (this.hasLocalBackend) {
+      try {
+        const res = await fetch(`/api/inmet/data/${codeUpper}${forceRefresh ? "?force=true" : ""}`);
+        if (res.status === 404 || res.status === 501) {
+          this.hasLocalBackend = false;
+        } else if (res.ok) {
+          const apiJson = await res.json();
+          if (this.hasValidStationReading(apiJson?.latest)) {
+            data = apiJson;
+          }
+        }
+      } catch (e) {
+        this.hasLocalBackend = false;
+      }
+    }
+
+    // 2. Fetch static 24h station cache (if pre-cached) + live official INMET browser telemetry
+    if (!data) {
+      let staticData = null;
+      if (DEFAULT_STATIONS_MAP[codeUpper]) {
+        try {
+          const res = await fetch(`static/data/stations/station_${codeUpper}.json`);
+          if (res.ok) staticData = await res.json();
+        } catch (e) {}
+      }
+
+      data = await this.fetchLiveInmetBrowser(codeUpper, stMeta, staticData);
+    }
+
+    // If station is completely offline without physical telemetry, locate nearest operational INMET station
+    if ((!data || !this.hasValidStationReading(data?.latest)) && !this.nearestLiveInmet) {
+      const altNear = this.findNearestOperanteNeighbor(codeUpper, parseFloat(stMeta.lat), parseFloat(stMeta.lon));
+      if (altNear) {
+        this.nearestLiveInmet = {
+          code: altNear.code,
+          name: altNear.name,
+          state: altNear.state,
+          distKm: altNear.distance_km,
+          temp: null,
+          hourBrt: null
+        };
+      }
+    }
+
+    if (data && data.station && this.hasValidStationReading(data.latest)) {
       this.inmetData = data;
       this.currentStationCode = data.station.code || codeUpper;
       this.currentState = data.station.state || stMeta.state || "GO";
@@ -457,10 +696,11 @@ class MeteoApp {
         this.secondsToNextRefresh = data.next_refresh_in_seconds;
       }
 
-      const hasFreshGround = this.isGroundDataFresh(data.latest);
-      this.currentSource = hasFreshGround ? "inmet" : "openmeteo";
-      this.renderInmetData(data);
+      // STRICT PRIORITY: Always prioritize meteorological ground station data when available!
+      this.currentSource = "inmet";
+      this.renderInmetData(data, true);
     } else {
+      // Contingency fallback ONLY when physical station has zero telemetry available
       this.currentSource = "openmeteo";
       this.currentStationCode = stMeta.code;
       this.currentState = stMeta.state || "BR";
@@ -508,7 +748,7 @@ class MeteoApp {
   }
 
   isGroundDataFresh(latest) {
-    if (!latest || latest.temp_ins === null || latest.has_data === false) return false;
+    if (!this.hasValidStationReading(latest)) return false;
     try {
       if (latest.date_utc && latest.hour_utc) {
         const [d, m, y] = latest.date_utc.split("/").map(Number);
@@ -516,11 +756,8 @@ class MeteoApp {
         const readingUtc = new Date(Date.UTC(y, m - 1, d, h, mi || 0));
         const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
         if (!isNaN(diffHours)) {
-          if (diffHours > 2.5) {
-            latest.staleness_hours = Math.max(1, Math.round(diffHours));
-            return false;
-          }
-          return diffHours >= -2.0;
+          latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
+          return diffHours <= 3.0 && diffHours >= -2.0;
         }
       }
     } catch (e) {}
@@ -556,50 +793,70 @@ class MeteoApp {
     }
   }
 
-  updateSourceToggleUI(activeSource, hasFreshGround, stalenessHours, hasCachedInmet = true) {
+  updateSourceToggleUI(activeSource, hasFreshGround, stalenessHours, hasPhysicalInmet = true) {
     const btnOm = document.getElementById("btnSourceOpenMeteo");
     const btnInmet = document.getElementById("btnSourceInmet");
     const noteEl = document.getElementById("sourceStatusNote");
     const pulseStatus = document.getElementById("headerPulseStatus");
+    const jumpBtn = document.getElementById("btnJumpNearestActive");
 
     if (btnInmet) {
-      if (!hasCachedInmet) {
-        btnInmet.innerHTML = `<span class="status-dot-amber"></span><span>INMET Solo (Sem Cache Local)</span>`;
-        btnInmet.title = "Telemetria direta INMET indisponível no modo estático para esta estação; usando série Open-Meteo.";
+      if (!hasPhysicalInmet) {
+        btnInmet.innerHTML = `<span class="status-dot-amber"></span><span>📡 Estação INMET (Sem Sinal)</span>`;
+        btnInmet.title = "Transmissor físico desta estação encontra-se em manutenção ou sem pacote recente no INMET.";
       } else if (!hasFreshGround) {
-        const staleLabel = stalenessHours ? `${stalenessHours}h atrás` : "Histórico";
-        btnInmet.innerHTML = `<span class="status-dot-amber"></span><span>INMET Solo (${staleLabel})</span>`;
-        btnInmet.title = "Inspecionar última leitura física gravada pela estação INMET.";
+        const hrs = stalenessHours ? Math.max(1, Math.round(stalenessHours)) : null;
+        const staleLabel = hrs ? (hrs >= 24 ? `${Math.round(hrs / 24)}d atrás` : `${hrs}h atrás`) : "Última Leitura";
+        btnInmet.innerHTML = `<span class="status-dot-blue"></span><span>📡 Estação INMET (${staleLabel})</span>`;
+        btnInmet.title = "Exibindo prioritariamente a última medição física registrada pela estação INMET.";
       } else {
-        btnInmet.innerHTML = `<span class="status-dot-blue"></span><span>INMET Solo (Tempo Real)</span>`;
-        btnInmet.title = "Exibir medição recente do sensor físico em solo.";
+        btnInmet.innerHTML = `<span class="pulse-dot-cyan"></span><span>📡 Estação INMET (Tempo Real)</span>`;
+        btnInmet.title = "Prioridade ativa: telemetria oficial em tempo real medida pelos sensores de solo do INMET.";
       }
     }
 
-    if (activeSource === "openmeteo") {
-      if (btnOm) btnOm.classList.add("active");
-      if (btnInmet) btnInmet.classList.remove("active");
-      if (noteEl) {
-        noteEl.innerHTML = !hasFreshGround
-          ? `<span class="note-pill om">⚡ Open-Meteo Ativo</span><span class="note-text">Telemetria horária e tempo real sincronizados para ${this.currentStationCode}</span>`
-          : `<span class="note-pill om">⚡ Open-Meteo Ativo</span><span class="note-text">Modelo numérico de alta resolução em tempo real</span>`;
+    if (jumpBtn) {
+      if (!hasPhysicalInmet && this.nearestLiveInmet && this.nearestLiveInmet.code !== this.currentStationCode) {
+        const near = this.nearestLiveInmet;
+        const tempTxt = near.temp !== null && near.temp !== undefined ? ` • ${near.temp}°C` : "";
+        const distTxt = near.distKm !== null && near.distKm !== undefined ? ` (${near.distKm} km)` : "";
+        jumpBtn.textContent = `📡 Usar Estação Ativa: ${near.code} ${near.name}${tempTxt}${distTxt}`;
+        jumpBtn.onclick = () => this.selectStation(near.code, true);
+        jumpBtn.style.display = "inline-flex";
+      } else {
+        jumpBtn.style.display = "none";
       }
-      if (pulseStatus) pulseStatus.textContent = "OPEN-METEO TEMPO REAL";
-    } else {
+    }
+
+    if (activeSource === "inmet" && hasPhysicalInmet) {
       if (btnInmet) btnInmet.classList.add("active");
       if (btnOm) btnOm.classList.remove("active");
       if (noteEl) {
-        noteEl.innerHTML = !hasFreshGround
-          ? `<span class="note-pill inmet">⚠️ INMET Solo (Arquivo)</span><span class="note-text" style="color:#f59e0b;">Exibindo última transmissão física armazenada</span>`
-          : `<span class="note-pill inmet">📡 INMET Solo Ativo</span><span class="note-text">Sensor físico atualizado no solo</span>`;
+        noteEl.innerHTML = hasFreshGround
+          ? `<span class="note-pill inmet">📡 Estação INMET Prioritária</span><span class="note-text">Medição oficial direta dos sensores físicos em solo</span>`
+          : `<span class="note-pill inmet-archive">📡 Estação INMET Prioritária</span><span class="note-text">Exibindo última transmissão física registrada pela estação</span>`;
       }
-      if (pulseStatus) pulseStatus.textContent = hasFreshGround ? "INMET SOLO ONLINE" : "INMET SOLO (ARQUIVO)";
+      if (pulseStatus) {
+        pulseStatus.textContent = hasFreshGround ? "ESTAÇÃO INMET AO VIVO" : "ESTAÇÃO INMET (SOLO)";
+      }
+    } else {
+      if (btnOm) btnOm.classList.add("active");
+      if (btnInmet) btnInmet.classList.remove("active");
+      if (noteEl) {
+        noteEl.innerHTML = !hasPhysicalInmet
+          ? `<span class="note-pill fallback">⚠️ Contingência Open-Meteo</span><span class="note-text">Estação ${this.currentStationCode} sem transmissão no INMET agora</span>`
+          : `<span class="note-pill om">🌐 Modelo Open-Meteo</span><span class="note-text">Visualização alternativa por grade numérica (clique em Estação INMET para retornar ao solo)</span>`;
+      }
+      if (pulseStatus) {
+        pulseStatus.textContent = !hasPhysicalInmet ? "CONTINGÊNCIA OPEN-METEO" : "MODO MODELO NUMÉRICO";
+      }
     }
   }
 
   renderInmetData(data, forceCards = false) {
     const st = data.station || {};
     const lat = data.latest || {};
+    const hist = data.history || [];
     const hasFreshGround = this.isGroundDataFresh(lat);
     const stalenessHours = lat.staleness_hours;
 
@@ -612,36 +869,66 @@ class MeteoApp {
     document.getElementById("stationCoords").innerHTML = `
       <span>Lat: ${Number(st.lat).toFixed(2)}°</span> • 
       <span>Lon: ${Number(st.lon).toFixed(2)}°</span> • 
-      <span id="stationAltitude">Alt: ${st.altitude || "608"}m</span>
+      <span id="stationAltitude">Alt: ${Math.round(Number(st.altitude || 608))}m</span>
     `;
     document.getElementById("inmetOfficialLink").href = st.inmet_link || `https://tempo.inmet.gov.br/TabelaEstacoes/${st.code}`;
     document.getElementById("crosshairLabel").textContent = `${st.name || "Estação"} (${st.code})`;
 
-    if (!forceCards && (!hasFreshGround || this.currentSource === "openmeteo")) {
+    // Only delegate to Open-Meteo if the user explicitly selected Open-Meteo
+    if (!forceCards && this.currentSource === "openmeteo") {
       if (this.forecastData) this.renderOpenMeteoCurrent(this.forecastData);
       return;
     }
 
-    const inmetTime = lat.reading_timestamp || "Última leitura INMET";
-    const tagNotice = !hasFreshGround ? ` <span style="color:#f59e0b; font-size:11px;">(Registro físico arquivado)</span>` : "";
+    const inmetTime = lat.reading_timestamp || `${lat.date_brt || ""} às ${lat.hour_brt || "--"} BRT`;
+    const ageHrs = stalenessHours ? Math.max(1, Math.round(stalenessHours)) : 0;
+    const tagNotice = !hasFreshGround
+      ? ` <span style="color:#7dd3fc; font-size:11px;">• Último pacote recebido (${ageHrs >= 24 ? Math.round(ageHrs / 24) + "d" : ageHrs + "h"} atrás)</span>`
+      : ` <span style="color:#34d399; font-size:11px;">• Telemetria física sincronizada</span>`;
     document.getElementById("readingTimestamp").innerHTML = `
-      <span style="color: #38bdf8; font-weight: 700;">● INMET Solo:</span> ${inmetTime}${tagNotice}
+      <span style="color: #38bdf8; font-weight: 700;">📡 Sensor Físico INMET:</span> ${inmetTime}${tagNotice}
     `;
 
-    const tempVal = lat.temp_ins !== null && lat.temp_ins !== undefined ? lat.temp_ins : "--";
-    document.getElementById("tempInstant").textContent = tempVal;
-    document.getElementById("thermalSensation").textContent = lat.thermal_sensation !== null && lat.thermal_sensation !== undefined ? `${lat.thermal_sensation}°C` : (tempVal !== "--" ? `${tempVal}°C` : "--");
-    document.getElementById("tempMax").textContent = lat.temp_max !== null && lat.temp_max !== undefined ? `${lat.temp_max}°C` : "--";
-    document.getElementById("tempMin").textContent = lat.temp_min !== null && lat.temp_min !== undefined ? `${lat.temp_min}°C` : "--";
+    // Handle individual sensor channel fallback if e.g. thermistor is under maintenance (like A652) while other physical sensors work
+    const histTemps = hist.map((r) => r.temp_ins).filter((v) => v !== null && v !== undefined && !isNaN(v));
+    let tempVal = lat.temp_ins !== null && lat.temp_ins !== undefined
+      ? lat.temp_ins
+      : (histTemps.length > 0 ? histTemps[histTemps.length - 1] : null);
+    let thermistorFallback = false;
+    if (tempVal === null && this.forecastData?.current?.temperature !== undefined) {
+      tempVal = this.forecastData.current.temperature;
+      thermistorFallback = true;
+    }
+
+    document.getElementById("tempInstant").textContent = tempVal !== null ? tempVal : "--";
+    if (thermistorFallback) {
+      document.getElementById("thermalSensation").textContent = `${this.forecastData.current.apparent_temperature ?? tempVal}°C (Termistor INMET s/ sinal)`;
+    } else {
+      document.getElementById("thermalSensation").textContent =
+        lat.thermal_sensation !== null && lat.thermal_sensation !== undefined
+          ? `${lat.thermal_sensation}°C`
+          : (tempVal !== null ? `${tempVal}°C` : "--");
+    }
+
+    const tMax24 = histTemps.length > 0 ? Math.max(...histTemps) : lat.temp_max;
+    const tMin24 = histTemps.length > 0 ? Math.min(...histTemps) : lat.temp_min;
+    const tMaxShow = lat.temp_max !== null && lat.temp_max !== undefined ? (tMax24 !== null ? Math.max(lat.temp_max, tMax24) : lat.temp_max) : tMax24;
+    const tMinShow = lat.temp_min !== null && lat.temp_min !== undefined ? (tMin24 !== null ? Math.min(lat.temp_min, tMin24) : lat.temp_min) : tMin24;
+    document.getElementById("tempMax").textContent = tMaxShow !== null && tMaxShow !== undefined ? `${Number(tMaxShow).toFixed(1)}°C` : "--";
+    document.getElementById("tempMin").textContent = tMinShow !== null && tMinShow !== undefined ? `${Number(tMinShow).toFixed(1)}°C` : "--";
 
     this.updateComparisonDelta();
 
+    const histHums = hist.map((r) => r.humidity_ins).filter((v) => v !== null && v !== undefined && !isNaN(v));
     const hum = lat.humidity_ins !== null && lat.humidity_ins !== undefined ? lat.humidity_ins : "--";
     document.getElementById("humidityInstant").textContent = hum;
     document.getElementById("humidityBar").style.width = `${Math.min(100, Math.max(0, Number(hum) || 0))}%`;
-    document.getElementById("humMax").textContent = lat.humidity_max !== null && lat.humidity_max !== undefined ? `${lat.humidity_max}%` : "--";
-    document.getElementById("humMin").textContent = lat.humidity_min !== null && lat.humidity_min !== undefined ? `${lat.humidity_min}%` : "--";
+    const hMaxShow = histHums.length > 0 ? Math.round(Math.max(...histHums, Number(lat.humidity_max) || 0)) : lat.humidity_max;
+    const hMinShow = histHums.length > 0 ? Math.round(Math.min(...histHums, ...(lat.humidity_min !== null && lat.humidity_min !== undefined ? [Number(lat.humidity_min)] : []))) : lat.humidity_min;
+    document.getElementById("humMax").textContent = hMaxShow !== null && hMaxShow !== undefined ? `${hMaxShow}%` : "--";
+    document.getElementById("humMin").textContent = hMinShow !== null && hMinShow !== undefined ? `${hMinShow}%` : "--";
 
+    const histPress = hist.map((r) => r.pressure_ins).filter((v) => v !== null && v !== undefined && !isNaN(v));
     const press = lat.pressure_ins !== null && lat.pressure_ins !== undefined ? lat.pressure_ins : "--";
     document.getElementById("pressureInstant").textContent = press;
     if (press !== "--" && !isNaN(Number(press))) {
@@ -649,38 +936,80 @@ class MeteoApp {
       const pBar = document.getElementById("pressureBar");
       if (pBar) pBar.style.width = `${pPct.toFixed(0)}%`;
     }
-    document.getElementById("pressMax").textContent = lat.pressure_max !== null && lat.pressure_max !== undefined ? lat.pressure_max : "--";
-    document.getElementById("pressMin").textContent = lat.pressure_min !== null && lat.pressure_min !== undefined ? lat.pressure_min : "--";
+    const pMaxShow = histPress.length > 0 ? Math.max(...histPress).toFixed(1) : lat.pressure_max;
+    const pMinShow = histPress.length > 0 ? Math.min(...histPress).toFixed(1) : lat.pressure_min;
+    document.getElementById("pressMax").textContent = pMaxShow !== null && pMaxShow !== undefined ? pMaxShow : "--";
+    document.getElementById("pressMin").textContent = pMinShow !== null && pMinShow !== undefined ? pMinShow : "--";
 
-    const wSpeed = lat.wind_speed !== null && lat.wind_speed !== undefined ? lat.wind_speed : 0;
-    document.getElementById("windSpeed").textContent = wSpeed;
+    const wSpeed = lat.wind_speed !== null && lat.wind_speed !== undefined ? Number(lat.wind_speed) : 0;
+    document.getElementById("windSpeed").textContent = wSpeed.toFixed(1);
     document.getElementById("windSpeedKmh").textContent = (wSpeed * 3.6).toFixed(1);
     document.getElementById("windCardinal").textContent = lat.wind_cardinal || this.degreesToCardinal(lat.wind_dir);
-    document.getElementById("windDir").textContent = lat.wind_dir !== null && lat.wind_dir !== undefined ? lat.wind_dir : "--";
-    const wGust = lat.wind_gust !== null && lat.wind_gust !== undefined ? lat.wind_gust : wSpeed;
-    document.getElementById("windGust").textContent = `${wGust} m/s (${(wGust * 3.6).toFixed(1)} km/h)`;
+    document.getElementById("windDir").textContent = lat.wind_dir !== null && lat.wind_dir !== undefined ? Math.round(lat.wind_dir) : "--";
+    const wGust = lat.wind_gust !== null && lat.wind_gust !== undefined ? Number(lat.wind_gust) : wSpeed;
+    document.getElementById("windGust").textContent = `${wGust.toFixed(1)} m/s (${(wGust * 3.6).toFixed(1)} km/h)`;
 
     if (lat.wind_dir !== null && lat.wind_dir !== undefined) {
       document.getElementById("compassNeedle").style.transform = `rotate(${lat.wind_dir}deg)`;
     }
 
-    const rain = lat.rain !== null && lat.rain !== undefined ? lat.rain : 0.0;
-    document.getElementById("rainInstant").textContent = rain;
-    document.getElementById("rainLastHour").textContent = `${rain} mm`;
-    const rain24h = lat.rain_24h_accum !== undefined ? lat.rain_24h_accum : rain;
-    document.getElementById("rain24hAccum").textContent = `${rain24h} mm`;
-    document.getElementById("rainStatusText").textContent = rain > 0 ? "Chuva registrada no pluviômetro" : "Sem chuva na última hora";
+    const rain = lat.rain !== null && lat.rain !== undefined ? Number(lat.rain) : 0.0;
+    document.getElementById("rainInstant").textContent = rain.toFixed(1);
+    document.getElementById("rainLastHour").textContent = `${rain.toFixed(1)} mm`;
+    const rain24h = lat.rain_24h_accum !== undefined ? Number(lat.rain_24h_accum) : rain;
+    document.getElementById("rain24hAccum").textContent = `${rain24h.toFixed(1)} mm`;
+    document.getElementById("rainStatusText").textContent = rain > 0
+      ? "Chuva registrada no pluviômetro físico"
+      : (rain24h > 0 ? `Sem chuva na última hora • ${rain24h.toFixed(1)} mm em 24h` : "Sem chuva registrada no pluviômetro");
 
-    document.getElementById("dewPoint").textContent = lat.dew_point !== null && lat.dew_point !== undefined ? lat.dew_point : "--";
+    if (lat.dew_point !== null && lat.dew_point !== undefined) {
+      document.getElementById("dewPoint").textContent = lat.dew_point;
+    } else if (tempVal !== null && hum !== "--" && Number(hum) > 0) {
+      const T = Number(tempVal);
+      const RH = Number(hum);
+      const alpha = ((17.27 * T) / (237.7 + T)) + Math.log(RH / 100.0);
+      document.getElementById("dewPoint").textContent = ((237.7 * alpha) / (17.27 - alpha)).toFixed(1);
+    } else {
+      document.getElementById("dewPoint").textContent = "--";
+    }
 
-    const rad = lat.solar_radiation !== null && lat.solar_radiation !== undefined ? Math.max(0, lat.solar_radiation) : 0.0;
+    const rad = lat.solar_radiation !== null && lat.solar_radiation !== undefined ? Math.max(0, Number(lat.solar_radiation)) : 0.0;
     const radW = rad > 0 ? Math.round(rad / 3.6) : 0;
     document.getElementById("solarRadiation").textContent = rad > 0 ? rad.toFixed(1) : "0.0";
     document.getElementById("solarDesc").textContent = rad > 0
-      ? `Medição da estação: ${rad.toFixed(1)} kJ/m² (~${radW} W/m²)`
-      : "Período noturno ou sem incidência direta.";
+      ? `Piranômetro INMET: ${rad.toFixed(1)} kJ/m² (~${radW} W/m²)`
+      : "Período noturno ou sem radiação solar direta no sensor.";
 
-    document.getElementById("batteryVoltage").textContent = lat.battery !== null && lat.battery !== undefined ? lat.battery : "12.8";
+    // Card 7: Physical Datalogger Battery Voltage
+    const batVal = lat.battery !== null && lat.battery !== undefined ? Number(lat.battery) : null;
+    const batEl = document.getElementById("batteryVoltage");
+    const batUnit = document.getElementById("batteryUnit");
+    const batTag = document.getElementById("batteryStatusTag");
+    if (batEl) batEl.textContent = batVal !== null ? batVal.toFixed(1) : "12.8";
+    if (batUnit) batUnit.textContent = "V";
+    if (batTag) {
+      if (batVal !== null && batVal < 11.8) {
+        batTag.className = "battery-status-tag tag-warn";
+        batTag.textContent = "Tensão em Atenção (<11.8V)";
+      } else {
+        batTag.className = "battery-status-tag tag-good";
+        batTag.textContent = batVal !== null && batVal >= 12.6 ? "Carga Solar Ótima" : "Alimentação Solar OK";
+      }
+    }
+
+    // Card 8: Physical Station Transmission Status
+    const stDot = document.getElementById("stationStatusDot");
+    const stTxt = document.getElementById("stationStatusText");
+    const stSub = document.getElementById("stationStatusSub");
+    if (stDot) stDot.className = hasFreshGround ? "dot-online" : "dot-warning";
+    if (stTxt) {
+      stTxt.textContent = hasFreshGround
+        ? "Estação INMET Operante (Ao Vivo)"
+        : `Último Pacote: ${lat.date_brt || ""} ${lat.hour_brt || ""} BRT`;
+    }
+    if (stSub) {
+      stSub.textContent = `Histórico físico: ${hist.length} leituras horárias`;
+    }
   }
 
   renderOpenMeteoCurrent(data) {
@@ -688,20 +1017,15 @@ class MeteoApp {
     const curr = data.current;
     const today = (data.daily && data.daily[0]) ? data.daily[0] : {};
     const past24 = data.past_24h || [];
-    const hasFreshGround = this.isGroundDataFresh(this.inmetData?.latest);
+    const hasPhysical = this.hasValidStationReading(this.inmetData?.latest);
 
     const timeFormatted = curr.time ? curr.time.replace("T", " às ") : "Tempo Real";
     const readingTimeEl = document.getElementById("readingTimestamp");
     if (readingTimeEl) {
-      let groundNotice = "";
-      if (this.inmetData?.latest?.hour_brt) {
-        groundNotice = !hasFreshGround
-          ? `• <span style="color: var(--text-muted); font-size:11px;">Último pacote INMET: ${this.inmetData.latest.date_brt || ""} ${this.inmetData.latest.hour_brt} BRT</span>`
-          : `• <span style="color: var(--text-muted); font-size:11px;">INMET Solo sincronizado às ${this.inmetData.latest.hour_brt} BRT</span>`;
-      } else {
-        groundNotice = `• <span style="color: var(--text-muted); font-size:11px;">Coordenadas oficiais da estação ${this.currentStationCode}</span>`;
-      }
-      readingTimeEl.innerHTML = `<span style="color: #34d399; font-weight: 700;">● Tempo Real (Open-Meteo):</span> ${timeFormatted} BRT ${groundNotice}`;
+      const groundNotice = hasPhysical
+        ? `• <span style="color: #7dd3fc; font-size:11px;">Sensor INMET disponível (${this.inmetData.latest.hour_brt || "--"} BRT)</span>`
+        : `• <span style="color: #fbbf24; font-size:11px;">Estação ${this.currentStationCode} sem pacote INMET ativo</span>`;
+      readingTimeEl.innerHTML = `<span style="color: #34d399; font-weight: 700;">🌐 Grade Numérica (Open-Meteo):</span> ${timeFormatted} BRT ${groundNotice}`;
     }
 
     const tempVal = curr.temperature !== undefined && curr.temperature !== null ? curr.temperature : "--";
@@ -758,7 +1082,7 @@ class MeteoApp {
     const rainTodayPred = today.precipitation_sum !== undefined ? today.precipitation_sum : (today.rain_sum || 0.0);
     document.getElementById("rain24hAccum").textContent = past24.length > 0 ? `${accumPast24.toFixed(1)} mm` : `${rainTodayPred} mm (Hoje)`;
     document.getElementById("rainStatusText").textContent = rain > 0
-      ? "Precipitação em andamento agora"
+      ? "Precipitação estimada em andamento"
       : (rainTodayPred > 0 ? `Sem chuva agora • ${rainTodayPred} mm previstos hoje` : "Tempo firme nas últimas horas");
 
     // 5. Dew Point
@@ -782,10 +1106,33 @@ class MeteoApp {
       : Math.round(radKj / 3.6);
     document.getElementById("solarRadiation").textContent = radKj > 0 ? radKj.toFixed(1) : "0.0";
     document.getElementById("solarDesc").textContent = radKj > 0
-      ? `Irradiância atual: ~${radW} W/m² (${radKj.toFixed(1)} kJ/m²)`
+      ? `Irradiância estimada: ~${radW} W/m² (${radKj.toFixed(1)} kJ/m²)`
       : "Período noturno ou sem radiação solar direta.";
 
-    document.getElementById("batteryVoltage").textContent = "Rede OK";
+    const batEl = document.getElementById("batteryVoltage");
+    const batUnit = document.getElementById("batteryUnit");
+    const batTag = document.getElementById("batteryStatusTag");
+    if (batEl) batEl.textContent = "Modelo";
+    if (batUnit) batUnit.textContent = "";
+    if (batTag) {
+      batTag.className = "battery-status-tag tag-info";
+      batTag.textContent = "Estimativa Numérica";
+    }
+
+    const stDot = document.getElementById("stationStatusDot");
+    const stTxt = document.getElementById("stationStatusText");
+    const stSub = document.getElementById("stationStatusSub");
+    if (stDot) stDot.className = hasPhysical ? "dot-online" : "dot-warning";
+    if (stTxt) {
+      stTxt.textContent = hasPhysical
+        ? "Visualizando Grade Open-Meteo"
+        : `Estação ${this.currentStationCode} Sem Transmissão INMET`;
+    }
+    if (stSub) {
+      stSub.textContent = hasPhysical
+        ? "Clique em Estação INMET para dados do solo"
+        : "Operando em contingência automática de grade";
+    }
   }
 
   degreesToCardinal(deg) {
@@ -801,31 +1148,41 @@ class MeteoApp {
   }
 
   setDataSource(source) {
-    if (source === "inmet" && !this.inmetData) {
-      this.showToast(`A estação ${this.currentStationCode} utiliza telemetria em tempo real via Open-Meteo no modo web estático.`, "info");
+    const hasPhysical = this.hasValidStationReading(this.inmetData?.latest);
+    if (source === "inmet" && !hasPhysical) {
+      const nearMsg = this.nearestLiveInmet
+        ? ` Sugestão: alterne para a estação física ativa ${this.nearestLiveInmet.code} (${this.nearestLiveInmet.name}).`
+        : "";
+      this.showToast(`A estação ${this.currentStationCode} está sem transmissão física ativa no INMET neste momento.${nearMsg}`, "warn", 4600);
       return;
     }
     this.currentSource = source;
     const hasFreshGround = this.isGroundDataFresh(this.inmetData?.latest);
     const stalenessHours = this.inmetData?.latest?.staleness_hours;
-    this.updateSourceToggleUI(source, hasFreshGround, stalenessHours, Boolean(this.inmetData));
+    this.updateSourceToggleUI(source, hasFreshGround, stalenessHours, hasPhysical);
 
     if (source === "openmeteo") {
       if (this.forecastData) this.renderOpenMeteoCurrent(this.forecastData);
     } else if (this.inmetData) {
       this.renderInmetData(this.inmetData, true);
     }
+    this.renderAtmosphericIntel();
     this.syncAnalytics24h();
   }
 
   updateComparisonDelta() {
     const inmetVal = this.inmetData?.latest?.temp_ins;
     const omVal = this.forecastData?.current?.temperature;
-    const hasFreshGround = this.isGroundDataFresh(this.inmetData?.latest);
-    const inmetTime = this.inmetData?.latest?.hour_brt ? `${this.inmetData.latest.hour_brt} BRT` : "arquivo";
+    const hasPhysical = this.hasValidStationReading(this.inmetData?.latest);
+    const inmetTime = this.inmetData?.latest?.hour_brt ? `${this.inmetData.latest.hour_brt} BRT` : "solo";
     const compInmetEl = document.getElementById("compInmetVal");
     const compOmEl = document.getElementById("compOpenMeteoVal");
     const compDeltaEl = document.getElementById("compDeltaText");
+
+    const inmetBox = compInmetEl?.closest(".comp-box");
+    const omBox = compOmEl?.closest(".comp-box");
+    if (inmetBox) inmetBox.classList.toggle("active-source", this.currentSource === "inmet");
+    if (omBox) omBox.classList.toggle("active-source", this.currentSource === "openmeteo");
 
     if (compOmEl) {
       compOmEl.textContent = omVal !== undefined && omVal !== null ? `${omVal}°C` : "--";
@@ -833,20 +1190,23 @@ class MeteoApp {
 
     if (inmetVal !== undefined && inmetVal !== null && omVal !== undefined && omVal !== null) {
       if (compInmetEl) compInmetEl.textContent = `${inmetVal}°C`;
-      const delta = (omVal - inmetVal).toFixed(1);
-      const sign = delta > 0 ? `+${delta}` : delta;
+      const delta = (inmetVal - omVal).toFixed(1);
+      const sign = Number(delta) > 0 ? `+${delta}` : delta;
       if (compDeltaEl) {
-        if (!hasFreshGround) {
-          compDeltaEl.innerHTML = `Modo Ativo: <strong>Open-Meteo (${omVal}°C agora)</strong> • Última leitura solo: ${inmetVal}°C (${inmetTime}).`;
-        } else {
-          compDeltaEl.innerHTML = `Diferencial Grade vs Sensor Solo: <strong>${sign}°C</strong>`;
-        }
+        compDeltaEl.innerHTML = this.currentSource === "inmet"
+          ? `Prioridade: <strong>📡 Sensor INMET (${inmetVal}°C às ${inmetTime})</strong> • Diferença p/ grade: <strong>${sign}°C</strong>`
+          : `Visualizando Grade (${omVal}°C) • Sensor físico INMET: <strong>${inmetVal}°C (${inmetTime})</strong>`;
+      }
+    } else if (hasPhysical) {
+      if (compInmetEl) compInmetEl.textContent = inmetVal !== null && inmetVal !== undefined ? `${inmetVal}°C` : "Parcial";
+      if (compDeltaEl) {
+        compDeltaEl.innerHTML = `Prioridade: <strong>📡 Sensores Físicos INMET (${this.currentStationCode})</strong> ativos em solo.`;
       }
     } else {
-      if (compInmetEl) compInmetEl.textContent = "S/ Cache";
+      if (compInmetEl) compInmetEl.textContent = "Sem Sinal";
       if (compDeltaEl) {
         compDeltaEl.innerHTML = omVal !== undefined && omVal !== null
-          ? `Monitorando coordenadas da estação <strong>${this.currentStationCode}</strong> em tempo real (${omVal}°C).`
+          ? `Estação <strong>${this.currentStationCode}</strong> sem sinal no INMET • Contingência Open-Meteo (${omVal}°C).`
           : "Sincronizando telemetria...";
       }
     }
@@ -1179,10 +1539,12 @@ class MeteoApp {
   async loadForecast(lat, lon) {
     try {
       let data = null;
-      try {
-        const res = await fetch(`/api/forecast?lat=${lat}&lon=${lon}`);
-        if (res.ok) data = await res.json();
-      } catch (e) {}
+      if (this.hasLocalBackend) {
+        try {
+          const res = await fetch(`/api/forecast?lat=${lat}&lon=${lon}`);
+          if (res.ok) data = await res.json();
+        } catch (e) {}
+      }
 
       if (!data || !data.past_24h) {
         data = await this.fetchDirectOpenMeteo(lat, lon);
@@ -1192,6 +1554,9 @@ class MeteoApp {
       this.forecastData = data;
       if (this.currentSource === "openmeteo") {
         this.renderOpenMeteoCurrent(data);
+      } else if (this.inmetData && (this.inmetData.latest?.temp_ins === null || this.inmetData.latest?.temp_ins === undefined)) {
+        // Refresh partial INMET station display (e.g., if thermistor channel alone was null)
+        this.renderInmetData(this.inmetData, true);
       }
 
       this.renderForecastSummary(data);
@@ -1428,18 +1793,39 @@ class MeteoApp {
       uvAdviceEl.textContent = `${uvTxt} ${aqiTxt}`;
     }
 
-    // --- 3. Agrometeorology FAO-56 (ET0, VPD & Spraying Window) ---
+    // --- 3. Agrometeorology FAO-56 (ET0, VPD & Spraying Window — Prioritizing Physical INMET Sensors) ---
+    const inmetLat = this.inmetData?.latest || null;
+    const usePhysicalAgro = this.currentSource === "inmet" && this.hasValidStationReading(inmetLat);
+
+    const agroSubEl = document.getElementById("agroSourceSub");
+    if (agroSubEl) {
+      agroSubEl.textContent = usePhysicalAgro
+        ? `📡 Microclima: Sensor INMET (${this.currentStationCode}) + FAO-56`
+        : "🌐 Microclima: Grade Open-Meteo FAO-56";
+    }
+
     const et0Day = today.et0_sum !== undefined && today.et0_sum !== null ? Number(today.et0_sum) : null;
     const et0Hour = curr.et0_hour !== undefined && curr.et0_hour !== null ? Number(curr.et0_hour) : 0;
-    const tempC = Number(curr.temperature ?? 25);
-    const rhPct = Number(curr.humidity ?? curr.relative_humidity ?? 60);
-    const windKmh = Number(curr.wind_speed ?? 0);
-    const rainNow = Number(curr.precipitation ?? curr.rain ?? 0);
 
-    let vpd = curr.vpd !== undefined && curr.vpd !== null ? Number(curr.vpd) : null;
+    const tempC = usePhysicalAgro && inmetLat.temp_ins !== null && inmetLat.temp_ins !== undefined
+      ? Number(inmetLat.temp_ins)
+      : Number(curr.temperature ?? 25);
+    const rhPct = usePhysicalAgro && inmetLat.humidity_ins !== null && inmetLat.humidity_ins !== undefined
+      ? Number(inmetLat.humidity_ins)
+      : Number(curr.humidity ?? curr.relative_humidity ?? 60);
+    const windKmh = usePhysicalAgro && inmetLat.wind_speed !== null && inmetLat.wind_speed !== undefined
+      ? Number(inmetLat.wind_speed) * 3.6
+      : Number(curr.wind_speed ?? 0);
+    const rainNow = usePhysicalAgro && inmetLat.rain !== null && inmetLat.rain !== undefined
+      ? Number(inmetLat.rain)
+      : Number(curr.precipitation ?? curr.rain ?? 0);
+
+    let vpd = usePhysicalAgro ? this.computeTetensVpd(tempC, rhPct) : null;
+    if (vpd === null && curr.vpd !== undefined && curr.vpd !== null) {
+      vpd = Number(curr.vpd);
+    }
     if (vpd === null && !isNaN(tempC) && !isNaN(rhPct)) {
-      const es = 0.61078 * Math.exp((17.27 * tempC) / (tempC + 237.3));
-      vpd = Math.max(0, es * (1 - rhPct / 100));
+      vpd = this.computeTetensVpd(tempC, rhPct);
     }
 
     const et0DayEl = document.getElementById("agroEt0Day");
@@ -1641,10 +2027,19 @@ class MeteoApp {
     const titleEl = document.getElementById("weatherAlertTitle");
     const textEl = document.getElementById("weatherAlertText");
 
+    const inmetLat = this.inmetData?.latest || null;
+    const usePhysical = this.currentSource === "inmet" && this.hasValidStationReading(inmetLat);
+
     const wCode = Number(curr.weather_code || 0);
-    const gustKmh = Number(curr.wind_gusts || 0);
-    const rh = Number(curr.humidity ?? curr.relative_humidity ?? 65);
-    const temp = Number(curr.temperature ?? 24);
+    const gustKmh = usePhysical && inmetLat.wind_gust !== null && inmetLat.wind_gust !== undefined
+      ? Number(inmetLat.wind_gust) * 3.6
+      : Number(curr.wind_gusts || 0);
+    const rh = usePhysical && inmetLat.humidity_ins !== null && inmetLat.humidity_ins !== undefined
+      ? Number(inmetLat.humidity_ins)
+      : Number(curr.humidity ?? curr.relative_humidity ?? 65);
+    const temp = usePhysical && inmetLat.temp_ins !== null && inmetLat.temp_ins !== undefined
+      ? Number(inmetLat.temp_ins)
+      : Number(curr.temperature ?? 24);
     const uv = Number(curr.uv_index || 0);
     const usAqi = aq?.us_aqi !== undefined && aq?.us_aqi !== null ? Number(aq.us_aqi) : 0;
 
@@ -1997,7 +2392,7 @@ class MeteoApp {
     const directOnlyProducts = ["fire_temp", "air_mass"];
 
     // 1. Try local FastAPI backend if running (and product is supported by CPTEC/INPE backend)
-    if (!directOnlyProducts.includes(product)) {
+    if (this.hasLocalBackend && !directOnlyProducts.includes(product)) {
       try {
         const url = `/api/goes/frames?lat=${this.currentLat}&lon=${this.currentLon}&delta=${delta}&resolution=${resolution}&frames=${numFrames}&product=${product}&borders=${showBorders !== false}&cities=${showCities !== false}&urban=${showUrban !== false}`;
         const res = await fetch(url);
@@ -2841,13 +3236,33 @@ class MeteoApp {
   }
 
   syncAnalytics24h() {
-    const inmetValid = (this.inmetData?.history || []).filter(
-      (r) => r.has_data !== false && (r.temp_ins !== null || r.humidity_ins !== null || r.rain !== null)
-    );
+    const inmetValid = (this.inmetData?.history || []).filter((r) => this.hasValidStationReading(r));
     const omPast24 = this.forecastData?.past_24h || [];
 
     const badge = document.getElementById("analyticsSourceBadge");
-    if (this.currentSource === "inmet" && inmetValid.length > 0) {
+    if (this.currentSource === "inmet" && inmetValid.length >= 6) {
+      this.activeHistory24h = inmetValid;
+      if (badge) {
+        badge.textContent = `📡 Sensor Físico INMET (${this.currentStationCode} • ${inmetValid.length}h)`;
+        badge.className = "tag-pill tag-green";
+      }
+    } else if (this.currentSource === "inmet" && inmetValid.length > 0 && omPast24.length > 0) {
+      // Anchor live INMET physical reading(s) onto preceding 24h series for uncached live stations
+      const mergedMap = new Map();
+      omPast24.forEach((r) => {
+        const key = `${r.date_brt}_${r.hour_brt}`;
+        mergedMap.set(key, { ...r, source: "openmeteo" });
+      });
+      inmetValid.forEach((r) => {
+        const key = `${r.date_brt || r.date}_${r.hour_brt || r.hour_local}`;
+        mergedMap.set(key, { ...r, source: "inmet" });
+      });
+      this.activeHistory24h = Array.from(mergedMap.values()).slice(-24);
+      if (badge) {
+        badge.textContent = `📡 Sensor INMET Ao Vivo + Série 24h (${this.currentStationCode})`;
+        badge.className = "tag-pill tag-green";
+      }
+    } else if (this.currentSource === "inmet" && inmetValid.length > 0) {
       this.activeHistory24h = inmetValid;
       if (badge) {
         badge.textContent = `📡 Sensor Físico INMET (${this.currentStationCode})`;
@@ -2856,14 +3271,14 @@ class MeteoApp {
     } else if (omPast24.length > 0) {
       this.activeHistory24h = omPast24;
       if (badge) {
-        badge.textContent = `🌐 Série Real 24h • Open-Meteo (${this.currentStationCode})`;
+        badge.textContent = `🌐 Série Modelo 24h • Open-Meteo (${this.currentStationCode})`;
         badge.className = "tag-pill tag-cyan";
       }
     } else if (inmetValid.length > 0) {
       this.activeHistory24h = inmetValid;
       if (badge) {
         badge.textContent = `📡 Histórico INMET (${this.currentStationCode})`;
-        badge.className = "tag-pill tag-purple";
+        badge.className = "tag-pill tag-green";
       }
     } else {
       this.activeHistory24h = [];
@@ -2886,9 +3301,11 @@ class MeteoApp {
 
     const reversed = [...activeRecords].reverse();
     reversed.forEach((r) => {
+      const isInmetRow = r.source !== "openmeteo";
+      const srcDot = isInmetRow ? "📡 " : "";
       const tr = document.createElement("tr");
       tr.innerHTML = `
-        <td><strong style="color: #38bdf8;">${r.date_brt || r.date || "--"}</strong></td>
+        <td><strong style="color: ${isInmetRow ? "#38bdf8" : "#94a3b8"};" title="${isInmetRow ? "Sensor Físico INMET" : "Estimativa Grade Open-Meteo"}">${srcDot}${r.date_brt || r.date || "--"}</strong></td>
         <td><strong>${r.hour_brt || r.hour_local || "--"}</strong></td>
         <td>${r.hour_utc || "--"}</td>
         <td><span style="color: var(--text-muted); font-size: 11px;">${r.date_utc || "--"}</span></td>
@@ -3370,7 +3787,7 @@ class MeteoApp {
   }
 
   // ==========================================================================
-  // Station Search, Autocomplete & GPS Nearest (All 672 INMET Stations)
+  // Station Search, Autocomplete & GPS Nearest (Prioritizing Operational INMET Stations)
   // ==========================================================================
   async loadStationsList() {
     if (this.allStations && this.allStations.length > 0) return;
@@ -3381,19 +3798,51 @@ class MeteoApp {
         const list = await res.json();
         this.allStations = list;
         list.forEach((s) => {
-          this.stationsMap[s.code] = {
-            code: s.code,
+          const code = String(s.code || "").toUpperCase();
+          this.stationsMap[code] = {
+            code,
             name: s.name,
+            municipality: s.municipality || s.name,
             state: s.state,
             lat: parseFloat(s.lat),
             lon: parseFloat(s.lon),
-            alt: parseFloat(s.altitude || 600)
+            alt: parseFloat(s.altitude || 600),
+            geocode: s.geocode || null,
+            status: s.status || "Operante"
           };
         });
+        // Non-blocking background sync of real-time INMET operational statuses
+        this.syncLiveStationsStatus();
       }
     } catch (e) {
       console.warn("Could not load inmet_stations.json statically:", e);
     }
+  }
+
+  async syncLiveStationsStatus() {
+    if (this.liveStatusSynced) return;
+    this.liveStatusSynced = true;
+    try {
+      const res = await fetch("https://apitempo.inmet.gov.br/estacoes/T");
+      if (!res.ok) return;
+      const liveArr = await res.json();
+      if (!Array.isArray(liveArr)) return;
+      const statusByCode = {};
+      liveArr.forEach((item) => {
+        if (item?.CD_ESTACAO && item?.CD_SITUACAO) {
+          statusByCode[String(item.CD_ESTACAO).toUpperCase()] = item.CD_SITUACAO;
+        }
+      });
+      this.allStations.forEach((s) => {
+        const code = String(s.code || "").toUpperCase();
+        if (statusByCode[code]) {
+          s.status = statusByCode[code];
+          if (this.stationsMap[code]) {
+            this.stationsMap[code].status = statusByCode[code];
+          }
+        }
+      });
+    } catch (e) {}
   }
 
   normalizeStr(str) {
@@ -3418,6 +3867,34 @@ class MeteoApp {
     return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
   }
 
+  findNearestOperanteNeighbor(excludeCode, lat, lon) {
+    if (isNaN(lat) || isNaN(lon)) return null;
+    const list = this.allStations && this.allStations.length > 0
+      ? this.allStations
+      : Object.values(this.stationsMap || DEFAULT_STATIONS_MAP);
+
+    let best = null;
+    let minDist = Infinity;
+    for (const s of list) {
+      if (String(s.code).toUpperCase() === excludeCode) continue;
+      if (s.status && s.status !== "Operante") continue;
+      const sLat = parseFloat(s.lat);
+      const sLon = parseFloat(s.lon);
+      if (isNaN(sLat) || isNaN(sLon)) continue;
+      const dist = this.haversineDistance(lat, lon, sLat, sLon);
+      if (dist < minDist) {
+        minDist = dist;
+        best = {
+          code: s.code,
+          name: s.name,
+          state: s.state,
+          distance_km: Math.round(dist * 10) / 10
+        };
+      }
+    }
+    return best;
+  }
+
   searchStationsLocal(query, lat, lon, limit = 20) {
     const list = this.allStations && this.allStations.length > 0
       ? this.allStations
@@ -3429,10 +3906,11 @@ class MeteoApp {
 
     for (const s of list) {
       const nameNorm = this.normalizeStr(s.name);
+      const munNorm = this.normalizeStr(s.municipality);
       const codeNorm = this.normalizeStr(s.code);
       const stateNorm = this.normalizeStr(s.state);
 
-      if (!q || nameNorm.includes(q) || codeNorm.includes(q) || stateNorm.includes(q)) {
+      if (!q || nameNorm.includes(q) || munNorm.includes(q) || codeNorm.includes(q) || stateNorm === q) {
         const sLat = parseFloat(s.lat);
         const sLon = parseFloat(s.lon);
         let dist = null;
@@ -3443,6 +3921,7 @@ class MeteoApp {
           code: s.code,
           name: s.name,
           state: s.state,
+          status: s.status || "Operante",
           lat: sLat,
           lon: sLon,
           distance_km: dist
@@ -3450,11 +3929,20 @@ class MeteoApp {
       }
     }
 
-    if (hasCoords) {
-      results.sort((a, b) => (a.distance_km ?? 999999) - (b.distance_km ?? 999999));
-    } else {
-      results.sort((a, b) => (a.name || "").localeCompare(b.name || ""));
-    }
+    results.sort((a, b) => {
+      const aExact = this.normalizeStr(a.code) === q ? 0 : 1;
+      const bExact = this.normalizeStr(b.code) === q ? 0 : 1;
+      if (aExact !== bExact) return aExact - bExact;
+
+      const aOp = a.status === "Operante" ? 0 : 1;
+      const bOp = b.status === "Operante" ? 0 : 1;
+      if (aOp !== bOp) return aOp - bOp;
+
+      if (hasCoords) {
+        return (a.distance_km ?? 999999) - (b.distance_km ?? 999999);
+      }
+      return (a.name || "").localeCompare(b.name || "");
+    });
     return results.slice(0, limit);
   }
 
@@ -3463,26 +3951,47 @@ class MeteoApp {
       ? this.allStations
       : Object.values(this.stationsMap || DEFAULT_STATIONS_MAP);
 
-    let best = null;
-    let minDist = Infinity;
+    let bestOperante = null;
+    let minOperanteDist = Infinity;
+    let bestAny = null;
+    let minAnyDist = Infinity;
+
     for (const s of list) {
       const sLat = parseFloat(s.lat);
       const sLon = parseFloat(s.lon);
       if (isNaN(sLat) || isNaN(sLon)) continue;
       const dist = this.haversineDistance(lat, lon, sLat, sLon);
-      if (dist < minDist) {
-        minDist = dist;
-        best = {
+      if (dist < minAnyDist) {
+        minAnyDist = dist;
+        bestAny = {
           code: s.code,
           name: s.name,
           state: s.state,
+          status: s.status || "Operante",
           lat: sLat,
           lon: sLon,
-          distance_km: Math.round(minDist * 10) / 10
+          distance_km: Math.round(dist * 10) / 10
+        };
+      }
+      if ((s.status || "Operante") === "Operante" && dist < minOperanteDist) {
+        minOperanteDist = dist;
+        bestOperante = {
+          code: s.code,
+          name: s.name,
+          state: s.state,
+          status: "Operante",
+          lat: sLat,
+          lon: sLon,
+          distance_km: Math.round(dist * 10) / 10
         };
       }
     }
-    return best;
+
+    // Prioritize an operational physical station if within +45 km of the closest site
+    if (bestOperante && (!bestAny || minOperanteDist <= minAnyDist + 45.0)) {
+      return bestOperante;
+    }
+    return bestAny;
   }
 
   setupSearchAutocomplete() {
@@ -3510,13 +4019,15 @@ class MeteoApp {
 
       debounceTimer = setTimeout(async () => {
         let stations = [];
-        try {
-          const res = await fetch(`/api/stations?q=${encodeURIComponent(q)}&lat=${this.currentLat}&lon=${this.currentLon}&limit=20`);
-          if (res.ok) {
-            const data = await res.json();
-            stations = data.stations || [];
-          }
-        } catch (err) {}
+        if (this.hasLocalBackend) {
+          try {
+            const res = await fetch(`/api/stations?q=${encodeURIComponent(q)}&lat=${this.currentLat}&lon=${this.currentLon}&limit=20`);
+            if (res.ok) {
+              const data = await res.json();
+              stations = data.stations || [];
+            }
+          } catch (err) {}
+        }
 
         if (!stations || stations.length === 0) {
           if (!this.allStations || this.allStations.length === 0) {
@@ -3589,12 +4100,19 @@ class MeteoApp {
       const item = document.createElement("div");
       item.className = "search-item";
       const favMark = this.favorites.includes(s.code) ? "⭐ " : "";
+      const isOp = (s.status || this.stationsMap[s.code]?.status || "Operante") === "Operante";
+      const statusBadge = isOp
+        ? `<span class="search-st-status operante" title="Estação física INMET operante">🟢 Operante</span>`
+        : `<span class="search-st-status pane" title="Estação física em manutenção no INMET">🟠 Manutenção</span>`;
       item.innerHTML = `
         <div class="search-item-info">
           <span class="search-st-code">${s.code}</span>
           <span class="search-st-name">${favMark}${s.name} (${s.state})</span>
         </div>
-        <span class="search-st-dist">${s.distance_km !== undefined && s.distance_km !== null ? `${s.distance_km} km` : ""}</span>
+        <div class="search-item-right">
+          ${statusBadge}
+          <span class="search-st-dist">${s.distance_km !== undefined && s.distance_km !== null ? `${s.distance_km} km` : ""}</span>
+        </div>
       `;
       item.addEventListener("click", async () => {
         results.classList.remove("active");

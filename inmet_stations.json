@@ -7,7 +7,9 @@
     "lon": -72.6811111,
     "altitude": "220",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200203",
+    "municipality": "Cruzeiro do Sul"
   },
   {
     "code": "A140",
@@ -17,7 +19,9 @@
     "lon": -68.73527777,
     "altitude": "224.5",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200252",
+    "municipality": "Epitaciolândia"
   },
   {
     "code": "A138",
@@ -27,7 +31,9 @@
     "lon": -70.3436111,
     "altitude": "157.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200302",
+    "municipality": "Feijó"
   },
   {
     "code": "A102",
@@ -37,7 +43,9 @@
     "lon": -69.92638888,
     "altitude": "184.51",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200344",
+    "municipality": "Manoel Urbano"
   },
   {
     "code": "A136",
@@ -47,7 +55,9 @@
     "lon": -72.74777777,
     "altitude": "205.35",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200393",
+    "municipality": "Porto Walter"
   },
   {
     "code": "A104",
@@ -57,7 +67,9 @@
     "lon": -67.86888888,
     "altitude": "163",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1200401",
+    "municipality": "Rio Branco"
   },
   {
     "code": "A353",
@@ -67,7 +79,9 @@
     "lon": -36.61916666,
     "altitude": "236.84",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2700300",
+    "municipality": "Arapiraca"
   },
   {
     "code": "A355",
@@ -77,7 +91,9 @@
     "lon": -36.28638888,
     "altitude": "82.39",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2702306",
+    "municipality": "Coruripe"
   },
   {
     "code": "A303",
@@ -87,7 +103,9 @@
     "lon": -35.77027777,
     "altitude": "84.12",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2704302",
+    "municipality": "Maceió"
   },
   {
     "code": "A327",
@@ -97,7 +115,9 @@
     "lon": -36.62027777,
     "altitude": "278.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2706307",
+    "municipality": "Palmeira dos Índios"
   },
   {
     "code": "A323",
@@ -107,7 +127,9 @@
     "lon": -37.43083332,
     "altitude": "20.83",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2706406",
+    "municipality": "Pão de Açúcar"
   },
   {
     "code": "A371",
@@ -117,7 +139,9 @@
     "lon": -37.76722221,
     "altitude": "187",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2707107",
+    "municipality": "Piranhas"
   },
   {
     "code": "A356",
@@ -127,7 +151,9 @@
     "lon": -35.56583333,
     "altitude": "13.69",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2708501",
+    "municipality": "São Luís do Quitunde"
   },
   {
     "code": "A113",
@@ -137,7 +163,9 @@
     "lon": -59.8886111,
     "altitude": "156.97",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1300144",
+    "municipality": "Apuí"
   },
   {
     "code": "A120",
@@ -147,7 +175,9 @@
     "lon": -59.12944443,
     "altitude": "19.9",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1300300",
+    "municipality": "Autazes"
   },
   {
     "code": "A128",
@@ -157,7 +187,9 @@
     "lon": -62.92416666,
     "altitude": "29.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1300409",
+    "municipality": "Barcelos"
   },
   {
     "code": "A110",
@@ -167,7 +199,9 @@
     "lon": -67.33249999,
     "altitude": "111.98",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1300706",
+    "municipality": "Boca do Acre"
   },
   {
     "code": "A117",
@@ -177,7 +211,9 @@
     "lon": -63.14527777,
     "altitude": "33.84",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1301209",
+    "municipality": "Coari"
   },
   {
     "code": "A109",
@@ -187,7 +223,9 @@
     "lon": -69.8686111,
     "altitude": "121.54",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1301407",
+    "municipality": "Eirunepé"
   },
   {
     "code": "A112",
@@ -196,8 +234,10 @@
     "lat": -7.5525,
     "lon": -63.07138888,
     "altitude": "53.56",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "1301704",
+    "municipality": "Humaitá"
   },
   {
     "code": "A121",
@@ -207,7 +247,9 @@
     "lon": -58.48277777,
     "altitude": "41.54",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1301902",
+    "municipality": "Itacoatiara"
   },
   {
     "code": "A111",
@@ -217,7 +259,9 @@
     "lon": -64.7886111,
     "altitude": "61.91",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1302405",
+    "municipality": "Lábrea"
   },
   {
     "code": "A119",
@@ -227,7 +271,9 @@
     "lon": -60.62833332,
     "altitude": "36.57",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1302504",
+    "municipality": "Manacapuru"
   },
   {
     "code": "A101",
@@ -237,7 +283,9 @@
     "lon": -60.01638888,
     "altitude": "61.25",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1302603",
+    "municipality": "Manaus"
   },
   {
     "code": "A133",
@@ -247,7 +295,9 @@
     "lon": -61.28833333,
     "altitude": "40.64",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1302702",
+    "municipality": "Manicoré"
   },
   {
     "code": "A122",
@@ -257,7 +307,9 @@
     "lon": -57.67388888,
     "altitude": "25.49",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1302900",
+    "municipality": "Maués"
   },
   {
     "code": "A144",
@@ -267,7 +319,9 @@
     "lon": -60.38055554,
     "altitude": "45",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1303304",
+    "municipality": "Novo Aripuanã"
   },
   {
     "code": "A123",
@@ -277,7 +331,9 @@
     "lon": -56.75611111,
     "altitude": "18.72",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1303403",
+    "municipality": "Parintins"
   },
   {
     "code": "A126",
@@ -287,7 +343,9 @@
     "lon": -60.02583332,
     "altitude": "60.99",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1303536",
+    "municipality": "Presidente Figueiredo"
   },
   {
     "code": "A125",
@@ -297,7 +355,9 @@
     "lon": -59.60055555,
     "altitude": "112.84",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1303569",
+    "municipality": "Rio Preto da Eva"
   },
   {
     "code": "A134",
@@ -307,7 +367,9 @@
     "lon": -67.06111111,
     "altitude": "79.67",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1303809",
+    "municipality": "São Gabriel da Cachoeira"
   },
   {
     "code": "A124",
@@ -317,7 +379,9 @@
     "lon": -57.75805555,
     "altitude": "18.49",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1304302",
+    "municipality": "Urucará"
   },
   {
     "code": "A251",
@@ -327,7 +391,9 @@
     "lon": -50.8236111,
     "altitude": "21",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1600253",
+    "municipality": "Itaubal"
   },
   {
     "code": "A249",
@@ -337,7 +403,9 @@
     "lon": -51.08888888,
     "altitude": "16.62",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1600303",
+    "municipality": "Macapá"
   },
   {
     "code": "A242",
@@ -347,7 +415,9 @@
     "lon": -51.8625,
     "altitude": "15.14",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1600501",
+    "municipality": "Oiapoque"
   },
   {
     "code": "A244",
@@ -357,7 +427,9 @@
     "lon": -51.40388888,
     "altitude": "84.8",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1600535",
+    "municipality": "Porto Grande"
   },
   {
     "code": "A472",
@@ -367,7 +439,9 @@
     "lon": -38.01583333,
     "altitude": "182",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2900306",
+    "municipality": "Acajutiba"
   },
   {
     "code": "A434",
@@ -377,7 +451,9 @@
     "lon": -39.61694443,
     "altitude": "397.8",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2901007",
+    "municipality": "Amargosa"
   },
   {
     "code": "A429",
@@ -387,7 +463,9 @@
     "lon": -43.13888888,
     "altitude": "407.5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2902708",
+    "municipality": "Barra"
   },
   {
     "code": "A402",
@@ -397,7 +475,9 @@
     "lon": -45.02694443,
     "altitude": "474.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2903201",
+    "municipality": "Barreiras"
   },
   {
     "code": "A447",
@@ -407,7 +487,9 @@
     "lon": -39.21527777,
     "altitude": "89.67",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2927705",
+    "municipality": "Santa Cruz Cabrália"
   },
   {
     "code": "A433",
@@ -417,7 +499,9 @@
     "lon": -41.67222221,
     "altitude": "473.37",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2904605",
+    "municipality": "Brumado"
   },
   {
     "code": "A432",
@@ -427,7 +511,9 @@
     "lon": -43.65111111,
     "altitude": "506.06",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2904753",
+    "municipality": "Buritirama"
   },
   {
     "code": "A431",
@@ -437,7 +523,9 @@
     "lon": -37.68388888,
     "altitude": "31.9",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2908606",
+    "municipality": "Conde"
   },
   {
     "code": "A416",
@@ -447,7 +535,9 @@
     "lon": -44.61749999,
     "altitude": "551.71",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2909307",
+    "municipality": "Correntina"
   },
   {
     "code": "A406",
@@ -457,7 +547,9 @@
     "lon": -39.08944444,
     "altitude": "219.76",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2909802",
+    "municipality": "Cruz das Almas"
   },
   {
     "code": "A448",
@@ -467,7 +559,9 @@
     "lon": -39.9125,
     "altitude": "370",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2909901",
+    "municipality": "Curaçá"
   },
   {
     "code": "A443",
@@ -477,7 +571,9 @@
     "lon": -41.20694444,
     "altitude": "646.24",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2932457",
+    "municipality": "Umburanas"
   },
   {
     "code": "A442",
@@ -487,7 +583,9 @@
     "lon": -38.99666666,
     "altitude": "431.96",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2910701",
+    "municipality": "Euclides da Cunha"
   },
   {
     "code": "A413",
@@ -497,7 +595,9 @@
     "lon": -38.96749999,
     "altitude": "229.64",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2910800",
+    "municipality": "Feira de Santana"
   },
   {
     "code": "A452",
@@ -507,7 +607,9 @@
     "lon": -45.20083333,
     "altitude": "488",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2911105",
+    "municipality": "Formosa do Rio Preto"
   },
   {
     "code": "A426",
@@ -517,7 +619,9 @@
     "lon": -42.74972221,
     "altitude": "552.23",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2911709",
+    "municipality": "Guanambi"
   },
   {
     "code": "A439",
@@ -527,7 +631,9 @@
     "lon": -43.21333333,
     "altitude": "425.12",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2913200",
+    "municipality": "Ibotirama"
   },
   {
     "code": "A410",
@@ -537,7 +643,9 @@
     "lon": -39.18138888,
     "altitude": "80.21",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2913606",
+    "municipality": "Ilhéus"
   },
   {
     "code": "A445",
@@ -547,7 +655,9 @@
     "lon": -39.69249999,
     "altitude": "132.11",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2913903",
+    "municipality": "Ipiaú"
   },
   {
     "code": "A424",
@@ -557,7 +667,9 @@
     "lon": -41.86444444,
     "altitude": "768.42",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2914604",
+    "municipality": "Irecê"
   },
   {
     "code": "A408",
@@ -567,7 +679,9 @@
     "lon": -40.29972221,
     "altitude": "250.11",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2914703",
+    "municipality": "Itaberaba"
   },
   {
     "code": "A455",
@@ -577,7 +691,9 @@
     "lon": -39.55805555,
     "altitude": "110",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2915601",
+    "municipality": "Itamaraju"
   },
   {
     "code": "A446",
@@ -587,7 +703,9 @@
     "lon": -40.22944443,
     "altitude": "271.48",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2916401",
+    "municipality": "Itapetinga"
   },
   {
     "code": "A407",
@@ -597,7 +715,9 @@
     "lon": -40.11972221,
     "altitude": "757.42",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2917607",
+    "municipality": "Jaguaquara"
   },
   {
     "code": "A440",
@@ -607,7 +727,9 @@
     "lon": -40.465,
     "altitude": "440.78",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2917508",
+    "municipality": "Jacobina"
   },
   {
     "code": "A450",
@@ -617,7 +739,9 @@
     "lon": -38.34583333,
     "altitude": "261",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2918100",
+    "municipality": "Jeremoabo"
   },
   {
     "code": "A425",
@@ -627,7 +751,9 @@
     "lon": -41.38888888,
     "altitude": "438.09",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2919306",
+    "municipality": "Lençóis"
   },
   {
     "code": "A404",
@@ -637,7 +763,9 @@
     "lon": -45.70527777,
     "altitude": "748",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2919553",
+    "municipality": "Luís Eduardo Magalhães"
   },
   {
     "code": "A412",
@@ -647,7 +775,9 @@
     "lon": -40.35416666,
     "altitude": "360",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2919603",
+    "municipality": "Macajuba"
   },
   {
     "code": "A438",
@@ -657,7 +787,9 @@
     "lon": -38.97222221,
     "altitude": "6.24",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2920700",
+    "municipality": "Maraú"
   },
   {
     "code": "A430",
@@ -667,7 +799,9 @@
     "lon": -41.77416666,
     "altitude": "1283.95",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2924306",
+    "municipality": "Piatã"
   },
   {
     "code": "A427",
@@ -677,7 +811,9 @@
     "lon": -39.18249999,
     "altitude": "86.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2925303",
+    "municipality": "Porto Seguro"
   },
   {
     "code": "A436",
@@ -686,8 +822,10 @@
     "lat": -10.98472221,
     "lon": -39.61694443,
     "altitude": "310.11",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2925808",
+    "municipality": "Queimadas"
   },
   {
     "code": "A423",
@@ -697,7 +835,9 @@
     "lon": -42.07722221,
     "altitude": "397.4",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2926004",
+    "municipality": "Remanso"
   },
   {
     "code": "A458",
@@ -707,7 +847,9 @@
     "lon": -38.44416666,
     "altitude": "182",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2926509",
+    "municipality": "Ribeira do Amparo"
   },
   {
     "code": "A401",
@@ -716,8 +858,10 @@
     "lat": -13.00555555,
     "lon": -38.50583333,
     "altitude": "47.56",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "2927408",
+    "municipality": "Salvador"
   },
   {
     "code": "A456",
@@ -727,7 +871,9 @@
     "lon": -38.49583333,
     "altitude": "31",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2927408",
+    "municipality": "Salvador"
   },
   {
     "code": "A415",
@@ -737,7 +883,9 @@
     "lon": -44.53638888,
     "altitude": "450",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2928406",
+    "municipality": "Santa Rita de Cássia"
   },
   {
     "code": "A428",
@@ -747,7 +895,9 @@
     "lon": -40.14833333,
     "altitude": "532.09",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2930105",
+    "municipality": "Senhor do Bonfim"
   },
   {
     "code": "A441",
@@ -757,7 +907,9 @@
     "lon": -39.02305554,
     "altitude": "337.79",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2930501",
+    "municipality": "Serrinha"
   },
   {
     "code": "A437",
@@ -767,7 +919,9 @@
     "lon": -39.09138888,
     "altitude": "74.08",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2932507",
+    "municipality": "Una"
   },
   {
     "code": "A444",
@@ -777,7 +931,9 @@
     "lon": -39.12666666,
     "altitude": "93.12",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2932903",
+    "municipality": "Valença"
   },
   {
     "code": "A414",
@@ -787,7 +943,9 @@
     "lon": -40.80138888,
     "altitude": "879.38",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2933307",
+    "municipality": "Vitória da Conquista"
   },
   {
     "code": "A360",
@@ -797,7 +955,9 @@
     "lon": -40.08722221,
     "altitude": "67.15",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2307809",
+    "municipality": "Marco"
   },
   {
     "code": "A315",
@@ -807,7 +967,9 @@
     "lon": -39.2711111,
     "altitude": "409.41",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2301901",
+    "municipality": "Barbalha"
   },
   {
     "code": "A347",
@@ -817,7 +979,9 @@
     "lon": -40.36277777,
     "altitude": "577.95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2302701",
+    "municipality": "Campos Sales"
   },
   {
     "code": "A342",
@@ -826,8 +990,10 @@
     "lat": -5.18666666,
     "lon": -40.67222221,
     "altitude": "298.19",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2304103",
+    "municipality": "Crateús"
   },
   {
     "code": "A314",
@@ -836,8 +1002,10 @@
     "lat": -4.22916666,
     "lon": -38.95888888,
     "altitude": "865.53",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "2305100",
+    "municipality": "Guaramiranga"
   },
   {
     "code": "A319",
@@ -847,7 +1015,9 @@
     "lon": -39.26888888,
     "altitude": "221.56",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2305506",
+    "municipality": "Iguatu"
   },
   {
     "code": "A359",
@@ -857,7 +1027,9 @@
     "lon": -39.5886111,
     "altitude": "104.49",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2306405",
+    "municipality": "Itapipoca"
   },
   {
     "code": "A358",
@@ -867,7 +1039,9 @@
     "lon": -38.62777777,
     "altitude": "149.31",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2306900",
+    "municipality": "Jaguaribe"
   },
   {
     "code": "A332",
@@ -877,7 +1051,9 @@
     "lon": -38.36472222,
     "altitude": "93",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2308708",
+    "municipality": "Morada Nova"
   },
   {
     "code": "A369",
@@ -887,7 +1063,9 @@
     "lon": -39.05722222,
     "altitude": "193",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2311306",
+    "municipality": "Quixadá"
   },
   {
     "code": "A325",
@@ -897,7 +1075,9 @@
     "lon": -39.28944444,
     "altitude": "221.04",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2311405",
+    "municipality": "Quixeramobim"
   },
   {
     "code": "A306",
@@ -907,7 +1087,9 @@
     "lon": -40.34583333,
     "altitude": "92.07",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2312908",
+    "municipality": "Sobral"
   },
   {
     "code": "A324",
@@ -917,7 +1099,9 @@
     "lon": -40.28138888,
     "altitude": "410.87",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2313302",
+    "municipality": "Tauá"
   },
   {
     "code": "A368",
@@ -927,7 +1111,9 @@
     "lon": -41.01194444,
     "altitude": "756",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2313401",
+    "municipality": "Tianguá"
   },
   {
     "code": "A045",
@@ -937,7 +1123,9 @@
     "lon": -47.62583332,
     "altitude": "1030.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5300108",
+    "municipality": "Brasília"
   },
   {
     "code": "A001",
@@ -947,7 +1135,9 @@
     "lon": -47.92583332,
     "altitude": "1160.96",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5300108",
+    "municipality": "Brasília"
   },
   {
     "code": "A042",
@@ -957,7 +1147,9 @@
     "lon": -48.20138888,
     "altitude": "1147",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5300108",
+    "municipality": "Brasília"
   },
   {
     "code": "A046",
@@ -967,7 +1159,9 @@
     "lon": -48.13749999,
     "altitude": "990",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5300108",
+    "municipality": "Brasília"
   },
   {
     "code": "A047",
@@ -977,7 +1171,9 @@
     "lon": -47.5575,
     "altitude": "1043",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5300108",
+    "municipality": "Brasília"
   },
   {
     "code": "A657",
@@ -987,7 +1183,9 @@
     "lon": -41.10694444,
     "altitude": "507.48",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3200102",
+    "municipality": "Afonso Cláudio"
   },
   {
     "code": "A617",
@@ -997,7 +1195,9 @@
     "lon": -41.48888888,
     "altitude": "138",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3200201",
+    "municipality": "Alegre"
   },
   {
     "code": "A631",
@@ -1007,7 +1207,9 @@
     "lon": -40.73638888,
     "altitude": "224",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3202108",
+    "municipality": "Ecoporanga"
   },
   {
     "code": "A614",
@@ -1017,7 +1219,9 @@
     "lon": -40.0686111,
     "altitude": "40",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3203205",
+    "municipality": "Linhares"
   },
   {
     "code": "A632",
@@ -1027,7 +1231,9 @@
     "lon": -40.53972221,
     "altitude": "95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3203353",
+    "municipality": "Marilândia"
   },
   {
     "code": "A622",
@@ -1037,7 +1243,9 @@
     "lon": -41.03944444,
     "altitude": "69.12",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3204302",
+    "municipality": "Presidente Kennedy"
   },
   {
     "code": "A613",
@@ -1047,7 +1255,9 @@
     "lon": -40.57944443,
     "altitude": "975.92",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3204500",
+    "municipality": "Santa Leopoldina"
   },
   {
     "code": "A616",
@@ -1057,7 +1267,9 @@
     "lon": -39.86416666,
     "altitude": "28.66",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3204906",
+    "municipality": "São Mateus"
   },
   {
     "code": "A633",
@@ -1067,7 +1279,9 @@
     "lon": -41.18999999,
     "altitude": "722",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3205069",
+    "municipality": "Venda Nova do Imigrante"
   },
   {
     "code": "A634",
@@ -1077,7 +1291,9 @@
     "lon": -40.40388888,
     "altitude": "25",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3205200",
+    "municipality": "Vila Velha"
   },
   {
     "code": "A612",
@@ -1087,7 +1303,9 @@
     "lon": -40.30583333,
     "altitude": "9",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3205309",
+    "municipality": "Vitória"
   },
   {
     "code": "A024",
@@ -1097,7 +1315,9 @@
     "lon": -47.52333332,
     "altitude": "1264.7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5200605",
+    "municipality": "Alto Paraíso de Goiás"
   },
   {
     "code": "A013",
@@ -1107,7 +1327,9 @@
     "lon": -52.24527777,
     "altitude": "327.35",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5201702",
+    "municipality": "Aragarças"
   },
   {
     "code": "A023",
@@ -1117,7 +1339,9 @@
     "lon": -51.81749999,
     "altitude": "740.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5204409",
+    "municipality": "Caiapônia"
   },
   {
     "code": "A034",
@@ -1127,7 +1351,9 @@
     "lon": -47.92749999,
     "altitude": "900.72",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5205109",
+    "municipality": "Catalão"
   },
   {
     "code": "A036",
@@ -1137,7 +1363,9 @@
     "lon": -47.61305555,
     "altitude": "1211.08",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5206206",
+    "municipality": "Cristalina"
   },
   {
     "code": "A056",
@@ -1147,7 +1375,9 @@
     "lon": -47.62583332,
     "altitude": "932",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5206206",
+    "municipality": "Cristalina"
   },
   {
     "code": "A029",
@@ -1157,7 +1387,9 @@
     "lon": -49.91472222,
     "altitude": "608",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5207402",
+    "municipality": "Edéia"
   },
   {
     "code": "A022",
@@ -1167,7 +1399,9 @@
     "lon": -48.98999999,
     "altitude": "667.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5208608",
+    "municipality": "Goianésia"
   },
   {
     "code": "A002",
@@ -1177,7 +1411,9 @@
     "lon": -49.22027777,
     "altitude": "727.3",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5208707",
+    "municipality": "Goiânia"
   },
   {
     "code": "A014",
@@ -1187,7 +1423,9 @@
     "lon": -50.14138888,
     "altitude": "512.86",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5208905",
+    "municipality": "Goiás"
   },
   {
     "code": "A028",
@@ -1197,7 +1435,9 @@
     "lon": -51.14888888,
     "altitude": "610.41",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5210208",
+    "municipality": "Iporá"
   },
   {
     "code": "A015",
@@ -1207,7 +1447,9 @@
     "lon": -49.53944444,
     "altitude": "551",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5210901",
+    "municipality": "Itapaci"
   },
   {
     "code": "A035",
@@ -1217,7 +1459,9 @@
     "lon": -49.19194444,
     "altitude": "491.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5211503",
+    "municipality": "Itumbiara"
   },
   {
     "code": "A016",
@@ -1227,7 +1471,9 @@
     "lon": -51.71749999,
     "altitude": "670.08",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5211909",
+    "municipality": "Jataí"
   },
   {
     "code": "A012",
@@ -1237,7 +1483,9 @@
     "lon": -47.96694443,
     "altitude": "1000.82",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5212501",
+    "municipality": "Luziânia"
   },
   {
     "code": "A026",
@@ -1247,7 +1495,9 @@
     "lon": -52.60111111,
     "altitude": "862",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5213103",
+    "municipality": "Mineiros"
   },
   {
     "code": "A032",
@@ -1257,7 +1507,9 @@
     "lon": -46.89027777,
     "altitude": "552",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5213509",
+    "municipality": "Monte Alegre de Goiás"
   },
   {
     "code": "A003",
@@ -1266,8 +1518,10 @@
     "lat": -17.74499999,
     "lon": -49.10166666,
     "altitude": "751.09",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "5213806",
+    "municipality": "Morrinhos"
   },
   {
     "code": "A027",
@@ -1277,7 +1531,9 @@
     "lon": -50.42555554,
     "altitude": "678.74",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5216403",
+    "municipality": "Paraúna"
   },
   {
     "code": "A033",
@@ -1287,7 +1543,9 @@
     "lon": -48.28416666,
     "altitude": "757.27",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5217401",
+    "municipality": "Pires do Rio"
   },
   {
     "code": "A005",
@@ -1297,7 +1555,9 @@
     "lon": -49.11749999,
     "altitude": "365",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5218003",
+    "municipality": "Porangatu"
   },
   {
     "code": "A017",
@@ -1307,7 +1567,9 @@
     "lon": -46.36638888,
     "altitude": "830",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5218300",
+    "municipality": "Posse"
   },
   {
     "code": "A025",
@@ -1317,7 +1579,9 @@
     "lon": -50.965,
     "altitude": "780.11",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5218805",
+    "municipality": "Rio Verde"
   },
   {
     "code": "A031",
@@ -1327,7 +1591,9 @@
     "lon": -50.33583333,
     "altitude": "210",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5220207",
+    "municipality": "São Miguel do Araguaia"
   },
   {
     "code": "A011",
@@ -1337,7 +1603,9 @@
     "lon": -50.63333333,
     "altitude": "492.45",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5220405",
+    "municipality": "São Simão"
   },
   {
     "code": "A037",
@@ -1347,7 +1615,9 @@
     "lon": -48.61805554,
     "altitude": "952",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5220603",
+    "municipality": "Silvânia"
   },
   {
     "code": "A220",
@@ -1357,7 +1627,9 @@
     "lon": -44.79499999,
     "altitude": "22.33",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2101202",
+    "municipality": "Bacabal"
   },
   {
     "code": "A204",
@@ -1366,8 +1638,10 @@
     "lat": -7.45555555,
     "lon": -46.02749999,
     "altitude": "271.03",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2101400",
+    "municipality": "Balsas"
   },
   {
     "code": "A221",
@@ -1376,8 +1650,10 @@
     "lat": -5.50666666,
     "lon": -45.23694444,
     "altitude": "154.19",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2101608",
+    "municipality": "Barra do Corda"
   },
   {
     "code": "A238",
@@ -1387,7 +1663,9 @@
     "lon": -46.44944444,
     "altitude": "174.91",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2102325",
+    "municipality": "Buriticupu"
   },
   {
     "code": "A205",
@@ -1396,8 +1674,10 @@
     "lat": -7.33722221,
     "lon": -47.45972222,
     "altitude": "182.88",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2102804",
+    "municipality": "Carolina"
   },
   {
     "code": "A237",
@@ -1406,8 +1686,10 @@
     "lat": -4.82138888,
     "lon": -43.3436111,
     "altitude": "84.85",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2103000",
+    "municipality": "Caxias"
   },
   {
     "code": "A206",
@@ -1417,7 +1699,9 @@
     "lon": -43.35222222,
     "altitude": "104",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2103208",
+    "municipality": "Chapadinha"
   },
   {
     "code": "A222",
@@ -1426,8 +1710,10 @@
     "lat": -6.03305554,
     "lon": -44.23333333,
     "altitude": "175.37",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2103505",
+    "municipality": "Colinas"
   },
   {
     "code": "A224",
@@ -1437,7 +1723,9 @@
     "lon": -47.41833332,
     "altitude": "182.96",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2104057",
+    "municipality": "Estreito"
   },
   {
     "code": "A207",
@@ -1446,8 +1734,10 @@
     "lat": -5.81611111,
     "lon": -46.16222222,
     "altitude": "232.29",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2104800",
+    "municipality": "Grajaú"
   },
   {
     "code": "A225",
@@ -1457,7 +1747,9 @@
     "lon": -47.45972222,
     "altitude": "117.96",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2105302",
+    "municipality": "Imperatriz"
   },
   {
     "code": "A218",
@@ -1467,7 +1759,9 @@
     "lon": -42.7075,
     "altitude": "4.62",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2101707",
+    "municipality": "Barreirinhas"
   },
   {
     "code": "A203",
@@ -1477,7 +1771,9 @@
     "lon": -44.21361111,
     "altitude": "54.8",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2111300",
+    "municipality": "São Luís"
   },
   {
     "code": "A219",
@@ -1487,7 +1783,9 @@
     "lon": -45.37249999,
     "altitude": "35.86",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2112407",
+    "municipality": "Turiaçu"
   },
   {
     "code": "A255",
@@ -1497,7 +1795,9 @@
     "lon": -45.65111111,
     "altitude": "45.5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2114007",
+    "municipality": "Zé Doca"
   },
   {
     "code": "A549",
@@ -1507,7 +1807,9 @@
     "lon": -41.45777777,
     "altitude": "754.07",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3101003",
+    "municipality": "Águas Vermelhas"
   },
   {
     "code": "A534",
@@ -1517,7 +1819,9 @@
     "lon": -41.09083333,
     "altitude": "301",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3101102",
+    "municipality": "Aimorés"
   },
   {
     "code": "A508",
@@ -1527,7 +1831,9 @@
     "lon": -40.68777777,
     "altitude": "189.11",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3101706",
+    "municipality": "Almenara"
   },
   {
     "code": "A566",
@@ -1537,7 +1843,9 @@
     "lon": -42.03527777,
     "altitude": "308",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3103405",
+    "municipality": "Araçuaí"
   },
   {
     "code": "A505",
@@ -1547,7 +1855,9 @@
     "lon": -46.94972221,
     "altitude": "1018.32",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3104007",
+    "municipality": "Araxá"
   },
   {
     "code": "A565",
@@ -1557,7 +1867,9 @@
     "lon": -46.00888888,
     "altitude": "697",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3105103",
+    "municipality": "Bambuí"
   },
   {
     "code": "A502",
@@ -1566,8 +1878,10 @@
     "lat": -21.22833332,
     "lon": -43.76777777,
     "altitude": "1168.76",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "3105608",
+    "municipality": "Barbacena"
   },
   {
     "code": "F501",
@@ -1577,7 +1891,9 @@
     "lon": -43.95861111,
     "altitude": "1199.55",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3106200",
+    "municipality": "Belo Horizonte"
   },
   {
     "code": "A521",
@@ -1587,7 +1903,9 @@
     "lon": -43.96944443,
     "altitude": "854.02",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3106200",
+    "municipality": "Belo Horizonte"
   },
   {
     "code": "A572",
@@ -1597,7 +1915,9 @@
     "lon": -43.95222222,
     "altitude": "915.47",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3106200",
+    "municipality": "Belo Horizonte"
   },
   {
     "code": "A544",
@@ -1607,7 +1927,9 @@
     "lon": -46.43555555,
     "altitude": "894",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3109303",
+    "municipality": "Buritis"
   },
   {
     "code": "A530",
@@ -1617,7 +1939,9 @@
     "lon": -46.38305554,
     "altitude": "1077.34",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3110301",
+    "municipality": "Caldas"
   },
   {
     "code": "A519",
@@ -1627,7 +1951,9 @@
     "lon": -49.51805554,
     "altitude": "559.07",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3111101",
+    "municipality": "Campina Verde"
   },
   {
     "code": "A541",
@@ -1637,7 +1963,9 @@
     "lon": -42.38916666,
     "altitude": "932.06",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3112307",
+    "municipality": "Capelinha"
   },
   {
     "code": "A554",
@@ -1647,7 +1975,9 @@
     "lon": -42.13722221,
     "altitude": "609.25",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3113404",
+    "municipality": "Caratinga"
   },
   {
     "code": "A520",
@@ -1657,7 +1987,9 @@
     "lon": -48.15166666,
     "altitude": "572.54",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3117306",
+    "municipality": "Conceição das Alagoas"
   },
   {
     "code": "A557",
@@ -1667,7 +1999,9 @@
     "lon": -43.26111111,
     "altitude": "411.14",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3127388",
+    "municipality": "Goianá"
   },
   {
     "code": "A538",
@@ -1677,7 +2011,9 @@
     "lon": -44.45388888,
     "altitude": "669.48",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3120904",
+    "municipality": "Curvelo"
   },
   {
     "code": "A537",
@@ -1687,7 +2023,9 @@
     "lon": -43.648269,
     "altitude": "1359.25",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3121605",
+    "municipality": "Diamantina"
   },
   {
     "code": "A564",
@@ -1697,7 +2035,9 @@
     "lon": -44.87499999,
     "altitude": "796",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3122306",
+    "municipality": "Divinópolis"
   },
   {
     "code": "A536",
@@ -1707,7 +2047,9 @@
     "lon": -45.59388888,
     "altitude": "721.09",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3123205",
+    "municipality": "Dores do Indaiá"
   },
   {
     "code": "A543",
@@ -1717,7 +2059,9 @@
     "lon": -42.80861111,
     "altitude": "565.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3124302",
+    "municipality": "Espinosa"
   },
   {
     "code": "A535",
@@ -1727,7 +2071,9 @@
     "lon": -44.41694443,
     "altitude": "753.5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3126000",
+    "municipality": "Florestal"
   },
   {
     "code": "A524",
@@ -1737,7 +2083,9 @@
     "lon": -45.45388888,
     "altitude": "878.14",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3126109",
+    "municipality": "Formiga"
   },
   {
     "code": "A532",
@@ -1747,7 +2095,9 @@
     "lon": -41.97694443,
     "altitude": "198.24",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3127701",
+    "municipality": "Governador Valadares"
   },
   {
     "code": "A533",
@@ -1757,7 +2107,9 @@
     "lon": -42.94305555,
     "altitude": "852.68",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3128006",
+    "municipality": "Guanhães"
   },
   {
     "code": "A546",
@@ -1767,7 +2119,9 @@
     "lon": -47.19916666,
     "altitude": "997.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3128600",
+    "municipality": "Guarda-Mor"
   },
   {
     "code": "A555",
@@ -1777,7 +2131,9 @@
     "lon": -44.01111111,
     "altitude": "1198.82",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3106200",
+    "municipality": "Belo Horizonte"
   },
   {
     "code": "A550",
@@ -1786,8 +2142,10 @@
     "lat": -16.57555554,
     "lon": -41.48555555,
     "altitude": "271.63",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "3133303",
+    "municipality": "Itaobim"
   },
   {
     "code": "A512",
@@ -1797,7 +2155,9 @@
     "lon": -49.52499999,
     "altitude": "540.08",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3134202",
+    "municipality": "Ituiutaba"
   },
   {
     "code": "A559",
@@ -1807,7 +2167,9 @@
     "lon": -44.36638888,
     "altitude": "468",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3117836",
+    "municipality": "Cônego Marinho"
   },
   {
     "code": "A553",
@@ -1817,7 +2179,9 @@
     "lon": -46.11944443,
     "altitude": "877.05",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3136306",
+    "municipality": "João Pinheiro"
   },
   {
     "code": "A518",
@@ -1827,7 +2191,9 @@
     "lon": -43.36444444,
     "altitude": "936.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3136702",
+    "municipality": "Juiz de Fora"
   },
   {
     "code": "A567",
@@ -1837,7 +2203,9 @@
     "lon": -45.94444444,
     "altitude": "969",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3139003",
+    "municipality": "Machado"
   },
   {
     "code": "A556",
@@ -1847,7 +2215,9 @@
     "lon": -42.18277777,
     "altitude": "819.47",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3139409",
+    "municipality": "Manhuaçu"
   },
   {
     "code": "A540",
@@ -1857,7 +2227,9 @@
     "lon": -40.98638888,
     "altitude": "254.91",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3139607",
+    "municipality": "Mantena"
   },
   {
     "code": "A531",
@@ -1867,7 +2239,9 @@
     "lon": -45.37305554,
     "altitude": "1281.43",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3139904",
+    "municipality": "Maria da Fé"
   },
   {
     "code": "A539",
@@ -1877,7 +2251,9 @@
     "lon": -44.01611111,
     "altitude": "454",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3135050",
+    "municipality": "Jaíba"
   },
   {
     "code": "A526",
@@ -1887,7 +2263,9 @@
     "lon": -44.40416666,
     "altitude": "519.52",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3142700",
+    "municipality": "Montalvânia"
   },
   {
     "code": "A509",
@@ -1897,7 +2275,9 @@
     "lon": -46.04333333,
     "altitude": "1544.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3110509",
+    "municipality": "Camanducaia"
   },
   {
     "code": "A506",
@@ -1907,7 +2287,9 @@
     "lon": -43.84388888,
     "altitude": "645.87",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3143302",
+    "municipality": "Montes Claros"
   },
   {
     "code": "A517",
@@ -1917,7 +2299,9 @@
     "lon": -42.37583332,
     "altitude": "282.79",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3143906",
+    "municipality": "Muriaé"
   },
   {
     "code": "A563",
@@ -1927,7 +2311,9 @@
     "lon": -43.29694444,
     "altitude": "532",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3145059",
+    "municipality": "Nova Porteirinha"
   },
   {
     "code": "A570",
@@ -1936,8 +2322,10 @@
     "lat": -20.715,
     "lon": -44.86444444,
     "altitude": "1025",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "3145604",
+    "municipality": "Oliveira"
   },
   {
     "code": "A513",
@@ -1947,7 +2335,9 @@
     "lon": -43.75611111,
     "altitude": "1048.2",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3145901",
+    "municipality": "Ouro Branco"
   },
   {
     "code": "A571",
@@ -1957,7 +2347,9 @@
     "lon": -46.88166666,
     "altitude": "705",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3147006",
+    "municipality": "Paracatu"
   },
   {
     "code": "A529",
@@ -1967,7 +2359,9 @@
     "lon": -44.96194444,
     "altitude": "1017.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3147600",
+    "municipality": "Passa Quatro"
   },
   {
     "code": "A516",
@@ -1977,7 +2371,9 @@
     "lon": -46.63388888,
     "altitude": "781.7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3147907",
+    "municipality": "Passos"
   },
   {
     "code": "A562",
@@ -1987,7 +2383,9 @@
     "lon": -46.44055555,
     "altitude": "950",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3148004",
+    "municipality": "Patos de Minas"
   },
   {
     "code": "A523",
@@ -1997,7 +2395,9 @@
     "lon": -46.98583333,
     "altitude": "978.11",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3148103",
+    "municipality": "Patrocínio"
   },
   {
     "code": "A545",
@@ -2007,7 +2407,9 @@
     "lon": -44.835556,
     "altitude": "505.32",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3151206",
+    "municipality": "Pirapora"
   },
   {
     "code": "A560",
@@ -2017,7 +2419,9 @@
     "lon": -44.96416666,
     "altitude": "705",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3152006",
+    "municipality": "Pompéu"
   },
   {
     "code": "A551",
@@ -2027,7 +2431,9 @@
     "lon": -42.43583333,
     "altitude": "850.06",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3155603",
+    "municipality": "Rio Pardo de Minas"
   },
   {
     "code": "A525",
@@ -2037,7 +2443,9 @@
     "lon": -47.43416666,
     "altitude": "913.12",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3156908",
+    "municipality": "Sacramento"
   },
   {
     "code": "A552",
@@ -2047,7 +2455,9 @@
     "lon": -42.31027777,
     "altitude": "487.14",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3157005",
+    "municipality": "Salinas"
   },
   {
     "code": "A514",
@@ -2057,7 +2467,9 @@
     "lon": -44.25083333,
     "altitude": "929.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3162500",
+    "municipality": "São João del Rei"
   },
   {
     "code": "A547",
@@ -2067,7 +2479,9 @@
     "lon": -45.12388888,
     "altitude": "490.29",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3164209",
+    "municipality": "São Romão"
   },
   {
     "code": "A561",
@@ -2077,7 +2491,9 @@
     "lon": -47.11416666,
     "altitude": "845",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3164704",
+    "municipality": "São Sebastião do Paraíso"
   },
   {
     "code": "A522",
@@ -2087,7 +2503,9 @@
     "lon": -40.25,
     "altitude": "211.97",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3166709",
+    "municipality": "Serra dos Aimorés"
   },
   {
     "code": "A569",
@@ -2097,7 +2515,9 @@
     "lon": -44.17333332,
     "altitude": "719",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3167202",
+    "municipality": "Sete Lagoas"
   },
   {
     "code": "A527",
@@ -2107,7 +2527,9 @@
     "lon": -41.51555555,
     "altitude": "467.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3168606",
+    "municipality": "Teófilo Otoni"
   },
   {
     "code": "A511",
@@ -2117,7 +2539,9 @@
     "lon": -42.62249999,
     "altitude": "493.42",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3168705",
+    "municipality": "Timóteo"
   },
   {
     "code": "A528",
@@ -2127,7 +2551,9 @@
     "lon": -45.45972222,
     "altitude": "931.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3161700",
+    "municipality": "São Gonçalo do Abaeté"
   },
   {
     "code": "A568",
@@ -2137,7 +2563,9 @@
     "lon": -47.96194444,
     "altitude": "778",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3170107",
+    "municipality": "Uberaba"
   },
   {
     "code": "A507",
@@ -2147,7 +2575,9 @@
     "lon": -48.25555555,
     "altitude": "874.77",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3170206",
+    "municipality": "Uberlândia"
   },
   {
     "code": "A542",
@@ -2157,7 +2587,9 @@
     "lon": -46.88194443,
     "altitude": "640.85",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3170404",
+    "municipality": "Unaí"
   },
   {
     "code": "A515",
@@ -2167,7 +2599,9 @@
     "lon": -45.40416666,
     "altitude": "949.78",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3170701",
+    "municipality": "Varginha"
   },
   {
     "code": "A510",
@@ -2177,7 +2611,9 @@
     "lon": -42.86388888,
     "altitude": "697.64",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3171303",
+    "municipality": "Viçosa"
   },
   {
     "code": "A756",
@@ -2187,7 +2623,9 @@
     "lon": -52.87583332,
     "altitude": "323.63",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000203",
+    "municipality": "Água Clara"
   },
   {
     "code": "S733",
@@ -2197,7 +2635,9 @@
     "lon": -53.273982,
     "altitude": "527",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000203",
+    "municipality": "Água Clara"
   },
   {
     "code": "S731",
@@ -2207,7 +2647,9 @@
     "lon": -53.845593,
     "altitude": "384",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000252",
+    "municipality": "Alcinópolis"
   },
   {
     "code": "A750",
@@ -2217,7 +2659,9 @@
     "lon": -55.32944443,
     "altitude": "433.59",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000609",
+    "municipality": "Amambai"
   },
   {
     "code": "A772",
@@ -2227,7 +2671,9 @@
     "lon": -54.86555555,
     "altitude": null,
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000609",
+    "municipality": "Amambai"
   },
   {
     "code": "S736",
@@ -2237,7 +2683,9 @@
     "lon": -52.897545,
     "altitude": "428",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000807",
+    "municipality": "Anaurilândia"
   },
   {
     "code": "S701",
@@ -2247,7 +2695,9 @@
     "lon": -53.76361111,
     "altitude": "347",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5000856",
+    "municipality": "Angélica"
   },
   {
     "code": "A719",
@@ -2257,7 +2707,9 @@
     "lon": -55.78388888,
     "altitude": "151.35",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5001102",
+    "municipality": "Aquidauana"
   },
   {
     "code": "S729",
@@ -2267,7 +2719,9 @@
     "lon": -56.155409,
     "altitude": "101",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5001102",
+    "municipality": "Aquidauana"
   },
   {
     "code": "S702",
@@ -2277,7 +2731,9 @@
     "lon": -55.6261111,
     "altitude": "605",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5001243",
+    "municipality": "Aral Moreira"
   },
   {
     "code": "S703",
@@ -2287,7 +2743,9 @@
     "lon": -54.3686111,
     "altitude": "624",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5001508",
+    "municipality": "Bandeirantes"
   },
   {
     "code": "A759",
@@ -2297,7 +2755,9 @@
     "lon": -52.47138888,
     "altitude": "392.13",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5001904",
+    "municipality": "Bataguassu"
   },
   {
     "code": "S704",
@@ -2307,7 +2767,9 @@
     "lon": -56.45055555,
     "altitude": "329",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002209",
+    "municipality": "Bonito"
   },
   {
     "code": "S706",
@@ -2317,7 +2779,9 @@
     "lon": -54.81944443,
     "altitude": "456",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002407",
+    "municipality": "Caarapó"
   },
   {
     "code": "S707",
@@ -2327,7 +2791,9 @@
     "lon": -54.02999999,
     "altitude": "540",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002605",
+    "municipality": "Camapuã"
   },
   {
     "code": "A702",
@@ -2337,7 +2803,9 @@
     "lon": -54.72249999,
     "altitude": "528.47",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002704",
+    "municipality": "Campo Grande"
   },
   {
     "code": "S730",
@@ -2347,7 +2815,9 @@
     "lon": -56.868788,
     "altitude": "392",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002803",
+    "municipality": "Caracol"
   },
   {
     "code": "A742",
@@ -2357,7 +2827,9 @@
     "lon": -51.72083332,
     "altitude": "494.72",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002902",
+    "municipality": "Cassilândia"
   },
   {
     "code": "A730",
@@ -2367,7 +2839,9 @@
     "lon": -52.6025,
     "altitude": "820.82",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002951",
+    "municipality": "Chapadão do Sul"
   },
   {
     "code": "S722",
@@ -2377,7 +2851,9 @@
     "lon": -55.32972221,
     "altitude": "597",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003108",
+    "municipality": "Corguinho"
   },
   {
     "code": "A724",
@@ -2387,7 +2863,9 @@
     "lon": -57.63749999,
     "altitude": "111.73",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S726",
@@ -2397,7 +2875,9 @@
     "lon": -57.489877,
     "altitude": "99",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S718",
@@ -2407,7 +2887,9 @@
     "lon": -55.68666666,
     "altitude": "150",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S727",
@@ -2417,7 +2899,9 @@
     "lon": -56.5671,
     "altitude": "124",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S721",
@@ -2427,7 +2911,9 @@
     "lon": -57.30611111,
     "altitude": "108",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S725",
@@ -2437,7 +2923,9 @@
     "lon": -55.774991,
     "altitude": "145",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S720",
@@ -2447,7 +2935,9 @@
     "lon": -56.95777777,
     "altitude": "155",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "A760",
@@ -2457,7 +2947,9 @@
     "lon": -53.17138888,
     "altitude": "727.34",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003256",
+    "municipality": "Costa Rica"
   },
   {
     "code": "A720",
@@ -2467,7 +2959,9 @@
     "lon": -54.7361111,
     "altitude": "251.48",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003306",
+    "municipality": "Coxim"
   },
   {
     "code": "A721",
@@ -2477,7 +2971,9 @@
     "lon": -54.91138888,
     "altitude": "463.3",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5004502",
+    "municipality": "Itaporã"
   },
   {
     "code": "S708",
@@ -2487,7 +2983,9 @@
     "lon": -54.32583332,
     "altitude": "340",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003801",
+    "municipality": "Fátima do Sul"
   },
   {
     "code": "S732",
@@ -2497,7 +2995,9 @@
     "lon": -53.936083,
     "altitude": "462",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003900",
+    "municipality": "Figueirão"
   },
   {
     "code": "S709",
@@ -2507,7 +3007,9 @@
     "lon": -54.57027777,
     "altitude": "319",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5004304",
+    "municipality": "Iguatemi"
   },
   {
     "code": "S734",
@@ -2517,7 +3019,9 @@
     "lon": -52.139617,
     "altitude": "369",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5004403",
+    "municipality": "Inocência"
   },
   {
     "code": "S710",
@@ -2527,7 +3031,9 @@
     "lon": -54.79888888,
     "altitude": "360",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5004502",
+    "municipality": "Itaporã"
   },
   {
     "code": "A752",
@@ -2536,8 +3042,10 @@
     "lat": -23.44944444,
     "lon": -54.18194443,
     "altitude": "337.82",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "5004601",
+    "municipality": "Itaquiraí"
   },
   {
     "code": "A709",
@@ -2547,7 +3055,9 @@
     "lon": -53.82277777,
     "altitude": "377.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5004700",
+    "municipality": "Ivinhema"
   },
   {
     "code": "A758",
@@ -2557,7 +3067,9 @@
     "lon": -56.13777777,
     "altitude": "252.47",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005004",
+    "municipality": "Jardim"
   },
   {
     "code": "A749",
@@ -2567,7 +3079,9 @@
     "lon": -54.60555555,
     "altitude": "375.18",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005152",
+    "municipality": "Juti"
   },
   {
     "code": "S711",
@@ -2577,7 +3091,9 @@
     "lon": -55.16027777,
     "altitude": "499",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005251",
+    "municipality": "Laguna Carapã"
   },
   {
     "code": "A731",
@@ -2587,7 +3103,9 @@
     "lon": -55.17749999,
     "altitude": "388.94",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005400",
+    "municipality": "Maracaju"
   },
   {
     "code": "A722",
@@ -2597,7 +3115,9 @@
     "lon": -56.43166666,
     "altitude": "132.49",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5002159",
+    "municipality": "Bodoquena"
   },
   {
     "code": "S735",
@@ -2607,7 +3127,9 @@
     "lon": -53.869219,
     "altitude": "303",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005707",
+    "municipality": "Naviraí"
   },
   {
     "code": "A717",
@@ -2617,7 +3139,9 @@
     "lon": -56.62277777,
     "altitude": "102.26",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5003207",
+    "municipality": "Corumbá"
   },
   {
     "code": "S724",
@@ -2627,7 +3151,9 @@
     "lon": -55.645874,
     "altitude": "305",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5005806",
+    "municipality": "Nioaque"
   },
   {
     "code": "S712",
@@ -2637,7 +3163,9 @@
     "lon": -54.34194444,
     "altitude": "407",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006002",
+    "municipality": "Nova Alvorada do Sul"
   },
   {
     "code": "S713",
@@ -2647,7 +3175,9 @@
     "lon": -53.46583333,
     "altitude": "372",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006200",
+    "municipality": "Nova Andradina"
   },
   {
     "code": "S723",
@@ -2657,7 +3187,9 @@
     "lon": -53.329431,
     "altitude": "617",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006275",
+    "municipality": "Paraíso das Águas"
   },
   {
     "code": "A710",
@@ -2667,7 +3199,9 @@
     "lon": -51.18166666,
     "altitude": "408.06",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006309",
+    "municipality": "Paranaíba"
   },
   {
     "code": "S714",
@@ -2677,7 +3211,9 @@
     "lon": -54.54888888,
     "altitude": "251",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006408",
+    "municipality": "Pedro Gomes"
   },
   {
     "code": "A703",
@@ -2687,7 +3223,9 @@
     "lon": -55.71638888,
     "altitude": "668",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006606",
+    "municipality": "Ponta Porã"
   },
   {
     "code": "A723",
@@ -2697,7 +3235,9 @@
     "lon": -57.88666666,
     "altitude": "78.56",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006903",
+    "municipality": "Porto Murtinho"
   },
   {
     "code": "S719",
@@ -2707,7 +3247,9 @@
     "lon": -57.40111111,
     "altitude": "178.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5006903",
+    "municipality": "Porto Murtinho"
   },
   {
     "code": "S715",
@@ -2717,7 +3259,9 @@
     "lon": -53.76305555,
     "altitude": "442",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007109",
+    "municipality": "Ribas do Rio Pardo"
   },
   {
     "code": "S728",
@@ -2727,7 +3271,9 @@
     "lon": -53.555382,
     "altitude": "449",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007109",
+    "municipality": "Ribas do Rio Pardo"
   },
   {
     "code": "A743",
@@ -2737,7 +3283,9 @@
     "lon": -54.52805554,
     "altitude": "324.31",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007208",
+    "municipality": "Rio Brilhante"
   },
   {
     "code": "S716",
@@ -2747,7 +3295,9 @@
     "lon": -52.82027777,
     "altitude": "383",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007554",
+    "municipality": "Santa Rita do Pardo"
   },
   {
     "code": "A732",
@@ -2757,7 +3307,9 @@
     "lon": -54.55305555,
     "altitude": "646",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007695",
+    "municipality": "São Gabriel do Oeste"
   },
   {
     "code": "A751",
@@ -2767,7 +3319,9 @@
     "lon": -55.02416666,
     "altitude": "398.4",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007703",
+    "municipality": "Sete Quedas"
   },
   {
     "code": "A754",
@@ -2777,7 +3331,9 @@
     "lon": -54.97194443,
     "altitude": "471.43",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007901",
+    "municipality": "Sidrolândia"
   },
   {
     "code": "A761",
@@ -2787,7 +3343,9 @@
     "lon": -54.76055555,
     "altitude": "495.25",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5007935",
+    "municipality": "Sonora"
   },
   {
     "code": "A704",
@@ -2797,7 +3355,9 @@
     "lon": -51.71333333,
     "altitude": "328.94",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5008305",
+    "municipality": "Três Lagoas"
   },
   {
     "code": "A908",
@@ -2807,7 +3367,9 @@
     "lon": -52.21166666,
     "altitude": "440",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5100201",
+    "municipality": "Água Boa"
   },
   {
     "code": "A924",
@@ -2817,7 +3379,9 @@
     "lon": -56.17916666,
     "altitude": "291.85",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5100250",
+    "municipality": "Alta Floresta"
   },
   {
     "code": "A909",
@@ -2827,7 +3391,9 @@
     "lon": -53.22444443,
     "altitude": "753.28",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5100300",
+    "municipality": "Alto Araguaia"
   },
   {
     "code": "A934",
@@ -2837,7 +3403,9 @@
     "lon": -53.28944444,
     "altitude": "862.42",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5100607",
+    "municipality": "Alto Taquari"
   },
   {
     "code": "A910",
@@ -2847,7 +3415,9 @@
     "lon": -57.3936111,
     "altitude": "217.75",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5100805",
+    "municipality": "Apiacás"
   },
   {
     "code": "A964",
@@ -2857,7 +3427,9 @@
     "lon": -59.45972222,
     "altitude": "230",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5101407",
+    "municipality": "Aripuanã"
   },
   {
     "code": "A967",
@@ -2867,7 +3439,9 @@
     "lon": -57.19472221,
     "altitude": "186",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5101704",
+    "municipality": "Barra do Bugres"
   },
   {
     "code": "A945",
@@ -2877,7 +3451,9 @@
     "lon": -52.22722221,
     "altitude": "304",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5101803",
+    "municipality": "Barra do Garças"
   },
   {
     "code": "A927",
@@ -2887,7 +3463,9 @@
     "lon": -58.23138888,
     "altitude": "426.2",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5101902",
+    "municipality": "Brasnorte"
   },
   {
     "code": "A941",
@@ -2897,7 +3475,9 @@
     "lon": -57.69083333,
     "altitude": "123.53",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102504",
+    "municipality": "Cáceres"
   },
   {
     "code": "A905",
@@ -2907,7 +3487,9 @@
     "lon": -57.8386111,
     "altitude": "525.41",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102637",
+    "municipality": "Campo Novo do Parecis"
   },
   {
     "code": "A912",
@@ -2917,7 +3499,9 @@
     "lon": -55.17944443,
     "altitude": "747",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102678",
+    "municipality": "Campo Verde"
   },
   {
     "code": "A962",
@@ -2927,7 +3511,9 @@
     "lon": -59.2625,
     "altitude": "620",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102686",
+    "municipality": "Campos de Júlio"
   },
   {
     "code": "A957",
@@ -2937,7 +3523,9 @@
     "lon": -52.30444444,
     "altitude": "430",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102702",
+    "municipality": "Canarana"
   },
   {
     "code": "A926",
@@ -2947,7 +3535,9 @@
     "lon": -55.82749999,
     "altitude": "293.71",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5102793",
+    "municipality": "Carlinda"
   },
   {
     "code": "A958",
@@ -2957,7 +3547,9 @@
     "lon": -55.74972221,
     "altitude": "800",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103007",
+    "municipality": "Chapada dos Guimarães"
   },
   {
     "code": "A954",
@@ -2967,7 +3559,9 @@
     "lon": -51.00972222,
     "altitude": "252",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103106",
+    "municipality": "Cocalinho"
   },
   {
     "code": "A965",
@@ -2977,7 +3571,9 @@
     "lon": -59.23527777,
     "altitude": "140",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103254",
+    "municipality": "Colniza"
   },
   {
     "code": "A963",
@@ -2987,7 +3583,9 @@
     "lon": -59.78499999,
     "altitude": "624",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103304",
+    "municipality": "Comodoro"
   },
   {
     "code": "A968",
@@ -2997,7 +3595,9 @@
     "lon": -51.55222222,
     "altitude": "240",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103353",
+    "municipality": "Confresa"
   },
   {
     "code": "A919",
@@ -3007,7 +3607,9 @@
     "lon": -58.57222221,
     "altitude": "265",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103379",
+    "municipality": "Cotriguaçu"
   },
   {
     "code": "A901",
@@ -3017,7 +3619,9 @@
     "lon": -56.06083333,
     "altitude": "184",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103403",
+    "municipality": "Cuiabá"
   },
   {
     "code": "A949",
@@ -3027,7 +3631,9 @@
     "lon": -56.37972221,
     "altitude": "317",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103502",
+    "municipality": "Diamantino"
   },
   {
     "code": "A970",
@@ -3037,7 +3643,9 @@
     "lon": -52.18583333,
     "altitude": "380",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107859",
+    "municipality": "São Félix do Araguaia"
   },
   {
     "code": "A951",
@@ -3047,7 +3655,9 @@
     "lon": -54.92999999,
     "altitude": "373",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103700",
+    "municipality": "Feliz Natal"
   },
   {
     "code": "A930",
@@ -3057,7 +3667,9 @@
     "lon": -53.2575,
     "altitude": "375.87",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5103858",
+    "municipality": "Gaúcha do Norte"
   },
   {
     "code": "A906",
@@ -3067,7 +3679,9 @@
     "lon": -54.89777777,
     "altitude": "283.58",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5104104",
+    "municipality": "Guarantã do Norte"
   },
   {
     "code": "A932",
@@ -3077,7 +3691,9 @@
     "lon": -53.76611111,
     "altitude": "525.43",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5104203",
+    "municipality": "Guiratinga"
   },
   {
     "code": "A950",
@@ -3087,7 +3703,9 @@
     "lon": -56.60222222,
     "altitude": "350",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5104542",
+    "municipality": "Itanhangá"
   },
   {
     "code": "A933",
@@ -3097,7 +3715,9 @@
     "lon": -54.50166666,
     "altitude": "593.12",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5104609",
+    "municipality": "Itiquira"
   },
   {
     "code": "A914",
@@ -3107,7 +3727,9 @@
     "lon": -57.52666666,
     "altitude": "263.43",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5105101",
+    "municipality": "Juara"
   },
   {
     "code": "A920",
@@ -3117,7 +3739,9 @@
     "lon": -58.77472221,
     "altitude": "365.39",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5105150",
+    "municipality": "Juína"
   },
   {
     "code": "A955",
@@ -3127,7 +3751,9 @@
     "lon": -55.91138888,
     "altitude": "393",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5105259",
+    "municipality": "Lucas do Rio Verde"
   },
   {
     "code": "A946",
@@ -3137,7 +3763,9 @@
     "lon": -54.51388888,
     "altitude": "291",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5105580",
+    "municipality": "Marcelândia"
   },
   {
     "code": "A961",
@@ -3147,7 +3775,9 @@
     "lon": -58.07888888,
     "altitude": "263",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5105622",
+    "municipality": "Mirassol d'Oeste"
   },
   {
     "code": "A953",
@@ -3157,7 +3787,9 @@
     "lon": -55.72416666,
     "altitude": "270",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106216",
+    "municipality": "Nova Canaã do Norte"
   },
   {
     "code": "A928",
@@ -3167,7 +3799,9 @@
     "lon": -57.09222221,
     "altitude": "334.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5108907",
+    "municipality": "Nova Maringá"
   },
   {
     "code": "A929",
@@ -3177,7 +3811,9 @@
     "lon": -54.95611111,
     "altitude": "466.48",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106240",
+    "municipality": "Nova Ubiratã"
   },
   {
     "code": "A959",
@@ -3186,8 +3822,10 @@
     "lat": -13.03249999,
     "lon": -55.24194444,
     "altitude": "440",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "5106240",
+    "municipality": "Nova Ubiratã"
   },
   {
     "code": "A956",
@@ -3197,7 +3835,9 @@
     "lon": -52.35027777,
     "altitude": "306",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106257",
+    "municipality": "Nova Xavantina"
   },
   {
     "code": "A947",
@@ -3207,7 +3847,9 @@
     "lon": -50.97138888,
     "altitude": "205",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106315",
+    "municipality": "Novo Santo Antônio"
   },
   {
     "code": "A966",
@@ -3217,7 +3859,9 @@
     "lon": -56.76999999,
     "altitude": "100",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106505",
+    "municipality": "Poconé"
   },
   {
     "code": "A937",
@@ -3227,7 +3871,9 @@
     "lon": -59.2336111,
     "altitude": "272.53",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106752",
+    "municipality": "Pontes e Lacerda"
   },
   {
     "code": "A960",
@@ -3237,7 +3883,9 @@
     "lon": -58.47222221,
     "altitude": "159",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106828",
+    "municipality": "Porto Esperidião"
   },
   {
     "code": "A935",
@@ -3247,7 +3895,9 @@
     "lon": -57.22583332,
     "altitude": "147.75",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5106851",
+    "municipality": "Porto Estrela"
   },
   {
     "code": "A923",
@@ -3257,7 +3907,9 @@
     "lon": -54.3811111,
     "altitude": "680",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107040",
+    "municipality": "Primavera do Leste"
   },
   {
     "code": "A916",
@@ -3267,7 +3919,9 @@
     "lon": -52.1625,
     "altitude": "355",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107065",
+    "municipality": "Querência"
   },
   {
     "code": "A907",
@@ -3277,7 +3931,9 @@
     "lon": -54.58027777,
     "altitude": "289.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107602",
+    "municipality": "Rondonópolis"
   },
   {
     "code": "A944",
@@ -3287,7 +3943,9 @@
     "lon": -56.44194444,
     "altitude": "195",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107701",
+    "municipality": "Rosário Oeste"
   },
   {
     "code": "A903",
@@ -3297,7 +3955,9 @@
     "lon": -56.67722221,
     "altitude": "339.59",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107305",
+    "municipality": "São José do Rio Claro"
   },
   {
     "code": "A936",
@@ -3307,7 +3967,9 @@
     "lon": -58.12722221,
     "altitude": "300.83",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107750",
+    "municipality": "Salto do Céu"
   },
   {
     "code": "A948",
@@ -3317,7 +3979,9 @@
     "lon": -55.26777777,
     "altitude": "510",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107768",
+    "municipality": "Santa Rita do Trivelato"
   },
   {
     "code": "A931",
@@ -3327,7 +3991,9 @@
     "lon": -53.88444444,
     "altitude": "662",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107792",
+    "municipality": "Santo Antônio do Leste"
   },
   {
     "code": "A969",
@@ -3337,7 +4003,9 @@
     "lon": -56.07083332,
     "altitude": "190",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107800",
+    "municipality": "Santo Antônio de Leverger"
   },
   {
     "code": "A942",
@@ -3347,7 +4015,9 @@
     "lon": -52.37249999,
     "altitude": "300",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107354",
+    "municipality": "São José do Xingu"
   },
   {
     "code": "A911",
@@ -3357,7 +4027,9 @@
     "lon": -58.76333333,
     "altitude": "105",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107875",
+    "municipality": "Sapezal"
   },
   {
     "code": "A943",
@@ -3367,7 +4039,9 @@
     "lon": -51.4261111,
     "altitude": "441",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107883",
+    "municipality": "Serra Nova Dourada"
   },
   {
     "code": "A917",
@@ -3377,7 +4051,9 @@
     "lon": -55.56611111,
     "altitude": "366.57",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107909",
+    "municipality": "Sinop"
   },
   {
     "code": "A904",
@@ -3387,7 +4063,9 @@
     "lon": -55.72277777,
     "altitude": "379.31",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107925",
+    "municipality": "Sorriso"
   },
   {
     "code": "A952",
@@ -3397,7 +4075,9 @@
     "lon": -56.83583333,
     "altitude": "337",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107941",
+    "municipality": "Tabaporã"
   },
   {
     "code": "A902",
@@ -3407,7 +4087,9 @@
     "lon": -57.43166666,
     "altitude": "440.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "5107958",
+    "municipality": "Tangará da Serra"
   },
   {
     "code": "A253",
@@ -3417,7 +4099,9 @@
     "lon": -52.39472221,
     "altitude": "191",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1500602",
+    "municipality": "Altamira"
   },
   {
     "code": "A201",
@@ -3427,7 +4111,9 @@
     "lon": -48.43944444,
     "altitude": "21.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1501402",
+    "municipality": "Belém"
   },
   {
     "code": "A226",
@@ -3437,7 +4123,9 @@
     "lon": -46.78277777,
     "altitude": "5.6",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1501709",
+    "municipality": "Bragança"
   },
   {
     "code": "A228",
@@ -3447,7 +4135,9 @@
     "lon": -50.47805554,
     "altitude": "11",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1501808",
+    "municipality": "Breves"
   },
   {
     "code": "A236",
@@ -3457,7 +4147,9 @@
     "lon": -49.49972221,
     "altitude": "9.92",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1502103",
+    "municipality": "Cametá"
   },
   {
     "code": "A248",
@@ -3467,7 +4159,9 @@
     "lon": -47.0575,
     "altitude": "79.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1502301",
+    "municipality": "Capitão Poço"
   },
   {
     "code": "A202",
@@ -3477,7 +4171,9 @@
     "lon": -47.94805555,
     "altitude": "47.13",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1502400",
+    "municipality": "Castanhal"
   },
   {
     "code": "A241",
@@ -3487,7 +4183,9 @@
     "lon": -49.28277777,
     "altitude": "175.74",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1502707",
+    "municipality": "Conceição do Araguaia"
   },
   {
     "code": "A252",
@@ -3497,7 +4195,9 @@
     "lon": -47.56388888,
     "altitude": "251",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1502939",
+    "municipality": "Dom Eliseu"
   },
   {
     "code": "A231",
@@ -3507,7 +4207,9 @@
     "lon": -55.99305555,
     "altitude": "24.46",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1503606",
+    "municipality": "Itaituba"
   },
   {
     "code": "A240",
@@ -3517,7 +4219,9 @@
     "lon": -49.05111111,
     "altitude": "116.58",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1504208",
+    "municipality": "Marabá"
   },
   {
     "code": "A209",
@@ -3527,7 +4231,9 @@
     "lon": -52.96333333,
     "altitude": "251.68",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1504455",
+    "municipality": "Medicilândia"
   },
   {
     "code": "A246",
@@ -3537,7 +4243,9 @@
     "lon": -55.78777777,
     "altitude": "259.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1503606",
+    "municipality": "Itaituba"
   },
   {
     "code": "A239",
@@ -3547,7 +4255,9 @@
     "lon": -54.07638888,
     "altitude": "100.53",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1504802",
+    "municipality": "Monte Alegre"
   },
   {
     "code": "A235",
@@ -3557,7 +4267,9 @@
     "lon": -49.93944444,
     "altitude": "100.76",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505064",
+    "municipality": "Novo Repartimento"
   },
   {
     "code": "A232",
@@ -3567,7 +4279,9 @@
     "lon": -55.51972221,
     "altitude": "89.64",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505106",
+    "municipality": "Óbidos"
   },
   {
     "code": "A210",
@@ -3577,7 +4291,9 @@
     "lon": -50.63805555,
     "altitude": "89.02",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505486",
+    "municipality": "Pacajá"
   },
   {
     "code": "A212",
@@ -3587,7 +4303,9 @@
     "lon": -47.49499999,
     "altitude": "88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505502",
+    "municipality": "Paragominas"
   },
   {
     "code": "A211",
@@ -3597,7 +4315,9 @@
     "lon": -54.21638888,
     "altitude": "100.45",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505650",
+    "municipality": "Placas"
   },
   {
     "code": "A245",
@@ -3607,7 +4327,9 @@
     "lon": -52.11166666,
     "altitude": "19",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505908",
+    "municipality": "Porto de Moz"
   },
   {
     "code": "A254",
@@ -3617,7 +4339,9 @@
     "lon": -50.00694444,
     "altitude": "199",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506138",
+    "municipality": "Redenção"
   },
   {
     "code": "A214",
@@ -3627,7 +4351,9 @@
     "lon": -48.1736111,
     "altitude": "203",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506187",
+    "municipality": "Rondon do Pará"
   },
   {
     "code": "A215",
@@ -3637,7 +4363,9 @@
     "lon": -47.35666666,
     "altitude": "23.18",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506203",
+    "municipality": "Salinópolis"
   },
   {
     "code": "A256",
@@ -3647,7 +4375,9 @@
     "lon": -49.85638888,
     "altitude": "165",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506583",
+    "municipality": "Santa Maria das Barreiras"
   },
   {
     "code": "A233",
@@ -3657,7 +4387,9 @@
     "lon": -50.35027777,
     "altitude": "154",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506708",
+    "municipality": "Santana do Araguaia"
   },
   {
     "code": "A250",
@@ -3667,7 +4399,9 @@
     "lon": -54.72027777,
     "altitude": "137",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1506807",
+    "municipality": "Santarém"
   },
   {
     "code": "A216",
@@ -3677,7 +4411,9 @@
     "lon": -51.95694444,
     "altitude": "211",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1507300",
+    "municipality": "São Félix do Xingu"
   },
   {
     "code": "A230",
@@ -3687,7 +4423,9 @@
     "lon": -50.14222221,
     "altitude": "707",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1505536",
+    "municipality": "Parauapebas"
   },
   {
     "code": "A227",
@@ -3697,7 +4435,9 @@
     "lon": -48.51583333,
     "altitude": "12.54",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1507904",
+    "municipality": "Soure"
   },
   {
     "code": "A213",
@@ -3707,7 +4447,9 @@
     "lon": -48.36055555,
     "altitude": "42.95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1508001",
+    "municipality": "Tomé-Açu"
   },
   {
     "code": "A234",
@@ -3717,7 +4459,9 @@
     "lon": -51.14194444,
     "altitude": "320.93",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1508084",
+    "municipality": "Tucumã"
   },
   {
     "code": "A229",
@@ -3726,8 +4470,10 @@
     "lat": -3.82277777,
     "lon": -49.67499999,
     "altitude": "137.94",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "1508100",
+    "municipality": "Tucuruí"
   },
   {
     "code": "A247",
@@ -3737,7 +4483,9 @@
     "lon": -49.9261111,
     "altitude": "245",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1508407",
+    "municipality": "Xinguara"
   },
   {
     "code": "A310",
@@ -3747,7 +4495,9 @@
     "lon": -35.71805554,
     "altitude": "573.45",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2501104",
+    "municipality": "Areia"
   },
   {
     "code": "A348",
@@ -3757,7 +4507,9 @@
     "lon": -36.28638888,
     "altitude": "391.96",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2503100",
+    "municipality": "Cabaceiras"
   },
   {
     "code": "A352",
@@ -3767,7 +4519,9 @@
     "lon": -35.13527777,
     "altitude": "135.51",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2508901",
+    "municipality": "Mamanguape"
   },
   {
     "code": "A313",
@@ -3776,8 +4530,10 @@
     "lat": -7.22555554,
     "lon": -35.90472222,
     "altitude": "546.17",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "2504009",
+    "municipality": "Campina Grande"
   },
   {
     "code": "A373",
@@ -3787,7 +4543,9 @@
     "lon": -38.14083333,
     "altitude": "292",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2507002",
+    "municipality": "Itaporanga"
   },
   {
     "code": "A320",
@@ -3797,7 +4555,9 @@
     "lon": -34.84972221,
     "altitude": "43",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2507507",
+    "municipality": "João Pessoa"
   },
   {
     "code": "A334",
@@ -3807,7 +4567,9 @@
     "lon": -37.12749999,
     "altitude": "606.39",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2509701",
+    "municipality": "Monteiro"
   },
   {
     "code": "A321",
@@ -3817,7 +4579,9 @@
     "lon": -37.27277777,
     "altitude": "263.66",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2510808",
+    "municipality": "Patos"
   },
   {
     "code": "A333",
@@ -3827,7 +4591,9 @@
     "lon": -38.31166666,
     "altitude": "237.04",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2516201",
+    "municipality": "Sousa"
   },
   {
     "code": "A388",
@@ -3837,7 +4603,9 @@
     "lon": -35.23527777,
     "altitude": "99",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2600708",
+    "municipality": "Aliança"
   },
   {
     "code": "A309",
@@ -3847,7 +4615,9 @@
     "lon": -37.05555555,
     "altitude": "683.95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2601201",
+    "municipality": "Arcoverde"
   },
   {
     "code": "A329",
@@ -3857,7 +4627,9 @@
     "lon": -39.31527777,
     "altitude": "342.74",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2603009",
+    "municipality": "Cabrobó"
   },
   {
     "code": "A341",
@@ -3867,7 +4639,9 @@
     "lon": -36.02833332,
     "altitude": "837",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2604106",
+    "municipality": "Caruaru"
   },
   {
     "code": "A351",
@@ -3877,7 +4651,9 @@
     "lon": -38.58416666,
     "altitude": "327.42",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2605707",
+    "municipality": "Floresta"
   },
   {
     "code": "A322",
@@ -3887,7 +4663,9 @@
     "lon": -36.49333333,
     "altitude": "827.78",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2606002",
+    "municipality": "Garanhuns"
   },
   {
     "code": "A349",
@@ -3897,7 +4675,9 @@
     "lon": -37.71166666,
     "altitude": "434.23",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2606606",
+    "municipality": "Ibimirim"
   },
   {
     "code": "A389",
@@ -3907,7 +4687,9 @@
     "lon": -34.90027777,
     "altitude": "7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2607752",
+    "municipality": "Itapissuma"
   },
   {
     "code": "A366",
@@ -3917,7 +4699,9 @@
     "lon": -40.10277777,
     "altitude": "457.85",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2609907",
+    "municipality": "Ouricuri"
   },
   {
     "code": "A357",
@@ -3927,7 +4711,9 @@
     "lon": -35.56805554,
     "altitude": "164.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2610004",
+    "municipality": "Palmares"
   },
   {
     "code": "A301",
@@ -3937,7 +4723,9 @@
     "lon": -34.94416666,
     "altitude": "10",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2611606",
+    "municipality": "Recife"
   },
   {
     "code": "A370",
@@ -3947,7 +4735,9 @@
     "lon": -39.0961111,
     "altitude": "447",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2612208",
+    "municipality": "Salgueiro"
   },
   {
     "code": "A387",
@@ -3957,7 +4747,9 @@
     "lon": -36.22583332,
     "altitude": "456",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2612505",
+    "municipality": "Santa Cruz do Capibaribe"
   },
   {
     "code": "A390",
@@ -3967,7 +4759,9 @@
     "lon": -35.15305555,
     "altitude": "9",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2613404",
+    "municipality": "São José da Coroa Grande"
   },
   {
     "code": "A350",
@@ -3977,7 +4771,9 @@
     "lon": -38.29499999,
     "altitude": "499.02",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2613909",
+    "municipality": "Serra Talhada"
   },
   {
     "code": "A328",
@@ -3987,7 +4783,9 @@
     "lon": -35.79027777,
     "altitude": "421.44",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2614501",
+    "municipality": "Surubim"
   },
   {
     "code": "A336",
@@ -3997,7 +4795,9 @@
     "lon": -43.85944444,
     "altitude": "225",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2200459",
+    "municipality": "Alvorada do Gurguéia"
   },
   {
     "code": "A377",
@@ -4007,7 +4807,9 @@
     "lon": -42.72749999,
     "altitude": "183",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2200608",
+    "municipality": "Angical do Piauí"
   },
   {
     "code": "A375",
@@ -4017,7 +4819,9 @@
     "lon": -45.094625,
     "altitude": "519",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2201150",
+    "municipality": "Baixa Grande do Ribeiro"
   },
   {
     "code": "A326",
@@ -4027,7 +4831,9 @@
     "lon": -44.32777777,
     "altitude": "288",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2201903",
+    "municipality": "Bom Jesus"
   },
   {
     "code": "A376",
@@ -4037,7 +4843,9 @@
     "lon": -42.14555555,
     "altitude": "125",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2202208",
+    "municipality": "Campo Maior"
   },
   {
     "code": "A365",
@@ -4047,7 +4855,9 @@
     "lon": -42.97583332,
     "altitude": "312.07",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2202307",
+    "municipality": "Canto do Buriti"
   },
   {
     "code": "A337",
@@ -4057,7 +4867,9 @@
     "lon": -43.32444443,
     "altitude": "515.3",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2202505",
+    "municipality": "Caracol"
   },
   {
     "code": "A361",
@@ -4067,7 +4879,9 @@
     "lon": -41.51222222,
     "altitude": "268.75",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2202604",
+    "municipality": "Castelo do Piauí"
   },
   {
     "code": "A374",
@@ -4077,7 +4891,9 @@
     "lon": -45.17305554,
     "altitude": "452",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2202901",
+    "municipality": "Corrente"
   },
   {
     "code": "A311",
@@ -4087,7 +4903,9 @@
     "lon": -43.00333333,
     "altitude": "126.39",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2203909",
+    "municipality": "Floriano"
   },
   {
     "code": "A364",
@@ -4097,7 +4915,9 @@
     "lon": -45.34583333,
     "altitude": "425.1",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2204402",
+    "municipality": "Gilbués"
   },
   {
     "code": "A354",
@@ -4107,7 +4927,9 @@
     "lon": -42.14694444,
     "altitude": "154.03",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2207009",
+    "municipality": "Oeiras"
   },
   {
     "code": "A308",
@@ -4117,7 +4939,9 @@
     "lon": -41.78305554,
     "altitude": "52.11",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2207702",
+    "municipality": "Parnaíba"
   },
   {
     "code": "A330",
@@ -4127,7 +4951,9 @@
     "lon": -41.14305555,
     "altitude": "376",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2207801",
+    "municipality": "Paulistana"
   },
   {
     "code": "A343",
@@ -4137,7 +4963,9 @@
     "lon": -41.40416666,
     "altitude": "232.91",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2208007",
+    "municipality": "Picos"
   },
   {
     "code": "A335",
@@ -4147,7 +4975,9 @@
     "lon": -41.79444444,
     "altitude": "157.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2208403",
+    "municipality": "Piripiri"
   },
   {
     "code": "A331",
@@ -4157,7 +4987,9 @@
     "lon": -42.2525,
     "altitude": "231",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2210003",
+    "municipality": "São João do Piauí"
   },
   {
     "code": "A345",
@@ -4167,7 +4999,9 @@
     "lon": -42.70111111,
     "altitude": "385",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2210607",
+    "municipality": "São Raimundo Nonato"
   },
   {
     "code": "A312",
@@ -4177,7 +5011,9 @@
     "lon": -42.80138888,
     "altitude": "75.23",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2211001",
+    "municipality": "Teresina"
   },
   {
     "code": "A346",
@@ -4187,7 +5023,9 @@
     "lon": -44.34499999,
     "altitude": "398.83",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2211209",
+    "municipality": "Uruçuí"
   },
   {
     "code": "A363",
@@ -4197,7 +5035,9 @@
     "lon": -41.74888888,
     "altitude": "372",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2211308",
+    "municipality": "Valença do Piauí"
   },
   {
     "code": "B803",
@@ -4206,8 +5046,10 @@
     "lat": -24.57083332,
     "lon": -52.80027777,
     "altitude": "598",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4103909",
+    "municipality": "Campina da Lagoa"
   },
   {
     "code": "A819",
@@ -4217,7 +5059,9 @@
     "lon": -50.04638888,
     "altitude": "1016",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4104907",
+    "municipality": "Castro"
   },
   {
     "code": "A869",
@@ -4227,7 +5071,9 @@
     "lon": -52.93194443,
     "altitude": "365.79",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4105607",
+    "municipality": "Cidade Gaúcha"
   },
   {
     "code": "A876",
@@ -4237,7 +5083,9 @@
     "lon": -52.3486111,
     "altitude": "966.06",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4105706",
+    "municipality": "Clevelândia"
   },
   {
     "code": "B806",
@@ -4247,7 +5095,9 @@
     "lon": -49.15777777,
     "altitude": "950",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4105805",
+    "municipality": "Colombo"
   },
   {
     "code": "A807",
@@ -4257,7 +5107,9 @@
     "lon": -49.23055554,
     "altitude": "922.91",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4106902",
+    "municipality": "Curitiba"
   },
   {
     "code": "A849",
@@ -4267,7 +5119,9 @@
     "lon": -52.89027777,
     "altitude": "368.22",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4107108",
+    "municipality": "Diamante do Norte"
   },
   {
     "code": "A843",
@@ -4277,7 +5131,9 @@
     "lon": -53.09527777,
     "altitude": "545.95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4107207",
+    "municipality": "Dois Vizinhos"
   },
   {
     "code": "A846",
@@ -4287,7 +5143,9 @@
     "lon": -54.48305554,
     "altitude": "235.09",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4108304",
+    "municipality": "Foz do Iguaçu"
   },
   {
     "code": "A875",
@@ -4297,7 +5155,9 @@
     "lon": -51.35361111,
     "altitude": "1009.01",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4108502",
+    "municipality": "General Carneiro"
   },
   {
     "code": "A825",
@@ -4307,7 +5167,9 @@
     "lon": -53.04888888,
     "altitude": "481",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4108601",
+    "municipality": "Goioerê"
   },
   {
     "code": "A824",
@@ -4317,7 +5179,9 @@
     "lon": -53.63583333,
     "altitude": "381.29",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4109906",
+    "municipality": "Icaraíma"
   },
   {
     "code": "A823",
@@ -4327,7 +5191,9 @@
     "lon": -51.07805554,
     "altitude": "1208.85",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4110201",
+    "municipality": "Inácio Martins"
   },
   {
     "code": "A818",
@@ -4336,8 +5202,10 @@
     "lat": -25.01083333,
     "lon": -50.85388888,
     "altitude": "803.58",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4111407",
+    "municipality": "Ivaí"
   },
   {
     "code": "A871",
@@ -4347,7 +5215,9 @@
     "lon": -50.18055554,
     "altitude": "692.88",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4112306",
+    "municipality": "Japira"
   },
   {
     "code": "A821",
@@ -4357,7 +5227,9 @@
     "lon": -49.94638888,
     "altitude": "512.67",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4112801",
+    "municipality": "Joaquim Távora"
   },
   {
     "code": "B804",
@@ -4367,7 +5239,9 @@
     "lon": -52.40083333,
     "altitude": "889",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4113304",
+    "municipality": "Laranjeiras do Sul"
   },
   {
     "code": "A820",
@@ -4377,7 +5251,9 @@
     "lon": -54.01916666,
     "altitude": "392.07",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4114609",
+    "municipality": "Marechal Cândido Rondon"
   },
   {
     "code": "A835",
@@ -4387,7 +5263,9 @@
     "lon": -51.93277777,
     "altitude": "548.51",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4115200",
+    "municipality": "Maringá"
   },
   {
     "code": "A873",
@@ -4397,7 +5275,9 @@
     "lon": -48.80861111,
     "altitude": "50.31",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4116208",
+    "municipality": "Morretes"
   },
   {
     "code": "A842",
@@ -4406,8 +5286,10 @@
     "lat": -23.41527777,
     "lon": -50.57777777,
     "altitude": "664.31",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4117008",
+    "municipality": "Nova Fátima"
   },
   {
     "code": "A822",
@@ -4417,7 +5299,9 @@
     "lon": -51.95388888,
     "altitude": "660",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4117271",
+    "municipality": "Nova Tebas"
   },
   {
     "code": "A850",
@@ -4426,8 +5310,10 @@
     "lat": -22.65833333,
     "lon": -52.13444444,
     "altitude": "308.7",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4118303",
+    "municipality": "Paranapoema"
   },
   {
     "code": "A855",
@@ -4437,7 +5323,9 @@
     "lon": -53.74805555,
     "altitude": "399.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4119806",
+    "municipality": "Planalto"
   },
   {
     "code": "A874",
@@ -4447,7 +5335,9 @@
     "lon": -50.36888888,
     "altitude": "780.21",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4125605",
+    "municipality": "São Mateus do Sul"
   },
   {
     "code": "A872",
@@ -4457,7 +5347,9 @@
     "lon": -50.21027777,
     "altitude": "1093.41",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4128534",
+    "municipality": "Ventania"
   },
   {
     "code": "A628",
@@ -4467,7 +5359,9 @@
     "lon": -44.30333333,
     "altitude": "6",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3300100",
+    "municipality": "Angra dos Reis"
   },
   {
     "code": "A606",
@@ -4477,7 +5371,9 @@
     "lon": -42.02138888,
     "altitude": "5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3300258",
+    "municipality": "Arraial do Cabo"
   },
   {
     "code": "A604",
@@ -4487,7 +5383,9 @@
     "lon": -41.95833333,
     "altitude": "46",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3300902",
+    "municipality": "Cambuci"
   },
   {
     "code": "A607",
@@ -4497,7 +5395,9 @@
     "lon": -41.34388888,
     "altitude": "17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3301009",
+    "municipality": "Campos dos Goytacazes"
   },
   {
     "code": "A620",
@@ -4507,7 +5407,9 @@
     "lon": -41.05166666,
     "altitude": "7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3301009",
+    "municipality": "Campos dos Goytacazes"
   },
   {
     "code": "A629",
@@ -4517,7 +5419,9 @@
     "lon": -42.60083333,
     "altitude": "293",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3301207",
+    "municipality": "Carmo"
   },
   {
     "code": "A603",
@@ -4527,7 +5431,9 @@
     "lon": -43.28222221,
     "altitude": "22",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3301702",
+    "municipality": "Duque de Caxias"
   },
   {
     "code": "A608",
@@ -4537,7 +5443,9 @@
     "lon": -41.81194444,
     "altitude": "28",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3302403",
+    "municipality": "Macaé"
   },
   {
     "code": "A627",
@@ -4547,7 +5455,9 @@
     "lon": -43.10194444,
     "altitude": "6",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3303302",
+    "municipality": "Niterói"
   },
   {
     "code": "A624",
@@ -4557,7 +5467,9 @@
     "lon": -42.67694443,
     "altitude": "1070",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3303401",
+    "municipality": "Nova Friburgo"
   },
   {
     "code": "A619",
@@ -4567,7 +5479,9 @@
     "lon": -44.72694443,
     "altitude": "3",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3303807",
+    "municipality": "Paraty"
   },
   {
     "code": "A637",
@@ -4577,7 +5491,9 @@
     "lon": -43.41777777,
     "altitude": "508",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3303856",
+    "municipality": "Paty do Alferes"
   },
   {
     "code": "A610",
@@ -4587,7 +5503,9 @@
     "lon": -43.29138888,
     "altitude": "1777",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3303906",
+    "municipality": "Petrópolis"
   },
   {
     "code": "A609",
@@ -4597,7 +5515,9 @@
     "lon": -44.44499999,
     "altitude": "438.83",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304201",
+    "municipality": "Resende"
   },
   {
     "code": "A626",
@@ -4607,7 +5527,9 @@
     "lon": -44.040916,
     "altitude": "516",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304409",
+    "municipality": "Rio Claro"
   },
   {
     "code": "A652",
@@ -4617,7 +5539,9 @@
     "lon": -43.19055555,
     "altitude": "25.59",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304557",
+    "municipality": "Rio de Janeiro"
   },
   {
     "code": "A636",
@@ -4627,7 +5551,9 @@
     "lon": -43.40277777,
     "altitude": "20",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304557",
+    "municipality": "Rio de Janeiro"
   },
   {
     "code": "A621",
@@ -4637,7 +5563,9 @@
     "lon": -43.41138888,
     "altitude": "30.43",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304557",
+    "municipality": "Rio de Janeiro"
   },
   {
     "code": "A602",
@@ -4647,7 +5575,9 @@
     "lon": -43.59555555,
     "altitude": "12",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304557",
+    "municipality": "Rio de Janeiro"
   },
   {
     "code": "A630",
@@ -4657,7 +5587,9 @@
     "lon": -42.01027777,
     "altitude": "586",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3304607",
+    "municipality": "Santa Maria Madalena"
   },
   {
     "code": "A667",
@@ -4667,7 +5599,9 @@
     "lon": -42.60888888,
     "altitude": "26",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3305505",
+    "municipality": "Saquarema"
   },
   {
     "code": "A601",
@@ -4677,7 +5611,9 @@
     "lon": -43.68472221,
     "altitude": "35",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3305554",
+    "municipality": "Seropédica"
   },
   {
     "code": "A659",
@@ -4687,7 +5623,9 @@
     "lon": -42.41555555,
     "altitude": "19",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3305604",
+    "municipality": "Silva Jardim"
   },
   {
     "code": "A618",
@@ -4697,7 +5635,9 @@
     "lon": -42.98694444,
     "altitude": "981",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3305802",
+    "municipality": "Teresópolis"
   },
   {
     "code": "A625",
@@ -4707,7 +5647,9 @@
     "lon": -43.20833333,
     "altitude": "295",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3306008",
+    "municipality": "Três Rios"
   },
   {
     "code": "A611",
@@ -4717,7 +5659,9 @@
     "lon": -43.69555555,
     "altitude": "370",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3306107",
+    "municipality": "Valença"
   },
   {
     "code": "A340",
@@ -4727,7 +5671,9 @@
     "lon": -37.815,
     "altitude": "131.41",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2401008",
+    "municipality": "Apodi"
   },
   {
     "code": "A316",
@@ -4737,7 +5683,9 @@
     "lon": -37.08499999,
     "altitude": "171.26",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2402006",
+    "municipality": "Caicó"
   },
   {
     "code": "A344",
@@ -4747,7 +5695,9 @@
     "lon": -35.48749999,
     "altitude": "9.82",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2414407",
+    "municipality": "Touros"
   },
   {
     "code": "A372",
@@ -4757,7 +5707,9 @@
     "lon": -36.87222221,
     "altitude": "19",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2404705",
+    "municipality": "Ipanguaçu"
   },
   {
     "code": "A317",
@@ -4767,7 +5719,9 @@
     "lon": -36.57305554,
     "altitude": "17.37",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2407203",
+    "municipality": "Macau"
   },
   {
     "code": "A318",
@@ -4777,7 +5731,9 @@
     "lon": -37.36694443,
     "altitude": "29.44",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2411056",
+    "municipality": "Tibau"
   },
   {
     "code": "A304",
@@ -4787,7 +5743,9 @@
     "lon": -35.20805555,
     "altitude": "47.46",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2408102",
+    "municipality": "Natal"
   },
   {
     "code": "A367",
@@ -4797,7 +5755,9 @@
     "lon": -36.02666666,
     "altitude": "227.49",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2411205",
+    "municipality": "Santa Cruz"
   },
   {
     "code": "A940",
@@ -4807,7 +5767,9 @@
     "lon": -62.96194444,
     "altitude": "128.44",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1100023",
+    "municipality": "Ariquemes"
   },
   {
     "code": "A939",
@@ -4817,7 +5779,9 @@
     "lon": -61.43416666,
     "altitude": "183.53",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1100049",
+    "municipality": "Cacoal"
   },
   {
     "code": "A925",
@@ -4827,7 +5791,9 @@
     "lon": -63.84583333,
     "altitude": "86.7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1100205",
+    "municipality": "Porto Velho"
   },
   {
     "code": "A938",
@@ -4837,7 +5803,9 @@
     "lon": -60.15777777,
     "altitude": "583.3",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1100304",
+    "municipality": "Vilhena"
   },
   {
     "code": "A135",
@@ -4847,7 +5815,9 @@
     "lon": -60.69083333,
     "altitude": "82.35",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1400100",
+    "municipality": "Boa Vista"
   },
   {
     "code": "B828",
@@ -4857,7 +5827,9 @@
     "lon": -54.11972221,
     "altitude": "271",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4300034",
+    "municipality": "Aceguá"
   },
   {
     "code": "B843",
@@ -4866,8 +5838,10 @@
     "lat": -28.22083332,
     "lon": -53.6736111,
     "altitude": "416",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4300208",
+    "municipality": "Ajuricaba"
   },
   {
     "code": "A826",
@@ -4876,8 +5850,10 @@
     "lat": -29.70916666,
     "lon": -55.52555554,
     "altitude": "121",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4300406",
+    "municipality": "Alegrete"
   },
   {
     "code": "B847",
@@ -4887,7 +5863,9 @@
     "lon": -55.88722221,
     "altitude": "120",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4300406",
+    "municipality": "Alegrete"
   },
   {
     "code": "A827",
@@ -4897,7 +5875,9 @@
     "lon": -54.01333333,
     "altitude": "226.19",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4301602",
+    "municipality": "Bagé"
   },
   {
     "code": "B827",
@@ -4907,7 +5887,9 @@
     "lon": -54.01333333,
     "altitude": "226.2",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4301602",
+    "municipality": "Bagé"
   },
   {
     "code": "B848",
@@ -4917,7 +5899,9 @@
     "lon": -57.3361111,
     "altitude": "91",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4301875",
+    "municipality": "Barra do Quaraí"
   },
   {
     "code": "A840",
@@ -4927,7 +5911,9 @@
     "lon": -51.53416666,
     "altitude": "639",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4302105",
+    "municipality": "Bento Gonçalves"
   },
   {
     "code": "B856",
@@ -4937,7 +5923,9 @@
     "lon": -50.44194444,
     "altitude": "1054",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4302303",
+    "municipality": "Bom Jesus"
   },
   {
     "code": "B857",
@@ -4947,7 +5935,9 @@
     "lon": -50.16777777,
     "altitude": "1132",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4302303",
+    "municipality": "Bom Jesus"
   },
   {
     "code": "A812",
@@ -4957,7 +5947,9 @@
     "lon": -53.46694443,
     "altitude": "420.82",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4302808",
+    "municipality": "Caçapava do Sul"
   },
   {
     "code": "B822",
@@ -4967,7 +5959,9 @@
     "lon": -52.93888888,
     "altitude": "73",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4303004",
+    "municipality": "Cachoeira do Sul"
   },
   {
     "code": "B808",
@@ -4977,7 +5971,9 @@
     "lon": -51.12416666,
     "altitude": "72",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4303103",
+    "municipality": "Cachoeirinha"
   },
   {
     "code": "A838",
@@ -4986,8 +5982,10 @@
     "lat": -30.80805555,
     "lon": -51.83416666,
     "altitude": "92.3",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4303509",
+    "municipality": "Camaquã"
   },
   {
     "code": "A897",
@@ -4997,7 +5995,9 @@
     "lon": -50.14972221,
     "altitude": "1017",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4303608",
+    "municipality": "Cambará do Sul"
   },
   {
     "code": "A884",
@@ -5007,7 +6007,9 @@
     "lon": -51.06416666,
     "altitude": "23.35",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4303905",
+    "municipality": "Campo Bom"
   },
   {
     "code": "A879",
@@ -5017,7 +6019,9 @@
     "lon": -50.82722221,
     "altitude": "830.93",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4304408",
+    "municipality": "Canela"
   },
   {
     "code": "A811",
@@ -5026,8 +6030,10 @@
     "lat": -31.40333333,
     "lon": -52.70083333,
     "altitude": "446.81",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4304507",
+    "municipality": "Canguçu"
   },
   {
     "code": "B832",
@@ -5037,7 +6043,9 @@
     "lon": -49.99305555,
     "altitude": "0",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4304630",
+    "municipality": "Capão da Canoa"
   },
   {
     "code": "A887",
@@ -5047,7 +6055,9 @@
     "lon": -52.40722222,
     "altitude": "13",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4304663",
+    "municipality": "Capão do Leão"
   },
   {
     "code": "B842",
@@ -5057,7 +6067,9 @@
     "lon": -52.81444444,
     "altitude": "581",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4304705",
+    "municipality": "Carazinho"
   },
   {
     "code": "B858",
@@ -5066,8 +6078,10 @@
     "lat": -28.56361111,
     "lon": -51.96916666,
     "altitude": "602",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4304903",
+    "municipality": "Casca"
   },
   {
     "code": "B818",
@@ -5077,7 +6091,9 @@
     "lon": -51.18638888,
     "altitude": "756",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4305108",
+    "municipality": "Caxias do Sul"
   },
   {
     "code": "B817",
@@ -5087,7 +6103,9 @@
     "lon": -50.97555554,
     "altitude": "857",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4305108",
+    "municipality": "Caxias do Sul"
   },
   {
     "code": "B812",
@@ -5097,7 +6115,9 @@
     "lon": -51.62555554,
     "altitude": "23",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4305355",
+    "municipality": "Charqueadas"
   },
   {
     "code": "A853",
@@ -5107,7 +6127,9 @@
     "lon": -53.6736111,
     "altitude": "426.69",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4306106",
+    "municipality": "Cruz Alta"
   },
   {
     "code": "B833",
@@ -5117,7 +6139,9 @@
     "lon": -53.61361111,
     "altitude": "475",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4306106",
+    "municipality": "Cruz Alta"
   },
   {
     "code": "B852",
@@ -5127,7 +6151,9 @@
     "lon": -54.18805555,
     "altitude": "143",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4306379",
+    "municipality": "Dilermando de Aguiar"
   },
   {
     "code": "A881",
@@ -5137,7 +6163,9 @@
     "lon": -54.61805554,
     "altitude": "150",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4306601",
+    "municipality": "Dom Pedrito"
   },
   {
     "code": "A893",
@@ -5147,7 +6175,9 @@
     "lon": -52.52472221,
     "altitude": "427.75",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4306908",
+    "municipality": "Encruzilhada do Sul"
   },
   {
     "code": "A828",
@@ -5157,7 +6187,9 @@
     "lon": -52.30583333,
     "altitude": "777.08",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4307005",
+    "municipality": "Erechim"
   },
   {
     "code": "B845",
@@ -5167,7 +6199,9 @@
     "lon": -53.96916666,
     "altitude": "409",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4307450",
+    "municipality": "Esperança do Sul"
   },
   {
     "code": "B854",
@@ -5177,7 +6211,9 @@
     "lon": -53.42749999,
     "altitude": "70",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4308003",
+    "municipality": "Faxinal do Soturno"
   },
   {
     "code": "A854",
@@ -5187,7 +6223,9 @@
     "lon": -53.42944443,
     "altitude": "489.42",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4308508",
+    "municipality": "Frederico Westphalen"
   },
   {
     "code": "B834",
@@ -5197,7 +6235,9 @@
     "lon": -55.62972221,
     "altitude": "0",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4308656",
+    "municipality": "Garruchos"
   },
   {
     "code": "B826",
@@ -5206,8 +6246,10 @@
     "lat": -32.01277777,
     "lon": -53.40305555,
     "altitude": "331",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4307104",
+    "municipality": "Herval"
   },
   {
     "code": "A883",
@@ -5217,7 +6259,9 @@
     "lon": -53.11194444,
     "altitude": "455.27",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4310009",
+    "municipality": "Ibirubá"
   },
   {
     "code": "B849",
@@ -5227,7 +6271,9 @@
     "lon": -55.38055554,
     "altitude": "148",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4310553",
+    "municipality": "Itacurubi"
   },
   {
     "code": "B850",
@@ -5237,7 +6283,9 @@
     "lon": -56.55555555,
     "altitude": "71",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4310603",
+    "municipality": "Itaqui"
   },
   {
     "code": "A836",
@@ -5247,7 +6295,9 @@
     "lon": -53.37583332,
     "altitude": "31.48",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4311007",
+    "municipality": "Jaguarão"
   },
   {
     "code": "B835",
@@ -5257,7 +6307,9 @@
     "lon": -54.11277777,
     "altitude": "0",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4311155",
+    "municipality": "Jóia"
   },
   {
     "code": "A844",
@@ -5267,7 +6319,9 @@
     "lon": -51.51277777,
     "altitude": "833.83",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4311304",
+    "municipality": "Lagoa Vermelha"
   },
   {
     "code": "B853",
@@ -5277,7 +6331,9 @@
     "lon": -53.89416666,
     "altitude": "390",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4311502",
+    "municipality": "Lavras do Sul"
   },
   {
     "code": "B851",
@@ -5287,7 +6343,9 @@
     "lon": -56.1786111,
     "altitude": "95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4311718",
+    "municipality": "Maçambará"
   },
   {
     "code": "B813",
@@ -5296,8 +6354,10 @@
     "lat": -30.12444443,
     "lon": -52.05083333,
     "altitude": "54",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4312252",
+    "municipality": "Minas do Leão"
   },
   {
     "code": "B814",
@@ -5307,7 +6367,9 @@
     "lon": -51.4361111,
     "altitude": "15",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4312401",
+    "municipality": "Montenegro"
   },
   {
     "code": "B862",
@@ -5317,7 +6379,9 @@
     "lon": -50.41999999,
     "altitude": "20",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4312500",
+    "municipality": "Mostardas"
   },
   {
     "code": "B859",
@@ -5327,7 +6391,9 @@
     "lon": -51.86527777,
     "altitude": "197",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4312609",
+    "municipality": "Muçum"
   },
   {
     "code": "B846",
@@ -5337,7 +6403,9 @@
     "lon": -52.77805554,
     "altitude": "546",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4312708",
+    "municipality": "Nonoai"
   },
   {
     "code": "B836",
@@ -5347,7 +6415,9 @@
     "lon": -50.50916666,
     "altitude": "4",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4313656",
+    "municipality": "Palmares do Sul"
   },
   {
     "code": "A856",
@@ -5357,7 +6427,9 @@
     "lon": -53.31805554,
     "altitude": "614.11",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4313706",
+    "municipality": "Palmeira das Missões"
   },
   {
     "code": "B810",
@@ -5366,8 +6438,10 @@
     "lat": -30.09666666,
     "lon": -51.67388888,
     "altitude": "50",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "4306767",
+    "municipality": "Eldorado do Sul"
   },
   {
     "code": "A839",
@@ -5377,7 +6451,9 @@
     "lon": -52.40361111,
     "altitude": "680.67",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4314100",
+    "municipality": "Passo Fundo"
   },
   {
     "code": "B823",
@@ -5386,8 +6462,10 @@
     "lat": -31.57472221,
     "lon": -53.38833333,
     "altitude": "419",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4314506",
+    "municipality": "Pinheiro Machado"
   },
   {
     "code": "B825",
@@ -5397,7 +6475,9 @@
     "lon": -51.17833332,
     "altitude": "3.3",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4314902",
+    "municipality": "Porto Alegre"
   },
   {
     "code": "A801",
@@ -5407,7 +6487,9 @@
     "lon": -51.17472221,
     "altitude": "41.18",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4314902",
+    "municipality": "Porto Alegre"
   },
   {
     "code": "B837",
@@ -5417,7 +6499,9 @@
     "lon": -55.16722221,
     "altitude": "0",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4315107",
+    "municipality": "Porto Xavier"
   },
   {
     "code": "A831",
@@ -5427,7 +6511,9 @@
     "lon": -56.43722221,
     "altitude": "103",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4315305",
+    "municipality": "Quaraí"
   },
   {
     "code": "B860",
@@ -5437,7 +6523,9 @@
     "lon": -52.05277777,
     "altitude": "301",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4315453",
+    "municipality": "Relvado"
   },
   {
     "code": "A802",
@@ -5447,7 +6535,9 @@
     "lon": -52.16777777,
     "altitude": "4.92",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4315602",
+    "municipality": "Rio Grande"
   },
   {
     "code": "A813",
@@ -5457,7 +6547,9 @@
     "lon": -52.38194443,
     "altitude": "106.99",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4315701",
+    "municipality": "Rio Pardo"
   },
   {
     "code": "B819",
@@ -5467,7 +6559,9 @@
     "lon": -50.61805554,
     "altitude": "69",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4316006",
+    "municipality": "Rolante"
   },
   {
     "code": "B855",
@@ -5477,7 +6571,9 @@
     "lon": -54.90222222,
     "altitude": "115",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4316402",
+    "municipality": "Rosário do Sul"
   },
   {
     "code": "B838",
@@ -5487,7 +6583,9 @@
     "lon": -53.2125,
     "altitude": "322",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4316451",
+    "municipality": "Salto do Jacuí"
   },
   {
     "code": "A803",
@@ -5497,7 +6595,9 @@
     "lon": -53.72055554,
     "altitude": "105",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4316907",
+    "municipality": "Santa Maria"
   },
   {
     "code": "B816",
@@ -5507,7 +6607,9 @@
     "lon": -51.01333333,
     "altitude": "650",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4316956",
+    "municipality": "Santa Maria do Herval"
   },
   {
     "code": "A810",
@@ -5517,7 +6619,9 @@
     "lon": -54.45222222,
     "altitude": "329",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317202",
+    "municipality": "Santa Rosa"
   },
   {
     "code": "B830",
@@ -5527,7 +6631,9 @@
     "lon": -53.35027777,
     "altitude": "29",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317301",
+    "municipality": "Santa Vitória do Palmar"
   },
   {
     "code": "B829",
@@ -5537,7 +6643,9 @@
     "lon": -52.6436111,
     "altitude": "2",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317301",
+    "municipality": "Santa Vitória do Palmar"
   },
   {
     "code": "A899",
@@ -5547,7 +6655,9 @@
     "lon": -53.37222221,
     "altitude": "7.41",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317301",
+    "municipality": "Santa Vitória do Palmar"
   },
   {
     "code": "B821",
@@ -5557,7 +6667,9 @@
     "lon": -53.15555555,
     "altitude": "138",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317004",
+    "municipality": "Santana da Boa Vista"
   },
   {
     "code": "A804",
@@ -5567,7 +6679,9 @@
     "lon": -55.40138888,
     "altitude": "196",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317103",
+    "municipality": "Sant'Ana do Livramento"
   },
   {
     "code": "A833",
@@ -5577,7 +6691,9 @@
     "lon": -54.88555555,
     "altitude": "390.03",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317400",
+    "municipality": "Santiago"
   },
   {
     "code": "B844",
@@ -5587,7 +6703,9 @@
     "lon": -54.27388888,
     "altitude": "270",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317509",
+    "municipality": "Santo Ângelo"
   },
   {
     "code": "B839",
@@ -5597,7 +6715,9 @@
     "lon": -50.53333333,
     "altitude": "47",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317608",
+    "municipality": "Santo Antônio da Patrulha"
   },
   {
     "code": "A805",
@@ -5607,7 +6727,9 @@
     "lon": -53.7911111,
     "altitude": "489.67",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4317806",
+    "municipality": "Santo Augusto"
   },
   {
     "code": "A830",
@@ -5617,7 +6739,9 @@
     "lon": -56.01638888,
     "altitude": "79",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318002",
+    "municipality": "São Borja"
   },
   {
     "code": "B820",
@@ -5627,7 +6751,9 @@
     "lon": -50.56027777,
     "altitude": "886",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318200",
+    "municipality": "São Francisco de Paula"
   },
   {
     "code": "A832",
@@ -5637,7 +6763,9 @@
     "lon": -54.31083333,
     "altitude": "114.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318309",
+    "municipality": "São Gabriel"
   },
   {
     "code": "B861",
@@ -5647,7 +6775,9 @@
     "lon": -51.58666666,
     "altitude": "803",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318606",
+    "municipality": "São José do Ouro"
   },
   {
     "code": "A829",
@@ -5657,7 +6787,9 @@
     "lon": -50.05777777,
     "altitude": "1228.59",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318622",
+    "municipality": "São José dos Ausentes"
   },
   {
     "code": "B831",
@@ -5667,7 +6799,9 @@
     "lon": -52.01083333,
     "altitude": "3",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318804",
+    "municipality": "São Lourenço do Sul"
   },
   {
     "code": "A852",
@@ -5677,7 +6811,9 @@
     "lon": -54.9625,
     "altitude": "245.5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4318903",
+    "municipality": "São Luiz Gonzaga"
   },
   {
     "code": "A889",
@@ -5687,7 +6823,9 @@
     "lon": -54.69444444,
     "altitude": "134",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4319802",
+    "municipality": "São Vicente do Sul"
   },
   {
     "code": "B809",
@@ -5697,7 +6835,9 @@
     "lon": -51.15666666,
     "altitude": "23",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4320008",
+    "municipality": "Sapucaia do Sul"
   },
   {
     "code": "A894",
@@ -5706,8 +6846,10 @@
     "lat": -28.70472222,
     "lon": -51.87083332,
     "altitude": "485.29",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4320404",
+    "municipality": "Serafina Corrêa"
   },
   {
     "code": "B811",
@@ -5717,7 +6859,9 @@
     "lon": -51.66333333,
     "altitude": "116",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4320552",
+    "municipality": "Sertão Santana"
   },
   {
     "code": "B840",
@@ -5727,7 +6871,9 @@
     "lon": -53.01361111,
     "altitude": "379",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4320701",
+    "municipality": "Sobradinho"
   },
   {
     "code": "A837",
@@ -5737,7 +6883,9 @@
     "lon": -52.54249999,
     "altitude": "660.44",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4320800",
+    "municipality": "Soledade"
   },
   {
     "code": "B815",
@@ -5747,7 +6895,9 @@
     "lon": -51.82749999,
     "altitude": "53",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4321303",
+    "municipality": "Taquari"
   },
   {
     "code": "A878",
@@ -5757,7 +6907,9 @@
     "lon": -50.90638888,
     "altitude": "3.82",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4321352",
+    "municipality": "Tavares"
   },
   {
     "code": "A882",
@@ -5767,7 +6919,9 @@
     "lon": -51.82333332,
     "altitude": "81",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4321451",
+    "municipality": "Teutônia"
   },
   {
     "code": "B841",
@@ -5777,7 +6931,9 @@
     "lon": -49.80361111,
     "altitude": "0",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4321501",
+    "municipality": "Torres"
   },
   {
     "code": "A834",
@@ -5787,7 +6943,9 @@
     "lon": -50.13583333,
     "altitude": "4.56",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4321600",
+    "municipality": "Tramandaí"
   },
   {
     "code": "A886",
@@ -5797,7 +6955,9 @@
     "lon": -53.82666666,
     "altitude": "462",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4322202",
+    "municipality": "Tupanciretã"
   },
   {
     "code": "A809",
@@ -5807,7 +6967,9 @@
     "lon": -57.08194443,
     "altitude": "74.29",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4322400",
+    "municipality": "Uruguaiana"
   },
   {
     "code": "A880",
@@ -5817,7 +6979,9 @@
     "lon": -50.88277777,
     "altitude": "969.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4322509",
+    "municipality": "Vacaria"
   },
   {
     "code": "B824",
@@ -5827,7 +6991,9 @@
     "lon": -50.92916666,
     "altitude": "65",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4323002",
+    "municipality": "Viamão"
   },
   {
     "code": "A867",
@@ -5837,7 +7003,9 @@
     "lon": -49.49805555,
     "altitude": "2",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4201406",
+    "municipality": "Araranguá"
   },
   {
     "code": "A845",
@@ -5846,8 +7014,10 @@
     "lat": -28.12694443,
     "lon": -49.47972221,
     "altitude": "1790.38",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4211702",
+    "municipality": "Orleans"
   },
   {
     "code": "A859",
@@ -5857,7 +7027,9 @@
     "lon": -50.98555555,
     "altitude": "944.26",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4203006",
+    "municipality": "Caçador"
   },
   {
     "code": "A898",
@@ -5867,7 +7039,9 @@
     "lon": -51.21583333,
     "altitude": "963",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4203600",
+    "municipality": "Campos Novos"
   },
   {
     "code": "A895",
@@ -5877,7 +7051,9 @@
     "lon": -52.63583333,
     "altitude": "679",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4204202",
+    "municipality": "Chapecó"
   },
   {
     "code": "A860",
@@ -5887,7 +7063,9 @@
     "lon": -50.60416666,
     "altitude": "978.1",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4204806",
+    "municipality": "Curitibanos"
   },
   {
     "code": "A848",
@@ -5897,7 +7075,9 @@
     "lon": -53.633114,
     "altitude": "807.54",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4205001",
+    "municipality": "Dionísio Cerqueira"
   },
   {
     "code": "A806",
@@ -5906,8 +7086,10 @@
     "lat": -27.6025,
     "lon": -48.61999999,
     "altitude": "4.87",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4216602",
+    "municipality": "São José"
   },
   {
     "code": "A817",
@@ -5917,7 +7099,9 @@
     "lon": -49.26805554,
     "altitude": "72.24",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4207502",
+    "municipality": "Indaial"
   },
   {
     "code": "A868",
@@ -5927,7 +7111,9 @@
     "lon": -48.76194444,
     "altitude": "9.76",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4208203",
+    "municipality": "Itajaí"
   },
   {
     "code": "A851",
@@ -5937,7 +7123,9 @@
     "lon": -48.64166666,
     "altitude": "6.18",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4208450",
+    "municipality": "Itapoá"
   },
   {
     "code": "A863",
@@ -5947,7 +7135,9 @@
     "lon": -49.64694444,
     "altitude": "479.79",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4208500",
+    "municipality": "Ituporanga"
   },
   {
     "code": "A841",
@@ -5956,8 +7146,10 @@
     "lat": -27.16916666,
     "lon": -51.55888888,
     "altitude": "767.63",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4209003",
+    "municipality": "Joaçaba"
   },
   {
     "code": "A865",
@@ -5967,7 +7159,9 @@
     "lon": -50.33555555,
     "altitude": "952.7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4209300",
+    "municipality": "Lages"
   },
   {
     "code": "A864",
@@ -5977,7 +7171,9 @@
     "lon": -50.36333333,
     "altitude": "799.58",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4210308",
+    "municipality": "Major Vieira"
   },
   {
     "code": "A816",
@@ -5987,7 +7183,9 @@
     "lon": -52.85027777,
     "altitude": "943.57",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4211652",
+    "municipality": "Novo Horizonte"
   },
   {
     "code": "A870",
@@ -5997,7 +7195,9 @@
     "lon": -49.04194444,
     "altitude": "881",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4214300",
+    "municipality": "Rancho Queimado"
   },
   {
     "code": "A861",
@@ -6007,7 +7207,9 @@
     "lon": -50.14555555,
     "altitude": "591.67",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4214508",
+    "municipality": "Rio do Campo"
   },
   {
     "code": "A862",
@@ -6017,7 +7219,9 @@
     "lon": -49.57416666,
     "altitude": "856",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4215000",
+    "municipality": "Rio Negrinho"
   },
   {
     "code": "A815",
@@ -6026,8 +7230,10 @@
     "lat": -28.27555554,
     "lon": -49.93472221,
     "altitude": "1400.06",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4216503",
+    "municipality": "São Joaquim"
   },
   {
     "code": "A857",
@@ -6037,7 +7243,9 @@
     "lon": -53.51416666,
     "altitude": "647",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4217204",
+    "municipality": "São Miguel do Oeste"
   },
   {
     "code": "A814",
@@ -6046,8 +7254,10 @@
     "lat": -28.53249999,
     "lon": -49.31527777,
     "altitude": "40.56",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "4219002",
+    "municipality": "Urussanga"
   },
   {
     "code": "A858",
@@ -6057,7 +7267,9 @@
     "lon": -52.39805555,
     "altitude": "878.74",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "4219507",
+    "municipality": "Xanxerê"
   },
   {
     "code": "A409",
@@ -6067,7 +7279,9 @@
     "lon": -37.05444444,
     "altitude": "3.72",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2800308",
+    "municipality": "Aracaju"
   },
   {
     "code": "A421",
@@ -6077,7 +7291,9 @@
     "lon": -36.48194443,
     "altitude": "6.11",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2800704",
+    "municipality": "Brejo Grande"
   },
   {
     "code": "A451",
@@ -6087,7 +7303,9 @@
     "lon": -37.47138888,
     "altitude": "213",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2802908",
+    "municipality": "Itabaiana"
   },
   {
     "code": "A417",
@@ -6097,7 +7315,9 @@
     "lon": -37.79499999,
     "altitude": "204.8",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2803005",
+    "municipality": "Itabaianinha"
   },
   {
     "code": "A453",
@@ -6107,7 +7327,9 @@
     "lon": -37.43194443,
     "altitude": "271",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2804508",
+    "municipality": "Nossa Senhora da Glória"
   },
   {
     "code": "A419",
@@ -6117,7 +7339,9 @@
     "lon": -38.10833333,
     "altitude": "367.01",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "2805505",
+    "municipality": "Poço Verde"
   },
   {
     "code": "A736",
@@ -6127,7 +7351,9 @@
     "lon": -48.84055555,
     "altitude": "525.44",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3535101",
+    "municipality": "Palmares Paulista"
   },
   {
     "code": "A725",
@@ -6137,7 +7363,9 @@
     "lon": -48.9411111,
     "altitude": "776.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3504503",
+    "municipality": "Avaré"
   },
   {
     "code": "A741",
@@ -6147,7 +7375,9 @@
     "lon": -48.5575,
     "altitude": "533.68",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3505302",
+    "municipality": "Barra Bonita"
   },
   {
     "code": "A746",
@@ -6157,7 +7387,9 @@
     "lon": -48.41638888,
     "altitude": "659.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3505401",
+    "municipality": "Barra do Turvo"
   },
   {
     "code": "A748",
@@ -6167,7 +7399,9 @@
     "lon": -48.54499999,
     "altitude": "534.36",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3505500",
+    "municipality": "Barretos"
   },
   {
     "code": "A755",
@@ -6177,7 +7411,9 @@
     "lon": -46.86944443,
     "altitude": "776.5",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3505708",
+    "municipality": "Barueri"
   },
   {
     "code": "A705",
@@ -6187,7 +7423,9 @@
     "lon": -49.02888888,
     "altitude": "636.17",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3506003",
+    "municipality": "Bauru"
   },
   {
     "code": "A764",
@@ -6197,7 +7435,9 @@
     "lon": -48.47138888,
     "altitude": "542",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3506102",
+    "municipality": "Bebedouro"
   },
   {
     "code": "A765",
@@ -6207,7 +7447,9 @@
     "lon": -46.14333333,
     "altitude": "5",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3506359",
+    "municipality": "Bertioga"
   },
   {
     "code": "A744",
@@ -6217,7 +7459,9 @@
     "lon": -46.5261111,
     "altitude": "891",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3507605",
+    "municipality": "Bragança Paulista"
   },
   {
     "code": "A769",
@@ -6227,7 +7471,9 @@
     "lon": -45.00555555,
     "altitude": "586",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3508603",
+    "municipality": "Cachoeira Paulista"
   },
   {
     "code": "A706",
@@ -6237,7 +7483,9 @@
     "lon": -45.60388888,
     "altitude": "1662.95",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3509700",
+    "municipality": "Campos do Jordão"
   },
   {
     "code": "A738",
@@ -6247,7 +7495,9 @@
     "lon": -47.07527777,
     "altitude": "734.15",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3510807",
+    "municipality": "Casa Branca"
   },
   {
     "code": "A762",
@@ -6257,7 +7507,9 @@
     "lon": -51.55222222,
     "altitude": "383",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3514403",
+    "municipality": "Dracena"
   },
   {
     "code": "A708",
@@ -6267,7 +7519,9 @@
     "lon": -47.38249999,
     "altitude": "1002.74",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3516200",
+    "municipality": "Franca"
   },
   {
     "code": "A737",
@@ -6277,7 +7531,9 @@
     "lon": -48.79972221,
     "altitude": "496.75",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3519600",
+    "municipality": "Ibitinga"
   },
   {
     "code": "A712",
@@ -6287,7 +7543,9 @@
     "lon": -47.54583333,
     "altitude": "2.7",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3520301",
+    "municipality": "Iguape"
   },
   {
     "code": "A713",
@@ -6297,7 +7555,9 @@
     "lon": -47.58555555,
     "altitude": "609.33",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3521002",
+    "municipality": "Iperó"
   },
   {
     "code": "A714",
@@ -6307,7 +7567,9 @@
     "lon": -48.88583333,
     "altitude": "743.33",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3522406",
+    "municipality": "Itapeva"
   },
   {
     "code": "A739",
@@ -6317,7 +7579,9 @@
     "lon": -46.80527777,
     "altitude": "634.89",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3522604",
+    "municipality": "Itapira"
   },
   {
     "code": "A753",
@@ -6327,7 +7591,9 @@
     "lon": -47.77527777,
     "altitude": "610.58",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3524105",
+    "municipality": "Ituverava"
   },
   {
     "code": "A733",
@@ -6337,7 +7603,9 @@
     "lon": -50.59499999,
     "altitude": "460.44",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3524808",
+    "municipality": "Jales"
   },
   {
     "code": "A735",
@@ -6347,7 +7615,9 @@
     "lon": -49.92027777,
     "altitude": "408.35",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3525706",
+    "municipality": "José Bonifácio"
   },
   {
     "code": "A727",
@@ -6357,7 +7627,9 @@
     "lon": -49.73472221,
     "altitude": "460.65",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3527108",
+    "municipality": "Lins"
   },
   {
     "code": "A763",
@@ -6367,7 +7639,9 @@
     "lon": -49.965,
     "altitude": "660",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3529005",
+    "municipality": "Marília"
   },
   {
     "code": "A716",
@@ -6377,7 +7651,9 @@
     "lon": -49.84333333,
     "altitude": "500",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3534708",
+    "municipality": "Ourinhos"
   },
   {
     "code": "A726",
@@ -6387,7 +7663,9 @@
     "lon": -47.62333332,
     "altitude": "566.46",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3538709",
+    "municipality": "Piracicaba"
   },
   {
     "code": "A747",
@@ -6397,7 +7675,9 @@
     "lon": -48.11388888,
     "altitude": "544",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3540903",
+    "municipality": "Pradópolis"
   },
   {
     "code": "A707",
@@ -6407,7 +7687,9 @@
     "lon": -51.40861111,
     "altitude": "431.92",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3541406",
+    "municipality": "Presidente Prudente"
   },
   {
     "code": "A718",
@@ -6417,7 +7699,9 @@
     "lon": -50.97472221,
     "altitude": "398.75",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3542206",
+    "municipality": "Rancharia"
   },
   {
     "code": "A766",
@@ -6426,8 +7710,10 @@
     "lat": -24.53305554,
     "lon": -47.86416666,
     "altitude": "35",
-    "status": "Operante",
-    "type": "Automatica"
+    "status": "Pane",
+    "type": "Automatica",
+    "geocode": "3542602",
+    "municipality": "Registro"
   },
   {
     "code": "A711",
@@ -6437,7 +7723,9 @@
     "lon": -47.88388888,
     "altitude": "859.29",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3548906",
+    "municipality": "São Carlos"
   },
   {
     "code": "A740",
@@ -6447,7 +7735,9 @@
     "lon": -45.41694443,
     "altitude": "874",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3550001",
+    "municipality": "São Luiz do Paraitinga"
   },
   {
     "code": "A715",
@@ -6457,7 +7747,9 @@
     "lon": -47.99916666,
     "altitude": "710",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3550209",
+    "municipality": "São Miguel Arcanjo"
   },
   {
     "code": "A771",
@@ -6467,7 +7759,9 @@
     "lon": -46.67749999,
     "altitude": "771",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3550308",
+    "municipality": "São Paulo"
   },
   {
     "code": "A701",
@@ -6477,7 +7771,9 @@
     "lon": -46.6200666,
     "altitude": "785.64",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3550308",
+    "municipality": "São Paulo"
   },
   {
     "code": "A770",
@@ -6487,7 +7783,9 @@
     "lon": -47.57944443,
     "altitude": "620",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3550902",
+    "municipality": "São Simão"
   },
   {
     "code": "A728",
@@ -6497,7 +7795,9 @@
     "lon": -45.52083332,
     "altitude": "582.26",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3554102",
+    "municipality": "Taubaté"
   },
   {
     "code": "A768",
@@ -6507,7 +7807,9 @@
     "lon": -50.49027777,
     "altitude": "498",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3555000",
+    "municipality": "Tupã"
   },
   {
     "code": "A734",
@@ -6517,7 +7819,9 @@
     "lon": -50.93027777,
     "altitude": "381.9",
     "status": "Pane",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "3506201",
+    "municipality": "Bento de Abreu"
   },
   {
     "code": "A053",
@@ -6527,7 +7831,9 @@
     "lon": -47.21222222,
     "altitude": "503",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1700400",
+    "municipality": "Almas"
   },
   {
     "code": "A054",
@@ -6537,7 +7843,9 @@
     "lon": -49.5286111,
     "altitude": "231",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1702000",
+    "municipality": "Araguaçu"
   },
   {
     "code": "A021",
@@ -6547,7 +7855,9 @@
     "lon": -48.20111111,
     "altitude": "230.76",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1702109",
+    "municipality": "Araguaína"
   },
   {
     "code": "A044",
@@ -6557,7 +7867,9 @@
     "lon": -48.11194444,
     "altitude": "130.71",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1702208",
+    "municipality": "Araguatins"
   },
   {
     "code": "A043",
@@ -6567,7 +7879,9 @@
     "lon": -46.63944444,
     "altitude": "426.56",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1703842",
+    "municipality": "Campos Lindos"
   },
   {
     "code": "A049",
@@ -6577,7 +7891,9 @@
     "lon": -48.4786111,
     "altitude": "200",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1705508",
+    "municipality": "Colinas do Tocantins"
   },
   {
     "code": "A038",
@@ -6587,7 +7903,9 @@
     "lon": -46.84722221,
     "altitude": "727.87",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1707009",
+    "municipality": "Dianópolis"
   },
   {
     "code": "A039",
@@ -6597,7 +7915,9 @@
     "lon": -49.60833333,
     "altitude": "215.2",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1708205",
+    "municipality": "Formoso do Araguaia"
   },
   {
     "code": "A019",
@@ -6607,7 +7927,9 @@
     "lon": -49.05166666,
     "altitude": "274",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1709500",
+    "municipality": "Gurupi"
   },
   {
     "code": "A055",
@@ -6617,7 +7939,9 @@
     "lon": -49.847882,
     "altitude": "178",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1711902",
+    "municipality": "Lagoa da Confusão"
   },
   {
     "code": "A041",
@@ -6627,7 +7951,9 @@
     "lon": -49.72333332,
     "altitude": "186.69",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1703909",
+    "municipality": "Caseara"
   },
   {
     "code": "A040",
@@ -6637,7 +7963,9 @@
     "lon": -45.92194443,
     "altitude": "791",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1712702",
+    "municipality": "Mateiros"
   },
   {
     "code": "A009",
@@ -6647,7 +7975,9 @@
     "lon": -48.31444444,
     "altitude": "267",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1721000",
+    "municipality": "Palmas"
   },
   {
     "code": "A010",
@@ -6657,7 +7987,9 @@
     "lon": -47.87194443,
     "altitude": "284.96",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1716208",
+    "municipality": "Paranã"
   },
   {
     "code": "A020",
@@ -6667,7 +7999,9 @@
     "lon": -48.17722221,
     "altitude": "189.71",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1716505",
+    "municipality": "Pedro Afonso"
   },
   {
     "code": "A018",
@@ -6677,7 +8011,9 @@
     "lon": -48.54444444,
     "altitude": "250.87",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1716604",
+    "municipality": "Peixe"
   },
   {
     "code": "A051",
@@ -6686,8 +8022,10 @@
     "lat": -10.47694443,
     "lon": -49.62944443,
     "altitude": "161",
-    "status": "Pane",
-    "type": "Automatica"
+    "status": "Operante",
+    "type": "Automatica",
+    "geocode": "1717503",
+    "municipality": "Pium"
   },
   {
     "code": "A050",
@@ -6697,7 +8035,9 @@
     "lon": -47.13277777,
     "altitude": "291",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1718758",
+    "municipality": "Rio Sono"
   },
   {
     "code": "A048",
@@ -6707,7 +8047,9 @@
     "lon": -48.78138888,
     "altitude": "171",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1718865",
+    "municipality": "Santa Fé do Araguaia"
   },
   {
     "code": "A052",
@@ -6717,6 +8059,8 @@
     "lon": -48.18499999,
     "altitude": "306",
     "status": "Operante",
-    "type": "Automatica"
+    "type": "Automatica",
+    "geocode": "1718907",
+    "municipality": "Santa Rosa do Tocantins"
   }
 ]

@@ -1,4 +1,4 @@
-# ⛅ MyWeatherNow • Argon Pro v4.0
+# ⛅ MyWeatherNow • Argon Pro v4.1
 
 [![Live Demo](https://img.shields.io/badge/Demo-GitHub%20Pages-38bdf8?style=for-the-badge&logo=github&logoColor=white)](https://vieiramesquita.github.io/MyWeatherNowBR/)
 [![Deploy Status](https://img.shields.io/github/actions/workflow/status/vieiramesquita/MyWeatherNowBR/deploy.yml?branch=main&style=for-the-badge&label=GitHub%20Pages)](https://github.com/vieiramesquita/MyWeatherNowBR/actions)
@@ -8,13 +8,17 @@
 
 ---
 
-Dashboard meteorológico, agrometeorológico e de sensoriamento remoto orbital em tempo real que integra todas as **672 estações automáticas do INMET**, modelos numéricos e atmosféricos da **Open-Meteo & CAMS**, malhas cartográficas do **IBGE** e o estúdio temporal geoestacionário do satélite **GOES-19 (ABI Full Disk / NOAA STAR)**.
+Dashboard meteorológico, agrometeorológico e de sensoriamento remoto orbital em tempo real que **prioriza os dados medidos em solo pelas 672 estações meteorológicas automáticas do INMET**, complementados por modelos numéricos e atmosféricos da **Open-Meteo & CAMS**, malhas cartográficas do **IBGE** e o estúdio temporal geoestacionário do satélite **GOES-19 (ABI Full Disk / NOAA STAR)**.
 
-Projetado com **arquitetura híbrida 100% funcional no GitHub Pages** (sem exigir servidor backend para gráficos de 24h, busca nacional, projeção vetorial ou exportação de GIF/PNG/CSV) e também compatível com execução local via **FastAPI (Python)**.
+Projetado com **arquitetura híbrida 100% funcional no GitHub Pages** (consulta direta CORS à telemetria oficial das estações INMET via geocódigo IBGE, gráficos de 24h, busca nacional com status operacional ao vivo e exportação de GIF/PNG/CSV) e também compatível com execução local via **FastAPI (Python)**.
 
 ---
 
-## 🚀 Principais Recursos (Edição Argon Pro v4.0)
+## 🚀 Principais Recursos (Edição Argon Pro v4.1)
+
+### 0. 📡 Prioridade Absoluta às Estações Meteorológicas Físicas (INMET Solo)
+- **Telemetria Oficial Direta no Navegador:** Todas as **672 estações INMET** estão geocodificadas com código municipal oficial do IBGE (`7 dígitos`), permitindo consulta direta e em tempo real aos sensores físicos do INMET (`apiprevmet3.inmet.gov.br` + `apitempo.inmet.gov.br`) diretamente no GitHub Pages, além de histórico físico local de 24h.
+- **Hierarquia Sensor Solo > Modelo Numérico:** Os cartões de superfície, gráficos/tabela de 24h, microclima agrometeorológico (`VPD`, janela de pulverização) e alertas priorizam sempre os sensores físicos da estação meteorológica; o modelo numérico (`Open-Meteo`) atua apenas como previsão futura, complemento de ar superior (`CAPE`, `UV`, `AQI`) ou contingência transparente caso uma estação esteja em manutenção (`Pane`), oferecendo atalho de 1 clique para a estação física operante mais próxima.
 
 ### 1. ⚡ Inteligência Atmosférica, Qualidade do Ar, Agrometeorologia & Arco Solar
 - **Convecção & Perfil Vertical de Nuvens:** Monitoramento em tempo real da energia convectiva disponível (**CAPE** em `J/kg`), visibilidade horizontal (`km`) e cobertura nebulosa estratificada em **3 níveis atmosféricos** (Altas `>6 km`, Médias `2–6 km` e Baixas `<2 km`).

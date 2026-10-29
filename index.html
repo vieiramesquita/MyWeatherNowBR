@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="static/styles.css?v=4.0.0">
+  <link rel="stylesheet" href="static/styles.css?v=4.1.0">
 </head>
 <body class="theme-dark">
   <div class="app-background">
@@ -41,10 +41,10 @@
             <h1>MyWeatherNow <span class="badge-pro">LIVE</span></h1>
             <span class="status-indicator live-pulse">
               <span class="pulse-dot"></span>
-              <span class="pulse-text" id="headerPulseStatus">OPEN-METEO TEMPO REAL</span>
+              <span class="pulse-text" id="headerPulseStatus">ESTAÇÃO INMET ATIVA</span>
             </span>
           </div>
-          <p class="brand-subtitle">672 Estações INMET • Inteligência Atmosférica &amp; Agrometeo • Satélite GOES-19 (Full Disk)</p>
+          <p class="brand-subtitle">Prioridade Estações Físicas INMET (672) • Inteligência Atmosférica &amp; Agrometeo • Satélite GOES-19</p>
         </div>
       </div>
 
@@ -162,24 +162,27 @@
           </div>
         </div>
 
-        <!-- Source Selector Toggle Bar -->
+        <!-- Source Selector Toggle Bar (Ground Station Priority) -->
         <div class="station-source-toggle-bar">
           <div class="source-toggle-left">
-            <span class="source-toggle-label">Fonte dos Dados Atuais:</span>
+            <span class="source-toggle-label">Fonte Prioritária de Superfície:</span>
             <div class="source-toggle-group">
-              <button id="btnSourceOpenMeteo" class="btn-source active" title="Exibir dados atuais em tempo real via Open-Meteo">
-                <span class="pulse-dot-green"></span>
-                <span>Open-Meteo (Tempo Real)</span>
+              <button id="btnSourceInmet" class="btn-source active" title="Priorizar telemetria física medida pelos sensores de solo da estação meteorológica INMET">
+                <span class="pulse-dot-cyan"></span>
+                <span>📡 Estação INMET (Solo)</span>
               </button>
-              <button id="btnSourceInmet" class="btn-source" title="Exibir última telemetria física registrada pela estação INMET">
-                <span class="status-dot-blue"></span>
-                <span>INMET Solo</span>
+              <button id="btnSourceOpenMeteo" class="btn-source" title="Alternar para estimativa de grade do modelo numérico Open-Meteo">
+                <span class="status-dot-green"></span>
+                <span>Open-Meteo (Modelo)</span>
               </button>
             </div>
           </div>
-          <div class="source-status-note" id="sourceStatusNote">
-            <span class="note-pill om">⚡ Open-Meteo Ativo</span>
-            <span class="note-text">Telemetria em tempo real sincronizada</span>
+          <div class="source-status-right">
+            <div class="source-status-note" id="sourceStatusNote">
+              <span class="note-pill inmet">📡 Estação INMET Ativa</span>
+              <span class="note-text">Priorizando leitura oficial dos sensores em solo</span>
+            </div>
+            <button id="btnJumpNearestActive" class="btn-jump-nearest" style="display: none;" title="Alternar para a estação meteorológica física INMET operante mais próxima"></button>
           </div>
         </div>
 
@@ -331,22 +334,22 @@
               <span class="metric-title">Bateria do Datalogger</span>
             </div>
             <div class="metric-value-row">
-              <span class="metric-val" id="batteryVoltage">12.8</span><span class="metric-unit">V</span>
+              <span class="metric-val" id="batteryVoltage">12.8</span><span class="metric-unit" id="batteryUnit">V</span>
             </div>
-            <div class="battery-status-tag tag-good">Alimentação Solar OK</div>
+            <div class="battery-status-tag tag-good" id="batteryStatusTag">Alimentação Solar OK</div>
           </div>
 
           <!-- Card 8: Status Operacional -->
           <div class="metric-card">
             <div class="metric-header">
               <span class="metric-icon">📡</span>
-              <span class="metric-title">Transmissão Satelital</span>
+              <span class="metric-title">Transmissão da Estação</span>
             </div>
             <div class="transmission-status">
-              <div class="dot-online"></div>
-              <span>Transmissão GOES/SCD Operante</span>
+              <div class="dot-online" id="stationStatusDot"></div>
+              <span id="stationStatusText">Transmissão GOES/SCD Operante</span>
             </div>
-            <div class="metric-sub">Atualização automática: a cada 60 min</div>
+            <div class="metric-sub" id="stationStatusSub">Telemetria física oficial INMET</div>
           </div>
         </div>
       </div>
@@ -458,7 +461,7 @@
               <span class="intel-emoji">🌱</span>
               <div>
                 <h4>Agrometeorologia</h4>
-                <span class="intel-sub">Demanda FAO-56 (ET₀) &amp; Pulverização</span>
+                <span class="intel-sub" id="agroSourceSub">Microclima: Sensor INMET Solo &amp; FAO-56</span>
               </div>
             </div>
             <span class="intel-status-pill pill-emerald" id="agroSprayBadge">Ideal</span>
@@ -949,7 +952,7 @@
             <div>
               <div class="analytics-title-row">
                 <h3>Histórico das Últimas 24 Horas</h3>
-                <span class="tag-pill tag-cyan" id="analyticsSourceBadge">🌐 Série Real 24h</span>
+                <span class="tag-pill tag-green" id="analyticsSourceBadge">📡 Sensor Físico INMET</span>
               </div>
               <p class="section-subtitle">Visualização analítica de precipitação, temperaturas, rosa dos ventos, radiação, pressão e VPD</p>
             </div>
@@ -1159,6 +1162,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="static/app.js?v=4.0.0"></script>
+  <script src="static/app.js?v=4.1.0"></script>
 </body>
 </html>
