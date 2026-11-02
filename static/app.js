@@ -672,7 +672,7 @@ class MeteoApp {
       data = await this.fetchLiveInmetBrowser(codeUpper, stMeta, staticData);
     }
 
-    // If station is completely without physical telemetry in the last 48h, locate nearest operational INMET station
+    // If station is without physical telemetry in the last 1h30min, locate nearest operational INMET station
     if ((!data || !this.hasValidStationReading(data?.latest) || !this.isStationOperante(data?.latest)) && !this.nearestLiveInmet) {
       const altNear = this.findNearestOperanteNeighbor(codeUpper, parseFloat(stMeta.lat), parseFloat(stMeta.lon));
       if (altNear) {
@@ -779,8 +779,9 @@ class MeteoApp {
         const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
         if (!isNaN(diffHours)) {
           latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
-          // Estação operante com sinal: possui telemetria válida nas últimas 48 horas
-          return diffHours <= 48.0 && diffHours >= -2.0;
+          // Tolerância estrita de sinal: estação considerada com sinal apenas se recebeu dados nas últimas 1h30min (1.5h).
+          // Se estiver sem dados há mais de 1h30min, é classificada como 'Sem Sinal'.
+          return diffHours <= 1.5 && diffHours >= -2.0;
         }
       }
     } catch (e) {}
@@ -798,8 +799,8 @@ class MeteoApp {
         const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
         if (!isNaN(diffHours)) {
           latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
-          // Coleta horária operacional: até 2.5h a 3.0h é considerado ciclo recente em tempo real
-          return diffHours <= 3.0 && diffHours >= -2.0;
+          // Ciclo de tempo real estrito (coleta recente da hora corrente, até 1h10min / 1.1h)
+          return diffHours <= 1.1 && diffHours >= -2.0;
         }
       }
     } catch (e) {}
@@ -846,12 +847,12 @@ class MeteoApp {
     if (btnInmet) {
       if (!hasPhysicalInmet) {
         btnInmet.innerHTML = `<span class="status-dot-amber"></span><span>📡 Estação INMET (Sem Sinal)</span>`;
-        btnInmet.title = "Transmissor físico desta estação encontra-se em manutenção ou sem pacote recente no INMET.";
+        btnInmet.title = "Estação física sem transmissão há mais de 1h30min no INMET.";
       } else if (!hasFreshGround) {
         const hrs = stalenessHours ? Math.max(1, Math.round(stalenessHours)) : null;
-        const staleLabel = hrs ? (hrs >= 24 ? `${Math.round(hrs / 24)}d atrás` : `${hrs}h atrás`) : "Última Leitura";
+        const staleLabel = hrs ? `${hrs}h atrás` : "1h atrás";
         btnInmet.innerHTML = `<span class="status-dot-blue"></span><span>📡 Estação INMET (${staleLabel})</span>`;
-        btnInmet.title = "Exibindo prioritariamente a última medição física registrada pela estação INMET.";
+        btnInmet.title = "Exibindo medição física registrada na última hora pela estação INMET.";
       } else {
         btnInmet.innerHTML = `<span class="pulse-dot-cyan"></span><span>📡 Estação INMET (Tempo Real)</span>`;
         btnInmet.title = "Prioridade ativa: telemetria oficial em tempo real medida pelos sensores de solo do INMET.";
@@ -1196,7 +1197,7 @@ class MeteoApp {
       const nearMsg = this.nearestLiveInmet
         ? ` Sugestão: alterne para a estação física ativa ${this.nearestLiveInmet.code} (${this.nearestLiveInmet.name}).`
         : "";
-      this.showToast(`A estação ${this.currentStationCode} está sem transmissão física ativa no INMET neste momento.${nearMsg}`, "warn", 4600);
+      this.showToast(`A estação ${this.currentStationCode} está sem sinal no INMET (sem dados há mais de 1h30min).${nearMsg}`, "warn", 4600);
       return;
     }
     this.currentSource = source;

@@ -254,7 +254,7 @@ class InmetService:
             reading_dt = datetime(int(y), int(m), int(d), int(h), int(mi), tzinfo=timezone.utc)
             diff_sec = (now_utc - reading_dt).total_seconds()
             staleness_hours = max(0.0, round(diff_sec / 3600.0, 1))
-            has_current_data = staleness_hours <= 2.5
+            has_current_data = staleness_hours <= 1.5
         except Exception:
             pass
 

@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-11-02 15:50 BRT`
-- **Resumo de registros:** `6` regras • `7` decisões • `7` pontos-chave • `9` marcos
+- **Última sincronização:** `2026-11-02 16:08 BRT`
+- **Resumo de registros:** `6` regras • `7` decisões • `7` pontos-chave • `10` marcos
 
 ---
 
@@ -36,9 +36,9 @@
   - **Arquivos relacionados:** [`static/styles.css`](static/styles.css), [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
 <!-- ENTRY:idioma-fluxo-git-ambiente:END -->
 <!-- ENTRY:inmet-hourly-telemetry-tolerance:START -->
-- **Tolerancia de Telemetria Horaria INMET: Estacao com Atraso NAO e Estacao Sem Sinal** (`#inmet-hourly-telemetry-tolerance`)
-  - Estacoes automaticas (EMA) coletam dados de hora em hora e possuem latencia normal de ingestao e transmissao (1h a 3h). O aplicativo NUNCA deve descartar os dados fisicos da estacao nem classifica-la como 'Sem Sinal' por conta de atraso horario. A telemetria fisica real deve ser sempre exibida e priorizada com o rotulo de idade ('Ultima Leitura as XXh'), reservando o estado 'Sem Sinal' (>48h) e a contingencia pura apenas para estacoes com mais de 48 horas de silencio absoluto.
-  - **Arquivos relacionados:** [`static/app.js`](static/app.js)
+- **Tolerância de Telemetria INMET: Limiar Estrito de 1h30min para 'Sem Sinal'** (`#inmet-hourly-telemetry-tolerance`)
+  - Estações automáticas (EMA) coletam dados de hora em hora. Uma estação só deve ser considerada com sinal ativo (operante) se sua última telemetria válida tiver sido registrada há no máximo 1h30min (diffHours <= 1.5). Caso a estação fique sem novos dados por mais de 1h30min (diffHours > 1.5), ela é estritamente classificada como 'Sem Sinal', ativando a contingência automática do modelo Open-Meteo com a tag visual âmbar '📡 Estação INMET (Sem Sinal)'.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py)
 <!-- ENTRY:inmet-hourly-telemetry-tolerance:END -->
 <!-- SECTION:RULES:END -->
 
@@ -174,4 +174,8 @@
 - **`[2026-11-02]` Motor de Tiles Nativos Cloudflare Worker no Frontend e Modal de Configuracao (v4.3.0)** — Implementado modal de configuracao do Worker, indicador de status ativo no HUD, renderizacao no canvas High-DPI com sobreposicao vetorial 1px e fallback transparente para NOAA STAR direto.
   - **Arquivos relacionados:** [`index.html`](index.html), [`static/index.html`](static/index.html), [`static/app.js`](static/app.js), [`static/styles.css`](static/styles.css), [`cloudflare-worker/`](cloudflare-worker/)
 <!-- ENTRY:native-tiles-worker-engine-v4-3-0:END -->
+<!-- ENTRY:ms-inmet-sem-sinal-1h30min:START -->
+- **`[2026-11-02]` Calibração Estrita do Limiar 'Sem Sinal' do INMET para 1h30min (v4.3.1)** — Ajustado o limiar de telemetria das estações INMET para 1h30min (1.5 horas). Leituras com atraso de até 1h10min são classificadas como tempo real estrito, de 1h10min a 1h30min mantêm sinal ativo com indicação de idade, e medições com atraso superior a 1h30min acionam imediatamente o status 'Sem Sinal' e o fallback para Open-Meteo.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py), [`index.html`](index.html), [`static/index.html`](static/index.html)
+<!-- ENTRY:ms-inmet-sem-sinal-1h30min:END -->
 <!-- SECTION:MILESTONES:END -->
