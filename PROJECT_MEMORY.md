@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-11-02 12:30 BRT`
-- **Resumo de registros:** `5` regras • `6` decisões • `6` pontos-chave • `8` marcos
+- **Última sincronização:** `2026-11-02 12:55 BRT`
+- **Resumo de registros:** `5` regras • `7` decisões • `7` pontos-chave • `9` marcos
 
 ---
 
@@ -77,6 +77,12 @@
 - Substituído o carregamento forçado de imagens Full Disk de 5424x5424 (~10 MB por quadro, que consumia 80 MB a 120 MB de banda no Hiper Local) pelo Modo Turbo Leve com resolução padrão 678x678 (~120 KB) e buffer de 6 quadros (720 KB total). O tempo de carregamento cai para menos de 1 segundo e as transições entre escalas territoriais tornam-se instantâneas (0 ms) graças ao recorte direto no canvas com vetores IBGE de 1px.
   - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
 <!-- ENTRY:adr-modo-turbo-leve-rapido-goes:END -->
+
+<!-- ENTRY:cloudflare-worker-native-tiles:START -->
+### Suporte a Proxy Cloudflare Worker para Tiles Nativos GOES de 2 km (`2026-11-02` • `#cloudflare-worker-native-tiles`)
+- Criado e integrado microserviço serverless gratuito no Cloudflare Workers (cloudflare-worker/) e pipeline cliente no static/app.js para transmitir tiles de 2 km (zoom 5) do CPTEC/INPE diretamente ao navegador sem baixar o Full Disk de 10 MB, com cache na borda em SP/RJ/BSB (<30ms) e redução de dados em 60x (~80 KB por quadro).
+  - **Arquivos relacionados:** [`cloudflare-worker/worker.js`](cloudflare-worker/worker.js), [`cloudflare-worker/wrangler.toml`](cloudflare-worker/wrangler.toml), [`cloudflare-worker/README.md`](cloudflare-worker/README.md), [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html), [`static/styles.css`](static/styles.css)
+<!-- ENTRY:cloudflare-worker-native-tiles:END -->
 <!-- SECTION:DECISIONS:END -->
 
 ---
@@ -119,6 +125,12 @@
 - O endpoint apiprevmet3 insere a hora atual cheia com valores nulos enquanto os pacotes de satélite/GPRS são processados pelo INMET. Se o cliente depender apenas desse registro pontual, reporta erroneamente a estação como offline mesmo com medições recentes ativas (ex: 31,1°C às 10h). O frontend agora mescla o histórico sincronizado das 24h com a API ao vivo, aceitando leituras frescas de até 3,5h e mantendo a estação ativa em solo com sua última medição válida.
   - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`scripts/sync_inmet_realtime.py`](scripts/sync_inmet_realtime.py), [`static/data/stations/station_A029.json`](static/data/stations/station_A029.json)
 <!-- ENTRY:kp-inmet-latencia-hora-cheia-apiprevmet3:END -->
+
+<!-- ENTRY:goes-abi-native-tile-stream:START -->
+### Gargalo Fisico do Sensor ABI do GOES e Solucao por Mosaico de Tiles 2 km (`2026-11-02` • `#goes-abi-native-tile-stream`)
+- O sensor ABI do GOES-16/19 so possui modos Full Disk (Americas) e CONUS (EUA), sem escaneamento regional exclusivo para o Brasil. A imagem Full Disk em 2 km e 5424x5424 (~10 MB), inviavel para conexoes moveis em tempo real. O CPTEC/INPE fatia o Full Disk em tiles Slippy Map de 256x256 (~20 KB cada no zoom 5). Um cluster 3x3 cobre 1500 km ao redor da estacao e pesa apenas ~180 KB total, permitindo ultra-alta resolucao nativa em qualquer ponto do Brasil.
+  - **Arquivos relacionados:** [`app/goes_service.py`](app/goes_service.py), [`cloudflare-worker/worker.js`](cloudflare-worker/worker.js), [`static/app.js`](static/app.js)
+<!-- ENTRY:goes-abi-native-tile-stream:END -->
 <!-- SECTION:KEYPOINTS:END -->
 
 ---
@@ -153,4 +165,8 @@
 - **`[2026-11-02]` Otimização Turbo Leve do Estúdio Satélite GOES-19 v4.2.1** — Implementado o modo Turbo Leve reduzindo o peso do buffer de satélite de 80 MB para 720 KB, carregamento em menos de 1s e zero lag de transição entre zoom Hiper Local e Brasil.
   - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
 <!-- ENTRY:ms-modo-turbo-goes-v421:END -->
+<!-- ENTRY:native-tiles-worker-engine-v4-3-0:START -->
+- **`[2026-11-02]` Motor de Tiles Nativos Cloudflare Worker no Frontend e Modal de Configuracao (v4.3.0)** — Implementado modal de configuracao do Worker, indicador de status ativo no HUD, renderizacao no canvas High-DPI com sobreposicao vetorial 1px e fallback transparente para NOAA STAR direto.
+  - **Arquivos relacionados:** [`index.html`](index.html), [`static/index.html`](static/index.html), [`static/app.js`](static/app.js), [`static/styles.css`](static/styles.css), [`cloudflare-worker/`](cloudflare-worker/)
+<!-- ENTRY:native-tiles-worker-engine-v4-3-0:END -->
 <!-- SECTION:MILESTONES:END -->

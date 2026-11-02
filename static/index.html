@@ -560,6 +560,7 @@
             <span class="tag-pill tag-cyan">NOAA STAR Operacional</span>
             <span class="tag-pill tag-green">GOES-19 Full Disk</span>
             <span class="tag-pill tag-purple" id="goesCurrentResBadge">678x678 Média</span>
+            <button class="tag-pill tag-blue btn-proxy-pill" id="btnTileProxyConfig" title="Configurar Proxy Cloudflare para carregar imagens nativas de 2 km do CPTEC em <0.5s">⚡ Proxy 2km</button>
           </div>
         </div>
 
@@ -1162,7 +1163,38 @@
     </div>
   </footer>
 
+  <!-- Modal de Configuração do Proxy Cloudflare Worker para Tiles Nativos 2km -->
+  <div id="tileProxyModal" class="mwn-modal hidden" aria-hidden="true">
+    <div class="mwn-modal-backdrop" id="tileProxyModalBackdrop"></div>
+    <div class="mwn-modal-card glass-card">
+      <div class="mwn-modal-header">
+        <div class="mwn-modal-title">
+          <span class="mwn-modal-icon">🛰️</span>
+          <h4>Proxy Cloudflare • Resolução Nativa 2 km</h4>
+        </div>
+        <button class="mwn-modal-close" id="btnTileProxyModalClose" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="mwn-modal-body">
+        <p class="mwn-modal-desc">
+          Acesse os tiles nativos de <strong>2 km do CPTEC/INPE (zoom 5)</strong> diretamente no navegador via Cloudflare Worker, com entrega em <strong>&lt;0.5s</strong> e consumo de dados reduzido em <strong>60x</strong> (~80 KB por quadro em vez de 10 MB).
+        </p>
+        <div class="mwn-form-group">
+          <label for="inputTileProxyUrl">URL do Worker Cloudflare:</label>
+          <input type="url" id="inputTileProxyUrl" class="mwn-input" placeholder="https://myweathernow-tiles.seu-subdominio.workers.dev" spellcheck="false" />
+          <small class="mwn-form-help">
+            Deixe em branco para usar o modo direto NOAA STAR. Implantação gratuita em 2 min via <code>cloudflare-worker/README.md</code>.
+          </small>
+        </div>
+        <div class="mwn-modal-status" id="tileProxyStatusBox"></div>
+      </div>
+      <div class="mwn-modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" id="btnTileProxyClear">Desativar / Limpar</button>
+        <button type="button" class="btn btn-primary btn-sm" id="btnTileProxySave">Salvar e Ativar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
-  <script src="static/app.js?v=4.2.0"></script>
+  <script src="static/app.js?v=4.3.0"></script>
 </body>
 </html>

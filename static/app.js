@@ -196,6 +196,8 @@ class MeteoApp {
       showUrban: true,
       showLegend: true,
       isDirectNoaa: false,
+      isTileProxy: false,
+      tileProxyUrl: (new URLSearchParams(window.location.search).get("tile_proxy") || localStorage.getItem("mwn_tile_proxy") || "").trim(),
       numFrames: 6,
       speedMs: 350,
       playbackMultiplier: 1.0,
@@ -2194,6 +2196,236 @@ class MeteoApp {
     return { xPct: pctX, yPct: pctY };
   }
 
+  latlonToGeosTile(latDeg, lonDeg, zoom = 5) {
+    const gridDim = zoom === 5 ? 5424 : zoom === 4 ? 2712 : 678;
+    const geos = this.latlonToGeosPct(latDeg, lonDeg);
+    if (!geos) return null;
+    const px = (geos.xPct / 100.0) * gridDim;
+    const py = (geos.yPct / 100.0) * gridDim;
+    const tx = Math.floor(px / 256);
+    const ty = Math.floor(py / 256);
+    return { px, py, tx, ty, gridDim, geos };
+  }
+
+  getCptecProductInfo(prodKey) {
+    const map = {
+      cptec_dsa: {
+        id: "ch13_cpt_DSA",
+        name: "CPTEC • Realce Convectivo DSA (10.35µm)",
+        has_temp_scale: true,
+        legend_url: "static/img/legends/goes-ch13-dsa-celsius-pt-br.png",
+        legend_title: "10,35µm Temp. de Brilho (°C)"
+      },
+      cptec_wv: {
+        id: "ch08_cpt_WVCOLOR35",
+        name: "CPTEC • Vapor d'Água (Canal 08 • 6.19µm)",
+        has_temp_scale: true,
+        legend_url: "static/img/legends/goes-ch08-WVCOLOR35-celsius-pt-br.png",
+        legend_title: "6,19µm Vapor d'Água (°C)"
+      },
+      cptec_ir_noaa: {
+        id: "ch13_cpt_IR4AVHRR6",
+        name: "NOAA • Realce AVHRR IR (10.35µm)",
+        has_temp_scale: true,
+        legend_url: "static/img/legends/goes-ch13-IR4AVHRR6-celsius-pt-br.png",
+        legend_title: "10,35µm Temp. de Brilho (°C)"
+      },
+      cptec_cloud_phase: {
+        id: "day_cloud_phase_jma",
+        name: "Cloud Phase (JMA) • Fase de Nuvens RGB",
+        has_temp_scale: false,
+        legend_title: "Interpretação RGB • Cloud Phase JMA",
+        rgb_guide: [
+          { color: "#06b6d4", label: "Nuvens de Gelo / Convecção" },
+          { color: "#10b981", label: "Gotículas de Água Líquida" },
+          { color: "#d97706", label: "Superfície do Solo" },
+          { color: "#1e3a8a", label: "Cirrus Espessos" }
+        ]
+      },
+      cptec_night_micro: {
+        id: "night_microphysics",
+        name: "Nighttime Microphysics • Microfísica Noturna RGB",
+        has_temp_scale: false,
+        legend_title: "Microfísica Noturna RGB",
+        rgb_guide: [
+          { color: "#eab308", label: "Nevoeiro & Nuvens Baixas" },
+          { color: "#dc2626", label: "Nuvens Médias & Cirrus" },
+          { color: "#7c3aed", label: "Convecção Profunda" },
+          { color: "#2563eb", label: "Superfície Terrestre Fria" }
+        ]
+      },
+      cptec_natural: {
+        id: "natural_color",
+        name: "CPTEC • Cor Natural (Multiespectral)",
+        has_temp_scale: false,
+        legend_title: "CPTEC Cor Natural"
+      }
+    };
+    return map[prodKey] || map.cptec_dsa;
+  }
+
+  async stitchCptecTiles(frameInfo, proxyUrl) {
+    const { date, time, prod, zoom, min_tx, min_ty, tile_count, bounds_pct } = frameInfo;
+    const cleanProxy = (proxyUrl || "").replace(/\/+$/, "");
+    const canvas = document.createElement("canvas");
+    const dim = tile_count * 256;
+    canvas.width = dim;
+    canvas.height = dim;
+    const ctx = canvas.getContext("2d");
+
+    const promises = [];
+    for (let dx = 0; dx < tile_count; dx++) {
+      for (let dy = 0; dy < tile_count; dy++) {
+        const tx = min_tx + dx;
+        const ty = min_ty + dy;
+        const tileUrl = `${cleanProxy}/tiles/${date}/${prod}/${time}/${zoom}/${tx}/${ty}.png`;
+        const p = new Promise((resolve) => {
+          const img = new Image();
+          img.crossOrigin = "anonymous";
+          this._inflightImages.add(img);
+          img.onload = () => {
+            this._inflightImages.delete(img);
+            resolve({ dx, dy, img });
+          };
+          img.onerror = () => {
+            this._inflightImages.delete(img);
+            resolve(null);
+          };
+          img.src = tileUrl;
+        });
+        promises.push(p);
+      }
+    }
+
+    const results = await Promise.all(promises);
+    let loadedCount = 0;
+    for (const r of results) {
+      if (r && r.img) {
+        ctx.drawImage(r.img, r.dx * 256, r.dy * 256);
+        loadedCount++;
+      }
+    }
+
+    if (loadedCount === 0) return null;
+
+    canvas._boundsPct = bounds_pct;
+    canvas._corsClean = true;
+    canvas.complete = true;
+    canvas.naturalWidth = dim;
+    canvas.naturalHeight = dim;
+    return canvas;
+  }
+
+  async fetchCptecProxyFrames() {
+    const cleanProxy = (this.goesConfig.tileProxyUrl || "").replace(/\/+$/, "");
+    if (!cleanProxy) return null;
+
+    const currentProd = this.goesConfig.product || "cptec_dsa";
+    const cptecMeta = this.getCptecProductInfo(currentProd);
+    const prodId = cptecMeta.id;
+    const numFrames = this.goesConfig.numFrames || 6;
+
+    // 1. Fetch latest timestamp from CPTEC JSON via Worker
+    let latestTs = null;
+    try {
+      const res = await fetch(`${cleanProxy}/json/${prodId}/lastest.json`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.date) latestTs = String(json.date);
+      }
+    } catch (e) {
+      console.warn("Worker /json/ lastest.json fetch failed, using time calculation fallback:", e);
+    }
+
+    let dtBase;
+    if (latestTs && latestTs.length >= 12) {
+      const yr = parseInt(latestTs.slice(0, 4), 10);
+      const mo = parseInt(latestTs.slice(4, 6), 10) - 1;
+      const da = parseInt(latestTs.slice(6, 8), 10);
+      const ho = parseInt(latestTs.slice(8, 10), 10);
+      const mi = parseInt(latestTs.slice(10, 12), 10);
+      dtBase = new Date(Date.UTC(yr, mo, da, ho, mi));
+    } else {
+      const now = new Date();
+      dtBase = new Date(now.getTime() - 15 * 60 * 1000);
+      dtBase.setUTCMinutes(Math.floor(dtBase.getUTCMinutes() / 10) * 10, 0, 0);
+    }
+
+    const zoom = 5;
+    const tileInfo = this.latlonToGeosTile(this.currentLat, this.currentLon, zoom);
+    if (!tileInfo) return null;
+
+    const tileCount = 3;
+    const minTx = tileInfo.tx - 1;
+    const minTy = tileInfo.ty - 1;
+    const boundsPct = {
+      x0Pct: ((minTx * 256) / 5424.0) * 100.0,
+      y0Pct: ((minTy * 256) / 5424.0) * 100.0,
+      wPct: ((tileCount * 256) / 5424.0) * 100.0,
+      hPct: ((tileCount * 256) / 5424.0) * 100.0
+    };
+
+    const frames = [];
+    for (let i = numFrames - 1; i >= 0; i--) {
+      const t = new Date(dtBase.getTime() - i * 10 * 60 * 1000);
+      const yyyy = t.getUTCFullYear();
+      const mm = String(t.getUTCMonth() + 1).padStart(2, "0");
+      const dd = String(t.getUTCDate()).padStart(2, "0");
+      const hh = String(t.getUTCHours()).padStart(2, "0");
+      const mi = String(t.getUTCMinutes()).padStart(2, "0");
+      const dStr = `${yyyy}${mm}${dd}`;
+      const tStr = `${hh}${mi}`;
+
+      const dtLocal = new Date(t.getTime() - 3 * 3600 * 1000);
+      const locHh = String(dtLocal.getUTCHours()).padStart(2, "0");
+      const locMi = String(dtLocal.getUTCMinutes()).padStart(2, "0");
+      const locDd = String(dtLocal.getUTCDate()).padStart(2, "0");
+      const locMm = String(dtLocal.getUTCMonth() + 1).padStart(2, "0");
+
+      frames.push({
+        is_tile_proxy: true,
+        date: dStr,
+        time: tStr,
+        prod: prodId,
+        zoom,
+        min_tx: minTx,
+        min_ty: minTy,
+        tile_count: tileCount,
+        bounds_pct: boundsPct,
+        timestamp_raw: `${dStr}_${tStr}`,
+        time_utc: `${dd}/${mm}/${yyyy} ${hh}:${mi} UTC`,
+        time_local: `${locDd}/${locMm}/${yyyy} ${locHh}:${locMi} BRT`,
+        time_short: `${locHh}:${locMi} BRT`,
+        short_hhmm: `${locHh}:${locMi}`,
+        time_only_utc: `${hh}:${mi} UTC`,
+        time_label: `${locDd}/${locMm} ${locHh}:${locMi} BRT`,
+        url: `${cleanProxy}/tiles/${dStr}/${prodId}/${tStr}/${zoom}/${tileInfo.tx}/${tileInfo.ty}.png`
+      });
+    }
+
+    const geos = tileInfo.geos;
+    return {
+      is_direct_noaa: false,
+      is_tile_proxy: true,
+      frames,
+      actual_res_code: "5424x5424 (2km Nativa)",
+      product: {
+        id: prodId,
+        name: cptecMeta.name,
+        has_temp_scale: Boolean(cptecMeta.has_temp_scale),
+        legend_url: cptecMeta.legend_url || null,
+        legend_title: cptecMeta.legend_title || cptecMeta.name,
+        rgb_guide: cptecMeta.rgb_guide || []
+      },
+      pin_x_pct: geos.xPct,
+      pin_y_pct: geos.yPct,
+      brazil_center_x_pct: 71.2,
+      brazil_center_y_pct: 63.2,
+      res_label: "2 km Nativa (CPTEC • Cloudflare Edge)",
+      scale_mode: this.goesConfig.delta <= 0.35 ? "hiper" : this.goesConfig.delta <= 0.8 ? "ultra" : "local"
+    };
+  }
+
   getDirectNoaaProductSpec(prodKey) {
     const specs = {
       cptec_dsa: {
@@ -2310,6 +2542,10 @@ class MeteoApp {
       b.classList.toggle("active", b.dataset.res === targetRes);
     });
     const resBadge = document.getElementById("goesCurrentResBadge");
+    if (this.goesConfig.isTileProxy) {
+      if (resBadge) resBadge.textContent = "⚡ 2km Nativo (~80KB/q)";
+      return;
+    }
     const resLabels = {
       low: "339x339 Baixa (~35KB)",
       medium: "678x678 Turbo Leve (~120KB)",
@@ -2508,11 +2744,13 @@ class MeteoApp {
         ? (this.goesConfig.delta <= 0.8
           ? "Sincronizando nitidez máxima ABI 2 km (5424x5424)..."
           : "Aprimorando resolução temporal GOES-19...")
-        : "Carregando quadros temporais do GOES-19...";
+        : (this.goesConfig.tileProxyUrl && this.goesConfig.delta <= 2.0
+          ? "Carregando blocos nativos de 2 km (CPTEC / Cloudflare Edge)..."
+          : "Carregando quadros temporais do GOES-19...");
     }
 
     // Render instant preview + sharp vector boundaries right away if preview is available
-    if (hasPreview && this.goesConfig.isDirectNoaa) {
+    if (hasPreview && (this.goesConfig.isDirectNoaa || this.goesConfig.isTileProxy)) {
       const geosNow = this.latlonToGeosPct(this.currentLat, this.currentLon);
       if (geosNow) {
         this.goesConfig.pinXPct = geosNow.xPct;
@@ -2544,7 +2782,18 @@ class MeteoApp {
     }
     if (reqSeq !== this._goesLoadSeq) return;
 
-    // 2. Direct NOAA STAR GOES-19 Full Disk (100% browser-native for GitHub Pages)
+    // 2. Cloudflare Worker Native 2km Tile Proxy (ultra-fast, lightweight, 2km native ABI)
+    const cptecCompatible = ["cptec_dsa", "cptec_wv", "cptec_ir_noaa", "cptec_cloud_phase", "cptec_night_micro", "cptec_natural"];
+    if (!data && this.goesConfig.tileProxyUrl && delta <= 2.0 && cptecCompatible.includes(product)) {
+      try {
+        data = await this.fetchCptecProxyFrames();
+      } catch (e) {
+        console.warn("CPTEC Proxy fetch error, falling back to direct NOAA:", e);
+      }
+    }
+    if (reqSeq !== this._goesLoadSeq) return;
+
+    // 3. Direct NOAA STAR GOES-19 Full Disk (100% browser-native fallback for GitHub Pages)
     if (!data || !data.frames || data.frames.length === 0) {
       try {
         data = await this.fetchDirectNoaaGoesFrames();
@@ -2557,6 +2806,7 @@ class MeteoApp {
     if (data && data.frames && data.frames.length > 0) {
       this._lastLoadedProduct = product;
       this.goesConfig.isDirectNoaa = Boolean(data.is_direct_noaa);
+      this.goesConfig.isTileProxy = Boolean(data.is_tile_proxy);
       this.goesConfig.frames = data.frames;
       this.goesConfig.productMeta = data.product || null;
       this.goesConfig.scaleMode = data.scale_mode || (delta <= 2.0 ? "local" : delta <= 5.0 ? "regional" : "brasil");
@@ -2607,7 +2857,7 @@ class MeteoApp {
     let targetYPct = 50.0;
     let approxWidthKm = 11500;
 
-    if (isDirectNoaa) {
+    if (isDirectNoaa || this.goesConfig.isTileProxy) {
       if (delta <= 5.0) {
         let radiusDeg = 3.55;
         if (delta <= 0.35) radiusDeg = 0.35;      // Hiper Local 3x (~39 km radius / ~78 km box)
@@ -3152,7 +3402,13 @@ class MeteoApp {
     return img;
   }
 
-  loadSingleGoesImage(url) {
+  async loadSingleGoesImage(target) {
+    if (!target) return null;
+    if (typeof target === "object" && target.is_tile_proxy) {
+      return this.stitchCptecTiles(target, this.goesConfig.tileProxyUrl);
+    }
+    const url = typeof target === "string" ? target : (target.url || "");
+    if (!url) return null;
     return new Promise((resolve) => {
       const img = new Image();
       img.crossOrigin = "anonymous";
@@ -3202,7 +3458,7 @@ class MeteoApp {
 
     // 1. Load latest frame + vector layers first so user gets high-res display in ~1s
     const [latestDrawable] = await Promise.all([
-      this.loadSingleGoesImage(frames[latestIdx].url),
+      this.loadSingleGoesImage(frames[latestIdx]),
       this.updateGoesVectorLayers()
     ]);
     if (reqSeq !== this._goesLoadSeq) return;
@@ -3244,7 +3500,7 @@ class MeteoApp {
         while (cursor < remainingIndices.length) {
           if (reqSeq !== this._goesLoadSeq) return;
           const idx = remainingIndices[cursor++];
-          const drawable = await this.loadSingleGoesImage(frames[idx].url);
+          const drawable = await this.loadSingleGoesImage(frames[idx]);
           if (reqSeq !== this._goesLoadSeq) return;
           if (drawable) {
             this.goesConfig.preloadedImages[idx] = drawable;
@@ -3288,8 +3544,8 @@ class MeteoApp {
       btn.title = `Ir para quadro ${idx + 1}: ${f.time_label || f.time_local || ""}`;
       btn.addEventListener("click", async () => {
         this.pauseGoesAnimation();
-        if (!this.goesConfig.preloadedImages?.[idx] && f.url) {
-          const loaded = await this.loadSingleGoesImage(f.url);
+        if (!this.goesConfig.preloadedImages?.[idx]) {
+          const loaded = await this.loadSingleGoesImage(f);
           if (loaded) this.goesConfig.preloadedImages[idx] = loaded;
         }
         this.goesConfig.currentFrameIndex = idx;
@@ -3333,7 +3589,7 @@ class MeteoApp {
     }
 
     // Crisp Screen-Space Geostationary Vector Overlays (1px sharp at any zoom level!)
-    if (this.goesConfig.isDirectNoaa && this._activeVectorRings) {
+    if ((this.goesConfig.isDirectNoaa || this.goesConfig.isTileProxy) && this._activeVectorRings) {
       const vx0 = viewBounds.x0Pct;
       const vy0 = viewBounds.y0Pct;
       const span = viewBounds.spanPct;
@@ -5085,6 +5341,9 @@ class MeteoApp {
     document.getElementById("btnGenerateDownloadGif")?.addEventListener("click", () => this.generateAndDownloadGif());
     document.getElementById("btnSnapshotPng")?.addEventListener("click", () => this.captureSnapshotPng());
 
+    // Cloudflare Worker Native 2km Tile Proxy Modal
+    this.initTileProxyModal();
+
     // Forecast Tabs (Hourly vs 7-Day)
     const hourlyTab = document.getElementById("tabHourlyBtn");
     const dailyTab = document.getElementById("tabDailyBtn");
@@ -5126,6 +5385,102 @@ class MeteoApp {
       } else if (e.key === "f" || e.key === "F") {
         this.toggleGoesFullscreen();
       }
+    });
+  }
+
+  // ==========================================================================
+  // Cloudflare Worker Native 2km Tile Proxy Modal & Integration
+  // ==========================================================================
+  initTileProxyModal() {
+    const btnOpen = document.getElementById("btnTileProxyConfig");
+    const modal = document.getElementById("tileProxyModal");
+    const backdrop = document.getElementById("tileProxyModalBackdrop");
+    const btnClose = document.getElementById("btnTileProxyModalClose");
+    const btnSave = document.getElementById("btnTileProxySave");
+    const btnClear = document.getElementById("btnTileProxyClear");
+    const inputUrl = document.getElementById("inputTileProxyUrl");
+    const statusBox = document.getElementById("tileProxyStatusBox");
+
+    const updatePill = () => {
+      if (btnOpen) {
+        const hasProxy = Boolean(this.goesConfig.tileProxyUrl);
+        btnOpen.classList.toggle("is-active", hasProxy);
+        btnOpen.textContent = hasProxy ? "⚡ Proxy 2km Ativo" : "⚡ Proxy 2km";
+        btnOpen.title = hasProxy
+          ? `Proxy Cloudflare Ativo: ${this.goesConfig.tileProxyUrl} (Clique para configurar)`
+          : "Configurar Proxy Cloudflare para carregar imagens nativas de 2 km do CPTEC em <0.5s";
+      }
+    };
+    updatePill();
+
+    const openModal = () => {
+      if (!modal) return;
+      if (inputUrl) inputUrl.value = this.goesConfig.tileProxyUrl || "";
+      if (statusBox) {
+        statusBox.className = "mwn-modal-status";
+        statusBox.style.display = "none";
+        statusBox.textContent = "";
+      }
+      modal.classList.remove("hidden");
+      modal.setAttribute("aria-hidden", "false");
+      inputUrl?.focus();
+    };
+
+    const closeModal = () => {
+      if (!modal) return;
+      modal.classList.add("hidden");
+      modal.setAttribute("aria-hidden", "true");
+    };
+
+    btnOpen?.addEventListener("click", openModal);
+    btnClose?.addEventListener("click", closeModal);
+    backdrop?.addEventListener("click", closeModal);
+
+    btnSave?.addEventListener("click", () => {
+      const raw = (inputUrl?.value || "").trim().replace(/\/+$/, "");
+      if (raw) {
+        try {
+          new URL(raw);
+        } catch (e) {
+          if (statusBox) {
+            statusBox.className = "mwn-modal-status is-active status-err";
+            statusBox.textContent = "URL inválida. Informe uma URL completa (ex: https://myweathernow-tiles.seu-subdominio.workers.dev)";
+          }
+          return;
+        }
+        localStorage.setItem("mwn_tile_proxy", raw);
+        this.goesConfig.tileProxyUrl = raw;
+        updatePill();
+        if (statusBox) {
+          statusBox.className = "mwn-modal-status is-active status-ok";
+          statusBox.textContent = "Proxy Cloudflare ativado com sucesso! Carregando blocos nativos...";
+        }
+        setTimeout(() => {
+          closeModal();
+          this.loadGoesFrames();
+        }, 500);
+      } else {
+        localStorage.removeItem("mwn_tile_proxy");
+        this.goesConfig.tileProxyUrl = "";
+        updatePill();
+        closeModal();
+        this.loadGoesFrames();
+      }
+    });
+
+    btnClear?.addEventListener("click", () => {
+      localStorage.removeItem("mwn_tile_proxy");
+      this.goesConfig.tileProxyUrl = "";
+      if (inputUrl) inputUrl.value = "";
+      updatePill();
+      if (statusBox) {
+        statusBox.className = "mwn-modal-status is-active status-ok";
+        statusBox.textContent = "Proxy desativado. Retornando ao modo direto NOAA STAR.";
+      }
+      setTimeout(() => {
+        closeModal();
+        this.loadGoesFrames();
+      }, 400);
     });
   }
 
