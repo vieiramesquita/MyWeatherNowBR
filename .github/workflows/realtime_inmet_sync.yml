@@ -46,3 +46,4 @@ jobs:
             git commit -m "chore(telemetry): auto-sync real-time INMET observations [skip ci]"
             git push origin main
           fi
+

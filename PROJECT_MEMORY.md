@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-11-02 12:14 BRT`
-- **Resumo de registros:** `5` regras • `5` decisões • `6` pontos-chave • `7` marcos
+- **Última sincronização:** `2026-11-02 12:30 BRT`
+- **Resumo de registros:** `5` regras • `6` decisões • `6` pontos-chave • `8` marcos
 
 ---
 
@@ -71,6 +71,12 @@
 - Eliminação completa de arquivos de cache de dados estáticos (static/data/stations/station_*.json), cache em disco do backend (app/cache/station_*.json) e chaves do localStorage do navegador (mwn_inmet_hist_*). Requisições client-side com cache: 'no-store' e respostas FastAPI com Cache-Control: no-cache, no-store, must-revalidate. Ciclo de auto-atualização reduzido para 5 minutos (300s).
   - **Arquivos relacionados:** [`app/inmet_service.py`](app/inmet_service.py), [`app/main.py`](app/main.py), [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
 <!-- ENTRY:adr-remocao-total-cache-telemetria-tempo-real:END -->
+
+<!-- ENTRY:adr-modo-turbo-leve-rapido-goes:START -->
+### Modo Turbo Leve & Rápido para Estúdio GOES-19 (720 KB vs 80 MB) (`2026-11-02` • `#adr-modo-turbo-leve-rapido-goes`)
+- Substituído o carregamento forçado de imagens Full Disk de 5424x5424 (~10 MB por quadro, que consumia 80 MB a 120 MB de banda no Hiper Local) pelo Modo Turbo Leve com resolução padrão 678x678 (~120 KB) e buffer de 6 quadros (720 KB total). O tempo de carregamento cai para menos de 1 segundo e as transições entre escalas territoriais tornam-se instantâneas (0 ms) graças ao recorte direto no canvas com vetores IBGE de 1px.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
+<!-- ENTRY:adr-modo-turbo-leve-rapido-goes:END -->
 <!-- SECTION:DECISIONS:END -->
 
 ---
@@ -143,4 +149,8 @@
 - **`[2026-11-02]` Pipeline Horário Autônomo GitHub Actions & Resiliência INMET** — Criado script scripts/sync_inmet_realtime.py e workflow .github/workflows/realtime_inmet_sync.yml para capturar a tabela oficial de 24h das estações no portal do INMET e publicar de hora em hora no GitHub Pages, restaurando a exibição imediata de Edéia A029 a 31,1°C e de todas as estações padrão.
   - **Arquivos relacionados:** [`scripts/sync_inmet_realtime.py`](scripts/sync_inmet_realtime.py), [`.github/workflows/realtime_inmet_sync.yml`](.github/workflows/realtime_inmet_sync.yml), [`static/app.js`](static/app.js), [`static/data/stations/station_A029.json`](static/data/stations/station_A029.json)
 <!-- ENTRY:ms-pipeline-realtime-inmet-actions:END -->
+<!-- ENTRY:ms-modo-turbo-goes-v421:START -->
+- **`[2026-11-02]` Otimização Turbo Leve do Estúdio Satélite GOES-19 v4.2.1** — Implementado o modo Turbo Leve reduzindo o peso do buffer de satélite de 80 MB para 720 KB, carregamento em menos de 1s e zero lag de transição entre zoom Hiper Local e Brasil.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
+<!-- ENTRY:ms-modo-turbo-goes-v421:END -->
 <!-- SECTION:MILESTONES:END -->

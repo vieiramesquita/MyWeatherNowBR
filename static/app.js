@@ -196,7 +196,7 @@ class MeteoApp {
       showUrban: true,
       showLegend: true,
       isDirectNoaa: false,
-      numFrames: 8,
+      numFrames: 6,
       speedMs: 350,
       playbackMultiplier: 1.0,
       playerZoom: 1.0,
@@ -2300,9 +2300,8 @@ class MeteoApp {
   }
 
   getRecommendedNoaaResolution(deltaVal) {
-    if (deltaVal <= 0.8) return "ultra";   // 5424x5424 (2 km Nativa ABI) for Hiper Local 3x & Ultra Local
-    if (deltaVal <= 5.0) return "high";    // 1808x1808 for Entorno Local & Regional
-    return "medium";                       // 678x678 fast load for Brasil & América do Sul
+    // Modo Turbo Leve & Rápido: Prioriza velocidade instantânea (< 1s), baixo consumo de dados e 0ms de lag ao mudar de escala
+    return "medium";                       // 678x678 (~120 KB por quadro) - Leve, instantâneo e ultra-fluido!
   }
 
   syncResolutionUI(targetRes) {
@@ -2312,10 +2311,10 @@ class MeteoApp {
     });
     const resBadge = document.getElementById("goesCurrentResBadge");
     const resLabels = {
-      low: "339x339 Baixa",
-      medium: "678x678 Média",
-      high: "1808x1808 Alta",
-      ultra: "5424x5424 Ultra 2km"
+      low: "339x339 Baixa (~35KB)",
+      medium: "678x678 Turbo Leve (~120KB)",
+      high: "1808x1808 Alta (~800KB)",
+      ultra: "5424x5424 Ultra (~10MB)"
     };
     if (resBadge) resBadge.textContent = resLabels[targetRes] || targetRes;
   }

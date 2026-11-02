@@ -50,3 +50,4 @@ async def sync_stations(stations: List[str] = TARGET_STATIONS):
 if __name__ == "__main__":
     st_args = sys.argv[1:] if len(sys.argv) > 1 else TARGET_STATIONS
     asyncio.run(sync_stations(st_args))
+
