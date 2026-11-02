@@ -28,33 +28,32 @@ app.add_middleware(
 @app.middleware("http")
 async def add_cache_control_header(request, call_next):
     response = await call_next(request)
-    if request.url.path == "/" or request.url.path.startswith("/static"):
-        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
-        response.headers["Pragma"] = "no-cache"
-        response.headers["Expires"] = "0"
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate, max-age=0"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
     return response
 
-# Background task for 1h periodic INMET station refresh
-async def hourly_background_worker():
-    """Runs continuously in the background, updating INMET station data every 1 hour (3600s)."""
+# Background task for real-time periodic INMET station refresh (every 5 minutes / 300s)
+async def realtime_background_worker():
+    """Runs continuously in the background, updating INMET station data in real-time every 5 minutes (300s)."""
     while True:
         try:
-            # Sleep 1 hour
-            await asyncio.sleep(3600)
+            # Sleep 5 minutes
+            await asyncio.sleep(300)
             active_code = inmet_service.active_station_code
-            print(f"[Worker] Running hourly auto-refresh for INMET station {active_code}...")
+            print(f"[Worker] Running real-time auto-refresh for INMET station {active_code}...")
             await inmet_service.get_station_data(active_code, force_refresh=True)
-            print(f"[Worker] Completed hourly update for {active_code} successfully.")
+            print(f"[Worker] Completed real-time update for {active_code} successfully.")
         except Exception as e:
-            print(f"[Worker] Hourly update error: {e}")
-            await asyncio.sleep(60)
+            print(f"[Worker] Real-time update error: {e}")
+            await asyncio.sleep(30)
 
 @app.on_event("startup")
 async def on_startup():
     # Warm up default station (A029 - Edéia)
-    asyncio.create_task(inmet_service.get_station_data("A029"))
-    # Start the 1h recurring background task
-    asyncio.create_task(hourly_background_worker())
+    asyncio.create_task(inmet_service.get_station_data("A029", force_refresh=True))
+    # Start the 5-minute recurring background task
+    asyncio.create_task(realtime_background_worker())
 
 # ----------------- INMET Endpoints -----------------
 
@@ -83,11 +82,14 @@ async def get_nearest_station(
 @app.get("/api/inmet/data/{station_code}")
 async def get_inmet_data(
     station_code: str,
-    force: bool = Query(False, description="Forçar atualização ignorando cache de 1h")
+    force: bool = Query(True, description="Buscar medição física estritamente em tempo real (zero cache)")
 ):
-    """Obtém dados meteorológicos da estação INMET especificada (atualização de 1h em 1h)."""
+    """Obtém dados meteorológicos da estação INMET especificada em tempo real."""
     data = await inmet_service.get_station_data(station_code, force_refresh=force)
-    return data
+    return JSONResponse(
+        content=data,
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate, max-age=0"}
+    )
 
 # ----------------- Open-Meteo Endpoints -----------------
 
@@ -206,23 +208,21 @@ async def download_goes_gif(filename: str):
 
 @app.get("/api/status")
 async def get_system_status():
-    """Status do sistema, estações ativas e cache."""
+    """Status do sistema e estações ativas (operação estritamente em tempo real)."""
     active_code = inmet_service.active_station_code
-    cached_data = inmet_service.get_cached_data(active_code)
-    
-    cache_age = 0
-    if cached_data and "cached_at" in cached_data:
-        import time
-        cache_age = int(time.time() - cached_data["cached_at"])
 
-    return {
-        "status": "online",
-        "active_station": active_code,
-        "auto_refresh_interval": "1 hora (3600 segundos)",
-        "cache_age_seconds": cache_age,
-        "next_refresh_seconds": max(0, 3600 - cache_age),
-        "total_stations_available": len(inmet_service.stations)
-    }
+    return JSONResponse(
+        content={
+            "status": "online",
+            "active_station": active_code,
+            "data_caching": "disabled (strict real-time)",
+            "auto_refresh_interval": "5 minutos (300 segundos)",
+            "cache_age_seconds": 0,
+            "next_refresh_seconds": 300,
+            "total_stations_available": len(inmet_service.stations)
+        },
+        headers={"Cache-Control": "no-cache, no-store, must-revalidate, max-age=0"}
+    )
 
 # ----------------- Static Files -----------------
 

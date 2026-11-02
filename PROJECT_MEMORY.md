@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-10-29 07:48 BRT`
-- **Resumo de registros:** `5` regras • `4` decisões • `4` pontos-chave • `5` marcos
+- **Última sincronização:** `2026-11-02 11:56 BRT`
+- **Resumo de registros:** `5` regras • `5` decisões • `5` pontos-chave • `6` marcos
 
 ---
 
@@ -11,9 +11,9 @@
 
 <!-- SECTION:RULES:START -->
 <!-- ENTRY:prioridade-estacoes-inmet:START -->
-- **Prioridade Absoluta aos Dados Físicos das Estações INMET** (`#prioridade-estacoes-inmet`)
-  - Sempre priorizar as medições físicas das 672 estações meteorológicas automáticas do INMET (via API local, API oficial CORS `apiprevmet3.inmet.gov.br`, cache estático ou `localStorage`) sobre modelos de grade numérica. Usar Open-Meteo apenas como contingência quando não houver telemetria física disponível, indicando estação operante vizinha.
-  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py), [`inmet_stations.json`](inmet_stations.json), [`static/data/inmet_stations.json`](static/data/inmet_stations.json)
+- **Prioridade Absoluta aos Dados Físicos das Estações INMET (Estritamente em Tempo Real, Zero Cache)** (`#prioridade-estacoes-inmet`)
+  - Sempre priorizar as medições físicas em tempo real das 672 estações automáticas do INMET. Zero tolerância a caches de dados em disco ou localStorage: todas as medições físicas devem ser frescas (<= 3h). Se a estação estiver sem sinal ou em manutenção, informar status real e utilizar contingência em tempo real Open-Meteo indicando a estação operante vizinha mais próxima. Atualização automática a cada 5 minutos (300s).
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py), [`app/main.py`](app/main.py), [`index.html`](index.html), [`static/index.html`](static/index.html)
 <!-- ENTRY:prioridade-estacoes-inmet:END -->
 <!-- ENTRY:paridade-index-html:START -->
 - **Paridade Byte a Byte entre `index.html` e `static/index.html`** (`#paridade-index-html`)
@@ -65,6 +65,12 @@
 - Implementada a skill `.agents/skills/project-memory-monitor` acompanhada de `sync_memory.py` e `.agents/hooks.json` (`SessionStart`, `PreInvocation`, `Stop`) para monitorar transcrições JSONL da conversa e persistir regras, decisões e pontos-chave de forma idempotente em `PROJECT_MEMORY.md`.
   - **Arquivos relacionados:** [`.agents/skills/project-memory-monitor/SKILL.md`](.agents/skills/project-memory-monitor/SKILL.md), [`.agents/skills/project-memory-monitor/scripts/sync_memory.py`](.agents/skills/project-memory-monitor/scripts/sync_memory.py), [`.agents/hooks.json`](.agents/hooks.json), [`AGENTS.md`](AGENTS.md), [`PROJECT_MEMORY.md`](PROJECT_MEMORY.md)
 <!-- ENTRY:adr-skill-project-memory-monitor:END -->
+
+<!-- ENTRY:adr-remocao-total-cache-telemetria-tempo-real:START -->
+### Remoção Definitiva de Cache de Dados e Operação Estritamente em Tempo Real (`2026-11-02` • `#adr-remocao-total-cache-telemetria-tempo-real`)
+- Eliminação completa de arquivos de cache de dados estáticos (static/data/stations/station_*.json), cache em disco do backend (app/cache/station_*.json) e chaves do localStorage do navegador (mwn_inmet_hist_*). Requisições client-side com cache: 'no-store' e respostas FastAPI com Cache-Control: no-cache, no-store, must-revalidate. Ciclo de auto-atualização reduzido para 5 minutos (300s).
+  - **Arquivos relacionados:** [`app/inmet_service.py`](app/inmet_service.py), [`app/main.py`](app/main.py), [`static/app.js`](static/app.js), [`index.html`](index.html), [`static/index.html`](static/index.html)
+<!-- ENTRY:adr-remocao-total-cache-telemetria-tempo-real:END -->
 <!-- SECTION:DECISIONS:END -->
 
 ---
@@ -95,6 +101,12 @@
 - Para zooms locais/hiper-locais (`delta <= 2.5`), a API `servicodados.ibge.gov.br/api/v3/malhas/estados/{UF}?formato=application/vnd.geo+json&intrarregiao=municipio&qualidade=intermediaria` evita vértices simplificados em excesso, combinada à API v1 de localidades para nomes municipais. Quando `UF === "DF"`, mesclar automaticamente `DF + GO` para exibir os municípios goianos limítrofes.
   - **Arquivos relacionados:** [`static/app.js`](static/app.js)
 <!-- ENTRY:kp-ibge-malhas-v3-intermediaria-df-go:END -->
+
+<!-- ENTRY:kp-inmet-estacoes-offline-tempo-real:START -->
+### Diagnóstico de Estações INMET em Manutenção e Tratamento em Tempo Real (`2026-11-02` • `#kp-inmet-estacoes-offline-tempo-real`)
+- Estações do INMET em manutenção (como Edéia A029) retornam campos nulos na API apiprevmet3. Caches estáticos legados acabavam mascarando a realidade exibindo dados de dias anteriores (ex: 20°C e chuva em vez de 32°C de sol). Com zero cache, o sistema detecta ausência de sinal recente (< 3h), aciona Open-Meteo em tempo real para as coordenadas da estação e sugere a estação física vizinha ativa mais próxima (ex: Rio Verde A025).
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py)
+<!-- ENTRY:kp-inmet-estacoes-offline-tempo-real:END -->
 <!-- SECTION:KEYPOINTS:END -->
 
 ---
@@ -117,4 +129,8 @@
 <!-- ENTRY:ms-goes19-hiperlocal-v411-4e27412:START -->
 - **`[2026-10-29]` Motor GOES-19 High-DPI Canvas & 2 km ABI para Hiper Local 3x `v4.1.1` (`4e27412`)** — Corrigido Hiper Local 3x no GitHub Pages com recorte geoestacionário em `<canvas>`, malhas IBGE intermediárias 1px, rótulos de cidades vizinhas e canal NOAA Dust RGB 24h.
 <!-- ENTRY:ms-goes19-hiperlocal-v411-4e27412:END -->
+<!-- ENTRY:ms-realtime-zero-cache-v420:START -->
+- **`[2026-11-02]` Telemetria Estritamente em Tempo Real & Zero Cache de Dados v4.2.0** — Erradicação de todos os caches de dados em disco e no navegador. Atualização a cada 5 minutos, headers no-store, detecção transparente de manutenção de sensores e paridade 100% byte a byte entre index.html e static/index.html.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py), [`app/main.py`](app/main.py), [`index.html`](index.html), [`static/index.html`](static/index.html)
+<!-- ENTRY:ms-realtime-zero-cache-v420:END -->
 <!-- SECTION:MILESTONES:END -->

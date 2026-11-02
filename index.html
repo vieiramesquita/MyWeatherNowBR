@@ -16,7 +16,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
   
   <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="static/styles.css?v=4.1.1">
+  <link rel="stylesheet" href="static/styles.css?v=4.2.0">
 </head>
 <body class="theme-dark">
   <div class="app-background">
@@ -72,11 +72,11 @@
 
         <!-- Refresh Countdown & Manual Button -->
         <div class="refresh-pill">
-          <div class="refresh-timer" title="Atualização automática de 1h em 1h com a estação">
+          <div class="refresh-timer" title="Atualização automática em tempo real a cada 5 minutos">
             <svg class="clock-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
             </svg>
-            <span id="refreshCountdown">59:50</span>
+            <span id="refreshCountdown">05:00</span>
           </div>
           <button id="btnManualRefresh" class="btn-refresh" title="Forçar atualização da estação agora">
             <svg class="refresh-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1163,6 +1163,6 @@
   </footer>
 
   <!-- Scripts -->
-  <script src="static/app.js?v=4.1.1"></script>
+  <script src="static/app.js?v=4.2.0"></script>
 </body>
 </html>

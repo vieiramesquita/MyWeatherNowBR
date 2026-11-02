@@ -122,26 +122,12 @@ class InmetService:
         return os.path.join(CACHE_DIR, f"station_{station_code.upper()}.json")
 
     def get_cached_data(self, station_code: str) -> Optional[Dict[str, Any]]:
-        code = station_code.upper()
-        for path in [
-            self._get_cache_path(code),
-            os.path.join(STATIC_STATIONS_DIR, f"station_{code}.json"),
-        ]:
-            if os.path.exists(path):
-                try:
-                    with open(path, "r", encoding="utf-8") as f:
-                        return json.load(f)
-                except Exception as e:
-                    print(f"Error reading cache {path}: {e}")
+        # Cache de dados removido: operação estritamente em tempo real
         return None
 
     def _save_cache(self, station_code: str, data: Dict[str, Any]):
-        cache_path = self._get_cache_path(station_code)
-        try:
-            with open(cache_path, "w", encoding="utf-8") as f:
-                json.dump(data, f, ensure_ascii=False, indent=2)
-        except Exception as e:
-            print(f"Error saving cache for {station_code}: {e}")
+        # Cache de dados em disco desativado: tempo real
+        pass
 
     def _parse_float(self, val: Any) -> Optional[float]:
         if val is None or val == "" or val == "-":
@@ -425,43 +411,25 @@ class InmetService:
         if captured_data:
             parsed = self._parse_inmet_records(station_code, captured_data)
             if parsed and parsed.get("latest", {}).get("has_data"):
-                self._save_cache(station_code, parsed)
                 return parsed
 
         return await self.fetch_live_proxima_inmet(station_code)
 
     async def get_station_data(self, station_code: str = "A029", force_refresh: bool = False) -> Dict[str, Any]:
-        """Fetch physical INMET station data with 1-hour cache and transparent fallback."""
+        """Fetch physical INMET station data strictly in real time (zero data cache)."""
         station_code = station_code.upper()
         self.active_station_code = station_code
-        cached = self.get_cached_data(station_code)
-
         now = time.time()
-        if cached and cached.get("latest", {}).get("has_data") and not force_refresh:
-            age = now - cached.get("cached_at", 0)
-            if age < 3600:
-                cached["cache_age_seconds"] = int(age)
-                cached["next_refresh_in_seconds"] = max(0, 3600 - int(age))
-                cached["is_cached"] = True
-                return cached
 
         try:
             fresh = await self.fetch_station_from_inmet(station_code)
             if fresh and fresh.get("latest", {}).get("has_data"):
                 fresh["cache_age_seconds"] = 0
-                fresh["next_refresh_in_seconds"] = 3600
+                fresh["next_refresh_in_seconds"] = 300
                 fresh["is_cached"] = False
                 return fresh
         except Exception as e:
             print(f"Error fetching station {station_code}: {e}")
-
-        if cached and cached.get("latest", {}).get("has_data"):
-            age = now - cached.get("cached_at", 0)
-            cached["cache_age_seconds"] = int(age)
-            cached["next_refresh_in_seconds"] = 300
-            cached["is_cached"] = True
-            cached["fetch_warning"] = "Exibindo última telemetria física armazenada da estação INMET."
-            return cached
 
         st_meta = self.stations_by_code.get(station_code, {})
         return {

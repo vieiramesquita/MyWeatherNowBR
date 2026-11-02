@@ -25,3 +25,4 @@ Registre entregas consolidadas (commits relevantes, versões lançadas ou grande
 1. Credenciais, chaves de API, tokens ou dados sensíveis de ambiente.
 2. Caminhos temporários de scratch (`brain/<id>/scratch/...`) como dependências permanentes do projeto.
 3. Tentativas intermediárias que falharam sem deixar aprendizado técnico reutilizável.
+

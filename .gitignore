@@ -19,6 +19,7 @@ app/cache/*
 !app/cache/.gitkeep
 static/cache/*
 !static/cache/.gitkeep
+static/data/stations/
 *.log
 *.tmp
 *.temp

@@ -25,7 +25,26 @@ if hasattr(sys.stderr, "reconfigure"):
 
 SCRIPT_PATH = Path(__file__).resolve()
 SKILL_DIR = SCRIPT_PATH.parent.parent
-REPO_ROOT = SKILL_DIR.parent.parent.parent
+
+
+def resolve_repo_root() -> Path:
+    # 1. If installed inside a workspace customization folder (.agents/skills/<name>)
+    if SKILL_DIR.parent.name == "skills" and SKILL_DIR.parent.parent.name in (
+        ".agents",
+        ".agent",
+        "_agents",
+        "_agent",
+    ):
+        return SKILL_DIR.parent.parent.parent
+    # 2. If installed globally (~/.gemini/config/skills/<name>), walk up from CWD to find .git
+    cwd = Path.cwd().resolve()
+    for candidate in (cwd, *cwd.parents):
+        if (candidate / ".git").exists():
+            return candidate
+    return cwd
+
+
+REPO_ROOT = resolve_repo_root()
 MEMORY_FILE = REPO_ROOT / "PROJECT_MEMORY.md"
 STATE_FILE = SKILL_DIR / ".state.json"
 
@@ -612,3 +631,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+

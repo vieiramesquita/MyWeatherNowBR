@@ -213,8 +213,8 @@ class MeteoApp {
       timerId: null
     };
 
-    this.refreshIntervalSeconds = 3600;
-    this.secondsToNextRefresh = 3600;
+    this.refreshIntervalSeconds = 300;
+    this.secondsToNextRefresh = 300;
     this.countdownTimer = null;
 
     this.map = null;
@@ -225,6 +225,18 @@ class MeteoApp {
   }
 
   async init() {
+    // Purge legacy station data caches from browser localStorage to enforce strict real-time telemetry
+    try {
+      const keysToPurge = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        if (k && (k.startsWith("mwn_inmet_hist_") || k.startsWith("mwn_station_cache_") || k.startsWith("mwn_cache_"))) {
+          keysToPurge.push(k);
+        }
+      }
+      keysToPurge.forEach((k) => localStorage.removeItem(k));
+    } catch (e) {}
+
     this.setupClock();
     this.loadFavorites();
     this.setupEventListeners();
@@ -408,7 +420,7 @@ class MeteoApp {
       } else {
         this.loadStationData(this.currentStationCode, true);
         this.loadGoesFrames();
-        this.secondsToNextRefresh = 3600;
+        this.secondsToNextRefresh = this.refreshIntervalSeconds;
       }
       const m = Math.floor(this.secondsToNextRefresh / 60);
       const s = this.secondsToNextRefresh % 60;
@@ -419,7 +431,7 @@ class MeteoApp {
   }
 
   // ==========================================================================
-  // INMET Station Priority Pipeline (Local API + Live Browser INMET + Cache)
+  // INMET Station Priority Pipeline (Strict Real-Time Ground Telemetry)
   // ==========================================================================
   parseInmetFloat(val) {
     if (val === null || val === undefined || val === "" || val === "-") return null;
@@ -507,84 +519,41 @@ class MeteoApp {
     return 0;
   }
 
-  loadStoredInmetHistory(codeUpper) {
-    try {
-      const raw = localStorage.getItem(`mwn_inmet_hist_${codeUpper}`);
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr)) return arr;
-      }
-    } catch (e) {}
-    return [];
-  }
-
-  saveStoredInmetHistory(codeUpper, records) {
-    try {
-      localStorage.setItem(`mwn_inmet_hist_${codeUpper}`, JSON.stringify(records.slice(-24)));
-    } catch (e) {}
-  }
-
-  mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveRecord) {
-    const map = new Map();
-    const addRec = (r) => {
-      if (!r || !this.hasValidStationReading(r)) return;
-      const key = `${r.date_utc || r.date_brt}_${r.hour_utc || r.hour_brt}`;
-      map.set(key, { ...r, source: "inmet", has_data: true });
-    };
-
-    (staticData?.history || []).forEach(addRec);
-    if (staticData?.latest) addRec(staticData.latest);
-    this.loadStoredInmetHistory(codeUpper).forEach(addRec);
-    if (liveRecord && this.hasValidStationReading(liveRecord)) {
-      addRec(liveRecord);
+  mergePhysicalInmetSources(codeUpper, stMeta, liveRecord) {
+    if (!liveRecord || !this.hasValidStationReading(liveRecord) || !this.isGroundDataFresh(liveRecord)) {
+      return null;
     }
 
-    const sorted = Array.from(map.values()).sort((a, b) => this.recordUtcEpoch(a) - this.recordUtcEpoch(b));
-    if (sorted.length === 0) return null;
-
-    // Keep readings within 26 hours of the newest physical packet (up to 24 records)
-    const newestEpoch = this.recordUtcEpoch(sorted[sorted.length - 1]);
-    const recent = sorted
-      .filter((r) => {
-        const ep = this.recordUtcEpoch(r);
-        return !newestEpoch || !ep || newestEpoch - ep <= 26 * 3600 * 1000;
-      })
-      .slice(-24);
-
-    if (liveRecord && this.hasValidStationReading(liveRecord)) {
-      this.saveStoredInmetHistory(codeUpper, recent);
-    }
-
-    const latest = { ...recent[recent.length - 1] };
-    const rain24h = Math.round(recent.reduce((acc, r) => acc + (Number(r.rain) || 0), 0) * 10) / 10;
+    const latest = { ...liveRecord };
     latest.wind_cardinal = this.degreesToCardinal(latest.wind_dir);
-    latest.rain_24h_accum = rain24h;
+    latest.rain_24h_accum = Math.round((Number(latest.rain) || 0) * 10) / 10;
     latest.reading_timestamp = `${latest.date_brt} às ${latest.hour_brt} BRT (${latest.hour_utc} UTC)`;
+    latest.has_current_data = true;
 
     return {
       station: {
         code: codeUpper,
-        name: staticData?.station?.name || stMeta.name || `Estação ${codeUpper}`,
-        state: staticData?.station?.state || stMeta.state || "BR",
-        lat: parseFloat(staticData?.station?.lat ?? stMeta.lat),
-        lon: parseFloat(staticData?.station?.lon ?? stMeta.lon),
-        altitude: staticData?.station?.altitude || stMeta.alt || 600,
-        geocode: stMeta.geocode || staticData?.station?.geocode,
+        name: stMeta.name || `Estação ${codeUpper}`,
+        state: stMeta.state || "BR",
+        lat: parseFloat(stMeta.lat),
+        lon: parseFloat(stMeta.lon),
+        altitude: stMeta.alt || 600,
+        geocode: stMeta.geocode,
         inmet_link: `https://tempo.inmet.gov.br/TabelaEstacoes/${codeUpper}`
       },
       latest,
-      history: recent
+      history: [latest]
     };
   }
 
-  async fetchLiveInmetBrowser(codeUpper, stMeta, staticData = null) {
+  async fetchLiveInmetBrowser(codeUpper, stMeta) {
     this.nearestLiveInmet = null;
     let liveExactRecord = null;
-    const geocode = stMeta?.geocode || staticData?.station?.geocode;
+    const geocode = stMeta?.geocode;
 
     if (geocode) {
       try {
-        const res = await fetch(`https://apiprevmet3.inmet.gov.br/estacao/proxima/${geocode}`);
+        const res = await fetch(`https://apiprevmet3.inmet.gov.br/estacao/proxima/${geocode}`, { cache: "no-store" });
         if (res.ok) {
           const js = await res.json();
           const dados = js?.dados || {};
@@ -592,9 +561,9 @@ class MeteoApp {
           const returnedCode = String(dados.CD_ESTACAO || est.CODIGO || "").toUpperCase();
           const parsed = this.parseRawInmetRecord(dados);
 
-          if (returnedCode === codeUpper && this.hasValidStationReading(parsed)) {
+          if (returnedCode === codeUpper && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
             liveExactRecord = parsed;
-          } else if (returnedCode && returnedCode !== codeUpper && this.hasValidStationReading(parsed)) {
+          } else if (returnedCode && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
             this.nearestLiveInmet = {
               code: returnedCode,
               name: est.NOME || dados.DC_NOME || returnedCode,
@@ -610,7 +579,7 @@ class MeteoApp {
       }
     }
 
-    return this.mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveExactRecord);
+    return this.mergePhysicalInmetSources(codeUpper, stMeta, liveExactRecord);
   }
 
   hasValidStationReading(latest) {
@@ -649,15 +618,15 @@ class MeteoApp {
 
     let data = null;
 
-    // 1. Try local FastAPI server if running (full 24h INMET station table)
+    // 1. Try local FastAPI server if running (real-time INMET fetch, zero disk cache)
     if (this.hasLocalBackend) {
       try {
-        const res = await fetch(`/api/inmet/data/${codeUpper}${forceRefresh ? "?force=true" : ""}`);
+        const res = await fetch(`/api/inmet/data/${codeUpper}?force=true`, { cache: "no-store" });
         if (res.status === 404 || res.status === 501) {
           this.hasLocalBackend = false;
         } else if (res.ok) {
           const apiJson = await res.json();
-          if (this.hasValidStationReading(apiJson?.latest)) {
+          if (this.hasValidStationReading(apiJson?.latest) && this.isGroundDataFresh(apiJson?.latest)) {
             data = apiJson;
           }
         }
@@ -666,21 +635,13 @@ class MeteoApp {
       }
     }
 
-    // 2. Fetch static 24h station cache (if pre-cached) + live official INMET browser telemetry
+    // 2. Fetch live official INMET browser telemetry directly from INMET API (zero static cache)
     if (!data) {
-      let staticData = null;
-      if (DEFAULT_STATIONS_MAP[codeUpper]) {
-        try {
-          const res = await fetch(`static/data/stations/station_${codeUpper}.json`);
-          if (res.ok) staticData = await res.json();
-        } catch (e) {}
-      }
-
-      data = await this.fetchLiveInmetBrowser(codeUpper, stMeta, staticData);
+      data = await this.fetchLiveInmetBrowser(codeUpper, stMeta);
     }
 
-    // If station is completely offline without physical telemetry, locate nearest operational INMET station
-    if ((!data || !this.hasValidStationReading(data?.latest)) && !this.nearestLiveInmet) {
+    // If station is completely offline or lacks recent telemetry, locate nearest operational INMET station
+    if ((!data || !this.hasValidStationReading(data?.latest) || !this.isGroundDataFresh(data?.latest)) && !this.nearestLiveInmet) {
       const altNear = this.findNearestOperanteNeighbor(codeUpper, parseFloat(stMeta.lat), parseFloat(stMeta.lon));
       if (altNear) {
         this.nearestLiveInmet = {
@@ -694,7 +655,7 @@ class MeteoApp {
       }
     }
 
-    if (data && data.station && this.hasValidStationReading(data.latest)) {
+    if (data && data.station && this.hasValidStationReading(data.latest) && this.isGroundDataFresh(data.latest)) {
       this.inmetData = data;
       this.currentStationCode = data.station.code || codeUpper;
       this.currentState = data.station.state || stMeta.state || "GO";
@@ -1344,7 +1305,7 @@ class MeteoApp {
       ].join(",");
 
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=${currentParams}&hourly=${hourlyParams}&daily=${dailyParams}&timezone=America%2FSao_Paulo&past_days=1&forecast_days=7`;
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) return null;
       const raw = await res.json();
 
@@ -1571,7 +1532,7 @@ class MeteoApp {
       let data = null;
       if (this.hasLocalBackend) {
         try {
-          const res = await fetch(`/api/forecast?lat=${lat}&lon=${lon}`);
+          const res = await fetch(`/api/forecast?lat=${lat}&lon=${lon}`, { cache: "no-store" });
           if (res.ok) data = await res.json();
         } catch (e) {}
       }
@@ -1602,7 +1563,7 @@ class MeteoApp {
   async loadAirQuality(lat, lon) {
     try {
       const url = `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${lat}&longitude=${lon}&current=european_aqi,us_aqi,pm10,pm2_5,carbon_monoxide,nitrogen_dioxide,ozone,dust,uv_index&timezone=America%2FSao_Paulo`;
-      const res = await fetch(url);
+      const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) {
         this.airQualityData = null;
         return;

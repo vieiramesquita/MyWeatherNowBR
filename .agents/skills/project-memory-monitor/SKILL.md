@@ -66,3 +66,4 @@ Ao concluir o registro dos pontos da conversa atual, atualize o checkpoint de mo
 ```
 
 Confirme que `validate` retorna código de saída `0` antes de encerrar ou commitar [`PROJECT_MEMORY.md`](../../../PROJECT_MEMORY.md).
+
