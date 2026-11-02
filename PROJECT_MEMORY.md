@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-11-02 11:56 BRT`
-- **Resumo de registros:** `5` regras • `5` decisões • `5` pontos-chave • `6` marcos
+- **Última sincronização:** `2026-11-02 12:14 BRT`
+- **Resumo de registros:** `5` regras • `5` decisões • `6` pontos-chave • `7` marcos
 
 ---
 
@@ -107,6 +107,12 @@
 - Estações do INMET em manutenção (como Edéia A029) retornam campos nulos na API apiprevmet3. Caches estáticos legados acabavam mascarando a realidade exibindo dados de dias anteriores (ex: 20°C e chuva em vez de 32°C de sol). Com zero cache, o sistema detecta ausência de sinal recente (< 3h), aciona Open-Meteo em tempo real para as coordenadas da estação e sugere a estação física vizinha ativa mais próxima (ex: Rio Verde A025).
   - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py)
 <!-- ENTRY:kp-inmet-estacoes-offline-tempo-real:END -->
+
+<!-- ENTRY:kp-inmet-latencia-hora-cheia-apiprevmet3:START -->
+### Diagnóstico de Latência Horária do INMET e Resiliência a Pacotes Nulos (`2026-11-02` • `#kp-inmet-latencia-hora-cheia-apiprevmet3`)
+- O endpoint apiprevmet3 insere a hora atual cheia com valores nulos enquanto os pacotes de satélite/GPRS são processados pelo INMET. Se o cliente depender apenas desse registro pontual, reporta erroneamente a estação como offline mesmo com medições recentes ativas (ex: 31,1°C às 10h). O frontend agora mescla o histórico sincronizado das 24h com a API ao vivo, aceitando leituras frescas de até 3,5h e mantendo a estação ativa em solo com sua última medição válida.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`scripts/sync_inmet_realtime.py`](scripts/sync_inmet_realtime.py), [`static/data/stations/station_A029.json`](static/data/stations/station_A029.json)
+<!-- ENTRY:kp-inmet-latencia-hora-cheia-apiprevmet3:END -->
 <!-- SECTION:KEYPOINTS:END -->
 
 ---
@@ -133,4 +139,8 @@
 - **`[2026-11-02]` Telemetria Estritamente em Tempo Real & Zero Cache de Dados v4.2.0** — Erradicação de todos os caches de dados em disco e no navegador. Atualização a cada 5 minutos, headers no-store, detecção transparente de manutenção de sensores e paridade 100% byte a byte entre index.html e static/index.html.
   - **Arquivos relacionados:** [`static/app.js`](static/app.js), [`app/inmet_service.py`](app/inmet_service.py), [`app/main.py`](app/main.py), [`index.html`](index.html), [`static/index.html`](static/index.html)
 <!-- ENTRY:ms-realtime-zero-cache-v420:END -->
+<!-- ENTRY:ms-pipeline-realtime-inmet-actions:START -->
+- **`[2026-11-02]` Pipeline Horário Autônomo GitHub Actions & Resiliência INMET** — Criado script scripts/sync_inmet_realtime.py e workflow .github/workflows/realtime_inmet_sync.yml para capturar a tabela oficial de 24h das estações no portal do INMET e publicar de hora em hora no GitHub Pages, restaurando a exibição imediata de Edéia A029 a 31,1°C e de todas as estações padrão.
+  - **Arquivos relacionados:** [`scripts/sync_inmet_realtime.py`](scripts/sync_inmet_realtime.py), [`.github/workflows/realtime_inmet_sync.yml`](.github/workflows/realtime_inmet_sync.yml), [`static/app.js`](static/app.js), [`static/data/stations/station_A029.json`](static/data/stations/station_A029.json)
+<!-- ENTRY:ms-pipeline-realtime-inmet-actions:END -->
 <!-- SECTION:MILESTONES:END -->

@@ -519,37 +519,54 @@ class MeteoApp {
     return 0;
   }
 
-  mergePhysicalInmetSources(codeUpper, stMeta, liveRecord) {
-    if (!liveRecord || !this.hasValidStationReading(liveRecord) || !this.isGroundDataFresh(liveRecord)) {
+  mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveRecord) {
+    const map = new Map();
+    const addRec = (r) => {
+      if (!r || !this.hasValidStationReading(r)) return;
+      const key = `${r.date_utc || r.date_brt}_${r.hour_utc || r.hour_brt}`;
+      map.set(key, { ...r, source: "inmet", has_data: true });
+    };
+
+    (staticData?.history || []).forEach(addRec);
+    if (staticData?.latest) addRec(staticData.latest);
+    if (liveRecord && this.hasValidStationReading(liveRecord)) {
+      addRec(liveRecord);
+    }
+
+    const sorted = Array.from(map.values()).sort((a, b) => this.recordUtcEpoch(a) - this.recordUtcEpoch(b));
+    if (sorted.length === 0) return null;
+
+    const latest = { ...sorted[sorted.length - 1] };
+    if (!this.isGroundDataFresh(latest)) {
       return null;
     }
 
-    const latest = { ...liveRecord };
     latest.wind_cardinal = this.degreesToCardinal(latest.wind_dir);
-    latest.rain_24h_accum = Math.round((Number(latest.rain) || 0) * 10) / 10;
+    const rain24h = Math.round(sorted.slice(-24).reduce((acc, r) => acc + (Number(r.rain) || 0), 0) * 10) / 10;
+    latest.rain_24h_accum = rain24h;
     latest.reading_timestamp = `${latest.date_brt} às ${latest.hour_brt} BRT (${latest.hour_utc} UTC)`;
     latest.has_current_data = true;
 
     return {
       station: {
         code: codeUpper,
-        name: stMeta.name || `Estação ${codeUpper}`,
-        state: stMeta.state || "BR",
-        lat: parseFloat(stMeta.lat),
-        lon: parseFloat(stMeta.lon),
-        altitude: stMeta.alt || 600,
-        geocode: stMeta.geocode,
+        name: staticData?.station?.name || stMeta.name || `Estação ${codeUpper}`,
+        state: staticData?.station?.state || stMeta.state || "BR",
+        lat: parseFloat(staticData?.station?.lat ?? stMeta.lat),
+        lon: parseFloat(staticData?.station?.lon ?? stMeta.lon),
+        altitude: staticData?.station?.altitude || stMeta.alt || 600,
+        geocode: stMeta.geocode || staticData?.station?.geocode,
         inmet_link: `https://tempo.inmet.gov.br/TabelaEstacoes/${codeUpper}`
       },
       latest,
-      history: [latest]
+      history: sorted.slice(-24)
     };
   }
 
-  async fetchLiveInmetBrowser(codeUpper, stMeta) {
+  async fetchLiveInmetBrowser(codeUpper, stMeta, staticData = null) {
     this.nearestLiveInmet = null;
     let liveExactRecord = null;
-    const geocode = stMeta?.geocode;
+    const geocode = stMeta?.geocode || staticData?.station?.geocode;
 
     if (geocode) {
       try {
@@ -563,7 +580,7 @@ class MeteoApp {
 
           if (returnedCode === codeUpper && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
             liveExactRecord = parsed;
-          } else if (returnedCode && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
+          } else if (returnedCode && returnedCode !== codeUpper && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
             this.nearestLiveInmet = {
               code: returnedCode,
               name: est.NOME || dados.DC_NOME || returnedCode,
@@ -579,7 +596,7 @@ class MeteoApp {
       }
     }
 
-    return this.mergePhysicalInmetSources(codeUpper, stMeta, liveExactRecord);
+    return this.mergePhysicalInmetSources(codeUpper, stMeta, staticData, liveExactRecord);
   }
 
   hasValidStationReading(latest) {
@@ -635,9 +652,22 @@ class MeteoApp {
       }
     }
 
-    // 2. Fetch live official INMET browser telemetry directly from INMET API (zero static cache)
+    // 2. Fetch synchronized 24h physical table + live official INMET browser telemetry
     if (!data) {
-      data = await this.fetchLiveInmetBrowser(codeUpper, stMeta);
+      let staticData = null;
+      if (DEFAULT_STATIONS_MAP[codeUpper]) {
+        try {
+          const res = await fetch(`static/data/stations/station_${codeUpper}.json`, { cache: "no-store" });
+          if (res.ok) {
+            const js = await res.json();
+            if (this.hasValidStationReading(js?.latest) && this.isGroundDataFresh(js?.latest)) {
+              staticData = js;
+            }
+          }
+        } catch (e) {}
+      }
+
+      data = await this.fetchLiveInmetBrowser(codeUpper, stMeta, staticData);
     }
 
     // If station is completely offline or lacks recent telemetry, locate nearest operational INMET station
@@ -747,7 +777,7 @@ class MeteoApp {
         const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
         if (!isNaN(diffHours)) {
           latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
-          return diffHours <= 3.0 && diffHours >= -2.0;
+          return diffHours <= 3.5 && diffHours >= -2.0;
         }
       }
     } catch (e) {}
