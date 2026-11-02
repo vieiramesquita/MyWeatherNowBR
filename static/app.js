@@ -539,15 +539,15 @@ class MeteoApp {
     if (sorted.length === 0) return null;
 
     const latest = { ...sorted[sorted.length - 1] };
-    if (!this.isGroundDataFresh(latest)) {
+    if (!this.isStationOperante(latest)) {
       return null;
     }
 
+    latest.has_current_data = this.isGroundDataFresh(latest);
     latest.wind_cardinal = this.degreesToCardinal(latest.wind_dir);
     const rain24h = Math.round(sorted.slice(-24).reduce((acc, r) => acc + (Number(r.rain) || 0), 0) * 10) / 10;
     latest.rain_24h_accum = rain24h;
     latest.reading_timestamp = `${latest.date_brt} às ${latest.hour_brt} BRT (${latest.hour_utc} UTC)`;
-    latest.has_current_data = true;
 
     return {
       station: {
@@ -580,9 +580,9 @@ class MeteoApp {
           const returnedCode = String(dados.CD_ESTACAO || est.CODIGO || "").toUpperCase();
           const parsed = this.parseRawInmetRecord(dados);
 
-          if (returnedCode === codeUpper && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
+          if (returnedCode === codeUpper && this.hasValidStationReading(parsed) && this.isStationOperante(parsed)) {
             liveExactRecord = parsed;
-          } else if (returnedCode && returnedCode !== codeUpper && this.hasValidStationReading(parsed) && this.isGroundDataFresh(parsed)) {
+          } else if (returnedCode && returnedCode !== codeUpper && this.hasValidStationReading(parsed) && this.isStationOperante(parsed)) {
             this.nearestLiveInmet = {
               code: returnedCode,
               name: est.NOME || dados.DC_NOME || returnedCode,
@@ -645,7 +645,7 @@ class MeteoApp {
           this.hasLocalBackend = false;
         } else if (res.ok) {
           const apiJson = await res.json();
-          if (this.hasValidStationReading(apiJson?.latest) && this.isGroundDataFresh(apiJson?.latest)) {
+          if (this.hasValidStationReading(apiJson?.latest) && this.isStationOperante(apiJson?.latest)) {
             data = apiJson;
           }
         }
@@ -662,7 +662,7 @@ class MeteoApp {
           const res = await fetch(`static/data/stations/station_${codeUpper}.json`, { cache: "no-store" });
           if (res.ok) {
             const js = await res.json();
-            if (this.hasValidStationReading(js?.latest) && this.isGroundDataFresh(js?.latest)) {
+            if (this.hasValidStationReading(js?.latest) && this.isStationOperante(js?.latest)) {
               staticData = js;
             }
           }
@@ -672,8 +672,8 @@ class MeteoApp {
       data = await this.fetchLiveInmetBrowser(codeUpper, stMeta, staticData);
     }
 
-    // If station is completely offline or lacks recent telemetry, locate nearest operational INMET station
-    if ((!data || !this.hasValidStationReading(data?.latest) || !this.isGroundDataFresh(data?.latest)) && !this.nearestLiveInmet) {
+    // If station is completely without physical telemetry in the last 48h, locate nearest operational INMET station
+    if ((!data || !this.hasValidStationReading(data?.latest) || !this.isStationOperante(data?.latest)) && !this.nearestLiveInmet) {
       const altNear = this.findNearestOperanteNeighbor(codeUpper, parseFloat(stMeta.lat), parseFloat(stMeta.lon));
       if (altNear) {
         this.nearestLiveInmet = {
@@ -687,7 +687,7 @@ class MeteoApp {
       }
     }
 
-    if (data && data.station && this.hasValidStationReading(data.latest) && this.isGroundDataFresh(data.latest)) {
+    if (data && data.station && this.hasValidStationReading(data.latest) && this.isStationOperante(data.latest)) {
       this.inmetData = data;
       this.currentStationCode = data.station.code || codeUpper;
       this.currentState = data.station.state || stMeta.state || "GO";
@@ -769,6 +769,25 @@ class MeteoApp {
     if (refreshBtn) refreshBtn.classList.remove("spinning");
   }
 
+  isStationOperante(latest) {
+    if (!this.hasValidStationReading(latest)) return false;
+    try {
+      if (latest.date_utc && latest.hour_utc) {
+        const [d, m, y] = latest.date_utc.split("/").map(Number);
+        const [h, mi] = latest.hour_utc.split(":").map(Number);
+        const readingUtc = new Date(Date.UTC(y, m - 1, d, h, mi || 0));
+        const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
+        if (!isNaN(diffHours)) {
+          latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
+          // Estação operante com sinal: possui telemetria válida nas últimas 48 horas
+          return diffHours <= 48.0 && diffHours >= -2.0;
+        }
+      }
+    } catch (e) {}
+    if (latest.has_data !== undefined) return latest.has_data === true;
+    return false;
+  }
+
   isGroundDataFresh(latest) {
     if (!this.hasValidStationReading(latest)) return false;
     try {
@@ -779,7 +798,8 @@ class MeteoApp {
         const diffHours = (Date.now() - readingUtc.getTime()) / 3600000;
         if (!isNaN(diffHours)) {
           latest.staleness_hours = Math.max(0, Math.round(diffHours * 10) / 10);
-          return diffHours <= 3.5 && diffHours >= -2.0;
+          // Coleta horária operacional: até 2.5h a 3.0h é considerado ciclo recente em tempo real
+          return diffHours <= 3.0 && diffHours >= -2.0;
         }
       }
     } catch (e) {}

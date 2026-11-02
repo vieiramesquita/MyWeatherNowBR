@@ -2,8 +2,8 @@
 
 > Documento vivo mantido automaticamente pela skill [`project-memory-monitor`](.agents/skills/project-memory-monitor/SKILL.md). Consolida regras inegociáveis, decisões arquiteturais, descobertas técnicas e marcos das conversas.
 
-- **Última sincronização:** `2026-11-02 12:55 BRT`
-- **Resumo de registros:** `5` regras • `7` decisões • `7` pontos-chave • `9` marcos
+- **Última sincronização:** `2026-11-02 15:50 BRT`
+- **Resumo de registros:** `6` regras • `7` decisões • `7` pontos-chave • `9` marcos
 
 ---
 
@@ -35,6 +35,11 @@
   - Responder sempre em Português (`pt-BR`), executar Python via `.\.venv\Scripts\python.exe` (evitando o alias da Microsoft Store no Windows), usar Playwright com `channel="msedge"`, preservar quebras CRLF em `static/styles.css` e efetuar `git commit` + `git push origin main` quando concluir entregas para atualizar o GitHub Pages.
   - **Arquivos relacionados:** [`static/styles.css`](static/styles.css), [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
 <!-- ENTRY:idioma-fluxo-git-ambiente:END -->
+<!-- ENTRY:inmet-hourly-telemetry-tolerance:START -->
+- **Tolerancia de Telemetria Horaria INMET: Estacao com Atraso NAO e Estacao Sem Sinal** (`#inmet-hourly-telemetry-tolerance`)
+  - Estacoes automaticas (EMA) coletam dados de hora em hora e possuem latencia normal de ingestao e transmissao (1h a 3h). O aplicativo NUNCA deve descartar os dados fisicos da estacao nem classifica-la como 'Sem Sinal' por conta de atraso horario. A telemetria fisica real deve ser sempre exibida e priorizada com o rotulo de idade ('Ultima Leitura as XXh'), reservando o estado 'Sem Sinal' (>48h) e a contingencia pura apenas para estacoes com mais de 48 horas de silencio absoluto.
+  - **Arquivos relacionados:** [`static/app.js`](static/app.js)
+<!-- ENTRY:inmet-hourly-telemetry-tolerance:END -->
 <!-- SECTION:RULES:END -->
 
 ---

@@ -35,3 +35,4 @@ const DEFAULT_CPTEC_TILE_PROXY = "https://myweathernow-tiles.seu-subdominio.work
 ```
 Ou passar via parâmetro de URL no navegador:
 `https://vieiramesquita.github.io/MyWeatherNowBR/?tile_proxy=https://myweathernow-tiles.seu-subdominio.workers.dev`
+
