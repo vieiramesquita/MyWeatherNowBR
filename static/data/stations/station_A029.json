@@ -38,7 +38,7 @@
     "wind_cardinal": "W",
     "rain_24h_accum": 0.0,
     "reading_timestamp": "02/11/2026 às 10:00 (Horário de Brasília) / 13:00 UTC",
-    "staleness_hours": 15.0,
+    "staleness_hours": 23.0,
     "has_current_data": false
   },
   "history": [
@@ -394,8 +394,8 @@
       "has_data": true
     }
   ],
-  "cached_at": 1793678238.6475985,
-  "updated_iso": "2026-11-03T03:57:18.647599+00:00",
+  "cached_at": 1793707022.3541286,
+  "updated_iso": "2026-11-03T11:57:02.354129+00:00",
   "cache_age_seconds": 0,
   "next_refresh_in_seconds": 300,
   "is_cached": false
